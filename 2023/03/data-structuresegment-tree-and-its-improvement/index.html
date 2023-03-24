@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Data Structure]Segment Tree and its Improvement",
+  
+  "image": "https://Supradax.github.io/img/treedp.jpg",
+  
+  "datePublished": "2023-03-23T00:00:00Z",
+  "dateModified": "2023-03-23T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/data-structuresegment-tree-and-its-improvement\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Data Structure]Segment Tree and its Improvement">
+<meta name="twitter:title" content="[Data Structure]Segment Tree and its Improvement">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-23T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-23T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Data Structure">
+    
+  
+  
+    
+      <meta property="article:tag" content="Tree">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+
+
+    <title>[Data Structure]Segment Tree and its Improvement</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Data Structure]Segment Tree and its Improvement
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-23T00:00:00Z">
+        
+  March 23, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/data-structure">Data Structure</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Segment Tree</strong>, the typical of which is used to support two functions <strong>change the state in the interval and query some certain state about it</strong>. For instance, it is expected to serve the addtion function(each number in the given interval increases p) and query the sum of a given interval which can be done within O(logn). And it&rsquo;s definitely impossible to complete if the differential method employed.</p>
+<p>As for the storage form, usually we will use <strong>tree-shaped array</strong> or <strong>link list</strong>. The first one works when the <strong>data range</strong> is tolerable because we have to reserve a place for each value possible to occur which is similar to the counting sort. When it comes to link list, we can create the node if we actually need that and in most cases we won&rsquo;t really need to storage each value and that&rsquo;s the advantage outweighing the tree-shaped array.</p>
+<h2 id="1-segment-tree">1. Segment Tree</h2>
+<p>Usually, the following parts consist of a segment tree together and we begin from the tree-shaped version which serves function of the interval addition and querying sum. If the original array is <code>a[n]</code>:
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/06.jpg" >
+   
+   
+ </div>
+</p>
+<ul>
+<li>
+<p><strong>Build up the tree</strong>	 If the value range size is n, then we need to allocate <strong>4n</strong> memory to the array. That is because if we bisect the whole range until one element left in a share, the amount of nodes in total turning out to be around more than 2n. Therefore we select 4n in light of not inducing overflow.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void build(int pos, int l, int r){
+	if(l&gt;=r)	{tree[l]=a[l];return;}
+	int m = l&#43;r&gt;&gt;1;
+	build(pos*2&#43;1,l,m), build(pos*2&#43;2,m&#43;1,r);	//2k&#43;1 and 2k&#43;2 is the feature of complete binary tree
+	tree[pos] = tree[pos*2&#43;1]&#43;tree[pos*2&#43;2];	//backtracing
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p><strong>PushDown</strong>	We use <strong>lazy tag</strong> to enhance the efficiency which is due to the fact that if the current request doesn&rsquo;t require us to continue our work. Yeah, that depends on the following queries and updates, yet I don&rsquo;t have to figure it out right now. So why can&rsquo;t I leave it to the urgent moment that I have to? That&rsquo;s the spirit of <strong>lazy tag</strong>. You can figure out that without lazy tag, it costs us 4n when to update the entire interval which is even worse than using nothing at all! Therefore, the pushDown function is just born for such tricky design. We have to reset the lazy tag and attach it to its sons if needed.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void push_down(int pos, int l, int r){
+	if(!lazy[pos]){
+		int ls = pos*2&#43;1, rs=pos*2&#43;2, m = l&#43;r&gt;&gt;1, t =lazy[pos];
+		lazy[ls] &#43;= t, lazy[rs]&#43;=t;
+		tree[ls] &#43;= (m-l&#43;1)*t, tree[rs] &#43;= (r-m)*t;
+		lazy[pos]=0;
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p><strong>PushUp</strong>  A part of backtracing which is used in <strong>updating</strong>. Each time we change the sons then we need to update its parent.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void push_up(int pos){
+	tree[pos] = tree[2*pos&#43;1]&#43;tree[2*pos&#43;2];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p><strong>Update</strong> It is this part that we need to modify the values. 
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void update(int pos,int x,int y,int l, int r, int val){
+	if(l&lt;=x&amp;&amp;r&gt;=y ){ //we use the lazy tag because l and r just meet the interval 
+		lazy[pos]&#43;=val, tree[pos]&#43;=(r-l&#43;1)*val; 
+		return;
+	}
+	int m=x&#43;y&gt;&gt;1, ls = pos*2&#43;1, rs=pos*2&#43;2;
+	push_down(pos);	//we have to update its sons value to see to it that the value will be calculated correctly
+	update(ls,x,m,l,r,val), update(rs,m&#43;1,y,l,r,val);
+	push_up(pos);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p><strong>Query</strong>	We simply visit the nodes and push down some lazytag if needed.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int query(int pos,int x,int y,int l, int r){
+	if(l&lt;=x&amp;&amp;r&gt;=y ) return tree[pos];
+	int m=x&#43;y&gt;&gt;1, ls = pos*2&#43;1, rs=pos*2&#43;2, sum=0;
+	if(l&lt;=m)	sum&#43;=query(ls,x,m,l,r);
+	if(r&gt;m)	sum&#43;=query(rs,m&#43;1,y,l,r);
+	return sum;	
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+</ul>
+<p>In the Link-List, we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">class Node{
+public:
+	int l, r, sum=0, lazy=0;
+	Node *ls=null,*rs=null;
+	
+	Node(int x,int y){l=x,r=y;}
+	
+	void get_ls{	//create the new node if needed
+		if(!ls)	ls = new Node(l,(l&#43;r)/2);
+		return ls;
+	}
+	void get_rs{
+		if(!rs)	rs = new Node((l&#43;r)/2&#43;1,r);
+		return rs;
+	}
+	
+	void push_up(Node* rt){
+		rt-&gt;sum = get_ls(rt)-&gt;sum &#43; get_rs(rt)-&gt;sum;
+	}
+	void push_down(Node* rt){
+		if(!rt-&gt;lazy){	
+			int t = rt-&gt;lazy;	//update the sons and clear the tag
+			Node *ls=get_ls(rt), *rs=get_rs(rt);
+			ls-&gt;sum &#43;= t*(ls-&gt;r-ls-&gt;l&#43;1),rs-&gt;sum &#43;= t*(rs-&gt;r-rs-&gt;l&#43;1);
+			ls-&gt;lazy &#43;= t, rs-&gt;lazy&#43;=t;
+			rt-&gt;lazy =0;
+		}
+	}
+	
+	void update(Node* rt, int x, int y, int val){
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){
+			lazy&#43;=val, sum&#43;=(r-l&#43;1)*val; 
+			return;
+		}
+		push_down(rt);	
+		int m = l&#43;r&gt;&gt;1; Node *ls=get_ls(rt), *rs=get_rs(rt);
+		if(x&lt;=m)	update(ls,x,y,val);
+		if(y&gt;m)		update(rs,x,y,val);
+		push_up(rt);	//this line is easy to forget
+	}
+	
+	int query(Node* rt, int x,int y){
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r)	return sum;
+		push_down(rt);	
+		int m = l&#43;r&gt;&gt;1, ans=0; Node *ls=get_ls(rt), *rs=get_rs(rt);
+		if(x&lt;=m)	ans&#43;=query(ls,x,y);
+		if(y&gt;m)	ans&#43;=query(rs,x,y);
+		return ans;
+	}
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>With the segment tree, we can realize the data structure as below:</p>
+<h4 id="maximum-tree-add-a-number-to-each-in-the-interval-and-query-the-maximum-among-a-certain-one">Maximum Tree: Add a number to each in the interval and Query the <strong>maximum</strong> among a certain one</h4>
+<p>We simply need to <strong>redesign</strong> the update,push_down and push_up function.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void push_up(Node* rt){
+	rt-&gt;val = max(get_ls(rt)-&gt;val,get_rs(rt)-&gt;val);
+}
+void push_down(Node* rt){
+	if(!rt-&gt;lazy){
+		int t = rt-&gt;lazy; Node* ls=get_ls(rt),*rs=get_rs(rt);
+		ls-&gt;val &#43;= t, rs-&gt;val &#43;= t; //the maximum increases t
+		ls-&gt;lazy &#43;= t, rs-&gt;lazy &#43;=t;
+		rt-&gt;lazy = 0;
+	}
+}
+void update(Node* rt, int x, int y, int val){
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){	//only need to modify here
+			lazy&#43;=val, sum&#43;=val; 
+			return;
+		}
+		/*...*/
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Furthermore, we can even build a tree <strong>with more than one operation among which there are different priorities</strong></p>
+<p>For instance, we need one to support the operations <strong>add <code>p</code> to each value or multiply <code>q</code> to each value in the interval</strong> and query the sum. Then we need to distinguish these two operations in the priority <strong>with regard to the updating of lazytag</strong>, generally, we take multiplication prior despite the converse theoratically may work.</p>
+<p>If we add then multiply, then we have:</p>
+<pre tabindex="0"><code>[1,2]: 1,2
+tagAdd +=2:	1+2,2+2,
+tagTimes+=3: (1+2)*3,(2+2)*3  //Now addition is prior thus not updating the lazytag
+tagAdd +=4: (1+2)*3+4*3+(2+2)*3+4*3
+next: val += interval length * tagAdd, val *= tagTimes
+</code></pre><p>If we add first and then multiply, the result above doesn&rsquo;t match, thus we need to <strong>add 4/3</strong> instead which brings in <strong>accuracy loss</strong> and it is what we are not pleasant to see. Therefore things become fine like below:</p>
+<pre tabindex="0"><code>[1,2]: 1,2
+tagAdd +=2:	1+2,2+2,
+tagTimes+=3: (1+2)*3,(2+2)*3  //Update directly
+next: val += interval length * tagAdd, val *= tagTimes
+tagAdd +=4: (1+2)*3+4*3+(2+2)*3+4*3 //
+</code></pre><p>And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int tagAdd=0, tagTimes=1, sum=0; //initialize 
+void push_up(Node* rt){
+	rt-&gt;val = get_ls(rt)-&gt;val&#43;get_rs(rt)-&gt;val;
+}
+void push_down(Node* rt){
+	if(!rt-&gt;tagAdd &amp;&amp; !rt-&gt;tagTimes){
+		int x = rt-&gt;tagAdd, y = rt-&gt;tagTimes;
+		Node *ls=get_ls(rt), *rs=get_rs(rt);
+	
+		ls-&gt;val = y*ls-&gt;val&#43;(ls-&gt;r-ls-&gt;l&#43;1)*x;
+		rs-&gt;val = y*rs-&gt;val&#43;(rs-&gt;r-rs-&gt;l&#43;1)*x;
+		
+		//update tagTimes first 
+		ls-&gt;tagTimes *= y, rs-&gt;tagTimes*=x;
+		
+		ls-&gt;tagAdd =y*ls-&gt;tagAdd&#43;x;
+		rs-&gt;tagAdd =y*rs-&gt;tagAdd&#43;x;
+		
+		rt-&gt;tagAdd=0, rt-&gt;tagTimes=1;
+	}
+}
+void update_add(Node* rt, int x, int y, int val){ 
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){	
+			rt-&gt;tagAdd&#43;=val, rt-&gt;val&#43;=(rt-&gt;r-rt-&gt;l&#43;1)*val;
+			return;
+		}
+		/*...*/
+}
+void update_times(Node* rt, int x, int y, int val){ 
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){	//update two tags in the meantime
+			rt-&gt;val *= val;
+			rt-&gt;tagTimes *= val;
+			rt-&gt;tagAdd *= val;
+			return;
+		}
+		/*...*/
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>It is clear that the priority we preset <strong>embodies in the aspect of update function and push_down function</strong>.</p>
+<h2 id="2-sample-problems">2. Sample Problems</h2>
+<h3 id="problem-a--transpose-the-state0-1-1-0-of-each-in-an-interval-and-query-the-amount-of-one-within">Problem A  Transpose the state(0-&gt;1, 1-&gt;0) of each in an interval and query the amount of one within</h3>
+<p>Likewise, we simply need to redesign a part of it.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void push_up(Node* rt){	//now val means the amount of 1
+	rt-&gt;val = get_ls(rt)-&gt;val&#43;get_rs(rt)-&gt;val;
+}
+void push_down(Node* rt){
+	if(!rt-&gt;lazy){	//the lazytag means the times of transpotition
+		int t = rt-&gt;lazy; Node* ls=get_ls(rt),*rs=get_rs(rt);
+		ls-&gt;val = (ls-&gt;r-ls-&gt;l&#43;1)-ls-&gt;val, rs-&gt;val = (rs-&gt;r-rs-&gt;l&#43;1)-rs-&gt;val; //core code
+		
+		/*It doesn&#39;t make a difference among all odd numbers or even numbers
+			the root tag can only be 1 here
+		*/
+		(ls-&gt;lazy&#43;&#43;)&amp;=1, (rs-&gt;lazy&#43;&#43;)&amp;=1;
+		
+		rt-&gt;lazy = 0;
+	}
+}
+void update(Node* rt, int x, int y, int val){
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){	//only need to modify here
+			(rt-&gt;lazy&#43;&#43;)&amp;=1, rt-&gt;val = rt-&gt;r-rt-&gt;l&#43;1-rt-&gt;val;
+			return;
+		}
+		/*...*/
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-b-cover-all-elements-in-an-interval-with-0-or-1-and-query-the-amount-of-one-within">Problem B Cover all elements in an interval with 0 or 1 and query the amount of one within</h3>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int lazy = -1;
+void push_up(Node* rt){	
+	rt-&gt;val = get_ls(rt)-&gt;val&#43;get_rs(rt)-&gt;val;
+}
+void push_down(Node* rt){
+	//core code
+	int t = rt-&gt;lazy; Node* ls=get_ls(rt),*rs=get_rs(rt);
+	if(t==-1)	return; //to-do-nothing state
+	if(!t)
+		ls-&gt;val = rs-&gt;val = ls-&gt;lazy = rs-&gt;lazy =  0;
+	else{
+		ls-&gt;val = ls-&gt;r-ls-&gt;l&#43;1, rs-&gt;val = rs-&gt;r-rs-&gt;l&#43;1;
+		ls-&gt;lazy = rs-&gt;lazy = 1;
+	}
+}
+void update(Node* rt, int x, int y, int val){
+		if(x&lt;=rt-&gt;l&amp;&amp;y&gt;=rt-&gt;r){	//only need to modify here
+			if(!val) rt-&gt;val = 0, rt-&gt;lazy=0;
+			else rt-&gt;lazy=1, rt-&gt;val= rt-&gt;r-rt-&gt;l&#43;1;
+			return;
+		}
+		/*...*/
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="3-weighted-segment-tree">3. Weighted Segment Tree</h2>
+<h2 id="4-sustainable-segment-tree">4. Sustainable Segment Tree</h2>
+<h2 id="5-treap--rank-tree">5. Treap / Rank Tree</h2>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/tree/">Tree</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="NEXT: [Algorithm]DFS and BackTracing, BFS">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" data-tooltip="[Data Structure]Stack, Queue and Monotonic Version" aria-label="PREVIOUS: [Data Structure]Stack, Queue and Monotonic Version">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/data-structuresegment-tree-and-its-improvement\/';
+        
+          this.page.identifier = '\/2023\/03\/data-structuresegment-tree-and-its-improvement\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="NEXT: [Algorithm]DFS and BackTracing, BFS">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" data-tooltip="[Data Structure]Stack, Queue and Monotonic Version" aria-label="PREVIOUS: [Data Structure]Stack, Queue and Monotonic Version">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuresegment-tree-and-its-improvement%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuresegment-tree-and-its-improvement%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuresegment-tree-and-its-improvement%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

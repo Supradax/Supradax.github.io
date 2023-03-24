@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Sorting Algorithm and the Applications",
+  
+  "image": "https://Supradax.github.io/img/sort.jpg",
+  
+  "datePublished": "2023-03-21T00:00:00Z",
+  "dateModified": "2023-03-21T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmsorting-algorithm-and-the-applications\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Sorting Algorithm and the Applications">
+<meta name="twitter:title" content="[Algorithm]Sorting Algorithm and the Applications">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-21T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-21T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="Sort">
+    
+  
+  
+    
+      <meta property="article:tag" content="DP">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/sort.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/sort.jpg">
+
+
+    <title>[Algorithm]Sorting Algorithm and the Applications</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Sorting Algorithm and the Applications
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-21T00:00:00Z">
+        
+  March 21, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/sort">Sort</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Def</strong> We claim an algorithm stable iff for any <code>a[i]=a[j] i&lt;j</code> in the sorted array still satisfies <code>i&lt;j</code>.
+<strong>Def</strong> We claim an algorithm <strong>in place</strong> iff there&rsquo;s no need to create a space more than O(1) to finish the task.</p>
+<h2 id="section-one-on-level">Section One. O(n²) level</h2>
+<h3 id="1-bubble-sort">1. Bubble Sort</h3>
+<p>One of the classic sorting algorithm: Swap two elements if they breaks the order. In the worst case for instance, you need to sort the reversed array into the sequential one which means you need to swap at most n times for the first element. Therefore the algorithm is valid and the time complexity is O(n²).
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/02.gif" >
+   
+   
+ </div>
+
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sort(vector&lt;int&gt;&amp; nums){
+	int n=nums.size();
+	for(int i=0;i&lt;n;i&#43;&#43;)
+		for(int j=0;j&lt;n;j&#43;&#43;)
+			if(nums[i]&gt;nums[j])	swap(nums[i],nums[j]);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>There exists many details waiting to optimize for us. For instance, if the ith traverse doesn&rsquo;t execute any swaps, then we can simply break out.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;){
+	bool flag = false;
+	for(int j=0;j&lt;n;j&#43;&#43;)
+		if(nums[i]&gt;nums[j])	{swap(nums[i],nums[j];flag=true);
+	if(!flag)	break;
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Now look at the interior loop and we find that for the array <code>1,3,2,6,7</code>. The 3rd and 4th number are already the greatest and they won&rsquo;t be swapped in any cases then we can set the upper bound of interior loop to 2. There we have:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int lastSwapped = n;
+for(int i=0;i&lt;n;i&#43;&#43;){
+	int tmp = -1;
+	for(int j=0;j&lt;lastSwapped;j&#43;&#43;)
+		if(nums[i]&gt;nums[j])	{swap(nums[i],nums[j];tmp=j;);
+	if(tmp == -1)	break;
+	else lastSwapped=tmp;
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Now that we complete the optimization in the rear, why not do it again in the front?
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int lastSwapped = n, firstSwapped=0;
+for(int i=0;i&lt;n;i&#43;&#43;){
+	int tmpRear = -1,tmpFront=n;
+	bool isFirst=true;
+	for(int j=firstSwapped;j&lt;lastSwapped;j&#43;&#43;)
+		if(nums[i]&gt;nums[j])	{swap(nums[i],nums[j];tmpRear=j; if(isFirst) tmpFront=j,isFirst=false;);
+	if(tmpRear == -1)	break;
+	else lastSwapped=tmp, firstSwapped=tmpFront;
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+And the final version is <strong>Cocktail Sort</strong> or <strong>Dual Bubble Sort</strong></p>
+<p>It is easy to know if there are two identical element, then bubble sort won&rsquo;t be carried out thus making it <strong>stable</strong> .</p>
+<p>The updating version with the same idea <strong>swapping</strong> is quick sort.</p>
+<h3 id="2-selection-sort">2. Selection Sort</h3>
+<p>In each traversal, we pick up the least number and swap which needs n times calculation. With n numbers in total, this algorithm takes n² times.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/01.gif" >
+   
+   
+ </div>
+
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sort(vector&lt;int&gt;&amp; nums){
+	for(int i=0;i&lt;n;i&#43;&#43;){
+		int globalmin=i;
+		for(int j=i;j&lt;n;j&#43;&#43;)	if(nums[globalmin]&gt;nums[j])	globalmin=j;
+		swap(nums[globalmin],nums[i]);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Optimization</strong> We may use another variable to record the global maximum and update the array from both sides which is similar to cocktail sort.</p>
+<p>For selection sort, it is possible to change the relative order(<code>4(a) 4(b) 1 -&gt; 1 4(b) 4(a)</code>) thus making it <strong>unstable</strong>.
+The optimized version with the same idea <strong>selection</strong> is <strong>Heap Sort</strong> but still it is <strong>unstable</strong>.</p>
+<h3 id="3-insert-sort-and-shell-sort">3. Insert Sort and Shell Sort</h3>
+<p>For insert sort, we <strong>plug in an element into an ordered sequence</strong> . Finding the proper position for each element takes O(n) thus making it O(n²).
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/03.gif" >
+   
+   
+ </div>
+</p>
+<p>
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sort(vector&lt;int&gt;&amp; nums){
+	for(int i=0;i&lt;nums.size()-1;i&#43;&#43;){	//begin from n-1
+		int end =i, tmp = nums[end&#43;1];
+		while(~end){
+			if(tmp&gt;nums[end])	nums[end&#43;1]=nums[end]	//Translate the rear
+			else break;
+			end--;
+		}
+		nums[end&#43;1]=tmp;
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+For insert sort, its stablity depends on the way you insert the element. Generally we regard it as <strong>stable</strong>.</p>
+<p>An idea developed by Shell is not to insert the element one by one; instead, pack them up first and minimize the scale step by step. For instance, if we have 256 numbers to sort, then it can be 128 numbers in a pack for the first time and then 64,32,16 on and on and on. Then apply insert sort respectively. However, the complexity is unknown according to the gap you choose. But at least it is believed that it will be better than O(n²) but no better than O(nlogn). And the <strong>last gap has to be 1</strong> to guarantee the correctness(Because this moment the array will be <strong>almost ordered</strong> thus making it O(1) in most cases).</p>
+<p>By setting parameters o <strong>Diminishing Increment Sort</strong> we may get different efficiency despite the average of time complexity turns out to be <strong>n to (the power of)1.3</strong></p>
+<p>
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/04.gif" >
+   
+   
+ </div>
+
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sort(vector&lt;int&gt;&amp; nums){
+	for(int gap=nums.size()/2;gap;gap/=2)	//diminish the gap
+		for(int i=gap; i&lt;nums.size();i&#43;&#43;){	//traverse all of the elements
+			for(int j=i-gap;~j&amp;&amp;nums[i]&lt;nums[j];j-=gap)	//execute direct insert sort
+				nums[j&#43;gap] = nums[j];
+			nums[j&#43;gap] = nums[i];
+		}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="section-two-onlogn-level">Section Two. O(nlogn) level</h2>
+<h3 id="1-merge-sort">1. Merge Sort</h3>
+<p>Each time we divide (<strong>break an array into two until each one become isolated</strong>) and conquer(<strong>merge two ordered arrays and become an integration in the long run</strong>).
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/06.gif" >
+   
+   
+ </div>
+
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void merge(vector&lt;int&gt;&amp; nums, int l, int r){
+	if(l&gt;=r)	return;
+	int m = l&#43;r&gt;&gt;1, p=l, q=m&#43;1;
+	merge(nums,l,m), merge(nums,m&#43;1,r);	//divide
+
+	vector&lt;int&gt; temp(r-l&#43;1); //merge
+	for(int i=0;i&lt;r-l&#43;1;i&#43;&#43;){
+		if(p&gt;m)	temp[i] = nums[q&#43;&#43;];
+		else if(q&gt;r || nums[p]&lt;=nums[q])	temp[i] =nums[p&#43;&#43;];	
+			//take care of &#34;&lt;&#34; or &#34;&lt;=&#34;: if it is the fronter, then the stablity will loss 
+		else temp[i] =nums[q&#43;&#43;];
+	}
+	for(int i=0;i&lt;r-l&#43;1;i&#43;&#43;)	nums[l&#43;i]=temp[i];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>As for the optimization, we can use the stack to simulate the recurssion and compare the last in the left <code>a</code>and the first in the right<code>b</code> when merging &ndash; if a≤b then they are already ordered.</p>
+<p><strong>Problems to do with Idea of Merge Sort often are about some certain relation we can get during merging</strong></p>
+<h4 id="divide-and-conquer-reverse-order-pair">Divide and Conquer: Reverse Order Pair</h4>
+<p><strong>Problem</strong> We are wondering how many reverse order pairs are there in a given array.
+<strong>Analysis</strong> We will find a lot when <strong>putting in numbers on right the side</strong>. This practice means those left on the left(in the front) are all greater than this number put in.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt=0;
+void merge(vector&lt;int&gt;&amp; nums, int l, int r){
+	if(l&gt;=r)	return;
+	int m = l&#43;r&gt;&gt;1, p=l, q=m&#43;1;
+	merge(nums,l,m), merge(nums,m&#43;1,r);	//divide
+
+	vector&lt;int&gt; temp(r-l&#43;1); //merge
+	for(int i=0;i&lt;r-l&#43;1;i&#43;&#43;){
+		if(p&gt;m)	temp[i] = nums[q&#43;&#43;];
+		else if(q&gt;r || nums[p]&lt;=nums[q])	temp[i] =nums[p&#43;&#43;];	
+			//take care of &#34;&lt;&#34; or &#34;&lt;=&#34;: if it is the fronter, then the stablity will loss 
+		else {temp[i] =nums[q&#43;&#43;];cnt&#43;=(m-p&#43;1);}
+	}
+	for(int i=0;i&lt;r-l&#43;1;i&#43;&#43;)	nums[l&#43;i]=temp[i];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="2-quick-sort">2. Quick Sort</h3>
+<p>Quick Sort also applies the idea of making choices.
+The entire process is that <strong>we choose one element from the array as the criteria, those greater will be on the right side while the less on the left and the criteria will fall on the only one blank in the end</strong>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/05.gif" >
+   
+   
+ </div>
+</p>
+<p>Nonetheless, the option of criteria <strong>matters</strong>. Despite we take the one <strong>in the middle, on the left or right</strong> for the most of time, In order to sail through those malignant test data, we had better generate <strong>a random seed or take the MEDIAN among the both sides and the middle</strong>.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void quick(vector&lt;int&gt;&amp; nums, int l, int r){
+	if(l&gt;=r)	return;
+	int i=l-1,j=r&#43;1;	// analogize with Bisection method
+	int pivot =nums[l]; //it can be r, (l&#43;r)/2 etc
+	while(i&lt;j){
+		do i&#43;&#43;; while(nums[i]&lt; pivot);
+		do j--; while(nums[j]&gt; pivot);
+		if(i&lt;j) swap(nums[i],nums[j]);
+	}
+	quick(nums,l,j), quick(nums,j&#43;1,r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>However, <strong>the random policy will fail when there are lots of identical elements in the array</strong> And we have the** two feasible solution** as followed:</p>
+<ul>
+<li>take those equaling pivot into the left and right array <strong>balancedly</strong>(双路快排)</li>
+<li>cluster those equaling pivot into the <strong>center</strong>(三路快排)
+And you will discover that the version we offered is right the first case! Therefore let&rsquo;s get hands on the second solution:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void quick(vector&lt;int&gt;&amp; nums, int l, int r){
+	if(l&gt;=r)	return;
+	int i=l-1,j=r&#43;1;	// analogize with Bisection method
+	int pivot =nums[l]; //it can be r, (l&#43;r)/2 etc
+	while(i&lt;j){
+		do i&#43;&#43;; while(nums[i]&lt; pivot);
+		do j--; while(nums[j]&gt; pivot);
+		if(i&lt;j) swap(nums[i],nums[j]);
+	}
+	quick(nums,l,j), quick(nums,j&#43;1,r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ul>
+<h4 id="find-the-kth-least-number-within-ologn">Find The kth Least Number within O(logn)</h4>
+<p><strong>Analysis</strong> We simply <strong>look for the interval [k,k]</strong> and a detail is that when in recurrence we only need to execute the interval containing index k.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int answer=0;
+void quick(vector&lt;int&gt;&amp; nums, int l, int r){
+	if(l==k&amp;&amp;r==k)	{ans = nums[l];return;}
+	int i=l-1,j=r&#43;1;	
+	int pivot =nums[l]; 
+	while(i&lt;j){
+		do i&#43;&#43;; while(nums[i]&lt; pivot);
+		do j--; while(nums[j]&gt; pivot);
+		if(i&lt;j) swap(nums[i],nums[j]);
+	}
+	if(k&lt;=j)	quick(nums,l,j);
+	else quick(nums,j&#43;1,r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="3-stack-sort">3. Stack Sort</h3>
+<p>In C++, we call the container <strong>priority_queue</strong>. According to the characters of heap, each time we find the greatest takes O(1) and updating takes O(logn) thus making it O(nlogn) in total.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sort(vector&lt;int&gt;&amp; nums){
+	priority_queue&lt;int,vector&lt;int&gt;,std::less&lt;int&gt;&gt; q;
+	for(auto e:nums)	q.push(e);
+	for(int i=0;i&lt;nums.size();i&#43;&#43;){
+		nums[i] = q.top();
+		q.pop();
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="iv-on-level">IV. O(n) level</h2>
+<h3 id="1-bucket-sort-counting-sort">1. Bucket Sort, Counting Sort</h3>
+<p>Bucket sort and counting sort is <strong>exchange time with space</strong> and counting sort is actually a special circumstances of bucket sort. Therefore, let&rsquo;s talk about counting sort first.</p>
+<p>Suppose you have a series of number which <strong>ranges from 1 to 100</strong> and we want to print out the sequential series. Thus we create an array with the space of 101 ints and <strong>traverse the array and put them in.</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int bucket[101]={0};
+for(auto i:number) bucket[i]&#43;&#43;;</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+Then what we need is simply to traverse the bucket and we know the times of each number. You can find that <strong>only when the range of number is tolerable</strong> can we adopt such algorithm.</p>
+<p>Back to bucket sort, we divide a large scale of number into some intervals, say, cut [1,1e5] into [1,1000],[1001,&hellip;] &hellip; [9901,1e5] and apply other sorting algorithms. When the bucket amount <code>m</code> equals that of elements, it degenerates into counting sort. The time complexity would be <strong>O(mf(n))</strong>, f(n) is up to the algorithm you adopt.</p>
+<h3 id="2-radix-sort">2. Radix Sort</h3>
+<p>For those have the features like <strong>each parameters with different piority</strong>, we can take radix sort into account. For instance, each 9 in <code>9999</code> definitely has different weights. And we notice that <strong>the compositions of each place is little enough that we can prepare some buckets(0-9 in total)</strong>.</p>
+<p>Then we put the numbers in accordance to the last figure of each number and <strong>get them out from 0 to 9</strong> and then comes to the last second figure &hellip; until each non-zero figure has been traversed.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/07.gif" >
+   
+   
+ </div>
+
+To make things easier, we can convert numbers to string and get them reversed.</p>
+<p>The space complexity is O(k) and the time complexity is O(mn) where k is the sum of composition amount of each parameters (bucket) and m is the parameters ammount.</p>
+<h2 id="v-summary">V. Summary</h2>
+<p>
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/sort/07.jpg" >
+   
+   
+ </div>
+
+It&rsquo;s easy to know that algorithms are simply making selections between space and time.</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/dp/">DP</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" data-tooltip="[Data Structure]Prefix Sum and Differential" aria-label="NEXT: [Data Structure]Prefix Sum and Differential">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmsorting-algorithm-and-the-applications\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmsorting-algorithm-and-the-applications\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" data-tooltip="[Data Structure]Prefix Sum and Differential" aria-label="NEXT: [Data Structure]Prefix Sum and Differential">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmsorting-algorithm-and-the-applications%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmsorting-algorithm-and-the-applications%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmsorting-algorithm-and-the-applications%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

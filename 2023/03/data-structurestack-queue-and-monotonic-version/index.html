@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Data Structure]Stack, Queue and Monotonic Version",
+  
+  "image": "https://Supradax.github.io/img/stack.jpg",
+  
+  "datePublished": "2023-03-23T00:00:00Z",
+  "dateModified": "2023-03-23T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/data-structurestack-queue-and-monotonic-version\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Data Structure]Stack, Queue and Monotonic Version">
+<meta name="twitter:title" content="[Data Structure]Stack, Queue and Monotonic Version">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-23T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-23T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Data Structure">
+    
+  
+  
+    
+      <meta property="article:tag" content="Data Structure">
+    
+      <meta property="article:tag" content="Stack">
+    
+      <meta property="article:tag" content="Queue">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/stack.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/stack.jpg">
+
+
+    <title>[Data Structure]Stack, Queue and Monotonic Version</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Data Structure]Stack, Queue and Monotonic Version
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-23T00:00:00Z">
+        
+  March 23, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/data-structure">Data Structure</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>栈与队列是两种<strong>对操作位置有限制的</strong>特殊线性表，栈遵循FILO(First In Last Out)，一般只支持查询栈信息、压栈和弹栈的操作(即<strong>只对栈顶操作</strong>)；队列遵循FIFO(First In First Out)，一般支持查询<strong>队头队尾信息和操作</strong>，即在队头出队、队尾入队。</p>
+<h1 id="1-栈与队列的实现">1 栈与队列的实现</h1>
+<p>栈，一般基于<strong>普通顺序表</strong>实现，需要满足top(), push(), pop(), empty()方法. 由于<strong>无需进行随机访问</strong>，可选用链表减少维护成本，其中<code>C++ STL</code>提供了栈的模板类<code>stack&lt;T&gt;</code></p>
+<p>由于栈只从一个方向进行操作且不时有弹栈操作，大多数时候不需要占用到整体长度的一半，故而在一个数组两端可分别建立一个栈，即<strong>双向栈</strong>。当两个栈栈顶索引相差1时，表示此栈已满。</p>
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/08.jpg" >
+  
+  
+</div>
+
+<p>下面给出数组和链表的两个版本：</p>
+<h3 id="11-栈数组版">1.1 栈：数组版</h3>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>stack.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">template &lt;T&gt;
+class stack{
+private:	
+	int max_len=MAX, top=-1; T data[max_len], error;
+public:
+	stack(T error){this.error = error;}
+	bool empty(){return ~top ? true:false;}
+	T top(){return empty()?error:data[top];}
+	void push(T ele){if(!empty()&amp;&amp;top&#43;1&lt;max_len)	data[&#43;&#43;top]=ele;}		
+	void pop(){if(!empty())	top--;}
+	int size(){return top&#43;1;}
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h3 id="12-栈链表版">1.2 栈：链表版</h3>
+<p>链表版为支持弹栈操作，必须使用<strong>双向链表</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>stack.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">template &lt;T&gt;
+class stack{
+private:	
+	Node* dummy , *top=dummy;
+	int cnt=0;
+public:
+	bool empty() {return top==dummy? true:false;}
+	Node* top(){return top;}
+	void push(Node* ele){top-&gt;nxt = ele;top-&gt;pre = ele;top=top-&gt;nxt;cnt&#43;&#43;;}
+	void pop(){if(!empty())	top=top-&gt;pre;cnt--;}
+	int size(){return cnt;}
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>队列，由于需要支持<strong>双端操作</strong>，伴随出队操作，数组的存储位置可能<strong>发生偏移</strong>，需要及时修正，或者使用<strong>循环队列</strong>，即将数组末位元素的直接后继变更为数组首位。<code>C++ STL</code>中提供了<strong>双端队列</strong>(支持对两头进行入队和出队操作)的模板类<code>deque&lt;T&gt;</code>。一般需要支持<code>empty() front() back() push() pop()</code>方法。下面给出普通队列的数组和链表版本：</p>
+<h3 id="13-队列数组版">1.3 队列：数组版</h3>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>queue.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">template &lt;T&gt;
+class queue{
+private:	
+	int max_len=MAX, l=1,r=0; 
+	T data[max_len], error;
+public:
+	queue(T error){this.error = error;}
+	bool empty(){return (l&gt;r)? true:false;}
+	T front(){return empty()? error:data[l];}
+	T back(){return empty()? error:data[r];}
+	
+	void push(T ele){
+		if(r-l&#43;1&gt;max_len)	return;
+		data[(&#43;&#43;r)%max_len]=ele;
+		if(l&gt;max_len &amp;&amp; r&gt;max_len)	//更新索引
+			l%=max_len, r%=max_len;
+	}
+	void pop(T ele){
+		if(!empty())	l--;
+	}
+	int size(){return r-l&#43;1;} 
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h3 id="14-队列链表版">1.4 队列：链表版</h3>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>queue.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">template &lt;T&gt;
+class queue{
+private:	
+	Node* dummy=new Node();
+	Node *back=dummy;
+	int cnt=0;
+public:
+	bool empty() {return back==dummy? true:false;}
+	Node* back(){return empty()? NULL : back;}
+	Node* front() {return empty()? NULL:dummy-&gt;nxt;}
+	
+	void push(Node* ele){ele-&gt;pre=back;back-&gt;nxt=ele; back=back-&gt;nxt;cnt&#43;&#43;;}
+	void pop(){if(!empty())	dummy-&gt;nxt=dummy-&gt;nxt-&gt;nxt;cnt--;}
+	int size(){return cnt;}
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h1 id="2-栈与队列的基本操作">2 栈与队列的基本操作</h1>
+<h2 id="21-栈的基本应用">2.1 栈的基本应用</h2>
+<h3 id="problem-a括号匹配问题">Problem A	括号匹配问题</h3>
+<p>给定一个只包含<code>() [] {}</code>三种括号的字符串str，判断该字符串中的括号是否已经正确匹配.
+<strong>Analysis</strong>	只需建立一个栈，当栈顶括号为左括号且当前指针指向的为相应右括号时，正确匹配，故弹栈；否则入栈。若全部正确匹配，则最终结果为空栈
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Valid Brackets.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool judge(string str){
+	stack&lt;char&gt; s;unordered_map&lt;char,char&gt; hash;
+	hash[&#39;(&#39;]=&#39;)&#39;, hash[&#39;{&#39;]=&#39;}&#39;, hash[&#39;[&#39;]=hash[&#39;]&#39;];
+	
+	for(auto c:str){
+		if(s.empty()|| hash[s.top()]!=c)	s.push(c);
+		else c.pop();
+	}
+	return s.empty()? true : false;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-b-逆波兰表达式与符号栈">Problem B 逆波兰表达式与符号栈</h3>
+<p>给定中序表达式，包含加减乘除四种运算，试计算其结果.
+<strong>Analysis</strong> 设定<strong>数值栈与符号栈</strong>，当<strong>当前指向符号优先级高于栈顶时，需弹出栈顶两个元素进行运算</strong>，否则入栈；此题中只有两个优先级，该法则可适用于含有更多的优先级的表达式，如<strong>左括号为0，加减为1，乘除为2，右括号为3</strong></p>
+<p>一般地，用栈解决该类问题时无论输入是<strong>波兰表达式、逆波兰表达式或是中序表达式</strong>，处理大同小异</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Stack.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int calc(string str){
+	stack&lt;int&gt; val; stack&lt;char&gt; sign; unordered_map&lt;char, int&gt; hash;
+	hash[&#39;&#43;&#39;]=hash[&#39;-&#39;]=0, hash[&#39;*&#39;]=hash[&#39;/&#39;]=1;
+	
+	for(int i=0;i&lt;str.size();i&#43;&#43;){
+		string cur_number;
+		while(str[i]&lt;&#39;9&#39;&amp;&amp;str[i]&gt;&#39;0&#39;){cur_number.push(str[i&#43;&#43;]);}	//对数字处理
+		val.push(stoi(cur_number));
+
+		if(sign.empty() || hash(str[i])&lt;=hash(sign.top()))	sign.push(str[i]);
+		else{	//出栈并计算出结果后入栈
+			int a=val.top(); val.pop(); int b=val.top(); val.pop();
+			val.push((str[i]==&#39;*&#39;)?a*b:a/b);
+		}
+	}
+	while(!sign.empty()){	//把优先级最低的符号算完
+		int a=val.top(); val.pop(); int b=val.top(); val.pop();
+		val.push((sign.top()==&#39;&#43;&#39;)?a&#43;b:a-b);
+		sign.pop();
+	}
+	return s.top();
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h3 id="problem-c-递归dfs模拟">Problem C 递归（DFS）模拟</h3>
+<p>LCM问题（最近公共祖先问题）：给定一个二叉树的根节点和两个节点，返回其最近公共祖先节点
+<strong>Analysis</strong> <strong>用栈模拟DFS过程</strong>，由于树中任意两个节点间路径有且仅有一条，从而只需比对其路径即可
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>LCM.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void save(stack&lt;Node*&gt; s, stack&lt;Node*&gt;&amp; container){	//栈s还有用，只能传形参
+	while(!s.empty()){	//倒到另一个栈里，变成正序
+		container.push(s.top());
+		s.pop();
+	}
+}
+
+Node* LCM(Node* rt, Node* x, Node* y){
+	stack&lt;Node*&gt; s, path1, path2;
+	
+	s.push(rt);	//初始化
+	while(!s.empty()){
+		Node* cur = s.top(); 
+		if(cur==x)	save(x,path1);
+		if(cur==y)	save(y,path2);
+		s.pop();	//不能先pop()，否则若y是x的祖先则会出错
+		
+		if(cur-&gt;left) s.push(cur-&gt;left);
+		if(cur-&gt;right) s.push(cur-&gt;right);
+	}
+	
+	Node* lcm=rt; //当前已知最近公共点
+	while(path1.top()==path2.top()){
+		lcm = path1.top(); 
+		path1.pop(), path2.pop();
+	}
+	return lcm;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="22-队列的基本应用层序遍历模拟">2.2 队列的基本应用：层序遍历模拟</h2>
+<p>此处在BFS与DFS blog中涉及.</p>
+<h1 id="3-单调栈">3 单调栈</h1>
+<p>在有些时候，我们可能对<strong>某种定义下的局部极值</strong>感兴趣，在特定的遍历顺序中一些<strong>峰值会让其他元素失效(有更高优先级)</strong>，此时则需要维护一个<strong>单调递增或递减栈</strong>。</p>
+<p>在使用单调栈时，需要考虑<strong>能否使用（具有一定序关系）</strong>、<strong>单调递增还是单调递减</strong>、<strong>严格还是非严格</strong>，下面是基本模板(数组实现)：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>monotonic.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//以维护不严格单调递增栈为例
+class st{
+public:
+	int data[MAX], top=-1;  //一般保证数组长度足够
+	bool empty(){return top==-1? true:false;}
+	void pop(int n){top--;}
+	void push(int n){
+		//维护单调性
+		while(empty() || n&lt;data[top])
+			pop();
+		data[&#43;&#43;top]=n;
+	}
+	int top(){return data[top];}
+};</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-a-每日温度">Problem A 每日温度</h3>
+<p><strong>Problem</strong> 给定一个表示每日温度的序列<code>day[i]</code>，返回一个数组<code>next[i]</code>，<code>next[i]</code>表示第i天之后的第一个比第i天高的温度(若一直不升则用0表示)</p>
+<pre tabindex="0"><code>Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [74,75,76,72,72,76,0,0]
+</code></pre><p><strong>Analysis</strong> 注意到序关系——<strong>我们只关心第一个温度更高的</strong>，且由于顺序遍历时往后的元素存在不可预见性，需要<strong>倒序遍历</strong>并维护一个<strong>自顶向下单调递减栈</strong>——若前方有温度更高的，则后方温度低的没有作用，从而该单调栈是合理的
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>everyday temperature.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; calc(vector&lt;int&gt; &amp;day){
+	stack&lt;int&gt; s; vector&lt;int&gt; res(day.size(),0);
+	for(int i=day.size()-1;~i;i--){	//倒序遍历
+		while(s.empty() || day[i]&gt;s.top())	s.pop();	//维护单调性
+		res[i]=s.top();	
+		s.push(day[i]);
+	}
+	return res;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>变式</strong> 若要求<code>next[i]</code>表示<code>next[i]</code>天之后温度更高(若一直不升则用0表示)，则存储stack&lt;pair&lt;int,int&raquo;，其中第二个参量为时间戳. 此题变式有如“视野总和”问题等，实质上都是<strong>第一个更大数字</strong>.</p>
+<p><strong>变式</strong> 若求的是<strong>第二个更大数字</strong>. 可以使用<strong>双单调栈</strong>或<strong>名次树</strong>(可求第k个更大数字)，下面以双单调栈为例：</p>
+<ol>
+<li>倒序遍历，“大数会使小数失去意义”，故而遇到大数则直接进行弹栈</li>
+</ol>
+<h3 id="problem-b-柱状图的最大矩形">Problem B 柱状图的最大矩形</h3>
+<p><strong>Problem</strong> 给定一个柱状图，求所有矩形构成图形中的最大矩形
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/04.jpg" >
+  
+  
+</div>
+</p>
+<p><strong>Analysis</strong> 顺序遍历，注意到<strong>当矩形高度递增时，才有可能扩大原有面积；相反，递减时只可能在原有基础上减少（即降低高度上限，只需保存一个最远的且高于当前矩形的横坐标，余下中间的矩形全部没用）</strong>，通过记录farthest的横坐标防止如<code>2 1 2</code>时最大面积3丢失(即把第一个2的信息丢失)。为避免在程序最后需要<strong>把栈倒空</strong>，可在首尾添加一个高度为0的矩形.</p>
+<p><strong>Tricks</strong></p>
+<ul>
+<li>对数组进行边界处理：留空、设置特殊值(如本题设置为0防止栈未被倒空)等</li>
+<li>保存索引而不是保存数值本身(否则需要使用pair)，但<strong>若需要灵活修改索引，则必须使用pair</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>largest rectangle.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int calc(vector&lt;int&gt;&amp; h){	//高度数组
+	int area = 0;
+	stack&lt;pair&lt;int,int&gt;&gt; s; //第一个为高度，第二个为横坐标
+	//初始化
+	h.insert(h.begin(),1,0), h.push_back(0);
+	for(int i=0;i&lt;h.size();i&#43;&#43;){
+		int farthest = i; //初始化高于当前矩形且最远的坐标
+		while(!s.empty()&amp;&amp;h[i]&lt;s.top().first){
+			//遇到第一个高度更低的
+			area = max(area, (i-s.top().second)*s.top().first);
+			farthest = s.top().second;
+			s.pop();
+		}
+		//若高度不小于栈顶或栈顶为空，则入栈
+		s.push({h[i],farthest});
+	}
+	return area;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ul>
+<h3 id="problem-c-接雨水">Problem C 接雨水</h3>
+<p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/05.jpg" >
+  
+  
+</div>
+
+<strong>Analysis</strong>
+本题结合<em>括号匹配</em>和<em>矩形面积</em>的思想，前者即当<strong>满足某种序关系时及时更新雨水容量</strong>，后者即利用单调栈<strong>去除不必要的信息</strong>。若当前高度小于栈顶，则意味着该当前与栈顶间可能积水，<strong>但是尚不知道后面是否有另一堵墙能拦住</strong>，从而暂时入栈，<strong>至此可知维护的是自顶向下的单调递减栈</strong>。</p>
+<p>若当前高度大于等于栈顶，则意味着栈顶与当前之间一定能够储一些水，则开始弹栈并计算此前每一堵比其矮的墙所积水量。类比最大矩形中的farthest，为了避免丢失信息，需要记录下上一堵计算过积水的墙的高度(否则会重复计算)。可以看到在更新单调栈的过程中积水的计算是横向计算而不是纵向计算的。</p>
+<p>除去记录prev更新之外，还需考虑如下情况，即<code>4 2 0 3</code>中3的加入会使第2个到第3个之间更新且prev=2，但此时还没有更新完全，因为第四个柱子高度为3和第一个高度为4中间 高度[3,3]间还有一段空隙，即当栈非空且当前柱子矮于栈顶时，需最后进行一次更新，把这部分雨水补上. 从而有：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Rainwater Trap.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int trap(vector&lt;int&gt; &amp;h){
+	stack&lt;pair&lt;int,int&gt;&gt; s;
+	int water =0;
+	for(int i=0;i&lt;h.size();i&#43;&#43;){
+		int prev=0;	
+		while(!s.empty()&amp;&amp;h[i]&gt;=s.top().first){
+			water &#43;= (i-s.top().second-1)*(s.topj().first-prev);
+			prev = s.top().first;//记录上一次更新的高度
+			s.pop();
+		}
+		//最后一次补上剩余空隙
+		if(!s.empty())	water &#43;= (i-s.top().second-1)*(h[i]-prev);
+		s.push({h[i],i});	
+	}
+	return water;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>p.s. 由于此题两侧不能积雨水，不会有最终栈不空的情况，故无需像problem B一样在两端补齐.</p>
+<h3 id="problem-d-最大矩形">Problem D 最大矩形</h3>
+<p>给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/06.jpg" >
+  
+  
+</div>
+</p>
+<p>如下图，此题本质上即对每一行都做一次柱形图中最大矩形计算，最终取最大值即可。只需要更新每一行时若为1则该列高度+1，为0则高度清零。
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/07.jpg" >
+  
+  
+</div>
+</p>
+<h1 id="4-单调队列">4 单调队列</h1>
+<p>和单调栈的唯一区别在于单调队列需要同时<strong>从两端维护整体单调性</strong>，其余思想与单调栈相同。</p>
+<h3 id="problem-滑动窗口的最大值">Problem 滑动窗口的最大值</h3>
+<p><strong>Problem</strong> 给定滑动窗口长度<code>k</code>，每次该窗口向右滑动一个单位，求第i个窗口内的最大值<code>res[i]</code></p>
+<p><strong>Analysis</strong> 注意到序关系，即<strong>若已有一个更大元素入队，则此前所有比其小的元素全部失效</strong>，从而可以维护一个单调双端队列。其中在出队时<strong>只有队头等于上一次最大值时才进行出队</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Rainwater Trap.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int slide(vector&lt;int&gt; &amp;nums, int k){
+	deque&lt;int&gt; q;
+	
+	vector&lt;int&gt; ans;
+	for(int i=0;i&lt;k;i&#43;&#43;){ //初始化
+		//不能取等，否则无法排除重复元素或者需要另开哈希表
+		while(!q.empty() &amp;&amp; q.back()&lt;nums[i])	q.pop_back();
+		q.push_back(nums[i]);
+	}
+	
+	int curmax = q.front();
+	ans.push_back(curmax);
+	for(int i=k;i&lt;nums.size();i&#43;&#43;){
+		while(!q.empty() &amp;&amp; q.back()&lt;nums[i])	q.pop_back();
+		q.push_back(nums);
+		if(nums[i-k]==q.front())	q.pop_front();
+		res.push_back(q.front());
+	}
+	return res;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+p.s. 此题及其变式还可用优先队列(堆)解，将在相应blog涉及</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/data-structure/">Data Structure</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/stack/">Stack</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/queue/">Queue</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" data-tooltip="[Data Structure]Segment Tree and its Improvement" aria-label="NEXT: [Data Structure]Segment Tree and its Improvement">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurelinear-list/" data-tooltip="[Data Structure]Linear List" aria-label="PREVIOUS: [Data Structure]Linear List">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/data-structurestack-queue-and-monotonic-version\/';
+        
+          this.page.identifier = '\/2023\/03\/data-structurestack-queue-and-monotonic-version\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/" data-tooltip="[Data Structure]Segment Tree and its Improvement" aria-label="NEXT: [Data Structure]Segment Tree and its Improvement">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurelinear-list/" data-tooltip="[Data Structure]Linear List" aria-label="PREVIOUS: [Data Structure]Linear List">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structurestack-queue-and-monotonic-version%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structurestack-queue-and-monotonic-version%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structurestack-queue-and-monotonic-version%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

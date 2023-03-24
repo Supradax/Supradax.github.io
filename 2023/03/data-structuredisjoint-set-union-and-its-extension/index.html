@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Data Structure]Disjoint Set Union and its Extension",
+  
+  "image": "https://Supradax.github.io/img/02.jpg",
+  
+  "datePublished": "2023-03-19T00:00:00Z",
+  "dateModified": "2023-03-19T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/data-structuredisjoint-set-union-and-its-extension\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "Disjoint Set Union(DSU), which offers two basic functions, find the set that the element belongs to and merge two set into one . In most cases, such an operation can be done in O(1).\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="Disjoint Set Union(DSU), which offers two basic functions, find the set that the element belongs to and merge two set into one . In most cases, such an operation can be done in O(1).">
+
+
+<meta property="og:description" content="Disjoint Set Union(DSU), which offers two basic functions, find the set that the element belongs to and merge two set into one . In most cases, such an operation can be done in O(1).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Data Structure]Disjoint Set Union and its Extension">
+<meta name="twitter:title" content="[Data Structure]Disjoint Set Union and its Extension">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="Disjoint Set Union(DSU), which offers two basic functions, find the set that the element belongs to and merge two set into one . In most cases, such an operation can be done in O(1).">
+<meta name="twitter:description" content="Disjoint Set Union(DSU), which offers two basic functions, find the set that the element belongs to and merge two set into one . In most cases, such an operation can be done in O(1).">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-19T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-19T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Data Structure">
+    
+  
+  
+    
+      <meta property="article:tag" content="DSU">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/02.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/02.jpg">
+
+
+    <title>[Data Structure]Disjoint Set Union and its Extension</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Data Structure]Disjoint Set Union and its Extension
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-19T00:00:00Z">
+        
+  March 19, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/data-structure">Data Structure</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Disjoint Set Union(DSU)</strong>, which offers two basic functions, <strong>find the set that the element belongs to</strong> and <strong>merge two set into one</strong> . In most cases, such an operation can be done in O(1).</p>
+<h2 id="part-one-basicpath-compression-and-merge-by-rank">Part One: Basic(Path Compression and Merge By Rank)</h2>
+<p>Generally, we take an array as a hash map, which maps one element to its ancestor. Enlighted by the idea from abstract algebra, we choose one element as the representative of a set which each member of the set will be <strong>directly mapped</strong> to.</p>
+<p>To initialize, we make each element its own ancestor. With such a data structure, we can achieve the goals below easily:</p>
+<ol>
+<li><strong>whether ele A and B are in the same set</strong>: compare the ancestors they point to</li>
+<li><strong>how many different set are there</strong>: count the different ancestor it appears in total</li>
+</ol>
+<p>However, if the order of merging happens to be the worst case, the whole array might degenerate into a linked list, which will take O(n) to query its ancestor. Thereby, we will cut the path and reset the direct ancestor each time we call the function, that is <strong>Path Compression</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int set[100];
+for(int i=0;i&lt;100;i&#43;&#43;)	set[i]=i;
+int find(int x){
+	if(x == set[x])
+		return set[x];
+	else
+		set[x] = find(set[x]);	
+		return set[x];
+}
+void merge(int x, int y){
+	int x_a = find(x), y_a= find(y);
+	set[x_a] = y_a;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+which is always be simplified as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int set[100];
+for(int i=0;i&lt;100;i&#43;&#43;)	set[i]=i;
+int find(int x)	{return x==set[x]?x:x=find(set[x]);}
+void merge(int x,int y) {set[find(x)] = find(y);}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Yet with path compression, the situation improves a lot. However, we&rsquo;d better adopt a <strong>non-recursive</strong> way to realize it for it might be lead to <strong>stack overflow</strong> . And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int find(int x){
+	int k=x,rt=x;
+	while(rt!=set[r])	rt=set[r];	//to look for the root
+	while(k!=rt){
+		int j = set[k];
+		set[k]=rt;
+		k=j;
+	}
+	return rt;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Another method to optimize is through recording the ranks. The lower rank a subset has, the lower position it will stay. In this way, despite we don&rsquo;t compress the height of the tree into two, we strive to make the tree balanced.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void init(int n){for(int i=0;i&lt;n;i&#43;&#43;){set[i]=i, rank[i]=0;}}
+void merge(int x,int y){
+	x=find(x),y=find(y);
+	if(x==y)	return;
+	else if(rank[x]&lt;rank[y])	set[x]=y;
+	else set[y]=x;
+	if(rank[x]==rank[y])	rank[x]&#43;&#43;;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>Comparsion:</strong> Generally speaking, Path Compression works well enough in most cases. In pursuit of efficiency, we may apply both of two together. Its only downside is that it will destroy the original structure.</p>
+<h2 id="part-two-simple-applications">Part Two: Simple Applications</h2>
+<h3 id="problem-a-count-the-connected-branches-in-the-graph">Problem A: Count the Connected Branches in the Graph</h3>
+<p><strong>Analysis:</strong> Merge when an edge is given, traverse and count different ancestor they have.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#include &lt;unordered_set&gt;
+unordered_set&lt;int&gt; s;
+int main(void){
+	int vertex,edge;cin&gt;&gt;vertex,edge;
+	while(edge--){
+		int x,y; cin&gt;&gt;x&gt;&gt;y;
+		merge(x,y);
+	}
+	for(int i=0;i&lt;vertex;i&#43;&#43;)	s.insert(find(i));
+	cout&lt;&lt;s.size();
+	return 0;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-b-judge-the-existence-of-a-loop-in-an-undirected-graph">Problem B: Judge the Existence of a Loop in an Undirected Graph</h3>
+<p><strong>Analysis:</strong> When merge two set according edge <em>(i,j)</em>, <strong>find(i)</strong> and <strong>find(j)</strong> are identical iff there had been another edge connecting these two sets,which illustrates the existence of a loop.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool judge(){
+	int vertex,edge;cin&gt;&gt;vertex&gt;&gt;edge;
+	while(edge--){
+		int x,y; cin&gt;&gt;x&gt;&gt;y;
+		if(find(x)==find(y))	return false;
+		merge(x,y);
+	}
+	return true;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-c-judge-whether-or-not-a-graph-is-bipartite">Problem C: Judge whether or not a Graph is Bipartite</h3>
+<p><strong>Analysis:</strong> We store the data through the adjacent chart and <strong>merge one&rsquo;s neighbors</strong> . In the end, we traverse all edges to see whether or not there is such one that connects two vertex in the same set. (Through this way we don&rsquo;t need to watch out isolated points)
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool judge(){
+	int vertex,edge;cin&gt;&gt;vertex&gt;&gt;edge;
+	vector&lt;int&gt; neighbor[MAX];
+	while(edge--){
+		int x,y; cin&gt;&gt;x&gt;&gt;y;
+		neighbor[x].push_back(y),neighbor[y].push_back(x);
+	}
+	for(auto ele:neighbor)
+		if(ele.size()&gt;1)
+			for(auto v:ele)
+				merge(v,ele[0]);
+	for(int i=0;i&lt;vertex;i&#43;&#43;)
+		for(auto v:neighbor[i])
+			if(find(v)==find(i))	return false;
+	return true;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="version-β">Version β:</h3>
+<p><strong>Problem:</strong> There is N employees and M languages they may possibly speak. Now (i,j) reprensents that employee <em>i</em> can speak language <em>j</em>. In order to make each other can communicate(there can be many translators), what it is the least extra cost if it takes $1 to learn a new language?
+<strong>Analysis:</strong> It is with regard to bipartite problem(employees and languages). Our target is to make each employees connected. Then claim set[n+m] and merge the person who can speak the same language. Consequently count the connected branches k and return k-1.</p>
+<h2 id="part-three-dsu-with-relations">Part Three: DSU with Relations</h2>
+<p>This problem not just requires us to tell the set a given element belongs to, but ask us to distinguish different types of set.
+<strong>Problem:</strong> There are 3 kinds of animals which constructs a food chain, say A→B→C→A. Now there are N different creatures and tell you some of info about them. &ldquo;1 x y&rdquo; means x and y are in the same type, &ldquo;2 x y&rdquo; meas x takes y as food. Now you are required to tell the scale of A, B and C.</p>
+<p><strong>Analysis:</strong> We need to label each creature with tags 0,1 or 2 which stand for A,B and C. To combine such an idea with DSU better, we may not <strong>enlarge set[] to its three times</strong> as well so as to make their relations clear. For instance, <strong>set[x] stands for the same creature as x</strong>, <strong>set[x+n] stands for creatures taken  as food</strong> while <strong>set[x+2n] stands for creatures taking x as food</strong>. In this way, we can design our updating rule:</p>
+<ol>
+<li>when the info is x eats y, then merge(x,y+n),merge(x+n,y+2n), merge(x+2n,(y+3n)%3n)</li>
+<li>when the info is x and y are the same type, then merge(x,y),merge(x+n,y+n),merge(x+2n,y+2n)
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/dsu1.png"  alt="Case 1">
+  
+   
+    <span class="caption">Case 1</span>
+  
+</div>
+</li>
+</ol>
+<p>Consequently, we traverse set[] from 0 to n-1 and count.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int k,d,x,y; cin&gt;&gt;k;
+unordered_map&lt;int,int&gt; hash;
+while(k--){
+	cin&gt;&gt;d&gt;&gt;x&gt;&gt;y;
+	if(d==1)	unite(x,y);unite(x&#43;n,y&#43;n);unite(x&#43;2*n,y&#43;2*n);
+	else 	unite(x,y&#43;n);unite(x&#43;n,y&#43;2*n);unite(x&#43;2*n,y);
+}
+for(int i=0;i&lt;n;i&#43;&#43;)	hash[find(i)]&#43;&#43;;
+for(auto it:hash)	cout&lt;&lt;*it-&gt;second;</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Essence:</strong> Enlarge the set[] to distinguish different groups which is similar to mod 3 residue class.</p>
+<h2 id="part-four-dsu-with-values">Part Four: DSU with Values</h2>
+<p>In this situation, we are asked to maintain and update two sets with a value while merging, which is so-called <strong>DSU with Values</strong>.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/dsu2.jpg"  alt="Update Values when Merging">
+  
+   
+    <span class="caption">Update Values when Merging</span>
+  
+</div>
+
+According to the <em>Parallelogram Law</em> ,the new value of the red vector is <strong>val[y]-d-val[x]</strong>
+The template code are below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//anct is short for ancestor
+int find(int x){
+	if(x==anct[x])	return x;
+	int t = anct[x];//back-up, anct[x] varies with path compression
+	anct[x] = find(anct[x]); 
+	val[x] &#43;= val[t];//backtracing
+}
+void merge(int x,int y,int d){
+	int px=find(x),py=find(y);
+	if(px!=py){
+		anct[px]=py;
+		val[px]=val[y]-d&#43;val[x];
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-a-food-loop">Problem A: Food Loop</h3>
+<p><strong>Problem:</strong> Identical to the problem in Part 3.
+<strong>Analysis:</strong> This time we give DSU with values a chance, or more exactly, DSU with relations is simply a specific case of DSU with values.
+<strong>We define the distance between any two sets in mod 3 residue class</strong>, they are of the same kind iff d(A,B)%3=0; A eats B iff d(A,B)%3=1 (Watch out its sign! d(A,B)=-1 means A is eaten)
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//anct is short for ancestor
+while(k--){
+	cin&gt;&gt;d&gt;&gt;x&gt;&gt;y;
+	if(d==1)	merge(x,y,0);	 
+	else merge(x,y,1);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="problem-b-odd-or-even">Problem B: Odd or Even</h3>
+<p><strong>Problem:</strong>  There are K numbers marked with different index from 0 to n-1. You will be told whether or not A and B is the same in mod 2 residue class(The input guarantees that you can know after finite reasoning). Now you are wondering how many odd or even numbers are there respectively(No need to distinguish the output order).
+<strong>Analysis:</strong> If A and B is the same, them merge(A,B,0); otherwise merge(A,B,1). This time you don&rsquo;t need to distinguish between 1 and -1.</p>
+<h3 id="problem-c-contradiction-in-height-data">Problem C: Contradiction in Height Data</h3>
+<p><strong>Problem:</strong> There is N people in total. Now you are given m info &ldquo;x y z&rdquo; which means person x is z cm higher than person y. Now your task is to detect whether or not there is contradict in the given info.</p>
+<pre tabindex="0"><code>Input: [1,2,1] [2,3,0], [1,3,5]
+Output: True
+Explaination: According to info 0 and 1, 1 is 1cm higher than 3 which disagrees with info 2. 
+</code></pre><p><strong>Analysis:</strong> The D-Value(difference value) between 2 persons is simply the distance between two elements. We can apply path compression to make such distance become that between two sets.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">while(k--){
+	cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;
+	int px=find(x),py=find(y);
+	if(x==y)	//In the same tree, you can possibly deduce a contradiction
+		if(val[x]&#43;val[y]!=z)	return false;
+	else	//Not in the same tree, you have no evidence
+		merge(x,y,z);
+}
+return true;</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/dsu/">DSU</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/" data-tooltip="[Algorithm]High Accuracy: Four Fundamental Operations" aria-label="NEXT: [Algorithm]High Accuracy: Four Fundamental Operations">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/" data-tooltip="[Algorithm]Dynamic Programming: State Compressing" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: State Compressing">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/data-structuredisjoint-set-union-and-its-extension\/';
+        
+          this.page.identifier = '\/2023\/03\/data-structuredisjoint-set-union-and-its-extension\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/" data-tooltip="[Algorithm]High Accuracy: Four Fundamental Operations" aria-label="NEXT: [Algorithm]High Accuracy: Four Fundamental Operations">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/" data-tooltip="[Algorithm]Dynamic Programming: State Compressing" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: State Compressing">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuredisjoint-set-union-and-its-extension%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuredisjoint-set-union-and-its-extension%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structuredisjoint-set-union-and-its-extension%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/categories/</link>
+    <description>Recent content in Categories on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Algorithm</title>
+      <link>https://Supradax.github.io/categories/algorithm/</link>
+      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DP</title>
+      <link>https://Supradax.github.io/categories/dp/</link>
+      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/dp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Structure</title>
+      <link>https://Supradax.github.io/categories/data-structure/</link>
+      <pubDate>Thu, 23 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/data-structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sort</title>
+      <link>https://Supradax.github.io/categories/sort/</link>
+      <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/sort/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Simulation</title>
+      <link>https://Supradax.github.io/categories/simulation/</link>
+      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/simulation/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

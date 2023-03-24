@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Simulation on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/categories/simulation/</link>
+    <description>Recent content in Simulation on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/simulation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function</title>
+      <link>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</link>
+      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]High Accuracy: Four Fundamental Operations</title>
+      <link>https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/</link>
+      <pubDate>Sun, 19 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;High Accuracy&lt;/strong&gt;, is adopted when the data structure cannot bear the too large data. We are going to talk about how to realize addition, subtraction, multiplication and division with data structure string.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/posts/</link>
+    <description>Recent content in Posts on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]DFS and BackTracing, BFS</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</link>
+      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tree Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on binary trees(or with more branches).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Segment Tree and its Improvement</title>
+      <link>https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/</link>
+      <pubDate>Thu, 23 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Stack, Queue and Monotonic Version</title>
+      <link>https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/</link>
+      <pubDate>Thu, 23 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Linear List</title>
+      <link>https://Supradax.github.io/2023/03/data-structurelinear-list/</link>
+      <pubDate>Wed, 22 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/data-structurelinear-list/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Prefix Sum and Differential</title>
+      <link>https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/</link>
+      <pubDate>Wed, 22 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Sorting Algorithm and the Applications</title>
+      <link>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</link>
+      <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Tree</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/</link>
+      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tree Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on binary trees(or with more branches).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function</title>
+      <link>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</link>
+      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Segment</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/</link>
+      <pubDate>Sun, 19 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Segment Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on linear tables.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]High Accuracy: Four Fundamental Operations</title>
+      <link>https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/</link>
+      <pubDate>Sun, 19 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;High Accuracy&lt;/strong&gt;, is adopted when the data structure cannot bear the too large data. We are going to talk about how to realize addition, subtraction, multiplication and division with data structure string.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Disjoint Set Union and its Extension</title>
+      <link>https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/</link>
+      <pubDate>Sun, 19 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Disjoint Set Union(DSU)&lt;/strong&gt;, which offers two basic functions, &lt;strong&gt;find the set that the element belongs to&lt;/strong&gt; and &lt;strong&gt;merge two set into one&lt;/strong&gt; . In most cases, such an operation can be done in O(1).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: State Compressing</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;State Compressing&lt;/strong&gt;, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: &lt;strong&gt;the existence of a certain element in a set&lt;/strong&gt; and &lt;strong&gt;2D DP Problems concerning connectivity&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

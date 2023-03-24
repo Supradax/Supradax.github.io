@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Dynamic Programming: Segment",
+  
+  "image": "https://Supradax.github.io/img/segdp1.jpg",
+  
+  "datePublished": "2023-03-19T00:00:00Z",
+  "dateModified": "2023-03-19T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmdynamic-programming-segment\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "Segment Dynamic Programming, which is a basic series of DP problems based on linear tables.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="Segment Dynamic Programming, which is a basic series of DP problems based on linear tables.">
+
+
+<meta property="og:description" content="Segment Dynamic Programming, which is a basic series of DP problems based on linear tables.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Dynamic Programming: Segment">
+<meta name="twitter:title" content="[Algorithm]Dynamic Programming: Segment">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="Segment Dynamic Programming, which is a basic series of DP problems based on linear tables.">
+<meta name="twitter:description" content="Segment Dynamic Programming, which is a basic series of DP problems based on linear tables.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-19T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-19T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="DP">
+    
+  
+  
+    
+      <meta property="article:tag" content="DP">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/segdp1.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/segdp1.jpg">
+
+
+    <title>[Algorithm]Dynamic Programming: Segment</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Dynamic Programming: Segment
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-19T00:00:00Z">
+        
+  March 19, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/dp">DP</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Segment Dynamic Programming</strong>, which is a basic series of DP problems based on linear tables.</p>
+<p><em>Update Records: 20/3/2023 Finish the Knapsack Session</em></p>
+<p>To transfrom a problem into a DP problem, we need to ensure that:</p>
+<ol>
+<li>It has <strong>non-aftereffect property</strong></li>
+<li>The problem can be transformed into a subproblem with smaller scale</li>
+</ol>
+<p>In order to tackle a DP problem, we have to think over these problems:</p>
+<ol>
+<li>What do the value and the parameters of dp array mean?</li>
+<li>What is the state-transformation equation?</li>
+<li>How to initialize the dp array?</li>
+<li>Which order do you adopt to traverse the dp array?</li>
+<li>Print dp arrays if something goes wrong.</li>
+</ol>
+<p>P.S. Sometimes due to the lack of states, we may not cope with the problem successfully. This time we may need to consider increasing a dimension in our state space.</p>
+<h2 id="part-one-1d-and-2d-problemprimer">Part One: 1D and 2D Problem(Primer)</h2>
+<h3 id="problem-a-1dclimbing-stairs">Problem A: (1D)Climbing Stairs</h3>
+<p><strong>Problem:</strong> You are climbing a staircase. It takes <strong>n</strong> steps to reach the top.</p>
+<ol>
+<li>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?</li>
+<li>You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps. You can start from either stair 0 or stair 1.</li>
+</ol>
+<p><strong>Analysis:</strong></p>
+<ol>
+<li>Take dp(i) as the numbers of ways you can reach stair i, then <strong>dp(i)=dp(i-1)+dp(i-2)</strong>, which is supposed to be initialized as <strong>dp(0)=dp(1)=1</strong>.(If set to be 0,dp[] constantly equals 0)</li>
+<li>Take dp(i) as the least cost it requires to reach stair i, then <strong>dp(i)=min(dp(i-1)+cost[i-1],dp(i-2)+cost[i-2])</strong>, which is supposed to be initialized as <strong>dp(0)=dp(1)=0</strong></li>
+</ol>
+<h3 id="problem-b-2dunique-paths">Problem B: (2D)Unique Paths</h3>
+<p><strong>Problem:</strong> There is an m x n grid.</p>
+<ol>
+<li>What you need to do is to figure out the account of reaching the right-bottom corner from the left-top corner without turning back(You can only go rightwards or downwards).</li>
+<li>Based on question 1, an obstacle and space are marked as 1 or 0 respectively in the grid. A path that you take cannot include any square that is an obstacle. The goal keeps the same.</li>
+</ol>
+<p><strong>Analysis:</strong></p>
+<ol>
+<li>Take dp(i,j) as the number of methods you can reach (i,j), then  <strong>dp(i,j)=dp(i-1,j)+dp(i,j-1)</strong>, which  is supposed to be initialized as <strong>dp(0,0)=dp(0,j)=dp(i,0)=1(0&lt;i&lt;m,0&lt;j&lt;n)</strong> Otherwise the entire dp array will be zero.</li>
+<li>This time we need to add <strong>an extra judgment</strong> to ensure its validity. dp(i,j) can be updated iff there is no obstacle on (i,j),(i-1,j) and (i,j-1). To initialize dp, still we need to set the values on the 0th row and column. The value will be 1 until it meets obstacle for the first time which makes the value behind 0.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">if(grid[i][j]&amp;&amp;grid[i-1][j])	dp[i][j] &#43;= dp[i-1][j];
+if(grid[i][j]&amp;&amp;grid[i][j-1])	dp[i][j] &#43;= dp[i][j-1];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ol>
+<h2 id="part-two-knapsack-problem-and-scrolling-arrays">Part Two: Knapsack Problem and Scrolling Arrays</h2>
+<h3 id="1-01-knapsack-problem">§1 0/1 Knapsack Problem</h3>
+<p><strong>Problem</strong> You are given a series objects with labels of their weight <code>w[i]</code> and value <code>v[i]</code>. You need to maxmize the value of the objects you take in a limit of weight<code>k</code>.</p>
+<p><strong>Analysis</strong> For each object you can simply choose to take or not which is quite similar to State Compression. However, we can finish this task more efficiently and handle a much larger scale than State Compression.</p>
+<p>We define dp(i,j) as <strong>the maximum value you can gain where you collect things from the first ith objects with volumn j</strong>. For each object, you can choose to take it or not thus making <strong>dp(i,j)=max(dp(i-1,j)+0, dp(i,j-w[i])+v[i])</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=0;j&lt;=k;j&#43;&#43;)
+		if(j&gt;=w[i]) dp[i][j] = max(dp[i-1][j],dp[i][j-w[i]]&#43;v[i]);
+cout&lt;&lt;dp[n][volume];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Now comes to the traverse order. The expression denotes that state(i,j) origins from state(i-1,j) and state(i,j-w[i]) making us to traverse from the left-upper corner to the right-bottom. (We have to ensure the origins updated before (i,j) has)</p>
+<p><strong>Question</strong> Whether can we shift the two loops? Although it is valid to take these two orders, however, the result may vary. If the volume loop lies in the exterior, then it will traverse all objects first. But anyway, it won&rsquo;t take one stuff twice which means it is fine.</p>
+<p><strong>We observe the equation and discover that the update in object-dimension is only up to the previous state i-1 thus enabling us to compress the state space and that is the spirit of &ldquo;Scrolling Arrays&rdquo;</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=0;j&lt;=k;j&#43;&#43;)
+		if(j&gt;=w[i])	dp[j] = max(dp[j],dp[j-w[i]]&#43;v[i]);
+cout&lt;&lt;dp[k];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>But this time some questions bubbled up, we have to consider the following problems:</strong></p>
+<ol>
+<li>Can we shift two loops safely?</li>
+<li>Can we still adopt such traverse order?</li>
+</ol>
+<p>For the first one, the interior loop will keep on filling one blank and then turn to the next one. Such behavior is exactly possible to take one stuff twice.</p>
+<p>For the second, take w[0]=1 as an example, when j is 1 it chooses to take stuff 0 and such thing occurs again when j gets to 2. Therefore, it transfroms into a mutiple choice knapsack problem which does not match our intention. Therefore, we need to employ the <strong>reverse order instead of the forward order</strong>.</p>
+<p>Therefore, the proper code is as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=k;j&gt;=w[i];j--)
+		dp[j] = max(dp[j],dp[j-w[i]]&#43;v[i]);
+cout&lt;&lt;dp[k];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>Whether can we swap loop i and loop j?</strong>
+<strong>Nay. According to the original dp array, we can compress the statespace because the ith state is only up to the i-1th state.</strong> This way, we need to update one row and then turn to another to maintain all states in the i-1th row. But the order changed, we first traverse all the objects instead of fill out the line chart first which goes against the original idea of state compresssion.</p>
+<p>In some certain circumstances, we can <strong>map weight[i],value[i] and total_value to something else</strong> through which transform a new problem into 0-1 knapsack problem.</p>
+<h4 id="problem-apartition-equal-subset-sum">Problem A:Partition Equal Subset Sum</h4>
+<p><strong>Problem</strong> Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+<strong>Sample</strong></p>
+<pre tabindex="0"><code>Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+
+Input: nums = [1,2,3,5]
+Output: false
+Explanation: The array cannot be partitioned into equal sum subsets.
+</code></pre><p><strong>Analysis</strong>	In this scene, we can take <strong>a number once</strong> which associates with 0/1 knapsack problem. In view of convenience, we may not let <strong>weight and value equivalent</strong> as well. We can easily get the target sum which is half sum of the array <code>k</code>. Therefore, now we are going to set the <strong>target volume is k.</strong> Due to the equivalenence of weight and value, the max value it can get with volume k is no greater than k. The answer is true iff maximum value equals k.</p>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool canPartition(vector&lt;int&gt;&amp; nums) {
+    int sum=0, dp[MAX]={0};
+    for(auto n:nums)    sum&#43;=n;
+    if(sum&amp;1)   return false;	//avoid bugs caused by trunction
+    sum/=2;
+    for(int i=0;i&lt;nums.size();i&#43;&#43;)
+       for(int j=sum;~j;j--)
+         if(j&gt;=nums[i])    dp[j]=max(dp[j],dp[j-nums[i]]&#43;nums[i]);
+    return dp[sum]==sum? true:false;   
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h4 id="problem-b-last-stone-weight">Problem B: Last Stone Weight</h4>
+<p><strong>Problem:</strong> You are given an array of integers stones where stones[i] is the weight of the ith stone.
+On each turn, we choose any two stones and smash them together. Suppose the stones have weights x and y with x &lt;= y. The result of this smash is:</p>
+<p>If x = y, both stones are destroyed, and if x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.At the end of the game, there is at most one stone left.</p>
+<p>Return the smallest possible weight of the left stone. If there are no stones left, return 0.</p>
+<p><strong>Analysis:</strong> Intuitively, a greedy idea emerges up &ndash; <strong>to take the pair of stone with most similar weight which shift Problem B into Problem A</strong> But this time we don&rsquo;t need to know whether dp[half sum] equals half sum; instead the answer comes from the <strong>D-value = sum-dp[sum/2]×2</strong> .
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int lastStoneWeightII(vector&lt;int&gt;&amp; stones){
+    int sum=0, dp[MAX]={0};
+    for(auto n:stones)    sum&#43;=n;
+    int target = sum/2;
+    for(int i=0;i&lt;stones.size();i&#43;&#43;)
+       for(int j=target;j&gt;=stones[i];j--)
+          dp[j]=max(dp[j],dp[j-stones[i]]&#43;stones[i]);
+    return sum-dp[target]*2;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-ctarget-sum">Problem C:Target Sum</h4>
+<p><strong>Problem:</strong> You want to build an expression out of nums by adding one of the symbols &lsquo;+&rsquo; and &lsquo;-&rsquo; before each integer in nums and then concatenate all the integers. Return the number of different expressions that you can build, which evaluates to target.
+<strong>Sample:</strong></p>
+<pre tabindex="0"><code>Input: nums = [1,1,1,1,1], target = 3
+Output: 5
+Explanation: There are 5 ways to assign symbols to make the sum of nums be target 3.
+</code></pre><p><strong>Analysis:</strong> This problem no longer asks us to return the maximum but instead the number of ways to <strong>fill out the bag</strong>. We rewrite the definition of dp array.</p>
+<p><strong>dp(i,j) is defined as the number of ways to fill out the bag from the first i objects with volume j and dp(i,j) = dp(i-1,j-w[i])+dp(i-1,j)</strong><br>
+<strong>Likewise, we use the trick called scroll array then it becomes: dp(j)+=dp(j-w[i]). Now that it is 0-1 problem we should take the reverse order</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=k;j&gt;=w[i];j--)
+			dp[j] &#43;= dp[j-w[i]];
+cout&lt;&lt;dp[k];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>For this problem, <strong>if the sum of numbers with positive sign is x, then the sum of those with negative sign is sum-x. Target=x-(sum-x) i.e. x=(target+sum)/2</strong> Now we want to know how many ways are there to fill out a bag whose volume is x.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int findTargetSumWays(vector&lt;int&gt;&amp; nums, int target) {
+    int sum=0,dp[2000]={0};
+    for(auto i:nums) sum&#43;=i;
+    int x=(target&#43;sum)/2;
+    if(abs(target)&gt;sum ||(target&#43;sum)&amp;1)  return 0;//impossible cases
+	dp[0]=1;
+    for(int i=0;i&lt;nums.size();i&#43;&#43;)
+        for(int j=x;j&gt;=nums[i];j--)
+			dp[j] &#43;= dp[j-nums[i]];
+    return dp[x];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-dones-and-zeros">Problem D:Ones and Zeros</h4>
+<p><strong>Problem:</strong> You are given an array of binary strings strs and two integers m and n. Return the size of the largest subset of strs such that there are at most m 0&rsquo;s and n 1&rsquo;s in the subset. A set x is a subset of a set y if all elements of x are also elements of y.</p>
+<pre tabindex="0"><code>Input: strs = [&#34;10&#34;,&#34;0001&#34;,&#34;111001&#34;,&#34;1&#34;,&#34;0&#34;], m = 5, n = 3
+Output: 4
+Explanation: The largest subset is str0,1,3,4 making the answer 5.
+</code></pre><p><strong>Analysis:</strong>	In this scenario, there are <strong><strong>two kinds of weight&ndash; 0 and 1</strong></strong> Thus we first transform each string to the relative weight, say w0[]={1,3,2,0,1},w1[]={1,1,4,1,0} (take the sample as an example) while <strong>the value of each object is one (only contribute one element to the subset)</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=m;j&gt;=w0[i];j--)
+		for(int k=n;k&gt;w1[i];k--)
+			dp[j][k] = max(dp[j][k],dp[j-w0[i]][k-w1[j]]&#43;1);
+cout&lt;&lt;dp[m][n];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>To sum up, algorithms to do with knapsack problems always have two target: whether can you fill out the bag(Problem A), maximize the value(Problem B) and count the ways to get a certain value.(Problem C)</strong>
+<strong>In the meanwhile, it may have more than one type of restriction(Problem D) or value</strong></p>
+<h3 id="2-complete-knapsack-problem">§2 Complete Knapsack Problem</h3>
+<p>Compared with 0/1 knapsack, you can pick up one stuff infinite times as you like. And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=0;j&lt;volume;j&#43;&#43;)
+		for(int k=0;j&gt;=w[i]*k;k&#43;&#43;)	//decide to take k pieces
+			dp[i][j] = max(dp[i][j],dp[i-1][j-w[i]*k]&#43;val[i]*k);
+cout&lt;&lt;dp[m][n];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>Whether can we swap loop i and loop j?</strong>	Certainly. It doesn&rsquo;t have illedgal updates.</p>
+<p>With the trick of scrolling array, we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=0;j&lt;volume;j&#43;&#43;) 
+		dp[j] = max(dp[j],dp[j-w[i]]);	
+//we don&#39;t need a loop to traverse the amounts of a certain object because it will get stuck here and keep looping</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Likewise, we will also get in faced with problems like &ldquo;whether can you fill out the bag&rdquo; &ldquo;methods to fill out&rdquo; etc.</p>
+<h4 id="problem-acoin-change">Problem A	Coin Change</h4>
+<p><strong>Problem</strong>You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.</p>
+<p>Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return 0</p>
+<pre tabindex="0"><code>Input: amount = 5, coins = [1,2,5]
+Output: 4
+Explanation: there are four ways to make up the amount([1,1,1,1,1],[1,1,1,2],[1,2,2],[5])
+</code></pre><p><strong>Analysis</strong>	Likewise, we can choose one coin for many times thus making it a mutiple knapsack.
+We can design our dp array as:  <strong>dp[i][j] += dp[i-1][j-w[i]×k]</strong>
+By state compression, it can be:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=0;i&lt;n;i&#43;&#43;)
+	for(int j=0;j&lt;volume;j&#43;&#43;) 
+		dp[j] &#43;= dp[j-w[i]];	
+return dp[amount];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>Can we shift two loops?</strong> <strong>Yes and No</strong></p>
+<p><strong>If we are expected to get combination number(UNORDERED)</strong> then we put <em>object</em> outwards and <em>space</em> inside.</p>
+<p><strong>If we are expected to get arrangement number(ORDERED)</strong> then we swift them.</p>
+<p>It&rsquo;s high time pause and ponder the hinder reason. In the first scene, we traverse each object and check how many it can be put in. There is no such thing called order here. However, when it comes to the second, we traverse each volume first and <strong>put object inwards</strong>. <strong>We will put in one stuff in different moments</strong> , say, you put A inside when j=1, a pile of other things later and A again when j=n which is distinguished from put two A at the very beginning. That makes the difference!</p>
+<p>It is undoubtedly believed that in this problem, we adopt the front order.</p>
+<h4 id="problem-b-combinitions-of-numbers">Problem B Combinitions of Numbers</h4>
+<p><strong>Problem</strong> Given an array of distinct integers nums and a target integer target, return the number of possible combinations that add up to target.</p>
+<pre tabindex="0"><code>Input: nums = [1,2,3], target = 4
+Output: 7
+Explanation:The possible combination ways are (1, 1, 1, 1),(1, 1, 2),(1, 2, 1),(1, 3),(2, 1, 1),(2, 2),(3, 1)
+</code></pre><p><strong>Analysis</strong>	Problem B forms sharp contrast to that of problem A. This time we care about the order and simply need to swift the loops.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int j=0;j&lt;volume;j&#43;&#43;) 
+	for(int i=0;i&lt;n;i&#43;&#43;)
+		if(j&gt;=w[i])	dp[j] &#43;= dp[j-w[i]];
+return dp[target];		</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-c-climbing-stairs">Problem C Climbing Stairs</h4>
+<p><strong>Problem</strong>	Each time you can climb up 1,2,&hellip;m stairs. Return the number of different methods to reach the nth stair. (n,m is given)</p>
+<p><strong>Analysis</strong>	Actually it is simply a complete knapsack similar to problem B where one&rsquo;s value equals its weight, say, w[]={1,2&hellip;,m},v[]={1,2&hellip;,m}</p>
+<h4 id="problem-d-coin-change">Problem D Coin Change</h4>
+<p><strong>Problem</strong> You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.</p>
+<p>Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.</p>
+<pre tabindex="0"><code>Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+</code></pre><p><strong>Analysis</strong> It seems a complete knapsack but the request varies. We need to rewrite the updating rule as <strong>dp[j]=min(dp[j],dp[j-w[i]]+1)</strong> which means we set the value ONE and the weight COIN[i] and try to minimize the answer.</p>
+<p>We have to reconsider the initialization here because we are no longer trying to maximize something else. Actually we need to set all positive infinite except those coins which is supposed to be one, say, <strong>dp[1]=dp[2]=dp[5]=1</strong> or simply <strong>dp[0]=0</strong></p>
+<h3 id="3--multi-knapsack-problem">§3  Multi-Knapsack Problem</h3>
+<p>In this scenario, the amount of each object is finite and given. What we need to do is to unpack them so as to make it become a 0/1 knapsack.</p>
+<h2 id="part-three-stock-problem-and-house-robber-problem">Part Three: Stock Problem and House Robber Problem</h2>
+<h3 id="1-best-time-to-buy-and-sell-stock">§1 Best Time to Buy and Sell Stock</h3>
+<p><strong>Problem</strong>	You want to maximize your profit by choosing a day to buy one stock and choosing a different day in the future to sell that stock.
+<strong>Requirement</strong></p>
+<ol>
+<li>You can only purchase and sell <strong>once</strong>;</li>
+<li>On <strong>each day</strong>, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.</li>
+<li>You may complete <strong>at most two transactions</strong>.</li>
+<li>You may complete <strong>at most k transactions(k is given)</strong>.</li>
+<li>After you sell your stock, you cannot buy stock on the next day (i.e. <strong>cooldown one day</strong>).</li>
+<li>You may complete as many transactions as you like, but you need to <strong>pay the transaction fee for each transaction</strong>. (The fee is given)</li>
+</ol>
+<pre tabindex="0"><code>Input: [1,2,3,4]	everyday stock price
+Output: 0	the most money you can gain
+</code></pre><p><strong>Analysis</strong></p>
+<ol>
+<li>Pinning on the target we design the dp array as <strong>the most money</strong> and notice that whether or not you have sold the stock differs. Our state space is supposed to have <strong>at least 2 dimension</strong> , one for time and the other for the ownership of stock. Thus it turns to be dp(the ith day, state): 0 for unhold, 1 for hold, 2 for having sold. Updating rule: <strong>dp[i,0]=0, dp[i,1]=max(dp[i,0]-price[i],dp[i-1,1]), dp[i,2]=max(dp[i-1,2],dp[i-1,1]+price[i])</strong> What we want is max(dp[n,2],dp[n,0])</li>
+</ol>
+<p>Just so you know, such statespace can be cut to only two. We define 0 as unhold and 1 as hold. Updating rule would be <strong>dp[i,0]=max(dp[i-1,0],dp[i-1,1]+price[i]), dp[i,1]=max(dp[i-1,1],-price[i])</strong>
+But this time, we have to consider the initialization carefully. If still all zero, the entire dp array will be all zero. Now let&rsquo;s trace back to the meaning and find that on <strong>Day Zero</strong>, dp[i,0]=0, dp[i,1]=-price[0]. Notice that Day i is only up to the Day i-1. There we have:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">dp[0]=0,dp[1]=-price[0];
+for(int i=0;i&lt;n;i&#43;&#43;){
+	dp[0] = max(dp[0],dp[1]&#43;price[i]);
+	dp[1] = max(dp[1],-price[i]);
+}
+return dp[0]; //We are bound to gain more by selling the stock out than keeping  </code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<ol start="2">
+<li>
+<p>Now that we can sell and buy for many times, the original state before purchassing doesn&rsquo;t have to be 0. Therefore, there is one thing to change: dp[i,1]=max(dp[i-1,1],dp[i,0]-price[i])
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">dp[0]=0,dp[1]=-price[0];
+for(int i=0;i&lt;n;i&#43;&#43;){
+	int tmp = dp[0]; //avoid being covered by the next line
+	dp[0] = max(dp[0],dp[1]&#43;price[i]);
+	dp[1] = max(dp[1],tmp-price[i]);
+}
+return dp[0]; //We are bound to gain more by selling the stock out than keeping  </code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p>Based on question 1, we have the intention to enlarge the statespace where 0 is for purchasing 1st stock, 1 for selling it out, 2 for purchasing 2nd and 3 for selling out again. Then we have: <strong>dp[i,0]=-price[i]; dp[i,1]=max(dp[i-1,1],dp[i-1,0]+price[i]),dp[i,2]=max(dp[i-1,2],dp[i-1,1]-price[i]),dp[i,3]=max(dp[i-1,3],dp[i-1,2]+price[i])</strong> And the outcome will be <strong>max(0,dp[n,1],dp[n,3])</strong> (We don&rsquo;t really need to trade twice). The initialization will be <strong>dp[0]=dp[2]=-price[i], dp[1]=dp[3]=0</strong></p>
+</li>
+<li>
+<p>It is identical to question 3. We enlarge the statespace to 2k-1 where 0,2,&hellip;,2n-2 means purchasing kth stock (initialized as -price[0]) and 1,&hellip;,2n-1 for selling it out (initialized as 0). And compute the equations: dp[i,2k]=max(dp[i-1,2k],dp[i-1,2k-1]-price[i]),  dp[i,2k+1]=max(dp[i-1,2k],dp[i-1,2k]+price[i]). And the outcome will be <strong>max(n,2k-1)</strong></p>
+</li>
+<li></li>
+<li></li>
+</ol>
+<h3 id="2-house-robber-problem">§2 House Robber Problem</h3>
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
+<ol>
+<li>Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.</li>
+<li>What if the houses are in the shape of a circle?</li>
+</ol>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/dp/">DP</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="NEXT: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/" data-tooltip="[Algorithm]High Accuracy: Four Fundamental Operations" aria-label="PREVIOUS: [Algorithm]High Accuracy: Four Fundamental Operations">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmdynamic-programming-segment\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmdynamic-programming-segment\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="NEXT: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmhigh-accuracy-four-fundamental-operations/" data-tooltip="[Algorithm]High Accuracy: Four Fundamental Operations" aria-label="PREVIOUS: [Algorithm]High Accuracy: Four Fundamental Operations">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-segment%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-segment%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-segment%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

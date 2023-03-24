@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DP on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/tags/dp/</link>
+    <description>Recent content in DP on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]DFS and BackTracing, BFS</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</link>
+      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tree Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on binary trees(or with more branches).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Sorting Algorithm and the Applications</title>
+      <link>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</link>
+      <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Tree</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/</link>
+      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tree Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on binary trees(or with more branches).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Segment</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/</link>
+      <pubDate>Sun, 19 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Segment Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on linear tables.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: State Compressing</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;State Compressing&lt;/strong&gt;, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: &lt;strong&gt;the existence of a certain element in a set&lt;/strong&gt; and &lt;strong&gt;2D DP Problems concerning connectivity&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

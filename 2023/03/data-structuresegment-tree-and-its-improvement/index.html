@@ -607,9 +607,34 @@ public:
   </table>
 </figure>
 </p>
+<p><strong>Notice.</strong> In many cases we can shift a new requirement into those we&rsquo;ve already known. For instance, <strong>what about this time that we want to query the square error?</strong>
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/treedp/08.jpg" >
+    
+    
+  </div>
+
+We expand the formula and discover that we only need to save the <strong>mean value</strong> which is identical to the sum and <strong>the sum of square value</strong> which can be expanded once again into an expression only to do with the mean value. It means we can simply use the original overall sum to achieve the pushdown and update function despite this time it has two values to maintain.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/09.jpg" >
+   
+   
+ </div>
+</p>
 <p>With the segment tree, we can realize the data structure as below:</p>
-<h4 id="maximum-tree-add-a-number-to-each-in-the-interval-and-query-the-maximum-among-a-certain-one">Maximum Tree: Add a number to each in the interval and Query the <strong>maximum</strong> among a certain one</h4>
-<p>We simply need to <strong>redesign</strong> the update,push_down and push_up function.
+<h4 id="maximum-tree">Maximum Tree:</h4>
+<ul>
+<li>Operation: Add a number to each in the interval</li>
+<li>Query: the <strong>maximum</strong> among a certain one
+We simply need to <strong>redesign</strong> the update,push_down and push_up function.
 
   
     
@@ -657,7 +682,24 @@ void update(Node* rt, int x, int y, int val){
     </tbody>
   </table>
 </figure>
-</p>
+</li>
+</ul>
+<h4 id="relative-problem-glass-carving">Relative Problem: Glass Carving</h4>
+<p><strong>Problem</strong>  You will be given a piece of glass whose size is <code>m*n</code> and it will be cut either vertically or horizontally. Your mission is to tell the area of the biggest glass pne after each cutting.
+<strong>Sample</strong></p>
+<pre tabindex="0"><code>Input: 4 3 4		H 2	V 2	V 3	V 1
+Output: 8 4 2 2 
+</code></pre><p>
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/10.jpg" >
+   
+   
+ </div>
+
+<strong>Analysis</strong> One significant observation is that <strong>the maximum horizontal length and vertical length are independent</strong> thus making the greedy idea hold water &ndash; <strong>the largest height and the largest width</strong>. Therefore we simply need 2 segment tree to maintain the greatest length after each cut and query the whole interval to get the largest length respectively.</p>
 <p>Furthermore, we can even build a tree <strong>with more than one operation among which there are different priorities</strong></p>
 <p>For instance, we need one to support the operations <strong>add <code>p</code> to each value or multiply <code>q</code> to each value in the interval</strong> and query the sum. Then we need to distinguish these two operations in the priority <strong>with regard to the updating of lazytag</strong>, generally, we take multiplication prior despite the converse theoratically may work.</p>
 <p>If we add then multiply, then we have:</p>
@@ -741,9 +783,23 @@ void update_times(Node* rt, int x, int y, int val){
 </figure>
 </p>
 <p>It is clear that the priority we preset <strong>embodies in the aspect of update function and push_down function</strong>.</p>
+<p>P.s. It will also be feasible to <strong>use matrix multiplication</strong> and each node is a <strong>column vector</strong>. We can apply <strong>matrix multiplication</strong> to update the lazytag and push down by multiply each column vector in each node.                              <br>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/07.jpg" >
+   
+   
+ </div>
+</p>
 <h2 id="2-sample-problems">2. Sample Problems</h2>
-<h3 id="problem-a--transpose-the-state0-1-1-0-of-each-in-an-interval-and-query-the-amount-of-one-within">Problem A  Transpose the state(0-&gt;1, 1-&gt;0) of each in an interval and query the amount of one within</h3>
-<p>Likewise, we simply need to redesign a part of it.
+<h3 id="problem-a--transpose-the-state">Problem A  Transpose the state</h3>
+<ul>
+<li>Operation: Transpose the state(0-&gt;1, 1-&gt;0) of each in an interval</li>
+<li>Query: the amount of one within
+Likewise, we simply need to redesign a part of it.
 
   
     
@@ -796,8 +852,12 @@ void update(Node* rt, int x, int y, int val){
     </tbody>
   </table>
 </figure>
-</p>
-<h3 id="problem-b-cover-all-elements-in-an-interval-with-0-or-1-and-query-the-amount-of-one-within">Problem B Cover all elements in an interval with 0 or 1 and query the amount of one within</h3>
+</li>
+</ul>
+<h3 id="problem-b-cover-all-with-0-or-1">Problem B Cover all with 0 or 1</h3>
+<ul>
+<li>Operation: Cover all with 0 or 1 of each in an interval</li>
+<li>Query: the amount of one within
 
   
     
@@ -850,7 +910,8 @@ void update(Node* rt, int x, int y, int val){
     </tbody>
   </table>
 </figure>
-
+</li>
+</ul>
 <h2 id="3-weighted-segment-tree">3. Weighted Segment Tree</h2>
 <h2 id="4-sustainable-segment-tree">4. Sustainable Segment Tree</h2>
 <h2 id="5-treap--rank-tree">5. Treap / Rank Tree</h2>

@@ -34,7 +34,7 @@
     }
     
   },
-  "description": "Tree Dynamic Programming, which is a basic series of DP problems based on binary trees(or with more branches).\n",
+  "description": "",
   "keywords": []
 }
 
@@ -45,18 +45,18 @@
 <meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Supradax">
 <meta name="keywords" content="">
-<meta name="description" content="Tree Dynamic Programming, which is a basic series of DP problems based on binary trees(or with more branches).">
+<meta name="description" content="">
 
 
-<meta property="og:description" content="Tree Dynamic Programming, which is a basic series of DP problems based on binary trees(or with more branches).">
+<meta property="og:description" content="">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Algorithm]DFS and BackTracing, BFS">
 <meta name="twitter:title" content="[Algorithm]DFS and BackTracing, BFS">
 <meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/">
 <meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
-<meta property="og:description" content="Tree Dynamic Programming, which is a basic series of DP problems based on binary trees(or with more branches).">
-<meta name="twitter:description" content="Tree Dynamic Programming, which is a basic series of DP problems based on binary trees(or with more branches).">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
@@ -70,12 +70,12 @@
     
       <meta property="article:section" content="Algorithm">
     
-      <meta property="article:section" content="DP">
+      <meta property="article:section" content="Simulation">
     
   
   
     
-      <meta property="article:tag" content="DP">
+      <meta property="article:tag" content="Simulation">
     
       <meta property="article:tag" content="Algorithm">
     
@@ -287,7 +287,7 @@
     
       <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
     
-      <a class="category-link" href="https://Supradax.github.io/categories/dp">DP</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
     
   
 
@@ -297,7 +297,758 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p><strong>Tree Dynamic Programming</strong>, which is a basic series of DP problems based on binary trees(or with more branches).</p>
+              <p><strong>Breadth First Search</strong>，广度优先搜索与<strong>Depth First Search</strong>深度优先搜索是两大基本搜索算法，其中DFS一般效率相对较高，采用栈模拟或递归实现，常与回溯算法结合；BFS由于需要用队列存储当前层节点，达到类似<strong>层序遍历</strong>的效果，消耗资源较多，但一般是<strong>最短路径</strong>或有<strong>时序限制</strong>的搜索问题比较简单的解法(使用DFS可能绕进一条极曲折且极长的路，更优的有如A星等启发式寻路算法)</p>
+<p>下面以二叉树为例做相关引入，一般地，二叉树只需考虑<strong>递归逻辑的返回逻辑(如到达叶子节点等)、节点处理逻辑(即父节点与子结点的逻辑关系)、信息传递</strong>(可直接pack一个info结构体避免递归只能递归一个基本数据类型的问题)</p>
+<p>对n叉树逻辑没有太多变化，只需将原有左右子节点变更为一个<strong>记录所有子节点的邻接表</strong></p>
+<h2 id="1-dfs基本操作与二叉树">1. DFS基本操作与二叉树</h2>
+<h4 id="i-二叉树的前序中序和后序遍历基本dfs操作">i. 二叉树的前序、中序和后序遍历：基本dfs操作</h4>
+<p>前、中、后序遍历，即中间节点的遍历顺序的位置。前序遍历(<strong>preorder</strong>)经过即访问；中序遍历先经过入栈，直到再次到栈顶时进行访问；后序遍历(<strong>postorder</strong>)则直到没有子结点未访问时再访问。对应递归逻辑只需调换dfs位置，</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Inorder Traversal.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//对后序遍历和前序遍历，只需调整下面三行次序即可
+void dfs(TreeNode* rt){
+        if(rt==nullptr) return;
+        dfs(rt-&gt;left);		//上一节点
+        ans.push_back(rt-&gt;val);	//当前节点逻辑
+        dfs(rt-&gt;right);		//下一节点
+    }</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>另外也可使用栈模拟，其中前序遍历每遇到新节点即开始访问并压栈子结点；中序遍历则先入栈并遍历其子结点，直至该节点无左子结点时开始弹栈访问；后序遍历由于直接实现较难，采用技巧，调换左右访问次序并倒序输出，将中右左的前序遍历转置为左右中
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Inorder Traversal.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+       vector&lt;int&gt; ans;
+       stack&lt;TreeNode*&gt; st;
+        while(root!=nullptr || !st.empty()){
+            if(root != nullptr){
+                st.push(root);
+                root = root-&gt;left;
+            }else{
+                root = st.top();
+                st.pop();
+                ans.push_back(root-&gt;val);
+                root = root-&gt;right;
+            }
+        }       
+        return ans;
+    }</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="ii-判断对称树双节点信息">ii. 判断对称树：双节点信息</h4>
+<p><strong>Analysis</strong> 对root只有一个节点或为空进行特判，传入root的两个节点**同步反向(即同时但左右颠倒)**进行dfs返回即可
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Symmetric Tree.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool judge(Node* x, Node*y){
+	if((!x&amp;&amp;y)||(!y&amp;&amp;x))	return false;
+	else if(!r1&amp;&amp;!r2)	return true;
+	
+	if(x-&gt;val!=y-&gt;val)	return false;
+	return judge(x-&gt;ls,y-&gt;rs)&amp;&amp;judge(x-&gt;rs,y-&gt;ls);	//同步反向
+}
+
+bool isSymmetric(Node* rt){
+	if(!rt)	return true;
+	else return judge(rt-&gt;ls, rt-&gt;rs);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="iii-计算树的最大或最小深度提前一层退出递归">iii. 计算树的最大或最小深度：提前一层退出递归</h4>
+<p><strong>Analysis</strong> 最大深度即所有叶子到根节点的最大值，最小深度同理. 其中最小深度不同之处<strong>不能等到该节点为空再返回0</strong>，否则对于形如链表的树会得到最小深度恒为1. 一般地，<strong>等到节点为空再作判断往往会丢失一些信息</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Maximum and Minimum Depth.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//最大深度
+int maxDepth(Node* rt){
+	return !rt? 0: max(maxDepth(rt-&gt;ls), maxDepth(rt-&gt;rs))&#43;1;
+}
+int maxDepth(Node* rt){	//n叉树
+	if(!rt)	return 0;
+	int cnt=0;
+	for(auto u:rt-&gt;son)	cnt=max(cnt,maxDepth(u));
+	return cnt&#43;1;	
+}
+//最小深度
+int exp(Node* rt){
+	//判断为叶子节点提前退出递归，不让空节点进入
+	if(!rt-&gt;ls &amp;&amp; !rt-&gt;rs)	return 1;
+	//判断只有左子树、右子树和全都有的情况
+	if(rt-&gt;ls &amp;&amp; !rt-&gt;rs)	return exp(rt-&gt;ls)&#43;1;
+	else if(!rt-&gt;ls &amp;&amp; rt-&gt;rs)	return exp(rt-&gt;rs)&#43;1;
+	else return min(exp(rt-&gt;ls),exp(rt-&gt;rs))&#43;1;
+}
+int minDepth(Node* rt){
+	return !rt? 0:exp(rt);
+} </code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>变式</strong> 判断平衡二叉树(平衡指左右子树高相差不超过1)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>isBalanced.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isBalanced(Node* rt){
+	if(!rt) return true;
+	if(abs(maxDepth(rt-&gt;ls)-maxDepth(rt-&gt;rs)&gt;1))	return false;
+	return isBalanced(rt-&gt;ls)&amp;&amp;isBalanced(rt-&gt;rs);	//父子节点间逻辑
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="iv-寻找路径总和剪枝与回溯初步">iv. 寻找路径总和：剪枝与回溯初步</h4>
+<p><strong>Problem</strong> 在二叉树中找到一条路径使该路径上所有结点权值之和为目标值</p>
+<p><strong>Analysis</strong></p>
+<ul>
+<li>将统计节点数/高度的+1变为加上节点权值</li>
+<li>若给定权值均为正数，则可至少在2个地方剪枝，即当目前路径总和已经大于目标值时，可直接退出；已经找到目标路径时可返回</li>
+<li>在离开当前节点时，<strong>当前节点的权值必须减去</strong>(恢复原状，即递归完成后进行回溯处理)；若不使用该方法，则可通过<strong>递归参数传递</strong>让系统自己释放消除影响
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>isBalanced.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int sum=0, bool founded=false;
+vector&lt;int&gt; path;
+void search(Node* rt){
+	if(founded || !rt)	return;	//第一次剪枝
+	
+	sum&#43;=rt-&gt;val, path.push_back(rt);
+	if(sum==target){founded=true;return;}
+	
+	search(rt-&gt;left), search(rt-&gt;right);
+	sum-=rt-&gt;val, path.pop_back(rt);	//回溯
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ul>
+<h4 id="v-左叶子之和传递两层信息">v. 左叶子之和：传递两层信息</h4>
+<p><strong>Problem</strong> 左叶子，即二叉树中属于父节点左侧的叶子。目标是返回所有左叶子的权值之和.</p>
+<p><strong>Analysis</strong> 必须通过父节点得知该节点是否位于左侧，类似<em>最小深度</em>中不能到达空节点再作返回判断，否则会丢失一些信息
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>isBalanced.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int dfs(Node* rt, bool isleft){
+	if(!rt-&gt;ls&amp;&amp;!rt-&gt;rs)	return isleft? rt-&gt;val:0;	//到达叶子
+	int ans = 0;
+	if(rt-&gt;ls)	ans&#43;=isleft(rt-&gt;ls, true);
+	if(rt-&gt;rs)	ans&#43;=isleft(rt-&gt;rs,false);
+	return ans;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="vi-misery-story-反转二叉树">vi. Misery Story: 反转二叉树</h4>
+<h2 id="2-回溯算法">2. 回溯算法</h2>
+<p>回溯算法本身是dfs暴搜的一种(<strong>n重for循环</strong>)，只是侧重强调回溯的操作。一般适用于<strong>排列组合问题</strong>、<strong>切割问题</strong>、<strong>棋盘问题</strong>等，需要配合适当的<strong>剪枝</strong>和<strong>记忆化搜索</strong>降低时间成本</p>
+<p>一般地，需要设计好以下问题：<strong>递归出口</strong>、<strong>传递信息</strong>、<strong>回溯过程</strong>
+下面看典型题：</p>
+<h4 id="problem-a-排列组合问题">Problem A: 排列组合问题</h4>
+<p><strong>Problem</strong> 给定n，输出1~n共n个数的全排列、所有组合(升序)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">/**排列的实现**/
+vector&lt;vector&lt;int&gt;&gt; all;	//最终结果
+vector&lt;int&gt; cur; //当前排列
+vector&lt;bool&gt; in(n,0);	//当前已存在的值，避免重复加入 
+void dfs(){	
+	if(cur.size()==n)	{all.push_back(cur);return;}
+	for(int i=1;i&lt;=n;i&#43;&#43;){
+		if(!in[i]){
+			in[i]=true,	cur.push_back(i); //放入当前排列并进入下层
+			dfs();
+		}
+		in[i]=false, cur.pop_back();	//回溯消除影响
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>对于组合问题，差别在于for循环的开始和结束位置。而for的设计使得代码无需in[]标记，因为不可能出现重复元素进入
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">/**组合的实现：以从n个中选m个为例**/
+vector&lt;vector&lt;int&gt;&gt; all;	//最终结果
+vector&lt;int&gt; cur; //当前排列
+void dfs(int sup){	//上次拿的最大值
+	if(cur.size()==m)	{all.push_back(cur);return;}
+	//剪枝：余下的元素全拿也不够凑成对应一个组合
+	if(n-sup&lt;m-cur.size())	return;
+	
+	for(int i=sup;i&lt;=n;i&#43;&#43;){	//初始位置为核心代码
+		cur.push_back(i);
+		dfs(i);
+		cur.pop_back();	//回溯消除影响
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>变式 组合总和类问题</strong></p>
+<ol>
+<li>从给定数组中取k个索引对应的数使其和恰为目标和. 同理将已选索引的上确界传入，进行剪枝并确定好for开始位置避免重复，回溯即一加一减</li>
+<li>在(1)的基础下，不限制k的个数且已知正数数组中无重复元素. 同理确定for的开始位置，回溯一加一减，并由于为正数列，从而当sum&gt;target时可进行剪枝</li>
+<li>在(2)的基础下，数组有重复元素但输出的组合不能重复. 可以考虑用unordered_set；通过多重背包DP求解；或先进行排序，用pair构建键值对&lt;值，数量&gt;，每层dfs设置双重for循环，一个遍历值，一个遍历该值对应的选取数量</li>
+</ol>
+<h4 id="problem-b-n皇后问题">Problem B: N皇后问题</h4>
+<p><strong>Description</strong>  n×n的棋盘上摆放n个皇后，要求各个皇后不能在同一行、同一列或同一对角线上，不区分各个皇后，求对应棋盘上可以摆放的皇后 组合数
+<strong>Analysis</strong> 按行遍历展开深搜，遍历所有列并<strong>逐步检查进行剪枝</strong>，有如下代码：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>N Queens</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt=0;	
+vector&lt;vector&lt;int&gt;&gt; cur; //当前皇后按行列分布
+bool check(int x,int y){	//合法性检查
+	for(auto q:cur)
+		if(x==q[0]||y==q[1]||abs(q[0]-x)==abs(q[1]-x))
+			retur false;
+	return true;
+}
+void dfs(int n){	//当前行数
+	if(y==n){	//到达最后一行进行检查
+		for(int i=1;i&lt;=n;i&#43;&#43;)
+			if(check(i,n))	cnt&#43;&#43;;
+		return;
+	}
+	for(int i=1;i&lt;=n;i&#43;&#43;)
+		if(check(i,n)){	//剪枝
+			q.push_back({i,y});
+			dfs(y&#43;1);
+			q.pop_back();	//回溯
+		}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>变式</strong> 如皇后不能在对方对应3×3范围内，不能在对角线3格以内均为对check()作小调整即可</p>
+<h4 id="problem-c-序列问题">Problem C: 序列问题</h4>
+<p><strong>Description</strong> 在给定数组中找到所有长度大于1的单调不减子序列
+<strong>Analysis</strong> 类似组合问题，逐个dfs回溯即可
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">unordered_set&lt;vector&lt;int&gt;&gt; all;	//最终结果
+vector&lt;int&gt; cur; //当前排列
+void dfs(int sup){
+	if(cur.size()&gt;=2) all.insert(cur);
+	for(int i=sup;i&lt;=n;i&#43;&#43;){
+		if(nums[i]&gt;=*(cur.end()-1)){
+			cur.push_back(nums[i]);
+			dfs(i);
+			cur.pop_back();	//回溯消除影响
+		}
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="3-bfs-广度优先搜索基本操作">3. BFS 广度优先搜索基本操作</h2>
+<h4 id="引例二叉树的层序遍历">引例：二叉树的层序遍历</h4>
+<p>将初始节点加入队列，当队列非空时，记录每轮初始队列的大小(<strong>否则不知道该层的元素个数</strong>)，遍历当前层的各个节点同时，将其子结点加入队列，直至队列为空.</p>
+<p><strong>对于树以外可能存在回路的节点，需要加入vis[]数组标记是否访问或者使用flooding方法将该节点设置为不可访问</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>layer.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q;
+        vector&lt;int&gt; layer;
+        vector&lt;vector&lt;int&gt;&gt; ans;
+        if(root != nullptr) q.push(root);	//注意输入的值可能是nullptr
+        while(!q.empty()){
+            int n = q.size();
+            while(n--){
+                TreeNode* temp = q.front();
+                q.pop();
+                if(temp-&gt;left != nullptr)    q.push(temp-&gt;left);
+                if(temp-&gt;right != nullptr)  q.push(temp-&gt;right);
+                layer.push_back(temp-&gt;val);
+            }
+            ans.push_back(layer);
+            layer.clear();
+        }
+        return ans;
+    }</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-a-迷宫问题最短路问题">Problem A 迷宫问题：最短路问题</h4>
+<p><strong>Description</strong> 给定一个m×n大小的0-1矩阵，1表示可达，0表示不可达，求从(0,0)到(m,n)的最短路径(不可达则输出-1)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>maze.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt=0; 
+queue&lt;pair&lt;int,int&gt;&gt; q;
+vector&lt;vector&lt;int&gt;&gt; way= {{1,0},{-1,0},{0,1},{0,-1}};
+q.push({0,0}); //初始化
+bool check(int x,int y){
+	if(x&lt;0||x&gt;=n||y&lt;0||y&gt;=m)	return false;
+	return true;
+}
+int find(int x,int y) {
+    while(!q.empty()){
+		int m = q.size();
+		while(m--){
+			int x=q.top().first, y=q.top().second;
+			q.pop();
+			
+			if(x==m&amp;&amp;y==n)	return cnt;
+			
+			maze[x][y]=0; //flooding方法
+			for(auto [dx,dy]:way)
+				if(check(x&#43;dx,y&#43;dy)&amp;&amp;maze[x&#43;dx][y&#43;dy]!=0)	
+					q.push({x&#43;dx,y&#43;dy});
+		}
+		cnt&#43;&#43;;
+	}
+	return EOF;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-b-海岛问题">Problem B 海岛问题</h4>
+<p><strong>Description</strong>给定一个0-1矩阵，0表示水域，1表示陆地，求：(假定边界均为水域)
+<strong>Part 1</strong>	岛屿的数目、最大面积、最大周长、封闭岛屿的数目(不与边界相连)</p>
+<p><strong>Solution</strong></p>
+<ol>
+<li>
+<p>岛屿数目可用并查集合并；BFS或DFS进行Flooding统计(或使用vis[]标注已访问的)，遍历整个图;</p>
+</li>
+<li>
+<p>遍历每个岛屿并结合Flooding即可</p>
+</li>
+<li>
+<p>遍历到陆地时，检测4个方向为水域的个数n，cnt+=n&ndash;</p>
+</li>
+<li>
+<p>使用flooding方法先把边界进行不统计检索，淹掉不合题意的岛屿后再转换为第一问</p>
+</li>
+</ol>
+<p><strong>Analysis</strong> 对该类问题，一般可以考虑DFS, BFS与并查集，末尾给出两套模板
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>BFS</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isValid(int x,int y){ return ((x&gt;=0&amp;&amp;x&lt;r)&amp;&amp;(y&gt;=0&amp;&amp;y&lt;c))? true:false;} //合法性检查
+vector&lt;vector&lt;int&gt;&gt; dir={{0,1},{0,-1},{1,0}, {-1,0}};  //方向数组
+void bfs(int a, int b, int c,int d){
+        for(int i=a; i&lt;b; i&#43;&#43;){
+            for(int j=c; j&lt;d; j&#43;&#43;){
+                if(grid[i][j]==0)    continue;
+                q.push_back({i,j});
+                while(!q.empty()){ 
+                    int n=q.size();
+                    for(int i=0; i&lt;n; i&#43;&#43;){
+                        vector&lt;int&gt; cur = q.front();
+                        grid[cur[0]][cur[1]]=1;   //Flooding方法，避免重复入队
+                        q.pop_front();
+                        for(auto d:dir){
+                            int u = cur[0]&#43;d[0], v=cur[1]&#43;d[1]; 
+                            if(isValid(u,v) &amp;&amp; grid[u][v]==1)  q.push_back({u,v})
+                        }
+                    }
+                }
+            }
+        }
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>DFS</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void dfs(vector&lt;vector&lt;char&gt;&gt;&amp; grid,int x,int y){
+        if(grid[x][y]==&#39;0&#39;) return;
+        grid[x][y] =&#39;0&#39;;
+        for(auto w:dir){
+            int u=x&#43;w[0],v=y&#43;w[1];
+            if(isValid(u,v))    dfs(grid,u,v);
+        }
+    }</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>Part 2</strong></p>
+<ol>
+<li>若同时进行“填海”操作，即令(i,j)=1，返回每次填海后的岛屿数目；</li>
+<li>若能人为令一格从0变为1，求此操作后最大的岛屿面积；</li>
+<li>若在一天内能进行一次灌水(从1变为0)，求使图不连通的最少天数（连通意味着只有一个岛屿）</li>
+</ol>
+<p><strong>Solution</strong></p>
+<ol>
+<li>并查集进行合并后，每次填海检测周围是否存在岛屿：若有且只有1个，则将其设为其编号；若有编号不同的，则用并查集合并并更新数目；若无，则单独编号</li>
+<li>只有一格，故可遍历所有水域。将不同岛屿进行编号，若四个方向上有岛屿，则将所有不同号岛屿面积相加，再加1，维护该最大值</li>
+<li>分类讨论：显然只有{0,1,2}三种可能，且0可通过判断原始连通性得知
+(i)枚举所有陆地再判断连通性，O(m²n²)
+(ii)Tarjan算法：方格为节点，相邻引出边，则1意味着对应点为割点，tarjan求出其存在性，O(mn)</li>
+</ol>
+<p><strong>Part 3</strong></p>
+<ol>
+<li>若岛屿只能通过平移后重合，则认为两个岛屿全等，求：不同形状的岛屿数目</li>
+<li>若岛屿可通过平移、镜像(左右/上下)、旋转重合，则认为全等，求：不同形状的岛屿数目</li>
+</ol>
+<p><strong>Solution</strong></p>
+<ol>
+<li>由于从上到下、从左到右遍历，从而DFS过程中遵循相同的遍历顺序（具体差异和方向数组有关），但两个形状相同的岛屿遍历次序一定相同，对应生成字符串比较放入unordered_set去重</li>
+</ol>
               
 
 
@@ -311,7 +1062,7 @@
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/dp/">DP</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/simulation/">Simulation</a>
 
   <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
 

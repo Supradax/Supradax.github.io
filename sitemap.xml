@@ -14,13 +14,13 @@
     <loc>https://Supradax.github.io/categories/</loc>
     <lastmod>2023-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/dp/</loc>
-    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/dp/</loc>
-    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/posts/</loc>
+    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/simulation/</loc>
+    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/simulation/</loc>
     <lastmod>2023-03-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/</loc>
@@ -65,6 +65,9 @@
     <loc>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</loc>
     <lastmod>2023-03-21T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://Supradax.github.io/tags/dp/</loc>
+    <lastmod>2023-03-21T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://Supradax.github.io/categories/sort/</loc>
     <lastmod>2023-03-21T00:00:00+00:00</lastmod>
   </url><url>
@@ -74,10 +77,10 @@
     <loc>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</loc>
     <lastmod>2023-03-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/number-theory/</loc>
+    <loc>https://Supradax.github.io/categories/dp/</loc>
     <lastmod>2023-03-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/categories/simulation/</loc>
+    <loc>https://Supradax.github.io/tags/number-theory/</loc>
     <lastmod>2023-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/</loc>

@@ -6,16 +6,7 @@
     <description>Recent content in DP on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/dp/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>[Algorithm]DFS and BackTracing, BFS</title>
-      <link>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</link>
-      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Tree Dynamic Programming&lt;/strong&gt;, which is a basic series of DP problems based on binary trees(or with more branches).&lt;/p&gt;</description>
-    </item>
-    
+    <lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/dp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[Algorithm]Sorting Algorithm and the Applications</title>
       <link>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</link>

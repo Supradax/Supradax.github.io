@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Game Theory: Primary",
+  
+  "image": "https://Supradax.github.io/img/treedp.jpg",
+  
+  "datePublished": "2023-03-25T00:00:00Z",
+  "dateModified": "2023-03-25T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmgame-theory-primary\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Game Theory: Primary">
+<meta name="twitter:title" content="[Algorithm]Game Theory: Primary">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmgame-theory-primary/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmgame-theory-primary/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-25T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-25T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="Game">
+    
+  
+  
+    
+      <meta property="article:tag" content="Game">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+
+
+    <title>[Algorithm]Game Theory: Primary</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmgame-theory-primary/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Game Theory: Primary
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-25T00:00:00Z">
+        
+  March 25, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/game">Game</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Game theory</strong>, 博弈论，不同于经济学意义上追求共同利益最大的策略，本文更多研究<strong>通过最优策略</strong>在某个游戏中的<strong>零和博弈</strong>，即<strong>公平组合游戏(ICG：Impartral Combinatorial Game)</strong>。常见的形式是，给定<strong>一个游戏规则和一个初始状态</strong>，在双方对垒中，<strong>每个人都使用最优策略进行操作</strong>，则游戏结果由规则和初态<strong>唯一确定</strong>。</p>
+<p>显然诸如斗地主的游戏不在本文讨论范围内，因为该类游戏<strong>信息不对称</strong>，如对手并不知道你的具体手牌(有一部分状态未知)。在有状态未知的情况下，只能采取<strong>相对最优策略</strong>，没有所谓必胜或必败的概念</p>
+<p>若将各个状态表示为节点，则每一次合法操作均会将一个状态转移到另外一个状态，那么将这两个状态用边连接，从而得到一个有向图G。由于<strong>初态是给定的</strong>且<strong>最终目标状态(获胜状态)<strong>是唯一的，从而G是</strong>单源单汇有向图</strong>，即有且仅有一个出度为0和一个入度为0的顶点。</p>
+<p>一般地，<strong>在假定两个人都用最优策略的情况下</strong>，不会出现<strong>几个状态反复出现(这不会帮助他们获胜)</strong>(也不排除有些时候状态均不可逆)，从而可以规定G中无环。进而得到一个单源单汇的DAG(Directed Acyclic Graph).</p>
+<p>在很多情况下，我们研究Nim问题（回合制取物游戏），一般规定<strong>取走最后一个物品的人获胜</strong>或者<strong>轮到某人回合且该玩家无法做出合法操作为负</strong>，可以看到两种定义是等价的，而<strong>无法做出任何操作</strong>这个状态正是游戏的<strong>唯一最终态</strong>，也即为上述的<strong>汇点</strong>。</p>
+<p>对于该类问题，如果两个人均使用最优策略，那么游戏结果将由<strong>初态</strong>唯一确定，也即无论怎么操作，先手要么必胜，要么必败，这和具体的游戏过程无关(当然若有人不够bright，那么或许在某个节点他可能将把必胜状态拱手让人，这样对方一直采取最优策略，就能达到转败为胜)</p>
+<p>为了更好解决这类问题，我们通过下述例题引出<strong>必败点</strong>与<strong>必胜点</strong>的概念.</p>
+<h3 id="1-单堆nimbash-game">1 单堆Nim：Bash Game</h3>
+<p><strong>Problem</strong> ALice和Bob在玩取物游戏，规则是每次可以从n个石子里拿走1~3个，拿走最后一个石子的人获胜。若Alice先手且两个人均使用最优策略，对给定的n，Alice是必败还是必胜？</p>
+<p><strong>Analysis</strong>
+我们先确定<strong>游戏终点</strong>，显然当剩余石子为0时游戏结束。那么是否能够确定一些n使得先手必败呢?</p>
+<p>答案是显然的。当n=0时，Alice一上来就没有石子可以拿，属于必败；而n=1,2,3时Alice可以选择一把全拿走，这些状态Alice必胜，那么为什么在n=3时Alice不一次拿1个或2个，非要一次全拿走呢? 读者不难想到，这样使石子剩下1个或2个，轮到Bob时他全拿走，那么Alice必为负。将这一过程抽象出来———这种匪夷所思的操作，会让<strong>Bob进入必胜态(n=1,2)</strong>，从而导致Alice必败.</p>
+<p>那么接下来看n=4，此时无论Alice拿1,2,3个，均会导致Bob接手时剩余1,2,3个，即均为Bob的必胜态。即<strong>n=4时Alice无法通过一次操作把棋局变为必败态送给Bob</strong>，或者反过来说，<strong>Alice不论怎么操作都会让Bob必胜</strong>。</p>
+<p>因此可得这样的结论：</p>
+<ul>
+<li><strong>在零和博弈中，Alice必胜则Bob必败；反之亦然</strong></li>
+<li><strong>当无法通过一次合法操作将当前状态S变为对手的必败态时，S为必败态</strong> (也可表述为：不论如何操作S为S&rsquo;，S&rsquo;到对手手上都是必胜态)</li>
+<li><strong>当存在一个合法操作能将当前状态S变为对手的必败态时，S为必胜态</strong>
+注意这里的表述，必败的要求是<strong>任意</strong>操作都不能到必败态，必胜的要求则简单得多，只需要<strong>存在</strong>一种操作转成必败态，这体现了人的主观能动性(即一直采取能赢的最优策略)</li>
+</ul>
+<p>如下图，DAG中蓝色、红色节点表示必胜态、必败态，箭头表示通过合法操作后的状态转移方向，只有蓝色箭头代表的操作能够将必败态送给对方，从而使自己获胜。其中1,2,3,5均有一个蓝色箭头，从而为必胜态；4则没有，从而为必败态。
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/topo/01.jpg" >
+   
+   
+ </div>
+</p>
+<p>不难归纳假设，n为4的倍数时先手必败，其余均为先手必胜。从而对Alice而言，她的获胜期望为3/4.</p>
+<p>我们可作如下推广，若一次可以取1~m个石子，则m|n时先手必败，反之必胜。先手获胜期望为<strong>1-1/m</strong>.</p>
+<h3 id="2-棋盘移动游戏">2 棋盘移动游戏</h3>
+<p><strong>Problem</strong>  在一个m×n的棋盘中，出发点为(0,0), Alice和Bob轮流移动棋子，但只能向下或向右移动1格以及向右下角移动1格，将棋子移动到终点(m,n)的那个人获胜， 若Alice先手且两个人均使用最优策略，问：对给定的m和n，Alice是必败还是必胜？</p>
+<p><strong>Analysis</strong> 可考虑动态规划. 可知起点即终点时(m=0,n=0)时Alice必败，当走一步就能获胜时Alice必胜(对应(1,0),(0,1),(1,1)三种状态)，DAG如下：
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/topo/02.jpg" >
+   
+   
+ </div>
+
+p.s. 此处是倒过来考虑问题，考虑到达终点前一步的状态；再考虑到达终点前几步的状态，不难得到最右一列、最下一行必胜必败交替出现，即：
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/topo/03.jpg" >
+    
+    
+  </div>
+
+根据必胜必败的概念，依次将能够确定的状态先确定，得到：
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/topo/04.jpg" >
+    
+    
+  </div>
+
+从而得到，<strong>只有行列为偶数时</strong>Alice先手必败，反之必胜。容易得到当m,n随机分布时，Alice获胜期望为3/4.</p>
+<p><strong>变式</strong> 若不能向右下方移动，则Alice的期望降为1/2.</p>
+<p>综上，必胜和必败的状态，其实是一种<strong>平衡</strong>的关系。在前面两个例子中，当Alice把必败态给Bob时，无论Bob怎么操作，Alice都可以再把必败态还给Bob. 而<strong>总体操作数是有限的(如例1中石子不可能无限次拿，例2棋子不能走无限远)，最后一个给到Bob的必败态一定是游戏终点</strong>，从而保证Alice必胜.</p>
+<h3 id="3-sg函数">3 SG函数</h3>
+<p>现在将Bash Game中的问题进一步抽象以便于解决情况更为复杂的问题：
+我们定义<code>mex(X)</code>函数(minimum excludant)，其中X是一个<strong>非负整数集合</strong>，对应函数值是<strong>X中未出现的最小非负整数</strong>
+现在用<strong>SG(X)<strong>来</strong>量化必胜态和必败态</strong>，即我们判断的状态不再是0,1两种可能，而是包含更多信息</p>
+<p>我们定义，<strong>SG(X)=mex({SG(X&rsquo;)})</strong>，其中X&rsquo;为X通过一次操作能到达的状态，以Bash Game为例，定义n=k为状态k，从而</p>
+<p><strong>sg(0)=0, sg(1)=mex({sg(0)})=mex({0})=1, sg(2)=mex({sg(0),sg(1)})=2</strong></p>
+<p><strong>sg(3)=mex({0,1,2})=3, sg(4)=mex({1,2,3})=0</strong></p>
+<p>容易发现，若定义ICG游戏终点对应状态为0，则有：</p>
+<ul>
+<li>sg(x)=0时，该状态为先手必败态</li>
+<li>sg(x)≠0时，该状态为先手必胜态</li>
+</ul>
+<p>下面证明上述结论：</p>
+<ol>
+<li>sg(x)=0，即没有一个操作能够将其转换为必败态给对方</li>
+<li>sg(x)≠0，由sg函数定义，必存在一个操作能将x转为必败态，成立</li>
+</ol>
+<h3 id="4-nim-game与sg定理">4 Nim Game与SG定理</h3>
+<p>现在将Bash Game进一步复杂化，得到Nim Game.
+<strong>Problem</strong> 现在给定n堆石子，每一堆的石子数目也给定。若现在Alice和Bob<strong>每次需要在一堆石子中拿石子，数量没有限制(但一定要拿)</strong>，拿走最后一个石子的人获胜，若Alice先手且两个人均使用最优策略，对给定的n，Alice是必败还是必胜？</p>
+<p>可以发现，该问题实质上是<strong>组合博弈问题</strong>，即</p>
+<ul>
+<li>一整个游戏可以分为多个子游戏(存在子结构)</li>
+<li>每堆石子之间互不干扰(子结构相互独立)</li>
+<li>整个游戏结束当且仅当所有子游戏结束</li>
+<li>每个回合玩家只能操作一个子游戏</li>
+</ul>
+<p>从而可应用SG定理，即 <strong>群(X,∪)和群(SG(X),⊕)构成群同态</strong>  (⊕为二进制的异或)
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/topo/05.jpg" >
+    
+    
+  </div>
+
+对SG定理，需要用群论的知识——<strong>博弈群</strong>进行严格证明，放在文末.</p>
+<p>也就是说，我们只需将其进行拆分，考虑每一堆石子，显然sg(k)=k(k为任意正整数)
+从而整体的sg值为<strong>各堆石子数异或的结果</strong>，只有不为0时Alice才必败，我们看下不严谨的证明得到一个感性认识：</p>
+<ul>
+<li>整体异或为零，则任何操作都会导致整体异或非零 (这和必败态不可能通过操作把必败态给对方同个意思)</li>
+<li>整体异或非零，则一定存在一个操作使得整体异或为零  (这和必胜态一定能把必败态送给对方同个意思)</li>
+</ul>
+<p><strong>[prerequisite]</strong> 异或的性质(相同为0，相异为1)：1^1=0^0=0，0^1=1^0=1且满足<strong>交换律和结合律</strong>；n个数异或后的结果的第k位为1，则这n个数中一定有<strong>奇数个</strong>数在第k位为1.</p>
+<p>设操作前为ai，操作后为b</p>
+<ol>
+<li>
+<p>证明1：<strong>注意我们每一次只能改变其中一个状态(不能同时操作多堆石子)</strong>，从而
+由于状态无环，从而前后状态一定不等，<strong>反证：假设异或后整体为零</strong>
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/topo/06.jpg" >
+    
+    
+  </div>
+
+故ai=b，矛盾！</p>
+</li>
+<li>
+<p>证明2：假设整体异或结果s中二进制最高位为第k位，那么<strong>所有状态里面一定存在奇数个第k位为1</strong>，从中选一个有t个石子的堆，一定可从石子堆中取m个(m&lt;t)使得当t换为m时整体异或（mex函数的定义）</p>
+</li>
+</ol>
+<p>故而本题代码很简洁：
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Nim</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">Nim</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool judge(vector&lt;int&gt;&amp; nums){
+	int res = 0;
+	for(auto e:nums)	res^=e;
+	return e? true:false;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="5-more-games">5 More Games</h3>
+<h4 id="problem-a-another-nim-game">Problem A Another Nim Game</h4>
+<p><strong>Problem</strong>  假设有n堆石子，每堆当中有若干个石子。两人轮流取石子，可以<strong>从任意一堆石子当中取走若干个石子，或者是选择一堆大于1颗的石堆将拆分成两堆</strong>。最后无法取走石子的人落败。问：对给定的n个石堆，先手的胜负.</p>
+<p><strong>Analysis</strong> 本题仍可将n堆石子当成n个独立子游戏，而带来麻烦的石堆拆分实际上可以相当于<strong>从一个子游戏分裂成2个子游戏</strong>，仍可套用SG定理，即设当前石子有n个，则sg(i+j)=sg(i)^s(j), 其中i+j=n.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Nim</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">Nim</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int mex(unordered_set&lt;int&gt; s){
+	for(int i=0;i&lt;nums.size();i&#43;&#43;)
+		if(s.find(nums[i])==s.end())	
+			return i;
+	return nums.size();
+}
+//记录单独一堆有m个石子的sg函数值，再当作n个独立子游戏取异或
+int sg(int m){
+	unordered_set&lt;int&gt; sgs(max,-1);
+	//记录下如果不分裂堆的sg函数值，如本题sg_ori=i
+	for(int i=0;i&lt;m;i&#43;&#43;)	sgs.insert(sg_ori(i)); 
+	//记录分裂后的sg函数值
+	for(int i=0;i&lt;m;i&#43;&#43;)	sgs.insert(sg_ori(i)^sg_ori(m-i));
+	//在两类操作对应的状态值中找mex值
+	sg[m]=mex(sgs);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-b-棋盘游戏ii">Problem B 棋盘游戏II</h4>
+<p><strong>Problem</strong> 给定一个m×n棋盘，每一行均放有一个黑子和白子(初始放置位置已知)，若黑子先手，且每次操作必须且仅能横向移动一个棋子且不能跨越另外一个棋子，当有一名玩家轮到且无法移动任何一枚棋子时为负。问：对给定的初始摆放位置，黑子的胜负.
+
+  
+  
+  <div class="figure center" >
+    
+      <img class="fig-img" src="https://Supradax.github.io/img/topo/07.jpg" >
+    
+    
+  </div>
+
+<strong>Analysis</strong> 确定终止状态，当所有黑子和白子紧靠一起时，先手必败. 因为后手可以跟着先手一起动，直至将其逼至墙角. 所以等价于<strong>有n堆石子（这里石子表示每一行的独立子游戏），每次只能从中取1~n个(等价于移动距离)</strong></p>
+<p>下面介绍一些除了Nim外的经典问题，一般对此类问题先用sg函数打表观察出结论(可用归纳和反证证明)：</p>
+<h4 id="problem-c-wythoffs-game">Problem C Wythoff&rsquo;s Game</h4>
+<p><strong>Problem</strong>  假设有2堆数量分别为m,n的石堆，Alice和Bob轮流进行（Alice先手），<strong>每次可以从一个石堆中取任意个或同时从两堆取相同个</strong>，问：m,n给定的情况下，Alice的胜负情况.
+看两个数的差值t是不是满足  (sqrt(5)+1)/2*t==min(n1,n2);</p>
+<h4 id="problem-d-fibonaccis-game">Problem D Fibonacci&rsquo;s Game</h4>
+<p>先手胜当且仅当n不是斐波那契数</p>
+<h4 id="problem-e-环形博弈">Problem E 环形博弈</h4>
+<p>n个石子围成一个环,每次取一个或者取相邻的2个
+​​​​​​​石子数目小于等于2 先手胜，其他 后手胜</p>
+<p><strong>变式</strong> 对称博弈：n个石子围成环,每次只能取相邻的1~k个
+如果k &lt; n： 对k=1,如果n能被2整除,则后手赢；如果k&gt;1,后手赢（先手取什么位置后手就取对称的位置，这样保证后手永远能取到)
+如果k&gt;=n： 先手赢.</p>
+<h3 id="6-树上博弈与博弈dp">6. 树上博弈与博弈DP</h3>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/game/">Game</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="PREVIOUS: [Algorithm]DFS and BackTracing, BFS">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmgame-theory-primary\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmgame-theory-primary\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="PREVIOUS: [Algorithm]DFS and BackTracing, BFS">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmgame-theory-primary%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmgame-theory-primary%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmgame-theory-primary%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -324,7 +324,7 @@ Principle DE starts with an initial population of candidate solutions, which are
 <li><strong>Initialize the population</strong>.  Create N individuals randomly within the search space</li>
 <li><strong>Evaluate the fitness</strong>	Evaluate the fitness of each individual in the population based on the objective function to optimize</li>
 <li><strong>Mutation</strong> Generate a trial vector by combining the vectors of <strong>3 randomly selected individuals in the population</strong> The trial vector is created as follow. <strong>X=A+SF×(B-C)</strong> where A,B,C are three individuals in the population and X is the one generated.</li>
-<li><strong>Crossover</strong> Perfrom crossover between the trail vector and the original target vector Y using a <strong>random binary mask</strong> to select which elements of trail vector to keep.</li>
+<li><strong>Crossover</strong> Perfrom crossover between the trial vector and the original target vector Y using a <strong>random binary mask</strong> to select which elements of trial vector to keep.</li>
 <li><strong>Selection</strong> Compare the fitness of the trial vector X and the original target vector Y. If the trial vector performs better, then replace Y with X in the next generation; otherwise, simply keep Y and cast away X.</li>
 <li><strong>Repeat</strong> Repeat step 2-5 until a termination condition is met.</li>
 </ol>
@@ -404,12 +404,12 @@ bounds =[(-5,5)]*10 #ten dimensions
 # Preset the parameters 
 def differential_evolution(f, bounds, popsize=20, maxiter=1000,F=0.8,CR=0.7):
 #Generate initial population
-	pop=np.random.rand(pop.size,len(bounds))	#the image field is [0,1]
+	pop=np.random.rand(popsize,len(bounds))	#the image field is [0,1]
 	min_b, max_b = np.asarray(bounds).T
 	diff = np.fabs(max_b-min_b)
 	pop_denorm = min_b&#43;pop*diff  #we use denormalized number to enhance the accuracy
 #Evalute initial population
-	cost = np.asarray(f(i) for i in pop_denorm) #index is short for idx
+	cost = np.asarray([f(i) for i in pop_denorm]) #index is short for idx
 	best_idx = np.argmin(cost)
 	best = pop_denorm[best_idx]
  
@@ -428,14 +428,14 @@ def differential_evolution(f, bounds, popsize=20, maxiter=1000,F=0.8,CR=0.7):
 			
 			#If the mask is less then CR and we take the mutant as the trial 
 			trial = np.where(mask,mutant,pop[j])
-			trail_denorm = min_b &#43; trial*diff  
+			trial_denorm = min_b &#43; trial*diff  
 			
 			#Selection
-			f_trial = f(trail_denorm)
+			f_trial = f(trial_denorm)
 			if f_trial &lt; cost[j]: #if the trial work better
 				pop[j]=trial
 				cost[j]=f_trial
-				if f_trail&lt;cost[best_idx]: #the mutation gets quite successful
+				if f_trial&lt;cost[best_idx]: #the mutation gets quite successful
 					best_idx = j
 					best = trial_denorm	
 			

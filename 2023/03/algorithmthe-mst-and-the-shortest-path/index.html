@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]The MST and the Shortest Path",
+  
+  "image": "https://Supradax.github.io/img/treedp.jpg",
+  
+  "datePublished": "2023-03-25T00:00:00Z",
+  "dateModified": "2023-03-25T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmthe-mst-and-the-shortest-path\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "MST, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="MST, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.">
+
+
+<meta property="og:description" content="MST, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]The MST and the Shortest Path">
+<meta name="twitter:title" content="[Algorithm]The MST and the Shortest Path">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="MST, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.">
+<meta name="twitter:description" content="MST, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-25T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-25T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="Optimization">
+    
+  
+  
+    
+      <meta property="article:tag" content="Optimization">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+
+
+    <title>[Algorithm]The MST and the Shortest Path</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]The MST and the Shortest Path
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-25T00:00:00Z">
+        
+  March 25, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/optimization">Optimization</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>MST</strong>, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.</p>
+<p>Though the mst is not unique, but we only need one and that&rsquo;s enough. The most common two algorithms is Prim&rsquo;s and Kruskal&rsquo;s.</p>
+<h2 id="1-template-prim-algorithm-and-kruskal-algorithm">1 Template: Prim Algorithm and Kruskal Algorithm</h2>
+<p>The Prim&rsquo;s adpot a greedy idea &ndash; begin from an arbitrary node and then add its adjacent edges in. Then we pick out the one with the least weight where means we need to use <strong>priority queue or min-heap</strong> to cope with each edge. And if there is no replicated edges which connect two nodes in the current tree, we put them in until each node lies inwards.</p>
+<p>And we code:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Prim</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typedef struct Edge{
+	int u,v,w;
+	//compare the e with this-&gt;e
+	bool operator&lt;(const edge&amp; e) const{return e.w&lt;w;}
+};
+vector&lt;vector&lt;Edge&gt;&gt; adj(N);
+bool in[N] = {false};
+priority_queue&lt;Edge&gt; q;
+
+/*main*/
+	for(auto e:adj[1])	q.push(e); //initialize
+	in[1]=true, cnt=0, ans=0;
+	while(cnt!=n-1){
+		while(in[q.top().u]&amp;&amp;in[q.top().v])	q.pop();
+		int u=q.top().u, v=q.top().v, w=q.top().w; 
+		q.pop();//pop as soon as possible
+		int newNode = in[a] ? b:a;
+		for(auto e:adj[newNode])	q.push(e);
+		ans&#43;=w, cnt&#43;&#43;;
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>As for the <strong>Kruskal&rsquo;s</strong>, it first traverses all edges in the graph and sort them up in the ascending order. Each time we pick out one from the top of min-heap and add it to the MST if it is valid(We use disjoint set union here to check whether or not the two endpoints have the same parent).
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Kruskal</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typedef struct Edge{
+	int u,v,w;
+	bool operator&lt;(const Edge&amp; e) const{return e.w&lt;w;}
+};
+vector&lt;Edge&gt; ed;
+int parent[N];
+/*Disjoint Set Union*/
+int find(int x){return x==parent[x]?x:(x=parent[x]);}
+void merge(int x,int y){parent[find(x)]=find(y);}
+
+/*main*/
+	sort(ed.begin(),ed.end());
+	for(int i=0;i&lt;N;i&#43;&#43;)	parent[i]=i;
+	int cnt=0, vector&lt;Edge&gt; mst;
+	
+	for(auto e:ed){
+		int u=e.u, v=e.v, w=e.w;
+		if(find(u)!=find(v)){
+			merge(u,v);
+			mst.push_back(e), cnt&#43;=w;
+		}
+	}
+	</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Summary</strong> We notice that the Prim&rsquo;s <strong>begin from a node and stretch to the whole tree</strong> while the Kruskal&rsquo;s traverse all edges and <strong>assemble</strong> each one with no conflict against the previous ones.</p>
+<p>The overall complexity of Prim&rsquo;s ** O(V²) which suits dense graph** (But it depends on the data structure, it can also be O(VE)) while the Kruskal&rsquo;s is O(ElogE) which suits <strong>Sparse Graph</strong>(The most cost is the sorting of the edge weight).</p>
+<p>Note. <strong>The MST can&rsquo;t assure that the distance between each node is the least</strong> which means it can&rsquo;t replace the three shortest-path algorithms.</p>
+<h2 id="2-second-best-mst-and-kth-mst">2 Second-Best MST and Kth MST</h2>
+<p>One direct idea is to delete one edge from the MST and use the MST algorithm once again and sort them up whose complexity will be O(ElogE+VE)</p>
+<p>We have theorem here: <strong>the second-best MST has and only has one edge different from the MST</strong> which can be seen in the <em>Introduction to Algorithms</em>. Thus we only need to <strong>exchange an edge not in the MST for greatest edge in the MST if there is a cycle in the graph</strong> and if the weight are the same, we replace the second greatest instead.</p>
+<p>Note. The edge not in the MST can&rsquo;t be greater than the one to be exchanged; otherwise it is contradict against the MST(We can delete any edge in the cycle to get a tree).</p>
+<p>As for the kth we can only enumerate all combinations of edges and sort them up.</p>
+<h2 id="3-the-shortest-path-algorithm">3 The Shortest-Path Algorithm</h2>
+<p>The three well-known algorithms are: <strong>Dijkstra, Bellman-Ford ,Floyd-Warshall</strong>, we will bring them in the following three sections:</p>
+<h4 id="31-dijkstra-algorithm">3.1 Dijkstra Algorithm</h4>
+<p>It applies to the <strong>single-source</strong> shortest-path problem where <strong>all the edge weights are non-negative</strong>.</p>
+<ol>
+<li>initialize the distance between source <code>s</code> and each node as infinity.</li>
+<li>Traverse all the neighbors of the source and <strong>update the distance or relax the edge</strong> and choose the closet as <strong>the new source and take its current distance as the shortest</strong> (It can be proved correct)</li>
+<li>Keep on adding the neighbors and relax the edge if the d(s,a)+d(a,b) is less than d(s,b) and pick out the closet from the unfixed points as the new source.</li>
+<li>The process stop when the terminal is determined.</li>
+</ol>
+<p>The complexity is <strong>O((E+V)logV)</strong>.
+<strong>Pf.</strong> Each edge will be visited once and only once which makes the times of relaxtion e. And each time we need to <strong>add its weight into the min-heap which takes logV</strong> thus making one part ElogV. On the other hand, each node will be traversed once and only once as well(each time we determine one vertex) and finding the nearest vertex and maintain the heap costs logV as well thus making the other VlogV.</p>
+<p>And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Prim</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#define INF 0x3f
+/*pair: &lt;vertex, dist&gt;*/
+vector&lt;pair&lt;int,int&gt;&gt; adj[N];
+vector&lt;int&gt; dist(N,INF);
+vector&lt;bool&gt; vis(N,false);
+priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt;&gt;,greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+void dij(int start){
+	dist[start]=0, vis[start]=1;
+	pq.push({0,start});
+	while(!pq.empty()){
+		//the one on the top is the one to be determined in this cycle
+		int u=pq.top().second;
+		if(vis[u])	continue;
+		vis[u]=true;
+		for(auto v:adj[u]){
+			int to=v.first, w=v.second;
+			if(dist[to]&gt;dist[u]&#43;w){
+				dist[to] = dist[u]&#43;w;
+				pq.push(dist[to],to);
+			}
+		}
+	}
+}
+int main(){
+	/*...*/
+	while(m--){
+		int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+		adj[u].push_back(v,w);
+		adj[v].push_back(u,w);//if undirected
+	}
+	/*...*/
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>In the end, we prove its rationality. We divide in three parts:</p>
+<ol>
+<li>It can find the shortest one.
+If the graph is connected, the dijsktra will consider all paths from each neighbor which means it can traverse all the path if there exists.</li>
+</ol>
+<p>Suppose that it has already found the shortest path from s to v1,&hellip;,vi-1 and we want to show the vertex vi is still the shortest.
+And we assume that it is not, i.e. there exists the shortest path which has at least one vertex different from the determined S(it is obvious that the path we&rsquo;ve found is the shortest path in the set S). Then we let this distinguished point be <code>u</code>(<strong>u≠vi</strong>) and therefore <code>dist[u]&lt;dist[i]</code> which means vertex u is supposed to be in the set S this time instead of vi. It contradicts.</p>
+<ol start="2">
+<li>It can&rsquo;t deal with graphs which has negative weight edge.
+Dijkstra&rsquo;s algorithm may not work correctly because it relies on the fact that the shortest path to a node is always the path with the smallest cumulative weight. However, negative weight edges can lead to situations where a longer path with positive weights has a smaller cumulative weight than a shorter path with negative weights, making the algorithm choose the wrong path.</li>
+</ol>
+<p>For instance, if A→B,B-&gt;C,A-&gt;C with weight 1,-2,0 then it is easy to see that it will choose A-&gt;C in the first case instead of A→B-&gt;C whose weight is -1.</p>
+<p>To trace back the shortest path, we only need to use <strong>link list</strong>. For instance, if we find d(v2,v4)+e is the least and then we make v2 the parent of v4.</p>
+<p><strong>Sample Problem</strong> What is the amount of each shortest path from the source to a certain node?</p>
+<p><strong>Analysis</strong> We can adopt a shortest-path algorithm and embed the counter inside. And Dijkstra is the best option. Each time we stretch our determined set, say, the added vertex is <code>z</code>, if we have <code>e[x1]+dis[x2]=e[y1]+dis[y2]</code> then the counter is <code>cnt[z]=cnt[x2]+cnt[y2]</code>.</p>
+<h4 id="32-bellman-ford">3.2 Bellman-Ford</h4>
+<p>Bellman-Ford is also applied to figure out the shortest path to <strong>each vertex from a source</strong>. However, it can handles cases where the given graph contains negative edges.</p>
+<p>The algorithm operates by relaxing all the edges in the graph repeatedly which means updating the distance from the destination and the source if a shorter path is found. We traverse all the V vertices thus running for V-1 iterations to ensure all the possible paths are considered. It is easy to see we have experienced V-1 iterations and search E edges each time,making the complexity <strong>O(VE)</strong>.</p>
+<p>If there is a negative cycle in the graph, then in the Vth iteration we will discover that there <strong>exist at least one vertex whose distance is still on the decline</strong> thus making its shortest distance negative infinity.</p>
+<p>To prove its rationality, we can use the principle of mathematical induction. We assume that the shortest distances from s to vertex 1,2..,i-1 are founded and want to show that the path to vertex i is also found.</p>
+<p><strong>Pf.</strong> Suppose that the shortest path to vertex i is not found after the i-1 iteration. This means that there is a path from the source vertex to vertex i that is shorter than the path found by the algorithm. Let that path be S-&gt;X-&gt;i, where X is some intermediate vertex on the path.</p>
+<p>Since the shortest path to all vertices up to i-1 has been found, the shortest path to vertex X must have been found in some earlier iteration and it has been relaxed by a certain edge (u,X) which means the shortest from s to X has been computed and won&rsquo;t change in the subsequent iterations.</p>
+<p>Let X be the neighbor of i and in the next iteration we try all edges and take the minimum among all determined X. And the path S-&gt;X-&gt;i is just the one we find, which contradicts our assumption.</p>
+<p>And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Bellman-Ford</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">struct Edge{
+	int from, to, w;
+}
+vector&lt;Edge&gt; ed;
+vector&lt;int&gt; dist(N,INF);
+void BellmanFord(int n, int s){
+	dist[s]=0;
+	for(int i=1;i&lt;=n;i&#43;&#43;)
+		for(auto e:ed)
+			if(dist[e.from]!=INF)	//to avoid improper updates
+				dist[e.to] = min(dist[e.to],dist[e.from]&#43;e.w);
+	
+	//Another loop to examine the existence of negative cycle
+	for(auto e:ed)
+		if(dist[e.from]!=INF)
+			if(dist[e.to]&gt;dist[e.from]&#43;e.w)
+				cout&lt;&lt;&#34;Exist!&#34;&lt;&lt;endl;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>To optimize the algorithm, we can break out from the loop if there is no updates in a certain iteration.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Bellman-Ford</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">dist[s]=0;
+for(int i=1;i&lt;=n;i&#43;&#43;)
+	bool flag = false;
+	for(auto e:ed){
+		if(dist[e.from]!=INF &amp;&amp; dist[e.to]&gt;dist[e.from]&#43;e.w){	//to avoid improper updates
+			dist[e.to] = dist[e.from]&#43;e.w;
+			flag =true;
+		}
+		if(!flag)	break;
+	}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="33-floyd-warshall-algorithm">3.3 Floyd-Warshall Algorithm</h4>
+<p>As for the Floyd-Warshall algorithm, we use the idea of DP to detect all posibilities where <strong>it can be shorter by detouring through another vertex</strong>. Take such a tensor into account <code>dist[i][j][k]</code> where it means the distance from i to j passing k and <strong>k here is not necessary</strong> and therefore we use <strong>state compression</strong> to diminish the space complexity but not the time complexity which is still <strong>O(V³)</strong>.</p>
+<p>Although it can also cope with graph with negative edges, the downside is that it takes up too much resource when we simply want to compute the one-source distance. <strong>But when it comes to compute the distance matrix between each two nodes</strong>, Floyd definitely stands out.</p>
+<p>To detect the existence of negative cycle, it is totally the same as Bellman-Ford algorithm.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Floyd-Warshall</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void floyd(int n){
+	vector&lt;vector&lt;int&gt;&gt; dist(n,vector&lt;int&gt;(n,INF));
+	//Graph represented as an adjacency matrix and initialize
+	for(int i=0;i&lt;n;i&#43;&#43;)
+		for(int j=0;j&lt;n;j&#43;&#43;)
+			dist[i][j]=graph[i][j];
+			
+	for(int k=0;k&lt;n;k&#43;&#43;)
+		for(int i=0;i&lt;n;i&#43;&#43;)
+			for(int j=0;j&lt;n;j&#43;&#43;)
+				if(dist[i][k]!=INF &amp;&amp; dist[i][k]&gt;dist[i][j]&#43;dist[j][k])
+					dist[i][k]=dist[i][j]&#43;dist[j][k];
+	//to detect negative cycle you need to execute the triple-loop above
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Sample Problem</strong> Rebuilding.
+<strong>Problem</strong> There is n villages and m roads. After the earthquake each villages need different period of time to rebuild. Now for each query, you need to tell the shortest distance from the two villages. If you need to pass other villages, you have to ensure these villages already rebuilt. If there is no road at all or one of two villages hasn&rsquo;t done its rebuilding work, return -1 instead.</p>
+<pre tabindex="0"><code>Input:
+4 5			&lt;ammount of villages and roads&gt;
+1 2 3 4		&lt;time&gt;
+0 2 1	2 3 1	3 1 2	2 1 4	0 3 5	&lt;roads:from,to,dist&gt;
+4	&lt;amount of querys&gt;
+2 0 2	0 1 2	0 1 3	0 1 4 	&lt;from,to,time&gt;
+Output:
+-1 -1 5 4
+</code></pre><p><strong>Analysis</strong> Because we need to take the whole net into account, it is appropriate to use floyd algorithm.This problem needs us to first initialize those villages whose time for rebuilding is zero, in other words, adpot floyd algorithm at first. Differently, we replace the triple loop <code>for(int l=0;l&lt;n;l++) where l is i,j,k</code> with <code>for(auto e:undestroyed)</code></p>
+<p>Then as the time go on, we don&rsquo;t need to execute floyd each time which makes it quite inefficient. Instead, in light of the original idea&ndash;dp, we consider whether it is possible to decrease the distance by detouring a newly-rebuilt village.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">undestroyed.push_back(newlyRebuilt);
+//initialize once again
+for(int j=0;j&lt;n;j&#43;&#43;)
+	dist[newlyRebuilt][j]=dist[j][newlyRebuilt]
+	graph[newlyRebuilt][j];
+	
+for(auto i:undestroyed)
+	for(auto j:undestroyed)
+		if(dist[i][j]!=INF)
+			if(dist[i][j]&gt;dist[i][newlyRebuilt]&#43;dist[newlyRebuilt][j])
+					dist[i][j]=dist[i][newlyRebuilt]&#43;dist[newlyRebuilt][j];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimization/">Optimization</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmscanning-line/" data-tooltip="[Algorithm]Scanning Line" aria-label="NEXT: [Algorithm]Scanning Line">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="PREVIOUS: [Algorithm]DFS and BackTracing, BFS">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmthe-mst-and-the-shortest-path\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmthe-mst-and-the-shortest-path\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmscanning-line/" data-tooltip="[Algorithm]Scanning Line" aria-label="NEXT: [Algorithm]Scanning Line">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/" data-tooltip="[Algorithm]DFS and BackTracing, BFS" aria-label="PREVIOUS: [Algorithm]DFS and BackTracing, BFS">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmthe-mst-and-the-shortest-path%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmthe-mst-and-the-shortest-path%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmthe-mst-and-the-shortest-path%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

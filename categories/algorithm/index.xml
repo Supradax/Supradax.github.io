@@ -6,7 +6,24 @@
     <description>Recent content in Algorithm on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Tarjan Algorithm</title>
+      <link>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</link>
+      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tarjan Algorithm&lt;/strong&gt;, 主要用于求解强连通分量相关问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Strongly Connected Components&lt;/strong&gt;，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；&lt;strong&gt;Weakly Connected Components&lt;/strong&gt;，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。&lt;/p&gt;
+&lt;p&gt;Tarjan算法中，我们定义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Tree Edge&lt;/strong&gt; 树边，即DFS搜索树上的边**(Black)**&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Front Edge&lt;/strong&gt; 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Back Edge&lt;/strong&gt; 后向边，与DFS方向相反，指回某些父节点的边**(Red)**&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross Edge&lt;/strong&gt; 横叉边，从DFS搜索子树指向另一子树的边**(Green)**&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
     <item>
       <title>[Algorithm]Game Theory: Primary</title>
       <link>https://Supradax.github.io/2023/03/algorithmgame-theory-primary/</link>
@@ -14,6 +31,24 @@
       
       <guid>https://Supradax.github.io/2023/03/algorithmgame-theory-primary/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Scanning Line</title>
+      <link>https://Supradax.github.io/2023/03/algorithmscanning-line/</link>
+      <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmscanning-line/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]The MST and the Shortest Path</title>
+      <link>https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/</link>
+      <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;MST&lt;/strong&gt;, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.&lt;/p&gt;</description>
     </item>
     
     <item>

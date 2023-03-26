@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Tarjan Algorithm",
+  
+  "image": "https://Supradax.github.io/img/treedp.jpg",
+  
+  "datePublished": "2023-03-26T00:00:00Z",
+  "dateModified": "2023-03-26T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmtarjan-algorithm\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "Tarjan Algorithm, 主要用于求解强连通分量相关问题。\nStrongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。\nTarjan算法中，我们定义：\nTree Edge 树边，即DFS搜索树上的边**(Black)** Front Edge 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)** Back Edge 后向边，与DFS方向相反，指回某些父节点的边**(Red)** Cross Edge 横叉边，从DFS搜索子树指向另一子树的边**(Green)** ",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
+Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
+Tarjan算法中，我们定义：
+
+Tree Edge 树边，即DFS搜索树上的边**(Black)**
+Front Edge 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**
+Back Edge 后向边，与DFS方向相反，指回某些父节点的边**(Red)**
+Cross Edge 横叉边，从DFS搜索子树指向另一子树的边**(Green)**
+">
+
+
+<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
+Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
+Tarjan算法中，我们定义：
+
+Tree Edge 树边，即DFS搜索树上的边**(Black)**
+Front Edge 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**
+Back Edge 后向边，与DFS方向相反，指回某些父节点的边**(Red)**
+Cross Edge 横叉边，从DFS搜索子树指向另一子树的边**(Green)**
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Tarjan Algorithm">
+<meta name="twitter:title" content="[Algorithm]Tarjan Algorithm">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
+Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
+Tarjan算法中，我们定义：
+
+Tree Edge 树边，即DFS搜索树上的边**(Black)**
+Front Edge 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**
+Back Edge 后向边，与DFS方向相反，指回某些父节点的边**(Red)**
+Cross Edge 横叉边，从DFS搜索子树指向另一子树的边**(Green)**
+">
+<meta name="twitter:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
+Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
+Tarjan算法中，我们定义：
+
+Tree Edge 树边，即DFS搜索树上的边**(Black)**
+Front Edge 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**
+Back Edge 后向边，与DFS方向相反，指回某些父节点的边**(Red)**
+Cross Edge 横叉边，从DFS搜索子树指向另一子树的边**(Green)**
+">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-26T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-26T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="Optimization">
+    
+  
+  
+    
+      <meta property="article:tag" content="Optimization">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+      <meta property="article:tag" content="Graph">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+
+
+    <title>[Algorithm]Tarjan Algorithm</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Tarjan Algorithm
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-26T00:00:00Z">
+        
+  March 26, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/optimization">Optimization</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Tarjan Algorithm</strong>, 主要用于求解强连通分量相关问题。</p>
+<p><strong>Strongly Connected Components</strong>，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；<strong>Weakly Connected Components</strong>，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。</p>
+<p>Tarjan算法中，我们定义：</p>
+<ul>
+<li><strong>Tree Edge</strong> 树边，即DFS搜索树上的边**(Black)**</li>
+<li><strong>Front Edge</strong> 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**</li>
+<li><strong>Back Edge</strong> 后向边，与DFS方向相反，指回某些父节点的边**(Red)**</li>
+<li><strong>Cross Edge</strong> 横叉边，从DFS搜索子树指向另一子树的边**(Green)**</li>
+</ul>
+<h2 id="1-lcm">1 LCM</h2>
+<p>相较直接dfs再用栈比较路径，tarjan算法对于LCM问题效率更高且支持在线计算
+p.s. offline即需要所有输入才能输出结果，online则为边输入边出结果</p>
+<p>具体思路为<strong>利用并查集和dfs</strong>，向下查找时将</p>
+<p>
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>LCM</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; e[N]; //边集
+vector&lt;pair&lt;int,int&gt;&gt; query[M]; //查找序列
+pair&lt;int,int&gt; p[N], vis[N]={0}, ans[M]; //p初始化为自指
+
+int find(int x){return x==p[x]?x:(x=find(p[x]));}
+void tarjan(int u,int h){//h为此时树高	
+	vis[u]=true;
+	for(auto v:e[u]){
+		if(!vis[v]){
+			tarjan(v,h&#43;1);
+			//相当于将整棵树反向建静态链表
+			p[v]={u,h};
+		}	
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+从而对应任意(i,j)只需使用先将高度对齐，再使用同步双指针即可.</p>
+<h3 id="2-scc">2 SCC</h3>
+<p>在LCM的基础上，我们定义时间戳timestamp，即深搜到时的时间(次序)，再定义<strong>追溯值low[]</strong>，即可达的最早时间节点。可以发现，若可达时间更早的节点v，则意味着<strong>二者一定相互可达(dfs树一定存在连通唯一路径，再加上探测到的到达v的路径)</strong></p>
+<p>从而可知，树边负责构建dfs树，前向边<strong>必然成环且能更新可达最早时间low[]</strong>，横叉边<strong>可能</strong>能够连通两个子树从而更新，但<strong>后向边没有意义</strong>，因为指向后向边并不能带来更早时间(子节点自身时间一定不会早于父节点)</p>
+<p>通过更新完所有的追溯值，可知<strong>同个强连通分量中的low值相同，但有且仅有一个结点的初始dfn值与low值相同</strong>。因此可以通过<strong>栈</strong>使得同个SCC中时间最早的结点在底下，余下low值与之相同的结点在上方，不断弹栈直到<code>dfn[x]=low[x]</code>即得到一个SCC.</p>
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/11.jpg" >
+  
+  
+</div>
+
+<p>整体算法逻辑为：</p>
+<ol>
+<li>入：对节点dfs，确定当前访问时间，探测其所有邻边</li>
+<li>回：若邻边指向节点未访问，则进一步dfs(树边)；若邻边指向节点已访问且在栈中，则尝试更新low值</li>
+<li>离：弹栈取出对应的SCC
+可知算法复杂度为O(V+E)(每个点都尝试，每个点的邻边都遍历)</li>
+</ol>
+<p>Note. 注意区分：在栈中 和 未访问，前者用instk[]记录，后者根据dfn值即可判断
+p.s. 若查找无向图的CC，则只需将所有无向边更换为双向有向边；但查找无向图连通分量用并查集可高效实现</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>SCC</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; e[N];	//邻接表
+vector&lt;vector&lt;int&gt;&gt; scc;	//存储
+int dfn[N]={0}, low[N]={0}, instk[N]={0}, ts=1; //time stamp
+stack&lt;int&gt; st;
+
+void tarjan(int x){
+	//入x，盖戳入栈
+	dfn[x]=low[x]=ts&#43;&#43;;
+	st.push(x), instk[x]=true;
+	for(auto v:e[x]){
+		if(!dfn[x]){	//树边
+			tarjan(v);
+			low[x]=min(low[x],low[y]);
+			//该边可能有前向或横叉边能降低
+		}
+		else if(instk[v]) //前向或横叉边，直接降低
+			low[x]=min(low[x],dfn[y]);
+	}
+	//离：记录scc
+	if(dfn[x]==low[x]){
+		vector&lt;int&gt; cur;
+		do{	//do while保证SCC的根结点被获取
+			cur.push_back(st.top());
+			st.pop();
+		}while(low[st.top()]!=dfn[st.top()]);
+		scc.push_back(cur);	
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h3 id="3-割点与割边">3 割点与割边</h3>
+<p>对割点割边而言，强连通分量内部不可能出现割点和割边，只可能在两个强连通分量之间出现。</p>
+<p>对于割点，我们断言：</p>
+<ul>
+<li>若x不是根，则x是割点当且仅当其子树上存在y使得low[y]≥dfn<input checked="" disabled="" type="checkbox"> </li>
+<li>若x是根，则x是割点当且仅当存在两个节点使得low[y]≥dfn<input checked="" disabled="" type="checkbox"> </li>
+</ul>
+<p><strong>pf.</strong></p>
+<ol>
+<li>若x不是根，若low[y]&gt;dfn<input checked="" disabled="" type="checkbox"> ，即y无法到达比x更早的节点，意味着y和x属于两个SCC(记作e,f)，缩点后为e(含x)-&gt;f(含y)，从而割掉x使得两个SCC分离；若恰好low[y]=dfn<input checked="" disabled="" type="checkbox"> ，即x是某个SCC的根节点，则只要x不是整棵dfs树的根节点，那么x所在SCC会和父节点所在SCC分离</li>
+<li>若x是根，则需要两个节点，这是因为如果只有一个节点，以low[y]=dfn<input checked="" disabled="" type="checkbox"> 为例，则根节点只有y一个子结点，从而导致删去x后仍连通</li>
+</ol>
+<p>对于割边，我们断言：</p>
+<ul>
+<li>则(x,y)是割边当且仅当其子树上的一点y使得low[y]&gt;dfn<input checked="" disabled="" type="checkbox"> </li>
+</ul>
+<p><strong>pf.</strong>  显然low[y]&gt;dfn[x]时属于两个SCC，从而一定是割边；但相等时由于同属一个SCC，根据SCC定义， x,y必然在某个环上，而环的任何一条边都不是割边</p>
+<p>可以发现，与割点判定相比，割边对<strong>根节点</strong>不作要求且不能相等，这是点和边的定义的差异.</p>
+<p>至于具体代码，只需在原有tarjan算法加以判断即可. 但有以下细节需要注意：</p>
+<ul>
+<li>对<strong>有向图</strong>，割点和割边只需直接加以判断</li>
+<li>对<strong>无向图</strong>，更新low值要求存在不同，<strong>若为割边，不能直接将无向边改为双向有向边</strong>（因为low和dfn不允许相等，改为双向有向边意味着可以走回去使low与dfn相等，导致误判为没有割边）；而割点则可以，因为走反边更新不影响原有割点的判断条件</li>
+</ul>
+<p>对于割点，我们在原有“回”处的树边处加以判定(割点一定在搜索树的某个树边处出现)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Cut Points</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void tarjan(int x){
+	/*...*/
+	int cnt =0; //对满足条件的子节点y进行计数
+	for(auto v:e[x]){
+		if(!dfn[x]){	//树边
+			tarjan(v);
+			low[x]=min(low[x],low[y]);
+			//割点判定
+			if(low[y]&gt;=dfn[x]){
+				cnt&#43;&#43;;
+				if(x!=root || cnt&gt;1)
+					cut[x]=true;
+			}
+		}
+		else //if(instk[v]) 
+			low[x]=min(low[x],dfn[y]);
+	}
+	/*...*/
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>同理，对于割边，也一定出现在搜索树的某条树边处，但需要要求不走反边：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Cut edges</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void tarjan(int x, int from){	//from表示来时的顶点
+	/*...*/
+	for(auto v:e[x]){
+		if(v==from)	continue; //防止走回去
+		if(!dfn[x]){	//树边：dfn[from]
+			tarjan(v);
+			low[x]=min(low[x],low[v]);
+			//割边判定
+			if(low[v]&gt;dfn[x])
+				cut.push_back({x,v});
+		}
+		else //if(instk[v]) 
+			low[x]=min(low[x],dfn[y]);
+	}
+	/*...*/
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>其中在判定割点割边时，计算SCC是不必要的，故可以将原有SCC tarjan算法中的栈部分代码略去.</p>
+<h3 id="4-vdcc-and-edcc-缩边与缩点">4 vDCC and eDCC (缩边与缩点)</h3>
+<p>我们定义：</p>
+<ul>
+<li><code>eDCC</code>，边双连通分量，即不含割边的双连通分量</li>
+<li><code>vDCC</code>，点双连通分量，即不含割点的双连通分量</li>
+</ul>
+<p>从而只需要将<em>在第3节中割点与割边基础上，进行额外处理</em>即可得到对应eDCC和vDCC</p>
+<p>以eDCC缩点(把eDCC缩成一个点)为例，每次获取一个割边得到对应<code>low[y]&gt;dfn[x]</code>其中y和x分属两个eDCC，从而连接low[x]与low[y]进行缩点</p>
+<p>
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/12.jpg" >
+  
+  
+</div>
+
+如图有5个eDCC：{4},{1,2,3},{5,6},{7},{8}</p>
+<p>不难想到，<strong>原有割边即为缩边后的树边</strong>，进而需利用SCC中所用的栈<strong>对“离”的部分</strong>加以处理
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>eDCC</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt=0; //cnt表示第cnt个eDCC
+void tarjan(int x, int from){	
+	/*...*/
+	if(dfn[x]==low[x]){
+		cnt&#43;&#43;;
+		do{
+			dcc[cnt].push_back(st.top());
+			st.pop();
+		}while(st.top()!=x)
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>同理，对vDCC缩点，即将vDCC缩成一个点，但<strong>与割边不同，不同vDCC间可能有重复的点</strong>，如图4个vDCC为{1,2,3,4},{1,5},{5,6},{5,7,8}
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/13.jpg" >
+  
+  
+</div>
+</p>
+<p>类似地，运用SCC中的栈将一个vDCC整个输出，但注意<strong>vDCC与割点相连，即割点单独成为一个vDCC</strong>且<strong>eDCC缩点的判定在最后，vDCC在进入树边的部分(for内部)</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>eDCC</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt=0; //cnt表示第cnt个vDCC
+void tarjan(int x){	
+	/*...*/
+	//对孤立点特判
+	if(!e[x].size()){
+		dcc[&#43;&#43;cnt].push_back(x)
+		return;
+	}
+	/*&#34;回&#34;部分*/
+	for(auto v:e[x]){
+		if(!dfs[v]){
+			tarjan(v);
+			low[x]=min(low[x],low[v]);
+			if(low[y]&gt;=dfn[x]){
+				child&#43;&#43;;
+				if(x!=root || child&gt;1)
+					cut[x]=true;
+				cnt&#43;&#43;;
+				//找到一个割点则开始计算vDCC
+				do{ //do while保证把割点放进去
+					dcc[cnt].push_back(s.top());
+					s.pop();
+				}while(s.top()!=y);
+			}
+		
+		}
+		else	/*...*/
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/14.jpg" >
+  
+  
+</div>
+
+<h3 id="5-sample-problems">5 Sample Problems</h3>
+<h4 id="problem-a-popular-cow">Problem A Popular Cow</h4>
+<p><strong>Problem</strong> 有n头奶牛且存在m个单向爱慕关系且爱慕关系具有传递性，即&lt;A,B&gt;,&lt;B,C&gt;则&lt;A,C&gt;，求使得除了自己的所有奶牛均爱慕的奶牛数.
+<strong>Analysis</strong> 计算SCC，则一个SCC内的奶牛相互爱慕，不同SCC之间一定是单向的。满足题意的奶牛群一定在某个<strong>出度为0的</strong>SCC中，若这样的SCC不只一个，则说明这任意两个SCC相互不可达，从而数目为0.</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimization/">Optimization</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/graph/">Graph</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" data-tooltip="[Algorithm]Game Theory: Primary" aria-label="PREVIOUS: [Algorithm]Game Theory: Primary">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmtarjan-algorithm\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmtarjan-algorithm\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmgame-theory-primary/" data-tooltip="[Algorithm]Game Theory: Primary" aria-label="PREVIOUS: [Algorithm]Game Theory: Primary">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmtarjan-algorithm%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmtarjan-algorithm%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmtarjan-algorithm%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

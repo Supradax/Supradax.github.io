@@ -6,13 +6,31 @@
     <description>Recent content in Tags on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Algorithm</title>
       <link>https://Supradax.github.io/tags/algorithm/</link>
-      <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graph</title>
+      <link>https://Supradax.github.io/tags/graph/</link>
+      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Optimization</title>
+      <link>https://Supradax.github.io/tags/optimization/</link>
+      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/optimization/</guid>
       <description></description>
     </item>
     
@@ -22,6 +40,15 @@
       <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/game/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scanning Line</title>
+      <link>https://Supradax.github.io/tags/scanning-line/</link>
+      <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/scanning-line/</guid>
       <description></description>
     </item>
     

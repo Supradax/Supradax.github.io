@@ -2,16 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/algorithm/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/algorithm/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/graph/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/optimization/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/optimization/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/posts/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://Supradax.github.io/2023/03/algorithmgame-theory-primary/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/algorithm/</loc>
+    <loc>https://Supradax.github.io/2023/03/algorithmscanning-line/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/categories/algorithm/</loc>
-    <lastmod>2023-03-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/</loc>
+    <loc>https://Supradax.github.io/2023/03/algorithmthe-mst-and-the-shortest-path/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/game/</loc>
@@ -20,13 +47,7 @@
     <loc>https://Supradax.github.io/categories/game/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/posts/</loc>
-    <lastmod>2023-03-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/</loc>
-    <lastmod>2023-03-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/</loc>
+    <loc>https://Supradax.github.io/tags/scanning-line/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/algorithmdfs-and-backtracing-bfs/</loc>

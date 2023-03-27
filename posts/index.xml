@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Simulated Annealing</title>
+      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;The Simulated Annealing Algorithm(SA)&lt;/strong&gt; is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[Algorithm]Tarjan Algorithm</title>
       <link>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</link>
@@ -17,10 +26,10 @@
 &lt;p&gt;&lt;strong&gt;Strongly Connected Components&lt;/strong&gt;，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；&lt;strong&gt;Weakly Connected Components&lt;/strong&gt;，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。&lt;/p&gt;
 &lt;p&gt;Tarjan算法中，我们定义：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Tree Edge&lt;/strong&gt; 树边，即DFS搜索树上的边**(Black)**&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Front Edge&lt;/strong&gt; 前向边，与DFS方向一致，指向其某些子节点的边**(Blue)**&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Back Edge&lt;/strong&gt; 后向边，与DFS方向相反，指回某些父节点的边**(Red)**&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Cross Edge&lt;/strong&gt; 横叉边，从DFS搜索子树指向另一子树的边**(Green)**&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tree Edge&lt;/strong&gt; 树边，即DFS搜索树上的边 &lt;strong&gt;(Black)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Front Edge&lt;/strong&gt; 前向边，与DFS方向一致，指向其某些子节点的边 &lt;strong&gt;(Blue)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Back Edge&lt;/strong&gt; 后向边，与DFS方向相反，指回某些父节点的边 &lt;strong&gt;(Red)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross Edge&lt;/strong&gt; 横叉边，从DFS搜索子树指向另一子树的边 &lt;strong&gt;(Green)&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     
@@ -30,8 +39,8 @@
       <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/2023/03/mldifferential-evolution/</guid>
-      <description>Differential Evolution(DE) algorithm is a stochastic optimization algorithm that is insipred by the process of natural selection. The basic princple of DE is to evolve a population of candidate solutions(vectors in most cases) to find the optimal selection for the given problem**(usually to find the minimum or maximum of an expression)**.
-Principle DE starts with an initial population of candidate solutions, which are randomly generated vectors within the search space. At each iteration, a new population of candidate solutions is created by combining and mutating exisiting solutions from the previous population</description>
+      <description>&lt;p&gt;&lt;strong&gt;Differential Evolution(DE) algorithm&lt;/strong&gt; is a &lt;strong&gt;stochastic optimization algorithm&lt;/strong&gt; that is insipred by the process of natural selection. The basic princple of DE is to &lt;strong&gt;evolve a population of candidate solutions(vectors in most cases)&lt;/strong&gt; to find the optimal selection for the given problem&lt;br&gt;
+&lt;strong&gt;(usually to find the minimum or maximum of an expression)&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>

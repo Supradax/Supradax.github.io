@@ -6,15 +6,24 @@
     <description>Recent content in ML on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Simulated Annealing</title>
+      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;The Simulated Annealing Algorithm(SA)&lt;/strong&gt; is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[ML]Differential Evolution</title>
       <link>https://Supradax.github.io/2023/03/mldifferential-evolution/</link>
       <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/2023/03/mldifferential-evolution/</guid>
-      <description>Differential Evolution(DE) algorithm is a stochastic optimization algorithm that is insipred by the process of natural selection. The basic princple of DE is to evolve a population of candidate solutions(vectors in most cases) to find the optimal selection for the given problem**(usually to find the minimum or maximum of an expression)**.
-Principle DE starts with an initial population of candidate solutions, which are randomly generated vectors within the search space. At each iteration, a new population of candidate solutions is created by combining and mutating exisiting solutions from the previous population</description>
+      <description>&lt;p&gt;&lt;strong&gt;Differential Evolution(DE) algorithm&lt;/strong&gt; is a &lt;strong&gt;stochastic optimization algorithm&lt;/strong&gt; that is insipred by the process of natural selection. The basic princple of DE is to &lt;strong&gt;evolve a population of candidate solutions(vectors in most cases)&lt;/strong&gt; to find the optimal selection for the given problem&lt;br&gt;
+&lt;strong&gt;(usually to find the minimum or maximum of an expression)&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     
   </channel>

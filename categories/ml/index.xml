@@ -13,6 +13,15 @@
       <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;K-means&lt;/strong&gt; and &lt;strong&gt;Density Scan&lt;/strong&gt; are two basic and primer clustering algorithms.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[ML]Simulated Annealing</title>
+      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
       <description>&lt;p&gt;&lt;strong&gt;The Simulated Annealing Algorithm(SA)&lt;/strong&gt; is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.&lt;/p&gt;</description>
     </item>
     

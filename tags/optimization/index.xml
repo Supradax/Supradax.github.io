@@ -6,7 +6,16 @@
     <description>Recent content in Optimization on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Simulated Annealing</title>
+      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;The Simulated Annealing Algorithm(SA)&lt;/strong&gt; is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[Algorithm]Tarjan Algorithm</title>
       <link>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</link>

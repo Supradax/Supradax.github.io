@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cluster on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/categories/cluster/</link>
+    <description>Recent content in Cluster on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/cluster/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Simulated Annealing</title>
+      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;K-means&lt;/strong&gt; and &lt;strong&gt;Density Scan&lt;/strong&gt; are two basic and primer clustering algorithms.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

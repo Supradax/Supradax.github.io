@@ -1,0 +1,790 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Regression Problem: Primer",
+  
+  "image": "https://Supradax.github.io/img/game.jpg",
+  
+  "datePublished": "2023-03-28T00:00:00Z",
+  "dateModified": "2023-03-28T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/mlregression-problem-primer\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Regression Problem: Primer">
+<meta name="twitter:title" content="[ML]Regression Problem: Primer">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/mlregression-problem-primer/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/mlregression-problem-primer/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-28T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-28T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Forecast">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Forecast">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/game.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/game.jpg">
+
+
+    <title>[ML]Regression Problem: Primer</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/mlregression-problem-primer/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Regression Problem: Primer
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-28T00:00:00Z">
+        
+  March 28, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/forecast">Forecast</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>在本篇blog中，我们将回顾线性代数和矩阵分析的知识并介绍线性回归的模型建立。其中将从代数和分析的角度看待核心方法<strong>最小二乘法</strong>的本质，并给出相应python示例。并在<strong>一元线性回归</strong>的基础上走向<strong>多元线性回归</strong>，再到线性回归的优化版本<strong>岭回归(Ridge Regression)<strong>与</strong>Lasso回归</strong>.</p>
+<p><strong>Key Words</strong>  多元线性回归 最小二乘法 伪逆 岭回归 Lasso回归 线性代数 矩阵分析</p>
+<h3 id="1-列空间的正交补最小二乘法的代数意义">1 列空间的正交补：最小二乘法的代数意义</h3>
+<p>若A为m×n矩阵，则有</p>
+<p>$$Row(A)^⊥ = NULL(A^T), Col(A)^⊥ =NULL(A) \tag{1.1} $$
+$$Row(A)\oplus NULL(A^T)=R^n, Col(A) \oplus NULL(A)=R^m \tag{1.2}$$</p>
+<p><strong>pf.</strong>
+$$\forall X \in Row(A)^⊥, \forall Y \in Row(A), Y^TX=0 \Rightarrow 0=\epsilon_i^TA^TX=(A\epsilon_i)^TX $$
+$$\Rightarrow \Sigma(A\epsilon_i)^TX=0 \Rightarrow Row(A)^⊥\subset NULL(A^T) $$
+反之也有
+$$\forall X\in R^n, A^TX=0\Rightarrow (A\epsilon_i)^TX=0\Rightarrow NULL(A^T)\subset Row(A)^⊥$$
+从而命题(1.1)成立
+而注意到行空间和零空间(核空间)、列空间和左零空间维数相同，从而两组线性空间同构，且由正交补的定义，有：
+$$dim(Row(A))+dim(NULL(A^T))=n $$
+从而命题(1.2)成立</p>
+<p>接下来证明<strong>最佳逼近定理</strong>
+若(V,&lt;,&gt;)是一个内积空间，W是V的一个子空间，则
+$$\forall \vec{v} \in V, ||\vec{v}-proj_w(\vec{v})||≤||\vec{v}-\vec{w}|| $$
+取等当且仅当
+$$\vec{v}=proj_w(\vec{v})$$</p>
+<p><strong>pf.</strong> 由投影算子和正交补的性质，在L²度量诱导的内积空间中，有：
+$$||\vec{v}-\vec{w}||^2=||\vec{v}-proj_w(\vec{v})||^2+||proj_w(\vec{v})-\vec{w}||^2≥||\vec{v}-proj_w(\vec{v})||^2$$</p>
+<h3 id="2-一元最小二乘与伪逆">2 一元最小二乘与伪逆</h3>
+<p>在给定一系列观测样本(X,Y)，待求一条直线y=wx+b使其最靠近这些点，即经典的<strong>线性回归问题</strong>。至于如何度量“最靠近”这一概念，我们选用<strong>MSE(均方误差)</strong>，尽管有别的度量方式，但MSE由于图形是<strong>凸的且可微的</strong>，从而能更好运用微分工具和梯度下降方法，以下是一些在机器学习中的常见度量误差的方式，如MAE(平均绝对误差)、SAE(绝对值和误差)、SSE(平方和误差)、交叉熵(Crossentropy)、均方根误差(RMSE)、标准差(SE)，其中X是观测值，Y是预测值，μ是均值，n是样本数
+$$SE=\frac{\sigma}{\sqrt{n}},MSE=\frac{1}{n}\Sigma(X_i-Y_i)^2, RMSE=\sqrt{MSE}, SSE=nMSE$$
+$$SAE=nMAE=\Sigma|X_i-Y_i|, CE=\Sigma(p(x)·ln(\frac{1}{q(x)})))$$</p>
+<p>接下来假定有观测数据点(x,y)，定义样本向量X和观测向量Y，其中A是待求系数矩阵，β是偏置值(bias)
+$$ X=\begin{bmatrix}	x_1 \\x_2 \\&hellip;\\x_n \end{bmatrix}
+Y=\begin{bmatrix}y_1 \\y_2 \\&hellip;\\y_n \end{bmatrix}
+\Rightarrow Y=AX+\beta<br>
+$$
+但是为形式简洁，我们想要让β涵盖在A中，便于后续化简
+$$ X=\begin{bmatrix}	1&amp;x_1 \\1&amp;x_2 \\&hellip;\\1&amp;x_n \end{bmatrix}
+A=\begin{bmatrix}b1 &amp;a_1 \\&hellip;&amp;\\b_n&amp;a_n \end{bmatrix}
+\Rightarrow Y=AX<br>
+$$
+直觉的想法是求X的逆直接解出系数矩阵A，但这个想法并不可行(X不一定是方阵，是方阵也不一定可逆，甚至不一定有解)，从而需要构造别的方法</p>
+<p>利用几何直观，A的本质是<strong>线性变换</strong>，若不一定存在A使得AX=Y(即回归直线不可能穿过每个采样点)，但可以存在<strong>一个A使得X距离Y最近</strong>(假设AX为一个平面，Y为不共面的空间向量，则Y在AX上的投影应当是距离Y最近的在平面上的向量)，这样的解也是可以接受的，注意到AX=Y不一定有解，但下述方程一定有解：
+$$A^TAX=A^T\vec{b} \tag{2.1}$$
+下面我们证明两个命题：(1)该方程一定有解(尽管可能不唯一)；(2)该方程对应的解X是满足||X-Y||最小的一个解且该解为b在Col(A)上的投影Au</p>
+<p><strong>pf.</strong>
+(1) 利用线性映射. 可知A的转置将AX=b的两侧映射到A的行空间中，注意到两个方程同零解：
+$${X:AX=0}={X:A^TAX=0}$$
+从而核空间相同，由核空间与像空间的关系，A&rsquo;b与X在同个像空间中，可知必然有解
+(2) 代入验证：
+$$b-A\vec{u}\in NULL(A^T) \Rightarrow A^T(b-Au)=0\Rightarrow A^Tb=A^TAu$$
+由最佳逼近定理和矩阵范数不等式，可知最小值成立</p>
+<p>进一步我们发现<code>A'A</code>是方阵，则可能可逆，从而定义<strong>伪逆</strong>，即能够有类似A的逆矩阵的作用解出X
+$$A^TAX=b \Rightarrow X=(A^TA)^{-1}Ab \tag{2.2}$$</p>
+<p>由投影映射算子的定义：P²=P，不难发现伪逆实际上是一个投影，这也体现了其深刻性：
+$$(A^TA)^{-1}A(A^TA)^{-1}A=(A^TA)^{-1}A$$</p>
+<p>Note. 此处也可令<strong>偏导数为零，并用平方平均值≥算术平均值证明Hesse矩阵是正定的(即满足极值条件B²&gt;AC)</strong>,从而求出相应的系数公式</p>
+<p>从而可知<strong>若伪逆可逆，则确定的最小二乘曲线是唯一的</strong>；若不可逆，则可能有多条(这也给求解带来困扰，但也提供了更多选择，因为均满足MSE最小的情况下，我们可能还需要别的性质)</p>
+<p>对于一元一次多项式：<code>y=kx+b</code>，我们有系数公式且能保证该公式有唯一解(2.3)，但对于更高次的，必须借助矩阵运算来确定
+$$k=\frac{\Sigma y_i(x_i-\bar{x})}{\Sigma x_i^2-\frac{1}{m}(\Sigma x_i)^2}, b=\frac{1}{m}\Sigma y_i-kx_i \tag{2.3}$$</p>
+<h3 id="3-多元线性回归最小二乘法">3 多元线性回归：最小二乘法</h3>
+<p>如假定有一元n次多项式(3.1)，现要用最小二乘确定n+1个系数的值，则同理可用完全相同的方式证明(2.2)的结论，若伪逆存在，则系数矩阵W(规模n×1)满足(3.2)
+$$y=a_nx^n+&hellip;+a_1x+a_0 \tag{3.1}$$
+$$W=(X^TX)^{-1}X^TY, w=\begin{bmatrix} a_0\\a_1\\&hellip;\\a_n \end{bmatrix} \tag{3.2}$$</p>
+<p>除去第二小节中用代数的方法，现在用矩阵分析的方法证明该结论：定义MSE Loss:
+$$loss \Sigma(y_i-x_iw)^2=(y-XW)^T(y-XW)=Y^TY-Y^TXW-W^TX^TY+W^TX^TXW $$
+再对上式求偏微分：
+$$\frac{\partial Y^TXW}{\partial W} = (Y^TX)^T=X^TY \quad
+\frac{\partial Y^TXW}{\partial W} = X^TY \\
+\frac{\partial W^TX^TY}{\partial W} = X^TXW+(W^TX^TX)^T= 2X^TXW \quad
+\frac{\partial Y^TY}{\partial W} = 0 \\
+\Rightarrow 2X^TXW-2X^TY=0 \Rightarrow W=(X^TX)^{-1}X^TY $$</p>
+<p>对某些预测值，<strong>不同维度的参数重要性可能不同</strong>，此时回归方程不能够平等看待每一个维度下的距离，即重新定义MSE为(其中M是<strong>加权对角阵</strong>)：
+$$Loss=\Sigma[(y_i-x_iw)m]^2=0=((Y-XW)^TM)^T((Y-XW)^TM)$$
+同理进行微分，注意到对角矩阵M的性质，从而得到加权后的最优系数矩阵为
+$$ W=(X^TX)^{-1}X^TM^2Y \tag{3.3}$$</p>
+<p>Notes. 文末从概率论角度对该方法进行分析.</p>
+<h3 id="4-岭回归-ridge-regressionl2正则化">4 岭回归 Ridge Regression(L2正则化)</h3>
+<p>如之前所言，为了解决AX=b无解的问题，我们引入了伪逆。但伪逆也存在缺陷，<strong>多重共线或非满秩情况下</strong>使得行列式|X&rsquo;X|的值很小或为零，从而导致所求偏微分系数矩阵W意义不大.(当|X&rsquo;X|接近于0时，其逆的行列式趋于无穷大，这会让回归直线产生剧烈震荡)，因此我们可以考虑<strong>增加一个较小的扰动λ使得|X&rsquo;X|的值离开0附近</strong>，这便是<strong>岭回归</strong>的提出背景</p>
+<p>我们重新定义回归系数，增加一个较小的扰动，即(I是单位阵)：
+$$ W=(X^TX+\lambda I)^{-1}X^TM^2Y \tag{4.1}$$
+不难发现(4.1)的解对应的原方程是：
+$$\beta^{ridge}=argmin{\Sigma(y_i-\beta_0-\Sigma x_{ij}\beta_j)^2+\lambda\Sigma\beta_j^2} \tag{4.2} $$
+其中最后一项称为<strong>目标函数的惩罚函数(penalty)</strong>，通过增加该恒正的值控制回归系数，如下图所示：
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/03.jpg" >
+   
+   
+ </div>
+
+可以发现，通过增加λ使得回归系数减小，从而模型方差减小（(4.2)左侧括号内第三项），但是偏差则会增大（(4.2)中最右侧一项），通过控制这种<strong>平衡</strong>得到较理想的岭回归系数</p>
+<p>至于为何被称为岭回归，这与其几何意义有关。实际上可将岭回归看作一个<strong>优化问题</strong>，即在附加约束(4.3)的前提下，最小化岭回归系数(4.4)：
+$$\Sigma\beta_j^2&lt;t \tag{4.3}$$
+$$\beta^{ridge}=argmin(\Sigma(y_i-\beta_0- \Sigma x_{ij}\beta_j)^2) \tag{4.4}$$</p>
+<p>增加这个约束的意义在于<strong>解决所谓的多重共线问题</strong>，例如某个跟可支配收入相关的量<code>z</code>可用<code>z=ax+by+c</code>这样一个模型，其中x，y分别是支出和收入，假如x,y之间几乎共线，则此时将参数b调至很大和c调至很小，则可抵消其相互作用，避免二者之间的微小扰动造成巨大震荡的同时还能保证z值能够反映几乎共线中的一方(即x或y)的变化。因此为了压缩b,c的范围，需要引入一个平方和约束，如下图所示：
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/02.jpg" >
+   
+   
+ </div>
+
+其中椭圆抛物体表示(4.4)，圆柱体表示(4.3)，可以看到黄色交点即为对应的岭回归系数；若投影到二维平面，则可见其几何意义. 岭回归将参数控制在一个远离原点的位置，并且由于椭圆各向凸性差异，能较好处理多重共线引发的问题</p>
+<p>其中岭回归系数具有以下性质：</p>
+<ul>
+<li>有偏估计(放弃掉最小二乘的无偏估计性质，去除一些噪声，本质是改良的最小二乘)</li>
+<li>OLS估计的线性变换</li>
+<li>λ&gt;0时具有压缩性</li>
+<li>可能存在一个岭回归使得MSE比最小二乘得到的系数还小 i.e. $$MSE(\beta(\lambda)))&lt;MSE(\beta(0))$$</li>
+</ul>
+<h3 id="5-lasso回归l1正则化与elastic-net回归">5 Lasso回归(L1正则化)与Elastic Net回归</h3>
+<p>与岭回归提出的想法相似，但Lasso回归在<strong>惩罚函数上用的范数不同，为L1范数</strong> i.e.
+$$\beta^{lasso}=argmin{\Sigma(y_i-\beta_0-\Sigma x_{ij}\beta_j)^2+\lambda\Sigma|\beta_j|} \tag{5.1} $$
+同理，该目标函数也可化为约束：
+$$\Sigma|\beta_j|&lt;t \tag{5.2}$$
+$$\beta^{lasso}=argmin(\Sigma(y_i-\beta_0- \Sigma x_{ij}\beta_j)^2) \tag{5.3}$$
+将其投影到二维平面上，同理可知交点即为对应Lasso回归系数
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/04.jpg" >
+   
+   
+ </div>
+
+可以发现，类比MSE与MAE，绝对值带有尖点，这个<strong>角附近的地方</strong>更容易和抛物面相交，而一旦相交就会导致<strong>Lasso回归系数趋于两个极端</strong>好处在于能够<strong>高效筛选特征</strong>，如图中交点一个接近1，一个接近0，相反<strong>岭回归系数分布相对更为平滑</strong>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/01.jpg" >
+   
+   
+ </div>
+
+由于绝对值函数有许多不可微点，没有办法像岭回归一样较简单地证明.</p>
+<p><strong>Elastic Net回归</strong>是<strong>Lasso回归和Ridge回归的结合体</strong>，从公式(5.4)容易看出，其惩罚函数为二者的加权值
+$$\beta^{elastic}=argmin{\Sigma(y_i-\beta_0-\Sigma x_{ij}\beta_j)^2+\lambda_1\Sigma\beta_j^2+\lambda_2\Sigma|\beta_j|} \tag{5.4} $$
+通过控制这两个参数来调节二者比例，可获得更好的线性模型</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/forecast/">Forecast</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" data-tooltip="[ML]K means and Density Cluster" aria-label="PREVIOUS: [ML]K means and Density Cluster">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/mlregression-problem-primer\/';
+        
+          this.page.identifier = '\/2023\/03\/mlregression-problem-primer\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" data-tooltip="[ML]K means and Density Cluster" aria-label="PREVIOUS: [ML]K means and Density Cluster">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/mlregression-problem-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlregression-problem-primer%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlregression-problem-primer%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlregression-problem-primer%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

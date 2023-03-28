@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/cluster/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[ML]Simulated Annealing</title>
-      <link>https://Supradax.github.io/2023/03/mlsimulated-annealing/</link>
+      <title>[ML]K means and Density Cluster</title>
+      <link>https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/</link>
       <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://Supradax.github.io/2023/03/mlsimulated-annealing/</guid>
+      <guid>https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/</guid>
       <description>&lt;p&gt;&lt;strong&gt;K-means&lt;/strong&gt; and &lt;strong&gt;Density Scan&lt;/strong&gt; are two basic and primer clustering algorithms.&lt;/p&gt;</description>
     </item>
     

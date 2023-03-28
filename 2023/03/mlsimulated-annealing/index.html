@@ -1,4 +1,13 @@
+
 <!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
 <html lang="en-us">
   <head>
     
@@ -9,7 +18,7 @@
   "@type": "BlogPosting",
   "headline": "[ML]Simulated Annealing",
   
-  "image": "https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg",
+  "image": "https://Supradax.github.io/img/SA.jpg",
   
   "datePublished": "2023-03-27T00:00:00Z",
   "dateModified": "2023-03-27T00:00:00Z",
@@ -34,7 +43,7 @@
     }
     
   },
-  "description": "K-means and Density Scan are two basic and primer clustering algorithms.\n",
+  "description": "The Simulated Annealing Algorithm(SA) is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.\n",
   "keywords": []
 }
 
@@ -45,18 +54,18 @@
 <meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Supradax">
 <meta name="keywords" content="">
-<meta name="description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta name="description" content="The Simulated Annealing Algorithm(SA) is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.">
 
 
-<meta property="og:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta property="og:description" content="The Simulated Annealing Algorithm(SA) is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[ML]Simulated Annealing">
 <meta name="twitter:title" content="[ML]Simulated Annealing">
 <meta property="og:url" content="https://Supradax.github.io/2023/03/mlsimulated-annealing/">
 <meta property="twitter:url" content="https://Supradax.github.io/2023/03/mlsimulated-annealing/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
-<meta property="og:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
-<meta name="twitter:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta property="og:description" content="The Simulated Annealing Algorithm(SA) is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.">
+<meta name="twitter:description" content="The Simulated Annealing Algorithm(SA) is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.">
 <meta property="og:locale" content="en-us">
 
   
@@ -70,14 +79,12 @@
     
       <meta property="article:section" content="ML">
     
-      <meta property="article:section" content="Cluster">
-    
   
   
     
       <meta property="article:tag" content="ML">
     
-      <meta property="article:tag" content="Cluster">
+      <meta property="article:tag" content="Optimization">
     
   
 
@@ -97,8 +104,8 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/SA.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/SA.jpg">
 
 
     <title>[ML]Simulated Annealing</title>
@@ -285,9 +292,7 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
-    
-      <a class="category-link" href="https://Supradax.github.io/categories/cluster">Cluster</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
     
   
 
@@ -297,141 +302,41 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p><strong>K-means</strong> and <strong>Density Scan</strong> are two basic and primer clustering algorithms.</p>
-<h2 id="1-k-means">1 K-means</h2>
-<p>K-means algorithm is an <strong>unsupervised clustering algorithm</strong> used in ML and data science. It is used to group similar data points together in a given dataset.</p>
-<h3 id="11-steps">1.1 Steps</h3>
-<ol>
-<li>Preset **the amount of cluster <code>k</code> ** and initialize the <strong>cluster centroids randomly</strong> (here we have different policies)</li>
-<li>Assign each data point to the <strong>nearest centroid</strong> which forms k clusters</li>
-<li><strong>Recalculate the centroids</strong> for each cluster by taking <strong>the mean</strong> of all data points assigned to that cluster</li>
-<li>Repeat steps 2 and 3 until convergence when <strong>the cluster assignments no longer change</strong> or a maximum number of iterations is reached
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/07.jpg"  alt="The Sample Processdure">
-   
-    
-     <span class="caption">The Sample Processdure</span>
-   
- </div>
-</li>
-</ol>
-<h3 id="12-parameters">1.2 Parameters</h3>
+              <p><strong>The Simulated Annealing Algorithm(SA)</strong> is a stochastic optimization algorithm inspired by the process of annealing in metallurgy. It starts with an initial solution and iteratively improves it by allowing it to jump to neightboring solutions with a certain probablity.</p>
+<h3 id="principle">Principle</h3>
+<p>The crucial principle is to accept solutions worse than the current with a certain probablity, which is gradually decreased over time. This allows it to escape from local optima and explore the search space more effectively.</p>
+<h3 id="parameters">Parameters</h3>
 <ul>
-<li><strong>Cluster Amount</strong> <code>k</code> A higher k can lead to <strong>overfitting</strong> while a lower can result in <strong>underfitting</strong> . There are several methods to determin the optimal value of K such as <strong>elbow method, sihouette analysis and gap statistic</strong> . Based on experience, we prefer to set an <strong>ODD</strong> k.</li>
-<li><strong>Measure</strong> It determines the way you calculate the &ldquo;distance&rdquo;. It can be Euclidean, Manhattan, Chebyshev or Mahalanobis(马氏距离).</li>
-<li><strong>Initial Policy</strong> K-means++ upgrade this part of the procedure.</li>
+<li><strong>Initial Temperature</strong> It should be set high enough to explore the search space effectively thus having a higher acceptance rate.</li>
+<li><strong>Cooling Scedule</strong> A common practice is to use a <strong>geometric cooling schedule</strong> that decreases the temperature by a constant factor (e.g. 0.95)</li>
+<li><strong>Step Size</strong> Learning rate.</li>
+<li><strong>Acceptance Probability</strong> It should be desgined to <strong>balance exploration and exploitation of the serach space</strong>. A common practice is to use <strong>the Boltzmann distribution with a temperature-dependent scaling factor</strong></li>
+<li><strong>Stopping Criterion</strong> Based on the computational resources available. The upper bound of iteration times or a convergence point is mert.</li>
 </ul>
-<h3 id="13-measure">1.3 Measure</h3>
-<ul>
-<li><strong>Euclidean Distance(Measure L²)</strong> It can be used with <strong>continous data</strong> and without <strong>significant outliers</strong></li>
-<li><strong>Manhattan Distance(Measure L1)</strong> It can be used with <strong>discrete data</strong> and with <strong>outliers</strong></li>
-<li><strong>Chebyshev/Chessboard Distance(Measure L∞)</strong> The maximum absolute difference between the coordinates of two points. It can be used with <strong>continous</strong> data and <strong>significant outliers</strong></li>
-<li><strong>Mahalanobis Distance</strong> The distance metric takes into account the correlation between variables and the scale of each variable is different, **which means we can&rsquo;t measure two dependent or independent variables with accordance to the same criteria. **</li>
-</ul>
-<p>The first three distances are as below:
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/03.jpg" >
-   
-   
- </div>
-</p>
-<p>Turning to the last one, Mahalanobis distance is a measure of the distance between a point and a distribution in a multivariate space where the dimensions are defined by variables in the dataset. To calculate, we first need to <strong>work out the covariance matrix</strong> and then for a given point X and a distribution with <strong>mean vector μ</strong> and <strong>covariance matrix Σ</strong>, the distance is defined by:
-
-
-
-<div class="figure center" >
-  
-    <img class="fig-img" src="https://Supradax.github.io/img/ml/04.jpg" >
-  
-  
-</div>
-</p>
-<p><strong>E.g.</strong> Suppose we have a dataset filled with 2D points (x,y) and we are going to get the Mahalanobis distance.</p>
+<p>Note.</p>
 <ol>
-<li>Calculate the mean of both x and y and we get x_mu, y_mu</li>
-<li>Create a <strong>Deviation Matrix</strong> where each element is <strong>the difference between the corresponding x and y value and the respective means.</strong>
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/05.jpg" >
-   
-   
- </div>
-</li>
-<li>Calculate the covariance matrix by multiplying D by its transpose and dividing by n-1 where n is the number of data points.
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/06.jpg" >
-   
-   
- </div>
-</li>
+<li>If it is expected to converge quickly, then we adopt a faster cooling schedule, a lower initial temperature, a smaller stepsize with a lower acceptance probablity while in the contrast if expected more effectively.</li>
+<li>Simulated annealing suits better in the context of a search <strong>within smaller but more complicated space</strong> while Differential Evolution fits a <strong>larger and smoother</strong> space; SA <strong>acts as a single-point</strong> algorithm while DE is based on <strong>a set of candidates</strong>.</li>
+<li>It is expected to attempt <strong>different parameters and initial positions</strong> and save the best position in time.</li>
+<li>Boltzmann Distribution where P(E) is the probablity of finding the system in a state with energy E. Z is the partition function which is the sum of the Boltzmann factors over all possible states of the system. k is the Boltzmann constant and T is the temperature. We can apply this to the SA where Ec and Es is the value of candidate and current vector.
+$$P(E)=\frac{1}{z} e^{-\frac{E}{kT}}$$
+$$P(E_C,E_S,T)=min(1,e^{-\frac{E_C-E_S}{kT}})$$</li>
 </ol>
-<p>It is obvious that if we have a N-dimension point set, then a matrix with a scale of N×N is needed.</p>
-<h3 id="14-updating-in-initialization-k-means">1.4 Updating in Initialization: K-means++</h3>
-<p>Steps:</p>
+<p>More concrete steps are as below:</p>
 <ol>
-<li>Choose one <strong>randomly</strong> as the <strong>first centroid</strong></li>
-<li>Suppose that we have <strong>chosen n centroids</strong> and now we search for the (n+1)th. Calculate the minimum among the distances from each centroid to  non-centroid points and <strong>endow the farthest unchosen point with the highest possibility(we use possibility here because we want to decrease the occasionality)</strong>. (Greedy Idea) This ensure that at least in this moment we <strong>keep those centroids as far away as possible</strong> .
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/09.jpg"  alt="A Sample where (3,2) is the First Centroid">
-   
-    
-     <span class="caption">A Sample where (3,2) is the First Centroid</span>
-   
- </div>
-</li>
+<li>Intialize the <strong>temperature</strong> t and <strong>initial solution</strong> x and design the <strong>cooling schedule and step size(learning rate)</strong></li>
+<li>Repeat the following steps until the stopping criterion is met:</li>
 </ol>
-<h3 id="15-updating-in-initialization-choosing-a-proper-k">1.5 Updating in Initialization: Choosing a Proper K</h3>
-<p>It requires several experiments and we draw the <strong>line chart whose x-axis stands for k while y-axis stands for the loss</strong> (here we use MSE which is the less the better) And we choose <strong>the elbow point</strong> as k where the decline trend degrades dramatically and it can be at the boundary of overfitting.
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/ml/08.jpg" >
-   
-   
- </div>
-</p>
-<h3 id="16-updating-in--criteria">1.6 Updating in : Criteria</h3>
-<p>The next problem is that how can we know <strong>whether or not the output classification is reasonable</strong> .</p>
-<h3 id="17-composition-with-other-algorithms">1.7 Composition with Other Algorithms</h3>
 <ul>
-<li>
-<p>Average K means</p>
-</li>
-<li>
-<p>Forest</p>
-</li>
-<li>
-<p>Evolution</p>
-</li>
+<li>Select a neighbor Y by making a small change to X (step size)</li>
+<li>Calculate the change in the objective function △f=f(Y)-f(X)</li>
+<li>If △f&lt;0 then we accept the answer and replace X with Y; otherwise accept with a probablity P(t) where t is the current temperature</li>
+<li>Update the temperature t</li>
 </ul>
-<h3 id="18-implement-examples">1.8 Implement Examples</h3>
-<h2 id="2-dscan">2 DSCAN</h2>
-<h3 id="21-principle">2.1 Principle</h3>
-<h3 id="22-parameters">2.2 Parameters</h3>
-<h3 id="23-steps">2.3 Steps</h3>
-<h3 id="24-implement-examples">2.4 Implement Examples</h3>
-<h2 id="3-summary">3 Summary</h2>
+<ol start="3">
+<li>Return the current solution</li>
+</ol>
+<h3 id="code-in-python">Code in Python</h3>
 
   
     
@@ -453,15 +358,41 @@
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre>
         </td>
         <td class="code">
-          <pre class="code-highlight language-py py"><code class="py"></code></pre>
+          <pre class="code-highlight language-py py"><code class="py">#Objective function
+def f(int x):
+	return (x[0]**3)*np.cos(x[0])&#43;(x[1]**3)*np.sin(x[1])
+#The temperature decreases by 1% each iteration
+cool_sched = lambda temp: temp*0.99	
+#Accept Probability
+accept = lambda i,t: min(1,np.exp(-i/t))
+
+def simulated_annealing(init_sol,init_temp,stepsize,maxiters):
+	sol,t,obj = init_sol,init_temp, f(init_sol)
+	for i in range(maxiters):
+		# use np.clip() to restrict the range
+		next_sol = np.clip(sol&#43;stepsize*np.random.randn(*sol),-1,1)
+		next_obj = f(sol)
+		delta =  next_obj-obj
+		#remember to save the best position
+		if delta&gt;0:
+			sol,obj = next_sol,next_obj
+			best_sol,best_obj = sol,obj
+		else:
+			if np.random.rand() &lt; accept(delta,t):
+				sol,obj = next_sol,next_obj
+		t = cool_sched(t)
+	return sol,obj</code></pre>
         </td>
       </tr>
     </tbody>
   </table>
 </figure>
+
+<h3 id="sample-model">Sample Model</h3>
+<p><strong>Model</strong> Apply SA to solve 0-1 knapsack problem</p>
               
 
 
@@ -477,7 +408,7 @@
                     
   <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/cluster/">Cluster</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimization/">Optimization</a>
 
                   </div>
                 
@@ -490,7 +421,7 @@
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" data-tooltip="[ML]K means and Density Cluster" aria-label="NEXT: [ML]K means and Density Cluster">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -498,7 +429,7 @@
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlsimulated-annealing/" data-tooltip="[ML]Simulated Annealing" aria-label="PREVIOUS: [ML]Simulated Annealing">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" data-tooltip="[Algorithm]Tarjan Algorithm" aria-label="PREVIOUS: [Algorithm]Tarjan Algorithm">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -597,7 +528,7 @@
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" data-tooltip="[ML]K means and Density Cluster" aria-label="NEXT: [ML]K means and Density Cluster">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -605,7 +536,7 @@
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlsimulated-annealing/" data-tooltip="[ML]Simulated Annealing" aria-label="PREVIOUS: [ML]Simulated Annealing">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/" data-tooltip="[Algorithm]Tarjan Algorithm" aria-label="PREVIOUS: [Algorithm]Tarjan Algorithm">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>

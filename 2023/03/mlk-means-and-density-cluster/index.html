@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]K means and Density Cluster",
+  
+  "image": "https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg",
+  
+  "datePublished": "2023-03-27T00:00:00Z",
+  "dateModified": "2023-03-27T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/mlk-means-and-density-cluster\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "K-means and Density Scan are two basic and primer clustering algorithms.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+
+
+<meta property="og:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]K means and Density Cluster">
+<meta name="twitter:title" content="[ML]K means and Density Cluster">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta name="twitter:description" content="K-means and Density Scan are two basic and primer clustering algorithms.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-27T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-27T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Cluster">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Cluster">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+
+
+    <title>[ML]K means and Density Cluster</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]K means and Density Cluster
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-27T00:00:00Z">
+        
+  March 27, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/cluster">Cluster</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>K-means</strong> and <strong>Density Scan</strong> are two basic and primer clustering algorithms.</p>
+<h2 id="1-k-means">1 K-means</h2>
+<p>K-means algorithm is an <strong>unsupervised clustering algorithm</strong> used in ML and data science. It is used to group similar data points together in a given dataset.</p>
+<h3 id="11-steps">1.1 Steps</h3>
+<ol>
+<li>Preset <strong>the amount of cluster <code>k</code></strong> and initialize the <strong>cluster centroids randomly</strong> (here we have different policies)</li>
+<li>Assign each data point to the <strong>nearest centroid</strong> which forms k clusters</li>
+<li><strong>Recalculate the centroids</strong> for each cluster by taking <strong>the mean</strong> of all data points assigned to that cluster</li>
+<li>Repeat steps 2 and 3 until convergence when <strong>the cluster assignments no longer change</strong> or a maximum number of iterations is reached
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/07.jpg"  alt="The Sample Processdure">
+   
+    
+     <span class="caption">The Sample Processdure</span>
+   
+ </div>
+</li>
+</ol>
+<h3 id="12-parameters">1.2 Parameters</h3>
+<ul>
+<li><strong>Cluster Amount</strong> <code>k</code> A higher k can lead to <strong>overfitting</strong> while a lower can result in <strong>underfitting</strong> . There are several methods to determin the optimal value of K such as <strong>elbow method, sihouette analysis and gap statistic</strong> . Based on experience, we prefer to set an <strong>ODD</strong> k.</li>
+<li><strong>Measure</strong> It determines the way you calculate the &ldquo;distance&rdquo;. It can be Euclidean, Manhattan, Chebyshev or Mahalanobis(马氏距离).</li>
+<li><strong>Initial Policy</strong> K-means++ upgrade this part of the procedure.</li>
+</ul>
+<h3 id="13-measure">1.3 Measure</h3>
+<ul>
+<li><strong>Euclidean Distance(Measure L²)</strong> It can be used with <strong>continous data</strong> and without <strong>significant outliers</strong></li>
+<li><strong>Manhattan Distance(Measure L1)</strong> It can be used with <strong>discrete data</strong> and with <strong>outliers</strong></li>
+<li><strong>Chebyshev/Chessboard Distance(Measure L∞)</strong> The maximum absolute difference between the coordinates of two points. It can be used with <strong>continous</strong> data and <strong>significant outliers</strong></li>
+<li><strong>Mahalanobis Distance</strong> The distance metric takes into account the correlation between variables and the scale of each variable is different, **which means we can&rsquo;t measure two dependent or independent variables with accordance to the same criteria. **</li>
+</ul>
+<p>The first three distances are as below:
+$$ d_M=\Sigma|\Delta x_i|, d_E=\sqrt{\Sigma(\Delta x_i)^2}, d_C= max{|\Delta x_i|} $$</p>
+<p>Turning to the last one, Mahalanobis distance is a measure of the distance between a point and a distribution in a multivariate space where the dimensions are defined by variables in the dataset. To calculate, we first need to <strong>work out the covariance matrix</strong> and then for a given point X and a distribution with <strong>mean vector μ</strong> and <strong>covariance matrix Σ</strong>, the distance is defined by:
+$$  (X-\mu)^T \Sigma^{-1} (X-\mu), \Sigma = (Cov_{ij}) $$</p>
+<p><strong>E.g.</strong> Suppose we have a dataset filled with 2D points (x,y) and we are going to get the Mahalanobis distance.</p>
+<ol>
+<li>Calculate the mean of both x and y and we get x_mu, y_mu</li>
+<li>Create a <strong>Deviation Matrix</strong> where each element is <strong>the difference between the corresponding x and y value and the respective means.</strong>
+$$
+D=
+\begin{bmatrix}
+x_1-\mu_x &amp; y_1-\mu_y \\
+x_2-\mu_x &amp; y_2-\mu_y \\
+x_3-\mu_x &amp; y_3-\mu_y  \\
+\end{bmatrix}
+$$</li>
+<li>Calculate the covariance matrix by multiplying D by its transpose and dividing by n-1 where n is the number of data points.
+$$\Sigma = \frac{1}{n-1} D^TD$$</li>
+</ol>
+<p>It is obvious that if we have a N-dimension point set, then a matrix with a scale of N×N is needed.</p>
+<h3 id="14-updating-in-initialization-k-means">1.4 Updating in Initialization: K-means++</h3>
+<p>Steps:</p>
+<ol>
+<li>Choose one <strong>randomly</strong> as the <strong>first centroid</strong></li>
+<li>Suppose that we have <strong>chosen n centroids</strong> and now we search for the (n+1)th. Calculate the minimum among the distances from each centroid to  non-centroid points and <strong>endow the farthest unchosen point with the highest possibility(we use possibility here because we want to decrease the occasionality)</strong>. (Greedy Idea) This ensure that at least in this moment we <strong>keep those centroids as far away as possible</strong> .
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/09.jpg"  alt="A Sample where (3,2) is the First Centroid">
+   
+    
+     <span class="caption">A Sample where (3,2) is the First Centroid</span>
+   
+ </div>
+</li>
+</ol>
+<h3 id="15-updating-in-initialization-choosing-a-proper-k">1.5 Updating in Initialization: Choosing a Proper K</h3>
+<p>It requires several experiments and we draw the <strong>line chart whose x-axis stands for k while y-axis stands for the loss</strong> (here we use MSE which is the less the better) And we choose <strong>the elbow point</strong> as k where the decline trend degrades dramatically and it can be at the boundary of overfitting.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/08.jpg" >
+   
+   
+ </div>
+</p>
+<h3 id="16-updating-in--criteria">1.6 Updating in : Criteria</h3>
+<p>The next problem is that how can we know <strong>whether or not the output classification is reasonable</strong> .</p>
+<h3 id="17-composition-with-other-algorithms">1.7 Composition with Other Algorithms</h3>
+<ul>
+<li>
+<p>Average K means</p>
+</li>
+<li>
+<p>Forest</p>
+</li>
+<li>
+<p>Evolution</p>
+</li>
+</ul>
+<h3 id="18-implement-examples">1.8 Implement Examples</h3>
+<h3 id="19-downsides">1.9 Downsides</h3>
+<ul>
+<li>Only suits those distribution whose shape is almost <strong>sphere</strong> or <strong>convex</strong></li>
+<li>It may <strong>get stuck into the local optima easily</strong></li>
+<li><strong>Too senstive to the seed(initial centroid)</strong></li>
+</ul>
+<h2 id="2-dbc-and-dbscan">2 DBC and DBSCAN</h2>
+<p><strong>Density-Based Clustering</strong> is a clustering algorithm that groups data points based on <strong>their proximity to each other</strong> in a high density region. The main principle of DBS is that clusters are dense regions of points <strong>separated by areas of lower density</strong>.</p>
+<p>The most popular version is <strong>Density-Based Spatial Clustering of Applications with Noise</strong> i.e. <strong>DBSCAN</strong></p>
+<h3 id="21-steps">2.1 Steps</h3>
+<ol>
+<li><strong>Determine the eps(ε) and minpts parameters</strong>.</li>
+</ol>
+<ul>
+<li><strong>ε</strong> is the maximum distance between two points in the same cluster</li>
+<li><strong>minPts</strong> is the minimum number of points required to form a dense region (<strong>the lower bound of the cluster scale</strong>)</li>
+</ul>
+<ol start="2">
+<li>Initialize the algorithm by selecting <strong>a random unvisited datapoint</strong></li>
+<li>Find all data points <strong>within ε of the selected point</strong> and add them to the current cluster.</li>
+<li>If the number of points in the current cluster is less than minPts, then <strong>mark all the points as noise points and stop</strong>; Otherwise, <strong>expand the cluster by finding all the neighboring points within ε again until nothing changes after an iteration</strong></li>
+<li>Repeat steps 3-5 until all the points have been marked.</li>
+<li><strong>Assign each noise point to the nearest cluister</strong></li>
+</ol>
+<p>As can be seen, this algorithm is <strong>sensitive to the choice of ε and minPts</strong> which can significantly affect the results. It also struggles to <strong>identify clusters of varying densities</strong> and it can be computational for large datasets(During each iteration, its cost is O(n)).</p>
+<h3 id="22-hyperparameters">2.2 HyperParameters</h3>
+<ul>
+<li><strong>ε</strong> The radius that defines the neighborhood. Too small can lead to clusters being merged together, i.e., overfitting while too large can lower the accuracy where clusters being split apart.</li>
+<li><strong>Minimum Points/Density Threshold</strong>. Setting it too high can result in some points <strong>left out of clusters</strong> while setting it too low can contain too much noises.</li>
+<li><strong>Distance Metric</strong> Likewise, it depends on the data type and the distribution.</li>
+<li><strong>Cluster Merging</strong> If the points gets closed then they can be packed in a cluster while <strong>two cluster get closed within in the cluster merging range, the two cluster can be seen of the same kind</strong> which is commonly greater than ε.</li>
+</ul>
+<h3 id="23-steps">2.3 Steps</h3>
+<h3 id="24-implement-examples">2.4 Implement Examples</h3>
+<h2 id="3-summary">3 Summary</h2>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight py language-py">
+  <figcaption>
+    
+      <span>Simulated Annealing</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-py py"><code class="py"></code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>Update.
+3-27 Finished <em>K-means and its basic applications</em>
+3-28 Finished <em>DBSCAN and its basic applications</em></p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/cluster/">Cluster</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlregression-problem-primer/" data-tooltip="[ML]Regression Problem: Primer" aria-label="NEXT: [ML]Regression Problem: Primer">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlsimulated-annealing/" data-tooltip="[ML]Simulated Annealing" aria-label="PREVIOUS: [ML]Simulated Annealing">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/mlk-means-and-density-cluster\/';
+        
+          this.page.identifier = '\/2023\/03\/mlk-means-and-density-cluster\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlregression-problem-primer/" data-tooltip="[ML]Regression Problem: Primer" aria-label="NEXT: [ML]Regression Problem: Primer">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlsimulated-annealing/" data-tooltip="[ML]Simulated Annealing" aria-label="PREVIOUS: [ML]Simulated Annealing">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlk-means-and-density-cluster%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlk-means-and-density-cluster%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fmlk-means-and-density-cluster%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

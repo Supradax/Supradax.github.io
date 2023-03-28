@@ -1,4 +1,13 @@
+
 <!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
 <html lang="en-us">
   <head>
     
@@ -341,63 +350,17 @@ int gcd(int a,int b){return b? gcd(b,a%b):a;}</code></pre>
 </figure>
 </p>
 <h2 id="iiextended-euclid-algorithm">§II	Extended Euclid Algorithm</h2>
-<p>According to <strong>Bezout Theorem: ax+by=1 iff g(a,b)=1</strong> thus <strong>Equation ax+by=c has a solution iff g(a,b)|c</strong></p>
+<p>According to <strong>Bezout Theorem:</strong>
+$$ax+by=1 \Leftrightarrow (a,b)=1$$
+thus <strong>Equation ax+by=c has a solution iff gcd(a,b)|c</strong></p>
 <p>Our target is to work out the solution of (x0,y0) <strong>ax+by=1</strong> and suppose (a,b)=1.</p>
-<p>During euclid method, we have:
-
-
-
-<div class="figure center" >
-  
-    <img class="fig-img" src="https://Supradax.github.io/img/equations/001.jpg" >
-  
-  
-</div>
-
-if there is a solution which satisfies
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/equations/002.jpg" >
-   
-   
- </div>
-
-plug in and we get:
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/equations/003.jpg" >
-    
-    
-  </div>
-
-Which means the two equations have the same solution. Thus we have:
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/equations/004.jpg" >
-    
-    
-  </div>
-
-In order to work out x0 and y0 from the next step, we trace back and get:
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/equations/005.jpg" >
-    
-    
-  </div>
-</p>
+<p>During euclid method, we have:$$a=q_1b+r_1, b=q_2r_1+r_2$$
+if there is a solution which satisfies: $$ax_0+by_0=1$$</p>
+<p>plug in and we get: $$1-by_0=q_1bx_0+r_1x_0 \Rightarrow (y_0+q_1x_0)b+x_0r_1=1$$</p>
+<p>Which means the two equations have the same solution. Thus we have:
+$$x=y_0+q_1x_0=y_0+\lfloor{a\over b}\rfloor x_0, y=x_0$$</p>
+<p>In order to work out x0 and y0 from the next step, we trace back and get:
+$$x_0=y,y_0=x-\lfloor{a\over b}\rfloor x_0= x-\lfloor{a\over b}\rfloor y$$</p>
 
   
     

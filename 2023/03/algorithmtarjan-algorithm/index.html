@@ -1,4 +1,13 @@
+
 <!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
 <html lang="en-us">
   <head>
     
@@ -34,7 +43,7 @@
     }
     
   },
-  "description": "Tarjan Algorithm, 主要用于求解强连通分量相关问题。\nStrongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。\nTarjan算法中，我们定义：\nTree Edge 树边，即DFS搜索树上的边 (Black) Front Edge 前向边，与DFS方向一致，指向其某些子节点的边 (Blue) Back Edge 后向边，与DFS方向相反，指回某些父节点的边 (Red) Cross Edge 横叉边，从DFS搜索子树指向另一子树的边 (Green) ",
+  "description": "Tarjan Algorithm, 主要用于求解强连通分量相关问题。\n",
   "keywords": []
 }
 
@@ -45,50 +54,18 @@
 <meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Supradax">
 <meta name="keywords" content="">
-<meta name="description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
-Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
-Tarjan算法中，我们定义：
-
-Tree Edge 树边，即DFS搜索树上的边 (Black)
-Front Edge 前向边，与DFS方向一致，指向其某些子节点的边 (Blue)
-Back Edge 后向边，与DFS方向相反，指回某些父节点的边 (Red)
-Cross Edge 横叉边，从DFS搜索子树指向另一子树的边 (Green)
-">
+<meta name="description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。">
 
 
-<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
-Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
-Tarjan算法中，我们定义：
-
-Tree Edge 树边，即DFS搜索树上的边 (Black)
-Front Edge 前向边，与DFS方向一致，指向其某些子节点的边 (Blue)
-Back Edge 后向边，与DFS方向相反，指回某些父节点的边 (Red)
-Cross Edge 横叉边，从DFS搜索子树指向另一子树的边 (Green)
-">
+<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Algorithm]Tarjan Algorithm">
 <meta name="twitter:title" content="[Algorithm]Tarjan Algorithm">
 <meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/">
 <meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
-<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
-Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
-Tarjan算法中，我们定义：
-
-Tree Edge 树边，即DFS搜索树上的边 (Black)
-Front Edge 前向边，与DFS方向一致，指向其某些子节点的边 (Blue)
-Back Edge 后向边，与DFS方向相反，指回某些父节点的边 (Red)
-Cross Edge 横叉边，从DFS搜索子树指向另一子树的边 (Green)
-">
-<meta name="twitter:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。
-Strongly Connected Components，强连通分量(SCC)，指在有向图某一分量中的任意两个节点u,v存在u→v和v→u的有向路径；Weakly Connected Components，弱连通分量(WCC)，则只有一方可达（换为无向边时连通）。在无向图中只称为连通分量，不区分强弱。
-Tarjan算法中，我们定义：
-
-Tree Edge 树边，即DFS搜索树上的边 (Black)
-Front Edge 前向边，与DFS方向一致，指向其某些子节点的边 (Blue)
-Back Edge 后向边，与DFS方向相反，指回某些父节点的边 (Red)
-Cross Edge 横叉边，从DFS搜索子树指向另一子树的边 (Green)
-">
+<meta property="og:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。">
+<meta name="twitter:description" content="Tarjan Algorithm, 主要用于求解强连通分量相关问题。">
 <meta property="og:locale" content="en-us">
 
   

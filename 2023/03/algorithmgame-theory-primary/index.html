@@ -1,4 +1,13 @@
+
 <!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
 <html lang="en-us">
   <head>
     
@@ -308,7 +317,7 @@
 <p><strong>Problem</strong> ALice和Bob在玩取物游戏，规则是每次可以从n个石子里拿走1~3个，拿走最后一个石子的人获胜。若Alice先手且两个人均使用最优策略，对给定的n，Alice是必败还是必胜？</p>
 <p><strong>Analysis</strong>
 我们先确定<strong>游戏终点</strong>，显然当剩余石子为0时游戏结束。那么是否能够确定一些n使得先手必败呢?</p>
-<p>答案是显然的。当n=0时，Alice一上来就没有石子可以拿，属于必败；而n=1,2,3时Alice可以选择一把全拿走，这些状态Alice必胜，那么为什么在n=3时Alice不一次拿1个或2个，非要一次全拿走呢? 读者不难想到，这样使石子剩下1个或2个，轮到Bob时他全拿走，那么Alice必为负。将这一过程抽象出来———这种匪夷所思的操作，会让<strong>Bob进入必胜态(n=1,2)</strong>，从而导致Alice必败.</p>
+<p>答案是显然的。当n=0时，Alice一上来就没有石子可以拿，属于必败；而n=1,2,3时Alice可以选择一把全拿走，这些状态Alice必胜，那么为什么在n=3时Alice不一次拿1个或2个，非要一次全拿走呢? 读者不难想到，这样使石子剩下1个或2个，轮到Bob时他全拿走，那么Alice必为负。将这一过程抽象出来——这种匪夷所思的操作，会让<strong>Bob进入必胜态(n=1,2)</strong>，从而导致Alice必败.</p>
 <p>那么接下来看n=4，此时无论Alice拿1,2,3个，均会导致Bob接手时剩余1,2,3个，即均为Bob的必胜态。即<strong>n=4时Alice无法通过一次操作把棋局变为必败态送给Bob</strong>，或者反过来说，<strong>Alice不论怎么操作都会让Bob必胜</strong>。</p>
 <p>因此可得这样的结论：</p>
 <ul>
@@ -396,17 +405,8 @@ p.s. 此处是倒过来考虑问题，考虑到达终点前一步的状态；再
 <li>每个回合玩家只能操作一个子游戏</li>
 </ul>
 <p>从而可应用SG定理，即 <strong>群(X,∪)和群(SG(X),⊕)构成群同态</strong>  (⊕为二进制的异或)
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/topo/05.jpg" >
-    
-    
-  </div>
-
-对SG定理，需要用群论的知识——<strong>博弈群</strong>进行严格证明，放在文末.</p>
+$$sg(A_1 \cup A_2 &hellip; \cup A_n)=sg(A_1)⊕sg(A_2)⊕&hellip;⊕sg(A_n)$$</p>
+<p>对SG定理，需要用群论的知识——<strong>博弈群</strong>进行严格证明，放在文末.</p>
 <p>也就是说，我们只需将其进行拆分，考虑每一堆石子，显然sg(k)=k(k为任意正整数)
 从而整体的sg值为<strong>各堆石子数异或的结果</strong>，只有不为0时Alice才必败，我们看下不严谨的证明得到一个感性认识：</p>
 <ul>
@@ -419,17 +419,8 @@ p.s. 此处是倒过来考虑问题，考虑到达终点前一步的状态；再
 <li>
 <p>证明1：<strong>注意我们每一次只能改变其中一个状态(不能同时操作多堆石子)</strong>，从而
 由于状态无环，从而前后状态一定不等，<strong>反证：假设异或后整体为零</strong>
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/topo/06.jpg" >
-    
-    
-  </div>
-
-故ai=b，矛盾！</p>
+$$a_1⊕&hellip;⊕a_i&hellip;⊕a_n=0 \Rightarrow a_i=0⊕a_i=(a_1⊕&hellip;⊕b⊕&hellip;a_n)⊕a_i=0⊕b=b$$
+$$\Rightarrow a_i=b \Rightarrow\Leftarrow!$$</p>
 </li>
 <li>
 <p>证明2：假设整体异或结果s中二进制最高位为第k位，那么<strong>所有状态里面一定存在奇数个第k位为1</strong>，从中选一个有t个石子的堆，一定可从石子堆中取m个(m&lt;t)使得当t换为m时整体异或（mex函数的定义）</p>
@@ -541,7 +532,8 @@ int sg(int m){
 <p>下面介绍一些除了Nim外的经典问题，一般对此类问题先用sg函数打表观察出结论(可用归纳和反证证明)：</p>
 <h4 id="problem-c-wythoffs-game">Problem C Wythoff&rsquo;s Game</h4>
 <p><strong>Problem</strong>  假设有2堆数量分别为m,n的石堆，Alice和Bob轮流进行（Alice先手），<strong>每次可以从一个石堆中取任意个或同时从两堆取相同个</strong>，问：m,n给定的情况下，Alice的胜负情况.
-看两个数的差值t是不是满足  (sqrt(5)+1)/2*t==min(n1,n2);</p>
+看两个数的差值t是不是满足<br>
+$$\frac{\sqrt{5}+1}{2}t=min(n_1,n_2)$$</p>
 <h4 id="problem-d-fibonaccis-game">Problem D Fibonacci&rsquo;s Game</h4>
 <p>先手胜当且仅当n不是斐波那契数</p>
 <h4 id="problem-e-环形博弈">Problem E 环形博弈</h4>
@@ -549,7 +541,7 @@ int sg(int m){
 ​​​​​​​石子数目小于等于2 先手胜，其他 后手胜</p>
 <p><strong>变式</strong> 对称博弈：n个石子围成环,每次只能取相邻的1~k个
 如果k &lt; n： 对k=1,如果n能被2整除,则后手赢；如果k&gt;1,后手赢（先手取什么位置后手就取对称的位置，这样保证后手永远能取到)
-如果k&gt;=n： 先手赢.</p>
+如果k≥n： 先手赢.</p>
 <h3 id="6-树上博弈与博弈dp">6. 树上博弈与博弈DP</h3>
 <h3 id="7-附录">7. 附录</h3>
 <p>证明</p>

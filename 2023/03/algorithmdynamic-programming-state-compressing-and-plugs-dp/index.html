@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Dynamic Programming: State Compressing And Plugs DP",
+  
+  "image": "https://Supradax.github.io/img/01.jpg",
+  
+  "datePublished": "2023-03-18T00:00:00Z",
+  "dateModified": "2023-03-18T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmdynamic-programming-state-compressing-and-plugs-dp\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "State Compressing, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: the existence of a certain element in a set and 2D DP Problems concerning connectivity.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="State Compressing, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: the existence of a certain element in a set and 2D DP Problems concerning connectivity.">
+
+
+<meta property="og:description" content="State Compressing, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: the existence of a certain element in a set and 2D DP Problems concerning connectivity.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Dynamic Programming: State Compressing And Plugs DP">
+<meta name="twitter:title" content="[Algorithm]Dynamic Programming: State Compressing And Plugs DP">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="State Compressing, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: the existence of a certain element in a set and 2D DP Problems concerning connectivity.">
+<meta name="twitter:description" content="State Compressing, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: the existence of a certain element in a set and 2D DP Problems concerning connectivity.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-18T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-18T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="DP">
+    
+  
+  
+    
+      <meta property="article:tag" content="DP">
+    
+      <meta property="article:tag" content="Algorithm">
+    
+      <meta property="article:tag" content="State Compressing">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/01.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/01.jpg">
+
+
+    <title>[Algorithm]Dynamic Programming: State Compressing And Plugs DP</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Dynamic Programming: State Compressing And Plugs DP
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-18T00:00:00Z">
+        
+  March 18, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/dp">DP</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>State Compressing</strong>, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: <strong>the existence of a certain element in a set</strong> and <strong>2D DP Problems concerning connectivity</strong>.</p>
+<p>Generally, when an element is not in the set, we take 0 as a mark; conversely, 1 represents its existence in the set, which associates the binary form of an integer. Thereby, we take an integer <strong>N</strong> to represent the state of a set with <strong>log(2,N)</strong> elements at most.</p>
+<p>Therefore, under the circumstance where we need to represent two states, it of necessity to bring in bitwise operations.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">if(a&amp;b)	//If true, it means a and b have at least an identical 1
+
+if((a&amp;b)==a)	//If true, a is the subset of b, which can be deduced from Truth Table  
+		//take care that the priority of &#34;==&#34; is higher than “&amp;”
+if((a|b)==a)	//Conversely, b is the subset of a if true
+ 
+if((a&gt;&gt;j)&amp;1) // To judge whether or not the jth number is 1
+
+int tot = (a&lt;&lt;m)-1; //To intialize tot with m ones.</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>However, it also has a <strong>downside</strong> as <strong>the scale of the set rises up</strong>, the space and time complexity will rocket up with a exponential speed. Considering that &ldquo;int&rdquo; and &ldquo;long long&rdquo; represents 16 and 64 digits,such practice is not suggested when the set has <strong>more than around 12 elements</strong> in total.</p>
+<h2 id="part-one-1d-problem">Part One: 1D Problem</h2>
+<p><strong>Problem:</strong> You are given 3 integers N,M,K, which means that there are N different objects and M boxes with K objects among all. In order to collect all objects by taking the least boxes,please figure out this number.(N is no more than 15)</p>
+<pre tabindex="0"><code>Input: 4 3 2, [1 2],[2 3],[1 4],[1 1]
+Output: 3
+Explanation: You have to obtain Box 1,2,3 to get all four objects.  
+</code></pre><p><strong>Analysis:</strong> In this case, we take 0,1 to represent a number is in,out of the set. Fistly, we iterate through all boxes and transform it into a number. Later on, we set an array <em>s[1&laquo;n]</em>, which implies the number of objects you can get in this state. Now we design the update rule: <strong>when you iterate through all the boxes, you update s[] if and only if you can minimize the number of boxes by taking it.</strong> Under this guildline, we need to initialize s[] with a maximum and we code as followed:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#include &lt;iostream&gt;
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+int main(void){
+	int n,m,k,s[(1&lt;&lt;10)],box[15]={0};
+	cin&gt;&gt;n&gt;&gt;m&gt;&gt;k;
+	for(int i=0;i&lt;(1&lt;&lt;n);i&#43;&#43;)   s[i]=100;
+	for(int i=0;i&lt;m;i&#43;&#43;)
+		for(int j=0;j&lt;k;j&#43;&#43;){
+			int x; cin&gt;&gt;x;
+			box[i] |= (box[i]|(1&lt;&lt;(x-1))); //the index begins from 0
+			s[i]=1;	//initialize
+		}
+	int tot = (1&lt;&lt;n)-1;	//final target state
+	for(int i=0;i&lt;(1&lt;&lt;n);i&#43;&#43;)	//traverse all possible states
+		if(s[i]!=100)	//if have been updated before
+			for(int j=0;j&lt;m;j&#43;&#43;)	//traverse all boxes
+				s[i|box[j]] = min(s[i|box[j]],s[i]&#43;1); //judge whether or not to take
+	cout&lt;&lt;s[tot];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="part-two-2d-problems">Part Two: 2D Problems</h2>
+<h3 id="problem-a-cultivation">Problem A: Cultivation</h3>
+<p><strong>Problem A:</strong> Supposing you have a rectangle field with a scale of <strong>M</strong> times <strong>N</strong>, and now you have been told each block is fertile(marked as 1) or barren(marked as 0). In the sowing season, you have got to plant as many crops as possible in a block. However, you cannot plant on two adjacent blocks in the meanwhile and you are not allowed to cultivate on the barren soil neither. Now you are wondering how many methods you can cultivate on this field.</p>
+<pre tabindex="0"><code>Input: 2 3  
+ 1 1 0
+ 0 1 1
+Output: 8
+Explanation: According to the nutrition distribution, you have 8 methods in total 
+to plant the crops on a field with 2 rows and 3 columns.
+</code></pre><p><strong>Analysis:</strong> It is easy to take State Compressing into account. <strong>We take a sequence of 0 and 1 as the distribution that we decide to plant on a certain row.</strong> However, there&rsquo;s a tricky before many times of iteration: <strong>Pruning Idea</strong>.</p>
+<p>Now that it is not allowed to plant on adjacent blocks, there are quit a few situations like &ldquo;11001&rdquo; which can be excluded at the very beginning. In other word, we don&rsquo;t have to look through <strong>1&laquo;m</strong> states in total; Instead, we can simply focus on those <em>valid states</em>.</p>
+<p>Later on, we put hands on our dp(x,y) array, where <strong>x,y indicates the current row and the state of the row respectively and dp(x,y) means the account of different methods</strong> . And our final answer would be the sum of dp(m,y) where y can be all possible valid state. But skillfuly, we can calculate dp(m+1,0), which illustrates <strong>nothing has been sowed on the (m+1)th row and there is no need to figure out the answer from an extra loop</strong>.</p>
+<p>Consequently,we need to take the following multiple loops into consideration. We update the state if and only if <strong>the state is valid</strong> (without neighbors between the ith row and the (i-1)th row), which means we have to go through all possible states of two rows and add them up. And we code as followed:</p>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#include &lt;iostream&gt;
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+int main(void){
+	int n,m,state[15]={0},dp[15][1&lt;&lt;10]={0},valid_state[1&lt;&lt;10];
+	cin&gt;&gt;m&gt;&gt;n;
+	for(int i=1;i&lt;=m;i&#43;&#43;)
+		for(int j=0;j&lt;=n;j&#43;&#43;){
+			int x; cin&gt;&gt;x;
+			if(x)	state[i] &#43;= 1&lt;&lt;(m-j); //the nutrition distribution
+		}
+	dp[0][0]=1; //to plant nothing is also a kind of method 
+	int cnt=0;
+	for(int i=0;i&lt;(1&lt;&lt;n);i&#43;&#43;)
+		if(!((i&gt;&gt;1)&amp;i))	//if there is are adjacent 1
+			valid_state[cnt&#43;&#43;]=i;
+	
+	for(int i=1;i&lt;m&#43;2;i&#43;&#43;)	//traverse all rows
+		for(int j=0;j&lt;cnt;j&#43;&#43;)	//traverse all valid states in the ith row
+			for(int k=0;k&lt;cnt;k&#43;&#43;)	//traverse all valid states in the i-1th row 
+				if((state[i]|valid_state[j])==state[i] &amp;&amp; !(valid_state[j]&amp;valid_state[k]))
+					dp[i][j] &#43;= dp[i-1][k];
+	cout&lt;&lt;dp[m&#43;1][0];
+	return 0;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>Emphasis:</strong></p>
+<ol>
+<li>We need to start with index 1 so as to reserve space for the 1st iteration.(Otherwise, when i=0, i-1th row is not valid.)</li>
+<li>Initialize dp(0,0)=1(Otherwise, the whole dp array would be all zero. ) and else are 0(You can suppose that the 0th row is barren everywhere).</li>
+</ol>
+<h4 id="version-β">Version β:</h4>
+<p>Consider the modified problem: You raise the crops on a certain block, with which centered you cannot grow them again on blocks in the scope of 1 blocks(Contain diagnal blocks).
+<strong>Analysis:</strong> Not much are required to vary. The only thing to do is <strong>modify the judging condition between ith and i-1th row</strong>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">for(int i=1;i&lt;m&#43;2;i&#43;&#43;)	
+	for(int j=0;j&lt;cnt;j&#43;&#43;)	
+		for(int k=0;k&lt;cnt;k&#43;&#43;)	
+			if((state[i]|valid_state[j])==state[i] &amp;&amp; !(valid_state[j]&amp;valid_state[k]))
+				if(!((valid_state[j]&gt;&gt;1)&amp;valid_state[k]) &amp;&amp; !((valid_state[j]&lt;&lt;1)&amp;valid_state[k]))	//extra condition
+					dp[i][j] &#43;= dp[i-1][k];</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="version-γ">Version γ:</h4>
+<p>Consider the modified problem: Now it is not allowed to raise crops on blocks which lie in the same row or column within 2 blocks. And this time we are instereted in the maximum of blocks we can plant on.
+<strong>Analysis:</strong> Now we have to think over if the states in DP arrays are still enough. Ponder on the proof by contradiction. If we still use dp(current row, state of ith row), then we will get stuck with the problem when updating &ndash; <strong>We don&rsquo;t have enough info about the i-1th distribution when the methods of i-1th row reach its peak, which interrupt our judgment severely.</strong> Therefore, we have to record more info, say, <strong>dp(current row, state of ith row, state of i-1th row)</strong></p>
+<p>One tough problem is how to update the dp array. It can be designed as dp(i,state[i],state[i-1])=dp(i,state[i-1],state[i-2])+ frequency of one in state[i] iff the combinition of ith,i-1th and i-2th is valid and the result can be greater.</p>
+<p>Another sticky bussiness is how to initialize the dp array. We can see that there is no restriction in the -1th and 0th row, in other words, we can cultivate as we like as long as it agrees with the soil nutrition. To avoid the appreance of negative numbers, we begin from the 2th row and end up with (m+2)th and compute dp(m+2,0,0).</p>
+<p>Under this circumstance, we have no need to initialize the array. Then we code as followed:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+int main(void){
+	int n,m,state[15]={0},dp[15][1&lt;&lt;10][1&lt;&lt;10]={0},valid_state[1&lt;&lt;10],num[1&lt;&lt;10];
+	cin&gt;&gt;m&gt;&gt;n;
+	for(int i=1;i&lt;=m;i&#43;&#43;)
+		for(int j=0;j&lt;n;j&#43;&#43;){
+			int x; cin&gt;&gt;x;
+			if(x)	state[i] &#43;= 1&lt;&lt;(m-j); //the nutrition distribution
+		}
+	int cnt=0;
+	for(int i=0;i&lt;(1&lt;&lt;n);i&#43;&#43;)
+		if(!((i&gt;&gt;1)&amp;i)&amp;&amp;!((i&gt;&gt;2)&amp;i)){	//if there is are adjacent 1
+			valid_state[cnt&#43;&#43;]=i;
+            for(int j=0;j&lt;m;j&#43;&#43;)    num[i]&#43;=(i&gt;&gt;j&amp;1); //record the frequency of 1 in a state
+        }
+
+	for(int i=1;i&lt;=m&#43;2;i&#43;&#43;)	//traverse all ith rows
+          for(int a=0;a&lt;cnt;a&#43;&#43;) //ith state
+            for(int b=0;b&lt;cnt;b&#43;&#43;)  //i-1th state
+              for(int c=0;c&lt;cnt;c&#43;&#43;)	//i-2th state
+                 if((state[i]|valid_state[a])==state[i])//perform AND operations with each two(thrice in total, not twice)
+                   if(!(valid_state[a]&amp;valid_state[b])&amp;&amp;!(valid_state[a]&amp;valid_state[c])&amp;&amp;!(valid_state[b]&amp;valid_state[c]))
+			dp[i][a][b] = max(dp[i][a][b],dp[i-1][b][c]&#43;num[valid_state[a]]);
+	cout&lt;&lt;dp[m&#43;2][0][0];
+	return 0;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="part-three-state-compression-on-graphs">Part Three: State Compression on Graphs</h2>
+<p>In most cases, State Compression is applied in the field of <strong>Compositions or Arrangements of Subsets</strong> where 0 and 1 stands for in-state or not-in-state. Sometimes we adopt <strong>ternary</strong> when two states are not enough.</p>
+<h4 id="problem-a-the-shortest-halmiton-circle">Problem A: The Shortest Halmiton Circle</h4>
+<p><strong>Problem</strong> You are given a directed graph whose edges has its weight. You are required to find one shortest Halmiton circle.</p>
+<p><strong>Solution</strong> If we dfs by force then it comes to be $O(n·n!)$ (n! paths in total and n times of addition) . With State Compression, we can lower n! to $2^n$ where <strong>the factorial scale is diminished to exponential scale</strong>.</p>
+<p>We define f[S][j] where <strong>S is a subset of all points</strong> and its value means the shortest distance: <strong>the path begins from the source, traverses all the points in S and finishes at Point j</strong>. And the expression of the subset adopts states compression.</p>
+<p>If we cast away j from S i.e. $S{j}$ then $f(S,j)=argmin(f(S-j,k)+d(j,k))$ . In this way we initialize $f(S)=0$ and let it run. The whole complexity is $O(n^22^n)$ where we enumate all subset states and update the distance by traversing $S$ for each point.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/17.jpg" >
+  
+  
+</div>
+
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int n,f[1&lt;&lt;20][21]; //20 pts at most
+int dist[21][21];  //the relative small scale allows us to use adjacent matrix
+/*input the graph into dist*/
+f[1][0]=0; //point 1 is the source
+for(int s=1; s&lt;(1&lt;&lt;n);s&#43;&#43;)
+	for(int j=0;j&lt;n;j&#43;&#43;)
+			for(int k=0;k&lt;n;k&#43;&#43;)
+				if((s&gt;&gt;j)&amp;1)	// if j is in set S
+					if(s^(1&lt;&lt;j)&gt;&gt;k &amp;1)	//if k is in set S-j
+						f[s][j] = min(f[s][j],f[s^(1&lt;&lt;j)][k]&#43;dist[k][j]);
+return f[(1&lt;&lt;n)-1][n-1]; //n-1 is the terminal</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="problem-b-a-weird-halmiton-circle">Problem B: A Weird Halmiton Circle</h4>
+<p><strong>Problem</strong>  Now we define a new type of circle, pass each point at least once and no more than twice. (The source is fixed) And now you are required to find the path whose cost is the least.</p>
+<p><strong>Solution</strong> It appears to be a complex version of Problem A. And this time we define $f[S][j]$ as well, but differently, S can have 3 states where <strong>0,1,2 stands for having visited 0,1,2 times</strong> . <strong>But ternary is not natural for computer and therefore we choose quaternary</strong>.</p>
+<p>The updating rule will be modified as $f(S,j)=argmin(f(S-j,k),f(S-2j,k))+d(k,j)$
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int n,f[1&lt;&lt;20][21]; //10 pts at most
+int dist[11][11];  //the relative small scale allows us to use adjacent matrix
+/*input the graph into dist*/
+f[1][0]=0; //point 1 is the source
+for(int s=1; s&lt;(1&lt;&lt;n);s&#43;&#43;)
+	for(int j=0;j&lt;n;j&#43;&#43;)
+			for(int k=0;k&lt;n;k&#43;&#43;)  
+				if(((s&gt;&gt;j*2)&amp;1)&amp;&amp;!(s&gt;&gt;j*2 &amp;&amp; s&gt;&gt;j*2&#43;1)) 
+				// if k has been visited once and k is visited once or twice
+					if(((s^(1&lt;&lt;j)&gt;&gt;k*2)&amp;1)||((s^(1&lt;&lt;j)&gt;&gt;k*2&#43;1)&amp;1)))
+						if(!((s^(1&lt;&lt;j*2)&gt;&gt;k*2)&amp;1)&amp;&amp;((s^(1&lt;&lt;j*2)&gt;&gt;k*2&#43;1)&amp;1)))
+							f[s][j*2] = min(f[s][j*2],f[s^(1&lt;&lt;j*2)][k]&#43;dist[k][j]);
+				else if(((s&gt;&gt;j*2&#43;1)&amp;1)&amp;&amp;!(s&gt;&gt;j*2 &amp;&amp; s&gt;&gt;j*2&#43;1))
+					if(((s^(1&lt;&lt;j*2&#43;1)&gt;&gt;k*2)&amp;1)||((s^(1&lt;&lt;j*2&#43;1)&gt;&gt;k*2&#43;1)&amp;1)))
+						if(!((s^(1&lt;&lt;j*2&#43;1)&gt;&gt;k*2)&amp;1)&amp;&amp;((s^(1&lt;&lt;j*2&#43;1)&gt;&gt;k*2&#43;1)&amp;1)))
+							f[s][j*2&#43;1] = min(min(f[s][j*2&#43;1],f[s^(1&lt;&lt;j*2)][k]&#43;dist[k][j]),f[s^(1&lt;&lt;j*2&#43;1)][k]&#43;dist[k][j]);
+int res=0xff;
+for(int i=0;i&lt;n;i&#43;&#43;)
+	res = min(res,f[(1&lt;&lt;n*2)-1][i]);
+return res;</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="part-fourplugs-dp">Part Four:Plugs DP</h2>
+<p>A simplified version of Plugs DP are restricted to a grid whose scale is quite small on a certain dimension.</p>
+<h4 id="problem-a-jigsaw-puzzles">Problem A: Jigsaw Puzzles</h4>
+<p><strong>Problem</strong> You are given a 2×n grid and sufficient 1×2 components which can be rotated to finish the puzzle. Please work out the amount of feasible solutions.</p>
+<p><strong>Solution</strong> Because it has only two rows, we can enumate all of the possible compositions and define dp[N] as the amount of methods we have to fill out all the positions of the first N columns. As the picture shows, we have: $f(n)=f(n-1)+f(n-2),f(1)=1,f(2)=2$ which is <strong>Fibonacci Sequence</strong>.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/15.jpg" >
+  
+  
+</div>
+</p>
+<p>What if we take a L-shaped into account? Then it will be like below. But to take care that <strong>Case a and Case b actually contains two different ways</strong> thus making it $f(n)=2f(n-4)+2f(n-3)+f(n-2)+f(n-1),f(Z^-)=0,f(0)=1,f(1)=1$
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/16.jpg" >
+  
+  
+</div>
+</p>
+<h4 id="problem-b-plugs-dp--mondriaans-dream">Problem B: Plugs DP&ndash;Mondriaan’s Dream</h4>
+<p><strong>Problem:</strong> Calculate the number of ways to fill the large rectangle whose dimensions are integer values with 1×2 small rectangles.</p>
+<pre tabindex="0"><code>Input:1 2  Output:1
+Input:1 3  Output:0
+Input:2 4  Output:5
+</code></pre><p><strong>Analysis:</strong> When facing plugging problems, we set 0 and 1 on each block. One block is 1 iff there is a horizontal one which strectches to the next column; it is 0 iff there is a vertical one or it is occupied by the horizontal one in the previous column.</p>
+<p>We define dp(current row, state of current row) array as the number of ways. In view of its 1 by 2 scale, it is reasonable to compare the ith column and the i-1th. Therefore, we design the updating rule as <strong>we add dp(i,j) and dp(i-1,k) up iff there&rsquo;s no conflict between the ith and i-1th, which ensure no intersections and blanks respectively.</strong> More exactly, <strong>state j AND state k can only be 0</strong> and <strong>there cannot be odd consecutive zeros in j OR k.</strong></p>
+<p>Enlighted by Problem A, perhaps we can exclude some invalid combinitions at first to minimize the time complexity. The rule of 0 and 1 denotes that there cannot be odd zeros continuously. Otherwise, when the horizontal rectangle has been confirmed, you cannot use vertical rectangles to fill it out.</p>
+<p><strong>Note.</strong> We apply greedy idea unconsiously: Once the horizontal have been confirmed, you have and only have one way to fill out the rest with the vertical.</p>
+<p>And we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+int main(void){
+	int m,n,st[1&lt;&lt;10]={0},dp[15][1&lt;&lt;10]={0};
+	cin&gt;&gt;n&gt;&gt;m; //n rows and m columns
+	for(int i=0;i&lt; 1&lt;&lt;n; i&#43;&#43;){  //detect valid distribution after merging
+        st[i]=true;
+        int cnt=0;
+        for(int j=0;j&lt;n;j&#43;&#43;){
+            if(i&gt;&gt;j &amp;1){    //end of zeros
+                if(cnt&amp;1){st[i]=false;break;}}
+            else   cnt&#43;&#43;;
+        }
+        if(cnt&amp;1)   st[i]=false;
+	}
+	dp[0][0]=1;
+	for(int i=0;i&lt;=m;i&#43;&#43;)   //walk through all columns
+        for(int j=0;j&lt; 1&lt;&lt;n;j&#43;&#43;)    //state of the ith
+            for(int k=0;k&lt; 1&lt;&lt;n;k&#43;&#43;)    //state of the i-1th
+                if(!(j&amp;k)&amp;&amp; st[j|k])    dp[i][j] &#43;= dp[i-1][k];
+	return 0;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>Now we bring in some relative concepts</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/dp/">DP</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/state-compressing/">State Compressing</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" data-tooltip="[Data Structure]Disjoint Set Union and its Extension" aria-label="NEXT: [Data Structure]Disjoint Set Union and its Extension">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmdynamic-programming-state-compressing-and-plugs-dp\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmdynamic-programming-state-compressing-and-plugs-dp\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structuredisjoint-set-union-and-its-extension/" data-tooltip="[Data Structure]Disjoint Set Union and its Extension" aria-label="NEXT: [Data Structure]Disjoint Set Union and its Extension">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-state-compressing-and-plugs-dp%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-state-compressing-and-plugs-dp%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmdynamic-programming-state-compressing-and-plugs-dp%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

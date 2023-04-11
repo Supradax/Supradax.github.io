@@ -6,7 +6,16 @@
     <description>Recent content in Data Structure on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/data-structure/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/data-structure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Data Sturcture]Trie, KMP and AC Automaton</title>
+      <link>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</link>
+      <pubDate>Tue, 04 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Trie&lt;/strong&gt;, 字典树，用于快速查询有限组合的序列。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[Data Structure]Segment Tree and its Improvement</title>
       <link>https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/</link>

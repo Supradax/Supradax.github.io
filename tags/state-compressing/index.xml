@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/state-compressing/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[Algorithm]Dynamic Programming: State Compressing</title>
-      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</link>
+      <title>[Algorithm]Dynamic Programming: State Compressing And Plugs DP</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/</link>
       <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</guid>
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/</guid>
       <description>&lt;p&gt;&lt;strong&gt;State Compressing&lt;/strong&gt;, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: &lt;strong&gt;the existence of a certain element in a set&lt;/strong&gt; and &lt;strong&gt;2D DP Problems concerning connectivity&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     

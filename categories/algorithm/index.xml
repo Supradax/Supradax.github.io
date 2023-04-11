@@ -6,7 +6,25 @@
     <description>Recent content in Algorithm on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull</title>
+      <link>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</link>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</guid>
+      <description>&lt;p&gt;Vector and Matrix are widely used in the region of computational geometry with which we can easily express the relative positions among points, lines and planes.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Network Flow: EK and Dinic</title>
+      <link>https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[Algorithm]Tarjan Algorithm</title>
       <link>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</link>
@@ -98,11 +116,11 @@
     </item>
     
     <item>
-      <title>[Algorithm]Dynamic Programming: State Compressing</title>
-      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</link>
+      <title>[Algorithm]Dynamic Programming: State Compressing And Plugs DP</title>
+      <link>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/</link>
       <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing/</guid>
+      <guid>https://Supradax.github.io/2023/03/algorithmdynamic-programming-state-compressing-and-plugs-dp/</guid>
       <description>&lt;p&gt;&lt;strong&gt;State Compressing&lt;/strong&gt;, which indicates a way to depict different states relatively succintly, are widely applied to two sorts of typical problems: &lt;strong&gt;the existence of a certain element in a set&lt;/strong&gt; and &lt;strong&gt;2D DP Problems concerning connectivity&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     

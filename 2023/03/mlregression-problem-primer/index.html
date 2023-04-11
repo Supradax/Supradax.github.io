@@ -18,7 +18,7 @@
   "@type": "BlogPosting",
   "headline": "[ML]Regression Problem: Primer",
   
-  "image": "https://Supradax.github.io/img/game.jpg",
+  "image": "https://Supradax.github.io/img/regression.jpg",
   
   "datePublished": "2023-03-28T00:00:00Z",
   "dateModified": "2023-03-28T00:00:00Z",
@@ -106,8 +106,8 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/game.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/game.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/regression.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/regression.jpg">
 
 
     <title>[ML]Regression Problem: Primer</title>
@@ -339,7 +339,7 @@ Y=\begin{bmatrix}y_1 \\y_2 \\&hellip;\\y_n \end{bmatrix}
 $$
 但是为形式简洁，我们想要让β涵盖在A中，便于后续化简
 $$ X=\begin{bmatrix}	1&amp;x_1 \\1&amp;x_2 \\&hellip;\\1&amp;x_n \end{bmatrix}
-A=\begin{bmatrix}b1 &amp;a_1 \\&hellip;&amp;\\b_n&amp;a_n \end{bmatrix}
+A=\begin{bmatrix}b_1 &amp;b_2 &amp;&hellip;&amp;b_n \\a_1 &amp;a_2 &amp;&hellip;&amp;a_n \end{bmatrix}
 \Rightarrow Y=AX<br>
 $$
 直觉的想法是求X的逆直接解出系数矩阵A，但这个想法并不可行(X不一定是方阵，是方阵也不一定可逆，甚至不一定有解)，从而需要构造别的方法</p>
@@ -365,6 +365,8 @@ $$k=\frac{\Sigma y_i(x_i-\bar{x})}{\Sigma x_i^2-\frac{1}{m}(\Sigma x_i)^2}, b=\f
 <p>如假定有一元n次多项式(3.1)，现要用最小二乘确定n+1个系数的值，则同理可用完全相同的方式证明(2.2)的结论，若伪逆存在，则系数矩阵W(规模n×1)满足(3.2)
 $$y=a_nx^n+&hellip;+a_1x+a_0 \tag{3.1}$$
 $$W=(X^TX)^{-1}X^TY, w=\begin{bmatrix} a_0\\a_1\\&hellip;\\a_n \end{bmatrix} \tag{3.2}$$</p>
+<p>注意，最小二乘法的这种方法并不仅局限于多项式系数的求解，输入的数据形式可以多元化的. 如构造如下的回归模型，只需将传入的数据更换为对应的函数值后再使用最小二乘法.
+$$y=ae^x+by+clnz+d, Y=[e^{x_n}\quad y_n\quad ln(z_n)\quad 1]^T$$</p>
 <p>除去第二小节中用代数的方法，现在用矩阵分析的方法证明该结论：定义MSE Loss:
 $$loss \Sigma(y_i-x_iw)^2=(y-XW)^T(y-XW)=Y^TY-Y^TXW-W^TX^TY+W^TX^TXW $$
 再对上式求偏微分：
@@ -478,7 +480,7 @@ $$\beta^{elastic}=argmin{\Sigma(y_i-\beta_0-\Sigma x_{ij}\beta_j)^2+\lambda_1\Si
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlinterpolation-primer/" data-tooltip="[ML]Interpolation: Primer" aria-label="NEXT: [ML]Interpolation: Primer">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -585,7 +587,7 @@ $$\beta^{elastic}=argmin{\Sigma(y_i-\beta_0-\Sigma x_{ij}\beta_j)^2+\lambda_1\Si
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/mlinterpolation-primer/" data-tooltip="[ML]Interpolation: Primer" aria-label="NEXT: [ML]Interpolation: Primer">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

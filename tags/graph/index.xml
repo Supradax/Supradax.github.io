@@ -6,7 +6,25 @@
     <description>Recent content in Graph on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Network Flow: EK and Dinic</title>
+      <link>https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Data Sturcture]Trie, KMP and AC Automaton</title>
+      <link>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</link>
+      <pubDate>Tue, 04 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Trie&lt;/strong&gt;, 字典树，用于快速查询有限组合的序列。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[Algorithm]Tarjan Algorithm</title>
       <link>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</link>

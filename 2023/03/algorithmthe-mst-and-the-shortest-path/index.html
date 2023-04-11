@@ -18,7 +18,7 @@
   "@type": "BlogPosting",
   "headline": "[Algorithm]The MST and the Shortest Path",
   
-  "image": "https://Supradax.github.io/img/treedp.jpg",
+  "image": "https://Supradax.github.io/img/mst.jpg",
   
   "datePublished": "2023-03-25T00:00:00Z",
   "dateModified": "2023-03-25T00:00:00Z",
@@ -106,8 +106,8 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/mst.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/mst.jpg">
 
 
     <title>[Algorithm]The MST and the Shortest Path</title>
@@ -612,7 +612,54 @@ for(int i=1;i&lt;=n;i&#43;&#43;)
   </table>
 </figure>
 </p>
-<h4 id="33-floyd-warshall-algorithm">3.3 Floyd-Warshall Algorithm</h4>
+<h4 id="33-spfaadvanced-bellman-ford-algorithm">3.3 SPFA(Advanced Bellman-Ford Algorithm)</h4>
+<p>During the procedure, we can find that there are some edges iterated repeatedly which can&rsquo;t contribute to any updates. To diminish such redundant operations, we use <strong>SPFA(Shortest-Path Faster Algorithm)</strong> to upgrade Bellman-Ford Algorithm.</p>
+<p>The core idea is to update the distance <strong>iff the distance of nearby nodes has been updated</strong> . We can apply <strong>queue</strong> tp achieve the goal.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>SPFA</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">dist[s]=0;
+queue&lt;int&gt; q;
+
+void spfa(int s){
+	q.push(s);
+	while(!q.empty()){
+		int p=q.front();q.pop();
+		for(auto i:neighbor[p])			
+			if(dis[i.to]&gt;i.w&#43;dist[p]){	//发生更新的才需要入队
+				q.push(i.to);
+				dist[i.to]=i.w&#43;dist[p];
+			}
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="34-floyd-warshall-algorithm">3.4 Floyd-Warshall Algorithm</h4>
 <p>As for the Floyd-Warshall algorithm, we use the idea of DP to detect all posibilities where <strong>it can be shorter by detouring through another vertex</strong>. Take such a tensor into account <code>dist[i][j][k]</code> where it means the distance from i to j passing k and <strong>k here is not necessary</strong> and therefore we use <strong>state compression</strong> to diminish the space complexity but not the time complexity which is still <strong>O(V³)</strong>.</p>
 <p>Although it can also cope with graph with negative edges, the downside is that it takes up too much resource when we simply want to compute the one-source distance. <strong>But when it comes to compute the distance matrix between each two nodes</strong>, Floyd definitely stands out.</p>
 <p>To detect the existence of negative cycle, it is totally the same as Bellman-Ford algorithm.

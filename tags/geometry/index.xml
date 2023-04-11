@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Geometry on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/tags/geometry/</link>
+    <description>Recent content in Geometry on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/geometry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull</title>
+      <link>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</link>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</guid>
+      <description>&lt;p&gt;Vector and Matrix are widely used in the region of computational geometry with which we can easily express the relative positions among points, lines and planes.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

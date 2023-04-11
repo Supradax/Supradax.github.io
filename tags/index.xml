@@ -6,11 +6,47 @@
     <description>Recent content in Tags on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Geometry</title>
+      <link>https://Supradax.github.io/tags/geometry/</link>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/geometry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Algorithm</title>
+      <link>https://Supradax.github.io/tags/algorithm/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graph</title>
+      <link>https://Supradax.github.io/tags/graph/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Calculus</title>
+      <link>https://Supradax.github.io/tags/calculus/</link>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/calculus/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Forecast</title>
       <link>https://Supradax.github.io/tags/forecast/</link>
-      <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/forecast/</guid>
       <description></description>
@@ -19,7 +55,7 @@
     <item>
       <title>ML</title>
       <link>https://Supradax.github.io/tags/ml/</link>
-      <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/ml/</guid>
       <description></description>
@@ -40,24 +76,6 @@
       <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/optimization/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Algorithm</title>
-      <link>https://Supradax.github.io/tags/algorithm/</link>
-      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Graph</title>
-      <link>https://Supradax.github.io/tags/graph/</link>
-      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/graph/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,986 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Data Sturcture]Trie, KMP and AC Automaton",
+  
+  "image": "https://Supradax.github.io/img/trie.jpg",
+  
+  "datePublished": "2023-04-04T00:00:00Z",
+  "dateModified": "2023-04-04T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/data-sturcturetrie-kmp-and-ac-automaton\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "Trie, 字典树，用于快速查询有限组合的序列。\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="Trie, 字典树，用于快速查询有限组合的序列。">
+
+
+<meta property="og:description" content="Trie, 字典树，用于快速查询有限组合的序列。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Data Sturcture]Trie, KMP and AC Automaton">
+<meta name="twitter:title" content="[Data Sturcture]Trie, KMP and AC Automaton">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="Trie, 字典树，用于快速查询有限组合的序列。">
+<meta name="twitter:description" content="Trie, 字典树，用于快速查询有限组合的序列。">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-04-04T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-04-04T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Data Structure">
+    
+  
+  
+    
+      <meta property="article:tag" content="Algorithm">
+    
+      <meta property="article:tag" content="Graph">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/trie.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/trie.jpg">
+
+
+    <title>[Data Sturcture]Trie, KMP and AC Automaton</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Data Sturcture]Trie, KMP and AC Automaton
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-04-04T00:00:00Z">
+        
+  April 4, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/data-structure">Data Structure</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Trie</strong>, 字典树，用于快速查询有限组合的序列。</p>
+<p>业务需求：加入一个序列；查询某个序列是否在树中；删除一个序列
+以典型的含26个字母的字典树为例，定义哈希值0-25对应a-z，则在二叉树的基础上，需一个26叉树结构（静态树）与标记<code>cnt[]</code>(定义为以该节点结束的字符串的个数)并给其中一些已使用的节点进行标号，便于直接查找</p>
+<h2 id="1-template">1 Template</h2>
+<p>
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Trie</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int ch[N][26]={0},cnt[N]={0}, idx=0;
+//插入操作
+void insert(string s){
+	int cur = 0;
+	for(int i=0;i&lt;s.length();i&#43;&#43;){
+		int j = s[i]-&#39;a&#39;;
+		if(!ch[cur][j])	ch[cur][j]=&#43;&#43;idx;	//开点
+		cur = ch[cur][j];
+	}
+	cnt[cur]&#43;&#43;;
+}
+//查询操作：若存在则返回idx，否则为0
+int query(string s){
+int cur = 0;
+	for(int i=0;i&lt;s.length();i&#43;&#43;){
+		int j = s[i]-&#39;a&#39;;
+		if(!ch[cur][j])	return 0;
+		cur = ch[cur][j];
+	}
+	return cnt[cur];
+}
+//删除操作
+void del(string s){
+	int p = query(s);
+	if(!p)	cnt[p]--;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+**时间复杂度：**建树与查询均为O(n)</p>
+<h2 id="2-0-1-trie">2. 0-1 Trie</h2>
+<h4 id="sample-problem-最大异或对">Sample Problem 最大异或对:</h4>
+<p><strong>Problem</strong> 给定n个整数，任选两个进行异或，求得到的最大异或对.
+<strong>Analysis</strong> 异或运算，联想到二进制序列，对于二进制每次均只需保证最高位能取到1，依次向下即可. （每一次选择的集合都包含最优解）从而只需维护一个0,1的二叉字典树并用贪心，当1存在时走1，否则走0. 整体复杂度为O(31n). 由于分叉数m不多，从而也可遍历一遍整个单链结构，复杂度O(2n).</p>
+<ul>
+<li>0-1字典树实现：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>0-1Trie</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int ch[N*31][2], idx;
+void insert(int x){
+	int p=0;
+	for(int i=30;~i;i--){
+		int j = x&gt;&gt;i&amp;1;	//取出第i位
+		if(!ch[p][j])	ch[p][j]=&#43;&#43;idx;
+		p=ch[p][j];
+	}
+}
+int query(int x){	//需对每个数都检查一遍
+	int p=0, res=0;
+	for(int i=30;~i;i--){
+		int j = x&gt;&gt;i&amp;1;	//取出第i位
+		if(ch[p][!j]) {
+			res &#43;= 1&lt;&lt;i;
+			p = ch[p][!j];
+		}else
+			p=ch[p][j];
+	}
+	return res; 
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+<li>集合实现：状态压缩
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>0-1Trie</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int ch[32][2]={0};
+void insert(int n){
+	int cur = 0;
+	for(int i=0; i&lt;=30;i&#43;&#43;){
+		int j = (1&lt;&lt;i)&amp;n;
+		if(j&gt;0)	ch[i][1]=1;
+		else ch[i][0]=1;
+	}
+}
+/*main*/
+for(int i=30;~i;i--)
+		if(ch[i][0] &amp;&amp; ch[i][1])	res|=(1&lt;&lt;i);</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ul>
+<h2 id="3-kmp算法单模态匹配">3. KMP算法：单模态匹配</h2>
+<p><strong>模式匹配(Pattern Matching)</strong>，即在给定的字符串<code>s</code>中寻找是否与指定字符串<code>t</code>相同的子串. 子串可推广到任意序列. 逐一比较虽然可行，但当所需子串长度足够长时，时间复杂度达到O(mn)，其中m为<code>t</code>的长度，n为<code>s</code>的长度.</p>
+<p>该问题的难点在于如何处理<strong>匹配到一半发现不符合</strong>的尴尬情况，在上述做法中即换下一个字母，从头遍历一遍<code>t</code>，<code>s</code>也要从最前面的下一个字母遍历，我们的改进点在于：<strong>能不能不从头开始？</strong></p>
+<p>我们先看是否存在这样的特殊情况能够不重新开始. 设指针<code>i,j</code>指向<code>s,t</code>，形如在<code>aaacaaab</code>中匹配<code>aaab</code>，当遍历到<code>c</code>时发现不同，如果让<code>i</code>回退到第二个a处，显然是没必要的；又如更典型的例子<code>aaaaaab</code>中匹配<code>aaab</code>，可以发现<strong>无需回退i，只要回退j</strong>也能达到目的. 假定此时i指向第四个a，j指向b，发现不同，从而j回退到第三位而i前进直至找到<code>b</code>.</p>
+<p>在这个过程中，我们知道当i,j不匹配时，j要回退；但j回退到哪，是核心问题. 该问题可用DP解决且易知这个数组<strong>只和模式串<code>t</code>有关，与<code>s</code>无关</strong>.</p>
+<p>考察这样一个字符串，如果<code>xxxxxy...xxxxx</code>前5个字母和后5个字母完全等同且&rsquo;s&rsquo;字母是&rsquo;y&rsquo;，则可将其从末尾跳转到第6个重新匹配（由于前后缀一样，我们至少保证了前6个字母一定一致；相反，若不一致，则已经出现矛盾 i.e.这是贪心下的全局最优解）. 同理若不匹配且遇到的是&rsquo;x&rsquo;，则需回退至第5个.</p>
+<p>从而我们定义dp数组的含义为<strong>假定指针i遇到&rsquo;x&rsquo;，则寻找以&rsquo;x&rsquo;结尾的最长公共前后缀&rsquo;x&rsquo;所在前缀的末位索引</strong>. 最长公共前后缀，即满足<code>s,x,....,y,s(x≠y)</code>的字符串<code>s</code>，注意到每次模式串多一个字符，最长公共前后缀最多增加1，但可能会减少很多回到之前的模式串中(头部没有改变)，从而化归成了一个子问题. 最后一个问题在于，如何进行<strong>状态更新</strong>.</p>
+<p>显然在模式串的不同位置遇到不同字母的响应是不一样的，因此dp可能是二维的，不妨设<code>nxt[Index][States]=Position</code>
+但不妨再考虑能否状态压缩，即我们不考虑遇到不同字母的情况，或者每次都多进行一次匹配.</p>
+<p>考虑下面的一个流程，对t使用双指针，其中i扫描字符串，j扫描前缀，假定i和j+1失配(j+1即状态压缩的好处)，则j此时考虑回退到nxt[j]，即和j有相同后缀的地方，若相同，则可继续同步移动i,j；若再次失配，则j只能不断回退并判断是否相同直至为0. 再考虑初始化，由于最长公共前后缀不允许有交集，从而需要从i=2,j=0的位置开始(<code>nxt[0]=nxt[1]=0</code>).</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>KMP</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int nxt[N]={0};
+void init(string s){
+	int n=s.length();
+	for(int i=2,j=0;i&lt;n;i&#43;&#43;){
+		//不满足则不断回退，由于j可能倒退，j&#43;1≤i恒成立
+		while(j &amp;&amp; s[i]!=s[j&#43;1])	j=nxt[j]; 
+		//此时可能满足也可能已经回到0，满足则同步移动
+		if(s[i]==s[j&#43;1])	j&#43;&#43;;	
+		nxt[i]=j;
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>再进行模式匹配，注意匹配时i必须初始化为1（j必须从0开始，而j+1要预留一个位置）
+下面对i=1的合理性说明：若s[1]≠t[1]，则s[0]无论是否与t[0]匹配都需被舍弃；若s[1]=t[1],其中会出问题的只有s[0]≠t[0]，如用<code>caaa</code>匹配<code>daaaa</code>，这类情况需进行特判，即先找到第一个i使得<code>s[i-1]=t[0]</code>再开始用算法
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>KMP</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; find(string s, string t){
+	vector&lt;int&gt; begins;
+	for(int i=1,j=0;i&lt;s.length();i&#43;&#43;){
+		while(s[i]!=s[j&#43;1])	j=nxt[j];
+		if(s[i]==t[j&#43;1])	j&#43;&#43;;
+		//已经查找到末尾
+		if(j==t.length()){
+			begins.push_back(j-t.length());
+			j = nxt[--j];
+		}	
+	
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>我们发现，这个过程与<code>t</code>和<code>s</code>的KMP匹配很相似（i扫描模式串，j扫描前缀），仿佛是<code>t</code>和<code>t</code>的KMP匹配.</p>
+<h4 id="sample-problem">Sample Problem:</h4>
+<p><strong>Problem</strong> 给定字符串s和t，问：最多能从s中分割出多少个t?
+<strong>Analysis</strong> 利用贪心. 从左到右用KMP匹配遇到一个计数一次且j直接回退到0.</p>
+<h2 id="4-ac自动机多模态匹配">4. AC自动机：多模态匹配</h2>
+<p>在<strong>多模态匹配</strong>问题中，i.e. KMP中待匹配的字符串有多个时，此时可借用trie的结构. 该类问题在屏蔽敏感词等领域有广泛应用，其中在此问题中不仅需要在找到敏感词的同时减少回退次数，还要找出所有敏感词，如<code>she</code>中可能包含<code>she</code>和<code>he</code>两个敏感词.</p>
+<p>首先建立字典树并在patterns结束节点处标记该敏感词长度，和KMP相同，需要考虑当失配时fail指针的指向位置，从而避免从0开始. 与KMP类似，我们需要对给定的模式串每个经过的节点设置fail指针，其中root表示模式串的起点，显然root的fail指针必须指向root(即全部失配时必须从头开始匹配)，下面从具体例子看：</p>
+<p>对<code>s=&quot;abcd&quot;</code>其中<code>bcd</code>和<code>cd</code>是模式串，则从root深入b,c,d，到达d尾节点时，由于标记有<code>2,3</code>，回退2、3次得到子串<code>cd</code>和<code>bcd</code>. 对<code>s=&quot;abcdef&quot;</code>，发现在以<code>a</code>开头，以<code>e</code>结尾失配时，我们问：是否以<code>b</code>开头的有可能不失配？从而我们尝试回退，此时已匹配的字符串长度至少减1，因此看<strong>e的父节点d的fail指向的下面是否能通向e</strong>，即考查<code>d</code>后面是否能连接<code>e</code>. 直至回退到顶点.</p>
+<p>不难发现，fail指针的建立和字符串长度有关(至少fail对应的深度是单调不增的)，因此需采取层序遍历，将所有节点(无论是否是尾结点，因为均有可能失配)建立fail指针.</p>
+<p>在实际编码时，若子结点存在，则子结点的fail指向父结点fail指向的同向子结点，即<strong>回跳边</strong>；若不存在该子结点，则该子结点的fail指向当前结点fail指向的同向子结点，即<strong>转移边</strong>. 可以这样理解：AC自动机每次找到的一定是<strong>最长符合条件的后缀</strong>，因为再往下找必然失配(与&quot;最长&quot;矛盾)，此时则需考虑最长后缀中去掉前缀是否也是符合题意的，即利用回跳边(fail)指针，缩减长度. <strong>实际上只有回跳边已经足够，但还可以再优化，即引入转移边将树变为图</strong>，转移边一定是转移最短路，含义即当前走到叶子节点(字符串全部匹配但不可能得到更长的公共前缀，必须利用回退去掉尽可能多的前缀)，例如模式串为<code>a,aa,aaa</code>但匹配串为<code>aaaaa</code>，当到达第四个a时，尽管全部匹配，但由于超过该情况下模式串最长长度(3个a)，必须执行回退.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>AC</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int t[N][26], cnt[N], idx=0;
+int nxt[N]={0}; //一个结点只有一个fail指针，默认指向根节点
+void insert(string s){	//建树
+	int p=0;
+	for(int i=0;i&lt;s.length();i&#43;&#43;){
+		int j = s[i]-&#39;a&#39;;
+		if(!t[p][j])	t[p][j]=&#43;&#43;idx;
+		p=t[p][j];
+	}
+	cnt[p]&#43;&#43;;
+}
+
+void build(){
+	queue&lt;int&gt; q;
+	for(int i=0;i&lt;26;i&#43;&#43;)
+		if(t[0][i])	q.push(t[0][i]);	//初始化
+	while(!q.empty()){
+		int u=q.front();q.pop();
+		for(int i=0;i&lt;26;i&#43;&#43;){
+			int v = t[u][i];
+			if(v)	nxt[v]=t[nxt[u]][i],q.push(v);
+			else	t[u][i]=t[nxt[u]][i];
+		}
+	}
+}
+
+int query(string s){
+	int ans=0;
+	//k扫描字符串，p为当前指针，j从p开始扫描模式串直至回到根节点(即不断去除前缀检测是否符合)
+	//每次都可用j扫描的合理性：这种算法决定前缀一定不漏解(在不断变长时已经计数)，只有后缀会漏，
+	//例如`abc`，当已知最长后缀为`ab`时，需检测`b`是否符合；为`abc`时，不可能再回到`ab`的情况(只删前缀)
+	for(int k=0,p=0;s[k];k&#43;&#43;){
+		p=t[i][s[k]-&#39;a&#39;];
+		//若重复的只统计一次；若需多次统计，则去掉~cnt[j]和cnt[j]=-1
+		for(int j=i;j&amp;&amp;~cnt[j];j=nxt[j])	
+			ans&#43;=cnt[j],cnt[j]=-1;
+	}
+	return ans;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h4 id="sample-problem-玄武密码">Sample Problem: 玄武密码</h4>
+<p><strong>Problem</strong> 给定一些模式串<code>t[n]</code>和一个字符串<code>s</code>(只含WSNE四个字母)，求<code>s</code>中出现各个模式串<code>t[n]</code>中最长前缀的长度.
+<strong>Sample</strong></p>
+<pre tabindex="0"><code>Input: 7 3 SNNSSNS NNSS NNN WSEE
+Output: 4 2 0
+</code></pre><p><strong>Analysis</strong> 在AC自动机跑的时候，每个节点都可能导致最长前缀进行更新，而fail指针会去掉一些前缀，可能导致信息损失. 也即我们想要的答案<strong>在AC自动机运行过程中</strong>，故而需要进行标记. 其中注意到核心问题在于需要判断当前位置对应的最长模式串的位置对应的是哪一个，由于AC自动机的底层结构是trie，自然地，<strong>可以把模式串当作字符串放进去</strong>，这样一定能匹配成功且达到最大长度. 而且由于AC自动机是模式串的trie结构，即每一个模式串进去的路径一定唯一(fail指针不改变路径，只是跳过重复路径)，从而只需<strong>标记该节点是否访问</strong>. <strong>每个模式串扔进去遇到的访问节点数即所求</strong>.</p>
+<h2 id="5-扩展kmp算法z函数">5. 扩展KMP算法(Z函数)</h2>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/graph/">Graph</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/" data-tooltip="[Algorithm]Network Flow: EK and Dinic" aria-label="NEXT: [Algorithm]Network Flow: EK and Dinic">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/calculuscurvilinearsurface-and-multiple-integral-ep.1/" data-tooltip="[Calculus]Curvilinear,Surface and Multiple Integral: ep.1" aria-label="PREVIOUS: [Calculus]Curvilinear,Surface and Multiple Integral: ep.1">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/data-sturcturetrie-kmp-and-ac-automaton\/';
+        
+          this.page.identifier = '\/2023\/04\/data-sturcturetrie-kmp-and-ac-automaton\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/" data-tooltip="[Algorithm]Network Flow: EK and Dinic" aria-label="NEXT: [Algorithm]Network Flow: EK and Dinic">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/calculuscurvilinearsurface-and-multiple-integral-ep.1/" data-tooltip="[Calculus]Curvilinear,Surface and Multiple Integral: ep.1" aria-label="PREVIOUS: [Calculus]Curvilinear,Surface and Multiple Integral: ep.1">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-sturcturetrie-kmp-and-ac-automaton%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-sturcturetrie-kmp-and-ac-automaton%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-sturcturetrie-kmp-and-ac-automaton%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

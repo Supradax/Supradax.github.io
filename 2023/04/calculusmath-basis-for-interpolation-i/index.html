@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function",
+  "headline": "[Calculus]Math Basis for Interpolation I",
   
-  "image": "https://Supradax.github.io/img/Prime.jpg",
+  "image": "https://Supradax.github.io/img/calc.jpg",
   
-  "datePublished": "2023-03-20T00:00:00Z",
-  "dateModified": "2023-03-20T00:00:00Z",
+  "datePublished": "2023-04-11T00:00:00Z",
+  "dateModified": "2023-04-11T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/calculusmath-basis-for-interpolation-i\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,34 +59,32 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
-<meta name="twitter:title" content="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
-<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/">
+<meta property="og:title" content="[Calculus]Math Basis for Interpolation I">
+<meta name="twitter:title" content="[Calculus]Math Basis for Interpolation I">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-03-20T00:00:00">
+    <meta property="article:published_time" content="2023-04-11T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-03-20T00:00:00">
+    <meta property="article:modified_time" content="2023-04-11T00:00:00">
   
   
   
     
-      <meta property="article:section" content="Algorithm">
-    
-      <meta property="article:section" content="Simulation">
+      <meta property="article:section" content="Math">
     
   
   
     
-      <meta property="article:tag" content="Algorithm">
+      <meta property="article:tag" content="Calculus">
     
-      <meta property="article:tag" content="Number Theory">
+      <meta property="article:tag" content="Interpolation">
     
   
 
@@ -106,18 +104,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/Prime.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/Prime.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/calc.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/calc.jpg">
 
 
-    <title>[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function</title>
+    <title>[Calculus]Math Basis for Interpolation I</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -277,15 +275,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function
+      [Calculus]Math Basis for Interpolation I
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-03-20T00:00:00Z">
+      <time datetime="2023-04-11T00:00:00Z">
         
-  March 20, 2023
+  April 11, 2023
 
       </time>
     
@@ -294,9 +292,7 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
-    
-      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
     
   
 
@@ -306,240 +302,57 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p><strong>Euclid Algorithm</strong>, which serves to work out the gcd(greatest common divisor) of a and b. As for <strong>extended eucliod algorithm</strong> ,it helps solve out the congruence equations. The essay will also bring in some algorithms related to divisor, for instance, Sieve of Eratosthenes and Euler in Session 3, Euler function in Session 4.</p>
-<h2 id="ieuclid-algorithm">§I	Euclid Algorithm</h2>
-<p>According to <strong>Euclid Method</strong> , we can deduce the <strong>Bezout Theorem</strong> and its last term is gcd(a,b).
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">int gcd(int a, int b){
-	if(b)	return gcd(b,a%b);
-	else return a;
-}
-//concise version
-int gcd(int a,int b){return b? gcd(b,a%b):a;}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-</p>
-<h2 id="iiextended-euclid-algorithm">§II	Extended Euclid Algorithm</h2>
-<p>According to <strong>Bezout Theorem:</strong>
-$$ax+by=1 \Leftrightarrow (a,b)=1$$
-thus <strong>Equation ax+by=c has a solution iff gcd(a,b)|c</strong></p>
-<p>Our target is to work out the solution of (x0,y0) <strong>ax+by=1</strong> and suppose (a,b)=1.</p>
-<p>During euclid method, we have:$$a=q_1b+r_1, b=q_2r_1+r_2$$
-if there is a solution which satisfies: $$ax_0+by_0=1$$</p>
-<p>plug in and we get: $$1-by_0=q_1bx_0+r_1x_0 \Rightarrow (y_0+q_1x_0)b+x_0r_1=1$$</p>
-<p>Which means the two equations have the same solution. Thus we have:
-$$x=y_0+q_1x_0=y_0+\lfloor{a\over b}\rfloor x_0, y=x_0$$</p>
-<p>In order to work out x0 and y0 from the next step, we trace back and get:
-$$x_0=y,y_0=x-\lfloor{a\over b}\rfloor x_0= x-\lfloor{a\over b}\rfloor y$$</p>
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">void exgcd(int a, int b, int&amp; x0, int&amp; y0){
-    if(!b){
-        x0 = 1,y0 = 0;
-        return;
-    }
-    exgcd(b, a%b, x0,y0);
-    int x = x0, y=y0; //the next step
-    x0 = y;     //the prev  step
-    y0 = x- (a/b)*y;
-}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-<p>When we are asked to solve out a series of equations, say, u,v,x,y satisfy au+bv=3, cx+dy=5 then [u,x] and [v,y] will be the solution. As for the least common multiple lcm(a,b), we can work it out via ab/[a,b].</p>
-<h2 id="iiisieve-for-prime-numbers">§III	Sieve for Prime Numbers</h2>
-<p>In this session, we are wondering how to know whether a number is prime. The direct way is to enumerate all numbers in [2,n-1] to see if it is divisible exactly. But actually <strong>we only need to give numbers between [2,sqrt(n)] the chance</strong>.
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
-    for(int i=2; i*i&lt;x;i&#43;&#43;)  //to avoid overflow we use i&lt;x/i despite a little sacrifice on speed
-		if(!x%i)	return false;
-	return true;
-}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-</p>
-<p>However, when we find a number is not prime, we want to <strong>label the multiple of it</strong> and skip the test when we are going to traverse it.
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
-	vector&lt;bool&gt; prime(x&#43;1,true);
-	prime[2]=false; //initialize
-    for(int i=2;i&lt;x;i&#43;&#43;)
-		if(prime[i])
-			for(int j=i*i;j&lt;=n;j&#43;=i)
-				prime[j]=false;
-	return prime[x];
-}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-The time complexity has been proved O(nloglogn) and this is what is called <strong>Sieve of Eratosthenes</strong>.</p>
-<p>Though it is good enough, but still it exists a shortback: numbers like 60=2×3×5 will be tested for 3 times. <strong>We need to stop the testing</strong> and the Sieve of Eratosthenes will evolve into <strong>Sieve of Euler</strong></p>
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
-	vector&lt;bool&gt; prime(x&#43;1,true);//initialize
-    for(int i=2;i&lt;=x;i&#43;&#43;)
-		if(prime[i])
-			for(int j=i*i;j&lt;=x;j&#43;=i){
-				if(!prime[j])   break; //one line more only
-				prime[j]=false;	
-			}
-	return prime[x];
-}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-<p>It is clear that the composite number will be excluded by its least prime divisor. And the time complexity is O(n).</p>
-<h2 id="iveuler-function">§IV	Euler Function</h2>
-<p>Euler Function,</p>
+              <h2 id="1-uniform-approximation">1 Uniform Approximation</h2>
+<ul>
+<li><strong>Weierstrass一致逼近定理</strong>：在$[0,1]$中的任意连续函数f(x)可被一个多项式函数一致逼近 i.e. $\forall f(x)\in C[0,1], \exists P_n(x), |f(x)-P_n(x)|&lt;\epsilon $</li>
+</ul>
+<p>Note. 也可用函数列表述为存在一个函数列$f_n(x)→f(x)$</p>
+<p><strong>Lemma 1</strong> 任意闭区间可积函数f(x)，可被阶梯函数S(x)一致逼近.</p>
+<p><strong>Pf.</strong></p>
+<ol>
+<li>若f(x)连续，则$\exists\delta_0, |f(x)-f(x_0)|&lt;\epsilon$，从而取$N_\epsilon(x_0)$构成开覆盖，由紧集开覆盖定理，存在有限开覆盖，取$\delta=min(\delta),T(x)=x_i,x_i\leq x\leq x_{i+1}$</li>
+<li>连续可放宽到可积，由可积第二定义，$\Sigma w_i(x)\Delta x_i&lt;\epsilon$，仍取$T(x)=x_i,x_i\leq x\leq x_{i+1}$，则在该分划下，用振幅放缩，即$\Sigma |f(x)-T(x)|\leq \Sigma w_i(x)\Delta x_i&lt;\epsilon$ QED.</li>
+</ol>
+<p><strong>Lemma 2</strong> 任意阶梯函数S(x)可与连续折线函数g(x)相互一致逼近.</p>
+<p><strong>Pf.</strong> 将折线函数n等分并取$(x_i,f(x_i))$并连接相邻节点(一阶样条)，由于S(x)只有可列个间断点，故为零测，而存在误差处只在间断点，从而当$n\rightarrow \infty, |S(x)-g(x)|\rightarrow 0$ 由引理1，折线函数属于连续函数，故可被阶梯函数一致逼近. QED.</p>
+<p><strong>Lemma 3</strong> 任意连续函数f(x)可被连续折线函数g(x)一致逼近.</p>
+<p><strong>Pf.</strong>
+同理构造一阶样条函数$g_n(x)$，由于$f(x)$在闭区间D上连续，由<strong>Cantor定理</strong>，$f(x)$在D上一致连续. <strong>三分法</strong>得$|f(x)-g(x)|\leq|f(x)-f(x_i)|+|f(x_i)-g_n(x_i)|+|g_n(x_i)-g(x_i)|&lt;\epsilon+0+M\epsilon$，三项分别由于f(x)一致连续、一阶样条性质和线性函数误差估计. QED.</p>
+<p>结合引理1、2、3，可知三类函数一致逼近满足：折线函数→阶梯函数→连续函数. 由<strong>三角不等式</strong>知该关系存在<strong>传递性</strong>. 从而折线函数可一致逼近连续函数. 而折线函数与多项式函数<strong>由Lagrange中值定理</strong>，能够相互一致逼近. 故有多项式←→折线←→阶梯→连续函数. QED.</p>
+<p>除了多项式外，周期函数通过延拓也可用三角级数一致逼近且无需连续. 容易证明在$(R,sin^n(x+k\frac{\pi}{2}))(k=0,1)$测度下构成一个基，即sinx与cosx的正交性. 下面介绍如Bernstein、Chebyshef、Hermite有特殊性质的多项式，他们也能满足一致逼近且在特定测度下具备正交性，在插值上有重要应用.</p>
+<h2 id="2-bernstein-polynomial">2 Bernstein Polynomial</h2>
+<p><strong>Bernstein多项式 B_n(x)</strong> 在拟合时具有较好的性质，但收敛速度较慢，其意义更多在理论上作为对任意闭区间连续函数都能找到一个可行方法.
+$$B_n(x)=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}f(\frac{k}{n}),f(x)\in C[0,1]$$</p>
+<p>重要性质：</p>
+<ol>
+<li>函数列$B_n(x)$一致收敛于f(x)</li>
+<li>f(x)和$B_n(x)$有相同的单调性和凸性</li>
+</ol>
+<p>下面探讨该多项式的来源：由二项式定理启发，该函数$\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}$恒为1，从而考虑使用<strong>加权</strong>思想构造多项式.</p>
+<p><strong>Pf.1</strong> 由构造思想立即得到：$|f(x)-B_n(x)|=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}|f(x)-f(\frac{k}{n})|\leq \Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k} \epsilon = \epsilon$，其中不等号由于紧集连续函数一致收敛且存在有限开覆盖得到.</p>
+<p><strong>Pf.2</strong> 不妨设f(x)单调递增，则$B_n&rsquo;(x)=\Sigma_{k=0}^n kC_n^k x^{k-1} (1-x)^{n-k}f(\frac{k}{n})-\Sigma_{k=0}^n (n-k)C_n^k x^{k-1} (1-x)^{n-k-1}f(\frac{k}{n})$，由于前者k=0时为0，故可令<strong>k=k+1</strong>，则求和上界为n-1；且后者k=n时为零，故可令求和上界为n-1进行统一. 不难验证，两项经变换后系数相等，从而有$$B_n&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!} x^{k-1} (1-x)^{n-k}(f(\frac{k+1}{n})-f(\frac{k}{n}))$$，由f(x)单调递增可证.</p>
+<p><strong>Pf.3</strong> 运用同样的变换技巧统一表达式. 对$B_n&rsquo;(x)$求导且记$\Delta_1=f(\frac{k+1}{n})-f(\frac{k}{n}),\Delta_2=f(\frac{k+2}{n})-f(\frac{k+1}{n})$，不妨设f为下凸函数，则由凸函数性质，有$\Delta_2-\Delta_1\geq 0$.</p>
+<p>求导得$B_n&rsquo;&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}k x^{k-1} (1-x)^{n-k-1}\Delta_1-\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}(n-k-1) x^{k} (1-x)^{n-k-2}\Delta_1$，同理对第一项变换k=k+1，第二项减少求和上限，则系数相等，从而有$B_n&rsquo;&rsquo;(x)=\Sigma\frac{n!}{k!(n-k-2)!}x^k(1-x)^{n-k-2}(\Delta_2-\Delta_1)\geq 0$ QED.</p>
+<h2 id="3-chebyshef-polynomial">3 Chebyshef Polynomial</h2>
+<p>Chebyshef多项式(切比雪夫)的出发点是以余弦函数为起点，通过研究cosnx的性质来构建多项式. 下面给出一些初等命题：</p>
+<ol>
+<li>$\binom{0}{n}+\binom{2}{n}+&hellip;\binom{n}{n}=2^{n-1}$</li>
+<li>$f(cosnx)=g(cosx)$，其中$g(x)$是多项式函数</li>
+<li>g(x)满足首项为$2^{n-1}$且各项系数正负交错</li>
+</ol>
+<p><strong>Lemma 1</strong> 对$(1+1)^n,(1-1)^n$二项展开再相加可得</p>
+<p><strong>Lemma 2</strong> 由归纳法和$sin^2x+cos^2x=1$，n为偶数时，用$cos(k+k)x$展开易证；当n为奇数时，由于n=1时成立，有$cos(nx)+cos((n-2)x)=2cos(n-1)xcosx$，从而右侧是cosx多项式且cos(n-2)x由归纳假设也是cosx的多项式，故n为奇数也成立.</p>
+<p><strong>Lemma 3</strong> 引入欧拉公式. $cosnx+isinnx=e^{inx}=(e^{ix})^n=(cosx+isinx)^n$，只看实部，有$cosnx=cos^nx-C_n^2cos^{n-2}xsin^2x+&hellip;=cos^nx-C_n^2cos^{n-2}x(1-cos^2x)+&hellip;$，注意到$cos^nx$每一项都有贡献$C_n^2k$，从而为$2^{n-1}$且$deg g(x)=n$ QED</p>
+<p>从而令$x=cosx$，定义为$g(x)=cos(n arccosx)$，但<strong>本质还是多项式函数</strong>. 考察$[0,\pi]$上$g(\frac{k}{n}\pi)=(-1)^k$，即特殊点处正负交错. 故而<strong>插值时误差随角度等差分布，故而出现中间疏、两边密的分布，不会出现Runge现象</strong></p>
+<p><strong>(Chebyshev不等式)</strong> 对任何首一n次多项式f(x)，一定存在一点使得有$$|f(x)|\geq \frac{1}{2^{n-1}}$$</p>
+<p><strong>Pf.</strong> 用反证法. 则对所有x，$2^{n-1}|f(x)|&lt;1$恒成立，从而取相应的n阶g(x)，构造$h(x)=f(x)-g(x)$，由于g(x)首项为$2^{n-1}$，从而取定$\frac{k\pi}{n}$时h(x)正负交替，由<strong>零点存在性定理</strong>，f(x)有n个零点，由<strong>多项式零点定理</strong>，f(x)具有存在唯一性，而注意到$f(x_i)=g(x_i)$，从而$f~g$且只相差系数$2^{n-1}$，任取$|g(\frac{k\pi}{n})|=2^{n-1}|f(\frac{k\pi}{n})|=1&lt;1$，矛盾!</p>
+<p><strong>Chebyshev点</strong>，即第一类Chebyshev多项式中的$\frac{k\pi}{n}$，若以这些点为插值点，则<strong>Chebyshef多项式是n→∞时的最佳逼近</strong></p>
+<p><strong>pf.</strong> 由Lagrange插值误差估计，有$|f(x)-p(x)|\leq\frac{1}{(n+1)!} ||f^{n+1}||_\infty$，从而$|f(x)-p(x)|\leq \frac{2}{2^n(n+1)!}$ 且由Chebyshef不等式知，当且仅当p(x)为Chebyshev多项式时取等，即为最佳逼近.</p>
+<p>Notes.</p>
+<ol>
+<li>第一类Chebyshev多项式为$T_0(x)=1,T_1(x)=x,T_{n+1}(x)+T_{n-1}(x)=2T_n(x)$(本质是cos的和差化积公式)，第二类为$T_1{x}=2x$，其余相同</li>
+<li>两类多项式对应的Chebyshev方程为$(1-x^2)y&rsquo;&rsquo;-xy&rsquo;+n^2y=0, (1-x^2)y&rsquo;&rsquo;-3xy&rsquo;+n(n+2)y=0$</li>
+</ol>
               
 
 
@@ -553,9 +366,9 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/calculus/">Calculus</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/number-theory/">Number Theory</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/interpolation/">Interpolation</a>
 
                   </div>
                 
@@ -568,7 +381,7 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="NEXT: [Algorithm]Dynamic Programming: Tree">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -576,7 +389,7 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" data-tooltip="[Algorithm]Dynamic Programming: Segment" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Segment">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -594,19 +407,19 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -637,9 +450,9 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/calculusmath-basis-for-interpolation-i\/';
         
-          this.page.identifier = '\/2023\/03\/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function\/'
+          this.page.identifier = '\/2023\/04\/calculusmath-basis-for-interpolation-i\/'
         
       };
       (function() {
@@ -675,7 +488,7 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="NEXT: [Algorithm]Dynamic Programming: Tree">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -683,7 +496,7 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" data-tooltip="[Algorithm]Dynamic Programming: Segment" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Segment">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -701,19 +514,19 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -744,19 +557,19 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

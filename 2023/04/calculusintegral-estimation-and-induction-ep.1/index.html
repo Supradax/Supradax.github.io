@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[Calculus]Math Basis for Interpolation I",
+  "headline": "[Calculus]Integral: Estimation and Induction ep.1",
   
   "image": "https://Supradax.github.io/img/calc.jpg",
   
-  "datePublished": "2023-04-11T00:00:00Z",
-  "dateModified": "2023-04-11T00:00:00Z",
+  "datePublished": "2023-04-14T00:00:00Z",
+  "dateModified": "2023-04-14T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/04\/calculusmath-basis-for-interpolation-i\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/calculusintegral-estimation-and-induction-ep.1\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,20 +59,20 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Calculus]Math Basis for Interpolation I">
-<meta name="twitter:title" content="[Calculus]Math Basis for Interpolation I">
-<meta property="og:url" content="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
+<meta property="og:title" content="[Calculus]Integral: Estimation and Induction ep.1">
+<meta name="twitter:title" content="[Calculus]Integral: Estimation and Induction ep.1">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-04-11T00:00:00">
+    <meta property="article:published_time" content="2023-04-14T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-04-11T00:00:00">
+    <meta property="article:modified_time" content="2023-04-14T00:00:00">
   
   
   
@@ -83,8 +83,6 @@
   
     
       <meta property="article:tag" content="Calculus">
-    
-      <meta property="article:tag" content="Interpolation">
     
   
 
@@ -108,14 +106,14 @@
   <meta property="twitter:image" content="https://Supradax.github.io/img/calc.jpg">
 
 
-    <title>[Calculus]Math Basis for Interpolation I</title>
+    <title>[Calculus]Integral: Estimation and Induction ep.1</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -275,15 +273,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [Calculus]Math Basis for Interpolation I
+      [Calculus]Integral: Estimation and Induction ep.1
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-04-11T00:00:00Z">
+      <time datetime="2023-04-14T00:00:00Z">
         
-  April 11, 2023
+  April 14, 2023
 
       </time>
     
@@ -302,61 +300,90 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <h2 id="1-uniform-approximation">1 Uniform Approximation</h2>
-<ul>
-<li><strong>Weierstrass一致逼近定理</strong>：在$[0,1]$中的任意连续函数f(x)可被一个多项式函数一致逼近 i.e. $\forall f(x)\in C[0,1], \exists P_n(x), |f(x)-P_n(x)|&lt;\epsilon $</li>
-</ul>
-<p>Note. 也可用函数列表述为存在一个函数列$f_n(x)→f(x)$</p>
-<p><strong>Lemma 1</strong> 任意闭区间可积函数f(x)，可被阶梯函数S(x)一致逼近.</p>
-<p><strong>Pf.</strong></p>
-<ol>
-<li>若f(x)连续，则$\exists\delta_0, |f(x)-f(x_0)|&lt;\epsilon$，从而取$N_\epsilon(x_0)$构成开覆盖，由紧集开覆盖定理，存在有限开覆盖，取$\delta=min(\delta),T(x)=x_i,x_i\leq x\leq x_{i+1}$</li>
-<li>连续可放宽到可积，由可积第二定义，$\Sigma w_i(x)\Delta x_i&lt;\epsilon$，仍取$T(x)=x_i,x_i\leq x\leq x_{i+1}$，则在该分划下，用振幅放缩，即$\Sigma |f(x)-T(x)|\leq \Sigma w_i(x)\Delta x_i&lt;\epsilon$ QED.</li>
-</ol>
-<p><strong>Lemma 2</strong> 任意阶梯函数S(x)可与连续折线函数g(x)相互一致逼近.</p>
-<p><strong>Pf.</strong> 将折线函数n等分并取$(x_i,f(x_i))$并连接相邻节点(一阶样条)，由于S(x)只有可列个间断点，故为零测，而存在误差处只在间断点，从而当$n\rightarrow \infty, |S(x)-g(x)|\rightarrow 0$ 由引理1，折线函数属于连续函数，故可被阶梯函数一致逼近. QED.</p>
-<p><strong>Lemma 3</strong> 任意连续函数f(x)可被连续折线函数g(x)一致逼近.</p>
-<p><strong>Pf.</strong>
-同理构造一阶样条函数$g_n(x)$，由于$f(x)$在闭区间D上连续，由<strong>Cantor定理</strong>，$f(x)$在D上一致连续. <strong>三分法</strong>得$|f(x)-g(x)|\leq|f(x)-f(x_i)|+|f(x_i)-g_n(x_i)|+|g_n(x_i)-g(x_i)|&lt;\epsilon+0+M\epsilon$，三项分别由于f(x)一致连续、一阶样条性质和线性函数误差估计. QED.</p>
-<p>结合引理1、2、3，可知三类函数一致逼近满足：折线函数→阶梯函数→连续函数. 由<strong>三角不等式</strong>知该关系存在<strong>传递性</strong>. 从而折线函数可一致逼近连续函数. 而折线函数与多项式函数<strong>由Lagrange中值定理</strong>，能够相互一致逼近. 故有多项式←→折线←→阶梯→连续函数. QED.</p>
-<p>另一种证法则是通过证明$|x|$、$\sqrt{x^2+\epsilon^2}$的泰勒级数、ReLu函数、折线函数、连续函数来证明.</p>
-<p>除了多项式外，周期函数通过延拓也可用三角级数一致逼近且无需连续. 容易证明在$(R,sin^n(x+k\frac{\pi}{2}))(k=0,1)$测度下构成一个基，即sinx与cosx的正交性. 下面介绍如Bernstein、Chebyshef、Hermite有特殊性质的多项式，他们也能满足一致逼近且在特定测度下具备正交性，在插值上有重要应用.</p>
-<h2 id="2-bernstein-polynomial">2 Bernstein Polynomial</h2>
-<p><strong>Bernstein多项式 B_n(x)</strong> 在拟合时具有较好的性质，但收敛速度较慢，其意义更多在理论上作为对任意闭区间连续函数都能找到一个可行方法.
-$$B_n(x)=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}f(\frac{k}{n}),f(x)\in C[0,1]$$</p>
-<p>重要性质：</p>
-<ol>
-<li>函数列$B_n(x)$一致收敛于f(x)</li>
-<li>f(x)和$B_n(x)$有相同的单调性和凸性</li>
-</ol>
-<p>下面探讨该多项式的来源：由二项式定理启发，该函数$\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}$恒为1，从而考虑使用<strong>加权</strong>思想构造多项式.</p>
-<p><strong>Pf.1</strong> 由构造思想立即得到：$|f(x)-B_n(x)|=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}|f(x)-f(\frac{k}{n})|\leq \Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k} \epsilon = \epsilon$，其中不等号由于紧集连续函数一致收敛且存在有限开覆盖得到.</p>
-<p><strong>Pf.2</strong> 不妨设f(x)单调递增，则$B_n&rsquo;(x)=\Sigma_{k=0}^n kC_n^k x^{k-1} (1-x)^{n-k}f(\frac{k}{n})-\Sigma_{k=0}^n (n-k)C_n^k x^{k-1} (1-x)^{n-k-1}f(\frac{k}{n})$，由于前者k=0时为0，故可令<strong>k=k+1</strong>，则求和上界为n-1；且后者k=n时为零，故可令求和上界为n-1进行统一. 不难验证，两项经变换后系数相等，从而有$$B_n&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!} x^{k-1} (1-x)^{n-k}(f(\frac{k+1}{n})-f(\frac{k}{n}))$$，由f(x)单调递增可证.</p>
-<p><strong>Pf.3</strong> 运用同样的变换技巧统一表达式. 对$B_n&rsquo;(x)$求导且记$\Delta_1=f(\frac{k+1}{n})-f(\frac{k}{n}),\Delta_2=f(\frac{k+2}{n})-f(\frac{k+1}{n})$，不妨设f为下凸函数，则由凸函数性质，有$\Delta_2-\Delta_1\geq 0$.</p>
-<p>求导得$B_n&rsquo;&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}k x^{k-1} (1-x)^{n-k-1}\Delta_1-\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}(n-k-1) x^{k} (1-x)^{n-k-2}\Delta_1$，同理对第一项变换k=k+1，第二项减少求和上限，则系数相等，从而有$B_n&rsquo;&rsquo;(x)=\Sigma\frac{n!}{k!(n-k-2)!}x^k(1-x)^{n-k-2}(\Delta_2-\Delta_1)\geq 0$ QED.</p>
-<h2 id="3-chebyshef-polynomial">3 Chebyshef Polynomial</h2>
-<p>Chebyshef多项式(切比雪夫)的出发点是以余弦函数为起点，通过研究cosnx的性质来构建多项式. 下面给出一些初等命题：</p>
-<ol>
-<li>$\binom{0}{n}+\binom{2}{n}+&hellip;\binom{n}{n}=2^{n-1}$</li>
-<li>$f(cosnx)=g(cosx)$，其中$g(x)$是多项式函数</li>
-<li>g(x)满足首项为$2^{n-1}$且各项系数正负交错</li>
-</ol>
-<p><strong>Lemma 1</strong> 对$(1+1)^n,(1-1)^n$二项展开再相加可得</p>
-<p><strong>Lemma 2</strong> 由归纳法和$sin^2x+cos^2x=1$，n为偶数时，用$cos(k+k)x$展开易证；当n为奇数时，由于n=1时成立，有$cos(nx)+cos((n-2)x)=2cos(n-1)xcosx$，从而右侧是cosx多项式且cos(n-2)x由归纳假设也是cosx的多项式，故n为奇数也成立.</p>
-<p><strong>Lemma 3</strong> 引入欧拉公式. $cosnx+isinnx=e^{inx}=(e^{ix})^n=(cosx+isinx)^n$，只看实部，有$cosnx=cos^nx-C_n^2cos^{n-2}xsin^2x+&hellip;=cos^nx-C_n^2cos^{n-2}x(1-cos^2x)+&hellip;$，注意到$cos^nx$每一项都有贡献$C_n^2k$，从而为$2^{n-1}$且$deg g(x)=n$ QED</p>
-<p>从而令$x=cosx$，定义为$g(x)=cos(n arccosx)$，但<strong>本质还是多项式函数</strong>. 考察$[0,\pi]$上$g(\frac{k}{n}\pi)=(-1)^k$，即特殊点处正负交错. 故而<strong>插值时误差随角度等差分布，故而出现中间疏、两边密的分布，不会出现Runge现象</strong></p>
-<p><strong>(Chebyshev不等式)</strong> 对任何首一n次多项式f(x)，一定存在一点使得有$$|f(x)|\geq \frac{1}{2^{n-1}}$$</p>
-<p><strong>Pf.</strong> 用反证法. 则对所有x，$2^{n-1}|f(x)|&lt;1$恒成立，从而取相应的n阶g(x)，构造$h(x)=f(x)-g(x)$，由于g(x)首项为$2^{n-1}$，从而取定$\frac{k\pi}{n}$时h(x)正负交替，由<strong>零点存在性定理</strong>，f(x)有n个零点，由<strong>多项式零点定理</strong>，f(x)具有存在唯一性，而注意到$f(x_i)=g(x_i)$，从而$f~g$且只相差系数$2^{n-1}$，任取$|g(\frac{k\pi}{n})|=2^{n-1}|f(\frac{k\pi}{n})|=1&lt;1$，矛盾!</p>
-<p><strong>Chebyshev点</strong>，即第一类Chebyshev多项式中的$\frac{k\pi}{n}$，若以这些点产生的<strong>零点</strong>为插值点，则<strong>Chebyshef多项式是无穷范数下时的最佳逼近</strong>（最小化余项的最大值）</p>
-<p><strong>pf.</strong> 由Lagrange插值误差估计，有$|f(x)-p(x)|\leq\frac{1}{(n+1)!} ||f^{n+1}||_\infty$，从而$|f(x)-p(x)|\leq \frac{2}{2^n(n+1)!}$ 且由Chebyshef不等式知，当且仅当p(x)为Chebyshev多项式时取等，即Chebyshef多项式是使得所有函数值的绝对值最大值最小的多项式，即$L^\infty$范数下的最佳逼近.</p>
-<p>同样地，Chebyshef也有<strong>带权正交性</strong>，
-Notes.</p>
-<ol>
-<li>第一类Chebyshev多项式为$T_0(x)=1,T_1(x)=x,T_{n+1}(x)+T_{n-1}(x)=2T_n(x)$(本质是cos的和差化积公式)，第二类为$T_1{x}=2x$，其余相同</li>
-<li>两类多项式对应的Chebyshev方程为$(1-x^2)y&rsquo;&rsquo;-xy&rsquo;+n^2y=0, (1-x^2)y&rsquo;&rsquo;-3xy&rsquo;+n(n+2)y=0$</li>
-</ol>
-<h2 id="4-hermite-polynomial">4 Hermite Polynomial</h2>
-<h2 id="5">5</h2>
+              <h3 id="1-方程的解与定积分递推问题">1 方程的解与定积分递推问题</h3>
+<h4 id="11-迭代数列收敛速度的估计">1.1 迭代数列收敛速度的估计</h4>
+<p>先结合归纳法估计数列值域、单调性，对低阶的一般Stolz公式可以处理，高阶的可结合结论使用等价进行控制(相差低阶量，结合级数求和与面积原理)或<strong>构造无穷小Taylor展开(渐近展开)</strong>.</p>
+<p><strong>【例1】(Stolz公式)</strong> $0&lt;x_n&lt;\pi, x_{n+1}=\sin x_n$，证明：$\lim_\limits{n\to\infty} \sqrt{n} x_n=\sqrt{3}$.</p>
+<p><strong>【例2】</strong> $a_1&gt;1,a_{n+1}(a_n^2-1)=a_n^3$，求：$A=\lim_\limits{n\to\infty}{a_n\over\sqrt n}, \lim_\limits{n\to\infty} {n\over \ln n}({a_n\over\sqrt n}-A)$</p>
+<p><strong>【例3】(渐近展开)</strong> $a_1=1,a_{n+1}=a_n+{1\over a_n}$，$0&lt;b_n&lt;1,b_{n+1}=b_n(1-b_n)$</p>
+<p>   (1) 证明：$\lim_\limits{n\to\infty}\sqrt{n}a_n=\sqrt2$</p>
+<p>   (2) 证明：$a_n=\sqrt{2n}+\frac{\sqrt2 \ln n}{8\sqrt n}+{C\over\sqrt n}+O(\frac{\ln^2 n}{n^{3\over2}})$</p>
+<p>   (3) 证明：$\lim_\limits{n\to\infty} nb_n=1$</p>
+<h4 id="12-方程列问题">1.2 方程列问题</h4>
+<p>此类问题根据零点定理确定存在性，通过特殊点、微分方法(求导、中值定理)、代入分析根的单调性，得到相应代数式求解根的极限.</p>
+<p><strong>【例1】</strong> 证明下列方程列的实根存在并求极限.</p>
+<p>   (1) $f_n(x)=x^n+x^{n-1}+&hellip;+x-1, D\in({1\over2},1)$</p>
+<p>   (2) $f_n(x)=\sin x^n+\sin x^{n-1}+&hellip;+\sin x-1, D\in({\pi\over6},{\pi\over2}]$</p>
+<p>   (3) $f_n(x)=C_n^1\cos x-C_n^2\cos^2 x+..+(-1)^{n+1}C_n^n\cos^n x-{1\over2}, D\in(0,{\pi\over2})$</p>
+<p>   (4) 证明：$x=1+2\ln x$在$(e,+\infty)$上有唯一实根$\xi$，且若设$x_0\in(e,\xi), x_n=1+2\ln x_{n-1}$，则有$\lim_\limits{n\to\infty} x_n=\xi$</p>
+<p>   (5) $x_1&gt;0, x_ne^{x_{n+1}}=e^{x_n}-1$</p>
+<p><strong>【例2】</strong> 对极限的阶数进行估计，如<strong>渐近展开、变换主元</strong>等</p>
+<p>   (1) 设$f_n(x)=x^n+nx-2,f_n(x_n)=0(x_n&gt;0)$，求：$\lim_\limits{n\to\infty} (1+x_n)^n$</p>
+<p>   (2) $\sin x_n=(\ln x_n)^{1\over n}$，求：$\lim_\limits{n\to\infty} (\frac{\pi\sin x_n}{2x_n})^{\frac{1}{x_n-{\pi\over2}}}$</p>
+<p>   (3) $e^x+x^{2n+1}=0$唯一实根$x_n$，计算极限并估阶：$n\to\infty, x_n=a+{b\over n}+{c\over n^2}+o({1\over n^2})$</p>
+<h4 id="13-定积分列问题">1.3 定积分列问题</h4>
+<p>有时无法直接求得积分，可通过观察获得如${I_n±I_{n-1}},{I_n±I_{n-2}} $为定值的结构，还可通过分部积分和适当的恒等变换实现<strong>积分再现</strong>.</p>
+<p><strong>【例1】(积分求解递推)</strong></p>
+<p>   (1) <strong>(三角与指数分部递推)</strong> $\int \ln^nx dx, \int x^ne^{kx} dx, \int \sec^nx dx, \int tan^nx dx, \int \frac{1}{(x^2+a^2)^n} dx, $$\int \arcsin^nx dx, \int \frac{x^{n}}{\sqrt{1-x^{2}}} d x$</p>
+<p>   (2) <strong>(Wallis公式)</strong> 求：二元递推公式 $I(m,n)=\int_0^{\pi\over2} \cos^mx\sin^nx dx$</p>
+<p>   (3) 求：$\int_0^{\pi\over2} \frac{\sin (2n+1)x}{\sin x}dx$</p>
+<p>   (4) 求：$\int_0^{\pi\over2} \frac{\sin 2nx}{\sin x}dx$的积分递推公式. 若将2n改为2n-1，则结果何如?</p>
+<p><strong>【例2】(Fejer积分)</strong> $I_n$的积分核又称Fejer核.</p>
+<p>   (1) 设$I_n= \int_0^\frac{\pi}{2} (\frac{sin nx}{sin x})^2 dx$，证明：$I_n=\frac{n\pi}{2}$</p>
+<p>   (2) 设$J_n=\int_0^\frac{\pi}{2} \frac{sin^2(nt)}{sin t}dt$，求：$\lim_\limits{n\to\infty}\frac{I_n}{\ln n}$</p>
+<p>   (3) 求：$\int_0^\frac{\pi}{2} \cos2nx \ln \cos x dx$</p>
+<p>   (4) 设$a_n=\int_0^\frac{\pi}{2} x(\frac{\sin nx}{\sin x})^3 dx$，证明：$\sum_0^\infty\frac{1}{a_n}$发散</p>
+<h4 id="14-积分函数列问题">1.4 积分函数列问题</h4>
+<h3 id="2-积分分段估计核方法与估计主部">2 积分分段估计：核方法与估计主部</h3>
+<h4 id="21-核方法kernel-method">2.1 核方法(Kernel Method)</h4>
+<p>核函数是一类广义函数，如脉冲阶跃函数$\delta(x)=∞(x=0),\delta(x)=0(x\neq0),\int_{-\infty}^\infty\delta(x)=1$，该类函数有如$\lim_\limits{n\to\infty} nx^{n-1}$等，在Fourier分析中广泛应用，如证明Fourier级数一致收敛性时用到$D(x)=\frac{sin\frac{(n+1)x}{2}}{sin\frac{x}{2}}$</p>
+<p>实际在通过核方法观点获得答案后，往往需<strong>分段估计主部</strong>严谨证明.</p>
+<p><strong>【例1】(单主部问题)</strong> 设$f\in C[0,1]$，</p>
+<p>   (1) 证明：$\lim_\limits{n\to\infty}\int_0^1 x^{n-1}f(x)=0$   $\lim_\limits{n\to\infty}\int_0^1 nx^{n-1}f(x)=f(1)$</p>
+<p>   (2) 若 $\int_0^1 \frac{x^{n-1}}{1+x}dx=\frac{a}{n}+\frac{b}{n^2}+O(\frac{1}{n^2})$ ，求：待定常数a,b.</p>
+<p>   (3) $\lim_{h \rightarrow 0^{+}} \int_{0}^{1} \frac{h}{h^{2}+x^{2}} f(x) d x=\frac{\pi}{2} f(0)$</p>
+<p>   (4) $\lim_{n \rightarrow \infty} \int_{0}^{1} \frac{n}{1+n^{2} x^{2}} f(x) d x=\frac{\pi}{2} f(0)$</p>
+<p><strong>【例2】(多重主部问题)</strong> 若$f(x)=1-x^2+x^3$，求：$\lim_\limits{n\to\infty}\frac{\int_0^1 f^n(x)ln(x+2)dx}{\int_0^1 f^ln(x)dx}$</p>
+<p><strong>【例3】(其他类题)</strong></p>
+<p>   (1) $\lim_{n \rightarrow \infty} \int_{0}^{\frac{\pi}{2}} \sin ^{n} x d x=\lim_{n \rightarrow \infty} \int_{0}^{\frac{\pi}{2}} \cos ^{n} x d x=0=\lim_{n\to\infty}\int_{0}^{\frac{\pi}{2}}\tan^nxdx=0$</p>
+<h4 id="22-积分收敛速度的估计taylor积分余项估计">2.2 积分收敛速度的估计(Taylor积分余项估计)</h4>
+<p>在Taylor展式中积分余项和Cauchy积分余项比较少用，但在对定积分余项阶数进行估计时会有用处. 注意要求是<strong>n的阶乘、n+1阶导数可积(可导不代表导数可积)</strong>
+$$f(x+h)=f(x)+f^{\prime}(x) h+\cdots+\frac{f^{(n)}(x)}{n !} h^{n}+\frac{1}{n !} \int_{0}^{h} f^{(n)}(t)(h-t)^{n} \mathrm{~d} t$$</p>
+<p><strong>【例1】</strong> 若f(x)二次可微且二阶导可积，$B_{n}=\int_{a}^{b} f(x) d x-\frac{b-a}{n} \sum_{i=1}^{n} f\left(a+(2 i-1) \frac{b-a}{2 n}\right)$，证明：$\lim_{n \rightarrow \infty} n^{2} B_{n}=\frac{(b-a)^{2}}{24}\left[f^{\prime}(b)-f^{\prime}(a)\right]$</p>
+<p><strong>【例2】</strong> 若f(x)二阶连续可导且$f&rsquo;(a)=f&rsquo;(b)=0$,证明：$M^{2} \leq \frac{(b-a)^{3}}{3} \int_{a}^{b}\left|f^{\prime \prime}(x)\right|^{2} \mathrm{~d} x$</p>
+<p>除了Taylor级数的积分余项外，我们更多时候使用面积原理对一些Riemann和级数进行估计，我们还关注这种使用积分估计方法的误差限.</p>
+<p><strong>【例3】(Riemann上和下和与面积原理)</strong> 利用积分函数的<strong>凸性</strong>进行<strong>错位放缩、梯形放缩、中点分割</strong>并夹逼得到结果，有时划分可能根据函数性质确定. 证明：</p>
+<p>   (1) <strong>(Euler常数)</strong> $\sum_{n=0}^\infty {1\over n} = O(\ln n)+\gamma$</p>
+<p>   (2) <strong>(上下和)</strong> ①$\lim_\limits{n \rightarrow \infty} \sum_{k=1}^{n^{2}} \frac{n}{n^{2}+k^{2}}=\frac{\pi}{2}$</p>
+<p>        ②$\lim_\limits{n \rightarrow \infty} \sum_{k=a_n}^{b_n} f(\frac{k}{n}) <br>
+= \lim_\limits{n \rightarrow \infty} \int_\frac{a_n}{n}^\frac{b_n}{n} f(x) dx(a_n,b_n\in N_+) $</p>
+<p>   (3) <strong>(梯形面积分割)</strong> $
+\frac{2}{3} n \sqrt{n}&lt;1+\sqrt{2}+\cdots+\sqrt{n}&lt;\frac{4 n+3}{6} \sqrt{n}$</p>
+<p>   (4) <strong>(区间分段点选取)</strong> ① $ \lim_\limits{n \rightarrow \infty} \sum_{k=n}^{\left[e^{n}\right]} \frac{n^{2}(2 k-1)}{n^{4}+k^{4}}=\frac{\pi}{4}
+$
+②$ \lim_\limits{n \rightarrow \infty} \sum_{k=[\sqrt{n}]}^{n^{7}} \frac{n^{4}(2 k-1)}{n^{6}+k^{6}}=\frac{2 \pi}{3 \sqrt{3}} $</p>
+<p>   (5) <strong>(区间分段点选取)</strong> ${\lim_\limits{x \rightarrow 1^{-}} \prod_{k=0}^{\infty}\left(\frac{1+x^{k+1}}{1+x^{k}}\right)^{x^{k}}=\frac{2}{e}} $</p>
+<p>除了使用Taylor展开，在估计<strong>Riemann和与Riemann积分差值</strong>时也用分段积分估计、中值定理和交换积分次序的结合，如例题4. 一般地，这种方法要求<strong>高阶可导</strong>，我们在展开点进行Taylor展开可以得到结果. 但注意这个误差与<strong>区间内点的选择有关</strong>，如下述选择区间右端点和选择左端点会相差一个负号.</p>
+<p><strong>【例4】(收敛速度估计·一阶)</strong> $f\in C[0,1]$，证明：$$n\epsilon_{n}=n\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{i=1}^{n} f\left(\frac{i}{n}\right)=\frac{f(0)-f(1)}{2}$$</p>
+<p><strong>【例5】(收敛速度估计·二阶)</strong> $f\in C^4[0,1]$，证明：$$\lim_\limits{n\to\infty} n^2(\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{k=1}^{n} f\left(\frac{k}{n}\right)+\frac{f(1)-f(0)}{2n}) =\frac{2\left[f^{\prime}(1)-f^{\prime}(0)\right]-3[f(1)-f(0)]}{12 n^{2}} $$</p>
+<p>若使用中点估计，则误差会下降，得到：
+$$\lim_\limits{n\to\infty} n^2(\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{k=1}^{n} f\left(\frac{k}{n}\right)+\frac{f(1)-f(0)}{2n}) = {f&rsquo;(1)-f&rsquo;(0)\over 24} $$</p>
+<h4 id="23-riemann引理三角和周期分段估计与fourier级数">2.3 Riemann引理、三角和周期分段估计与Fourier级数</h4>
+<p>在证明Fourier级数一致收敛时由Bessel不等式${1\over\pi}\int_{-\pi}^\pi f^2(x)dx\leq {a_0^2\over2}+\sum{a_n^2+b_n^2}$得到推论$\lim_\limits{n \rightarrow \infty} \int_{a}^{b} f(x) \sin n x=\lim_\limits{n \rightarrow \infty} \int_{a}^{b} f(x) \cos n x=0$，可推广为<strong>Riemann-Lesbegue引理</strong>：
+$$\lim_{n \rightarrow \infty} \int_{a}^{b} f(x) g(n x) d x=\frac{1}{T} \int_{0}^{T} g(x) d x \int_{a}^{b} f(x) d x$$
+其中$g(x)=g(x+T)$</p>
+<h4 id="24-二重积分的riemann和">2.4 二重积分的Riemann和</h4>
+<p>与一重积分类似，可将平面划分为n×m个正方形，对区域$\left[\frac{i-1}{n}, \frac{i}{n}\right] \times\left[\frac{j-1}{n}, \frac{j}{n}\right]$ 如选取右上角的积分值，则可得$$\int_{0}^{1} \int_{0}^{1} f(x, y) d x d y=\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=1}^{n} \sum_{i=1}^{n} f\left(\frac{i}{n}, \frac{j}{n}\right)$$</p>
+<p>根据不同的积分域，如可将其拓展为边界线为两条斜线$h(x),g(x)$，这在某些特殊求和中有用.
+$$\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=a}^{b} \sum_{i=p+g(j)}^{n+h(j)} f\left(\frac{i}{n}, \frac{j}{n}\right)=\lim_\limits{n \rightarrow \infty} \int_{\frac{a}{n}}^{\frac{k}{n}} \int_{p+g(j)}^{q+h(y)} f(x, y) d x d y$$</p>
+<p><strong>【例7】(积分区域划分)</strong> 证明下列等式.</p>
+<p>   (1) $\lim_\limits{n \rightarrow \infty} \frac{1}{n} \sum_{j=1}^{n} \sum_{i=1}^{n} \frac{j}{i^{2}+j^{2}}$</p>
+<p>   (2)   $\lim_\limits{n \rightarrow \infty} \sum_{k=4}^{n^{2}} \frac{n^{3}}{n^{4}+k^{4}}=\frac{\pi}{2 \sqrt{2}} $</p>
+<p>   (3) $\lim_\limits{n \rightarrow \infty} \sum_{k=n}^{n !} \frac{\ln \left(n^{2}+k^{2}\right)-2 \ln k}{n}=\frac{\pi}{2}-\ln 2$</p>
+<p>   (4)  $ \lim_\limits{n \rightarrow \infty} \frac{1}{n^{3}} \sum_{j=[\ln n]}^{n !}\left[j \cdot \sum_{i=2 j}^{5 j} \cos \left(\frac{i j}{n^{2}}\right)\right]=\frac{\sqrt{2 \pi}-\sqrt{5 \pi}}{4 \sqrt{5}}$</p>
+<p>   (5) $\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=1}^{\left[e^{n}\right]}\left[\sum_{i=3 n}^{7 n} \sin \left(\frac{i j}{n^{2}}\right)\right]=\ln 7-\ln 3 $</p>
+<p>   (6) $\lim_\limits{n \rightarrow \infty} n^{2} \sum_{j=[\sqrt{n}]}^{n^{k}}\left(\sum_{i=n}^{3 n} \frac{1}{n^{4}+i^{2} j^{2}}\right)=\frac{\pi}{2} \ln 3$</p>
+<h3 id="3">3</h3>
               
 
 
@@ -372,8 +399,6 @@ Notes.</p>
                     
   <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/calculus/">Calculus</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/interpolation/">Interpolation</a>
-
                   </div>
                 
               
@@ -385,7 +410,7 @@ Notes.</p>
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="NEXT: [Complex Analysis]Math Basis for Complex Analysis I">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-median-location-problem-ep.3/" data-tooltip="[Calculus]Integral: Median Location Problem ep.3" aria-label="NEXT: [Calculus]Integral: Median Location Problem ep.3">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -393,7 +418,7 @@ Notes.</p>
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="PREVIOUS: [Complex Analysis]Math Basis for Complex Analysis I">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -411,19 +436,19 @@ Notes.</p>
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -454,9 +479,9 @@ Notes.</p>
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/calculusmath-basis-for-interpolation-i\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/calculusintegral-estimation-and-induction-ep.1\/';
         
-          this.page.identifier = '\/2023\/04\/calculusmath-basis-for-interpolation-i\/'
+          this.page.identifier = '\/2023\/04\/calculusintegral-estimation-and-induction-ep.1\/'
         
       };
       (function() {
@@ -492,7 +517,7 @@ Notes.</p>
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="NEXT: [Complex Analysis]Math Basis for Complex Analysis I">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-median-location-problem-ep.3/" data-tooltip="[Calculus]Integral: Median Location Problem ep.3" aria-label="NEXT: [Calculus]Integral: Median Location Problem ep.3">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -500,7 +525,7 @@ Notes.</p>
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="PREVIOUS: [Complex Analysis]Math Basis for Complex Analysis I">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -518,19 +543,19 @@ Notes.</p>
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -561,19 +586,19 @@ Notes.</p>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusintegral-estimation-and-induction-ep.1%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusintegral-estimation-and-induction-ep.1%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusmath-basis-for-interpolation-i%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcalculusintegral-estimation-and-induction-ep.1%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

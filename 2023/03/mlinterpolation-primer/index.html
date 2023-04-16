@@ -43,7 +43,7 @@
     }
     
   },
-  "description": "",
+  "description": "Update: 2023-04-13 二维插值方法\n",
   "keywords": []
 }
 
@@ -54,18 +54,18 @@
 <meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
 <meta name="author" content="Supradax">
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="Update: 2023-04-13 二维插值方法">
 
 
-<meta property="og:description" content="">
+<meta property="og:description" content="Update: 2023-04-13 二维插值方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[ML]Interpolation: Primer">
 <meta name="twitter:title" content="[ML]Interpolation: Primer">
 <meta property="og:url" content="https://Supradax.github.io/2023/03/mlinterpolation-primer/">
 <meta property="twitter:url" content="https://Supradax.github.io/2023/03/mlinterpolation-primer/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
-<meta property="og:description" content="">
-<meta name="twitter:description" content="">
+<meta property="og:description" content="Update: 2023-04-13 二维插值方法">
+<meta name="twitter:description" content="Update: 2023-04-13 二维插值方法">
 <meta property="og:locale" content="en-us">
 
   
@@ -306,7 +306,8 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p>在本篇blog中，我们将围绕<strong>插值和拟合方法</strong>展开讨论。插值是指将离散数据连续化处理后进行预测的数学方法，常见的插值法有<strong>n次样条、多项式插值、牛顿插值、Hermite插值等</strong>，在数据处理方面应用广泛. 拟合则是找到一条最佳曲线使得所有点到该曲线的距离最短. 二者的核心区别在于<strong>前者必须经过数据点，后者可以不穿过，但追求距离最小化；前者一般在数据量不足时使用进行扩大数据集，后者则主要进行预测模拟</strong></p>
+              <p>Update: 2023-04-13 二维插值方法</p>
+<p>在本篇blog中，我们将围绕<strong>插值和拟合方法</strong>展开讨论。插值是指将离散数据连续化处理后进行预测的数学方法，常见的插值法有<strong>n次样条、多项式插值、牛顿插值、Hermite插值等</strong>，在数据处理方面应用广泛. 拟合则是找到一条最佳曲线使得所有点到该曲线的距离最短. 二者的核心区别在于<strong>前者必须经过数据点，后者可以不穿过，但追求距离最小化；前者一般在数据量不足时使用进行扩大数据集，后者则主要进行预测模拟</strong></p>
 <p><strong>Key Words</strong>  数值分析 多项式插值 样条插值 牛顿插值 拉格朗日多项式</p>
 <h3 id="1-一维插值">1 一维插值</h3>
 <p>对给定的由一系列点<code>(x,y)</code>构成的数据集D，要求借助已有数据预测其中某个不存在于该数据集中的x对应的y值. 由于变量只有一个，从而是一个典型的一维插值问题. 显然，通过有限多个点的<strong>连续曲线</strong>有无数多条，从而也有不同的插值方法，下面依次介绍<strong>线性插值、Lagrange多项式、样条插值、牛顿插值</strong></p>
@@ -390,11 +391,34 @@ $$R_2 \leq \frac{M}{6}|(x-x_0)(x-x_1)(x-x_2)|$$</li>
 <h4 id="21-不考虑导数的插值">2.1 不考虑导数的插值</h4>
 <ul>
 <li>
-<p><strong>Blinear Interpolation 双线性插值</strong></p>
+<p><strong>Nearest Neighbor Interpolation</strong> 最近邻插值
+最近邻插值，即对点列$(x_i,y_i,z_i)$，选取其邻域内最近的一个点的参数值$z_i$为参数$z$. i.e.
+$$f(x,y)=f(x_0,y_0) s.t. argmin d((x_0,y_0),(x_,y)))$$</p>
 </li>
 <li>
-<p><strong>Bicubic Interpolation</strong> 双三次插值</p>
+<p><strong>Blinear Interpolation 双线性插值</strong>
+一般用于<strong>规则网格</strong>中，如将2×2的图片放大为4×4，则将原有像素点分散到四个角落，对多出的12个点进行线性插值. 在横向上，设已知点$(x_1,y),(x_2,y)$，待求点$(x,y)$，则满足$$f(x,y)=tf(x_1,y)+(1-t)f(x_2,y),t=\frac{x-x_1}{x_2-x_1} \tag{2.1.1}$$
+再应用(2.1.1)对不共线的网格进行插值，故称<strong>双线性</strong>. 显然在三维空间中可推广至<strong>三线性插值</strong>.</p>
 </li>
+<li>
+<p><strong>Triangular Interpolation</strong> 三角形/重心插值法
+适用于<strong>非规则网格</strong>，对给出一个指定的坐标，可寻找<strong>最近邻的三个点</strong>(可视为对最近邻插值的改进)，通过<strong>线性插值或更高阶多项式</strong>取均值进行插值，以线性插值为例：
+$$f(x,y)=\sum_{cyc}w_if(x_i,y_i), w_i=\frac{d_i}{\sum_{cyc}d_i}$$
+即按照距离(L1测度)和最小均一化确定权值进行线性加权，可按照具体数据对测度、均一化方法、插值类型进行调整.</p>
+</li>
+</ul>
+<p>若不是给定一个指定坐标，只是生成一个数据点，则可利用重心进行构造. 即选取一个三角形(三个顶点权值为$f_1,f_2,f_3$)，确定重心$(u,v,w)$，则$$w=\frac{uf_1+vf_2+wf_3}{u+v+w}$$</p>
+<ul>
+<li><strong>Radial Basis Function Interpolation</strong> 径向基函数插值
+一种基于<strong>距离r</strong>的算法，使用径向基函数作为权重函数，本质是<strong>按照距离加权平均</strong>, 计算公式和重心插值完全相同，只在权重u,v,w上不同. 常见的权值函数$\phi(r)$有：</li>
+</ul>
+<ol>
+<li>高斯函数：$e^{-\beta r^2}$ 其中$\beta$为衰减系数</li>
+<li>多次样条函数：多项式函数，如$r^3$</li>
+</ol>
+<ul>
+<li><strong>Bicubic Interpolation</strong> 双三次插值
+双三次插值也需要在<strong>规则网格</strong>中实现，双线性插值使用4个数据点，而双三次插值由于是<strong>双三次样条</strong>的插值方法，共需16个相邻数据点，可用</li>
 </ul>
 <h4 id="22-考虑导数的插值">2.2 考虑导数的插值</h4>
 <ul>

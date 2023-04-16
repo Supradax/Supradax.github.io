@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Complex Analysis]Math Basis for Complex Analysis I",
+  
+  "image": "https://Supradax.github.io/img/cmpl.jpg",
+  
+  "datePublished": "2023-04-12T00:00:00Z",
+  "dateModified": "2023-04-12T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/complex-analysismath-basis-for-complex-analysis-i\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Complex Analysis]Math Basis for Complex Analysis I">
+<meta name="twitter:title" content="[Complex Analysis]Math Basis for Complex Analysis I">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-04-12T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-04-12T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="Complex Analysis">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/cmpl.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/cmpl.jpg">
+
+
+    <title>[Complex Analysis]Math Basis for Complex Analysis I</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Complex Analysis]Math Basis for Complex Analysis I
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-04-12T00:00:00Z">
+        
+  April 12, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-复变函数与微分">1 复变函数与微分</h2>
+<p>复数模型：复球面和复平面相切于南极点，北极点与复平面上任意一点连线与其在球面上的交点形成<strong>单射</strong>. 复平面所有无穷远点对应到北极点.</p>
+<p><strong>复变函数</strong>，即满足$f:C→C$的映射. 其中根据定义域和值域的不同，按照值域分实值和复值函数，按照定义域分实变和复变函数. 这里讨论复值复变函数，一般表示为<strong>实部虚部两个二元函数 或 z及其共轭 或 z及其倒数</strong> i.e. $f(z)=u(x,y)+iv(x,y)=g(z,\bar{z})=h(z,z^{-1})$</p>
+<p>由Euler公式，$z=re^{i\theta}$，由于<strong>辐角周期性</strong>，故不同于实值函数，复值函数可能存在<strong>多值性</strong>.如$\sqrt{z}=\sqrt{r}e^{i\theta+k\pi \over2}$存在两解.</p>
+<p>为表示区分，需按照k为奇数和偶数分类. 由此引入<strong>Riemann面</strong>，由于出现双值性，需将<strong>定义域定义为两个复平面(尽管重合)，值域仍为一个复平面</strong>，而动点围绕原点圆周运动时，由于辐角在$2\pi$处会产生突变，需要将其从一个平面转向另一个平面，反之亦然. 对于$lnz=lnre^{i\theta}=i\theta lnr$则有无穷多值，对应的Riemann面也有无穷多层.</p>
+<p>我们定义，通过某路径后经过同一点，其值发生改变的点为<strong>支点</strong>.</p>
+<p>对复变函数，我们同样关心其连续性、可微性. 下面对此进行讨论：</p>
+<h3 id="11-连续性可微性全纯性">1.1 连续性、可微性、全纯性</h3>
+<p>对函数f(z)，若满足$\lim\limits_{z→z_0}f(z)=f(z_0)$，则称f(z)在$z=z_0$连续；若满足$\lim\limits_{z→z_0}\frac{f(z)-f(z_0)}{z-z_0}$存在，则称f(z)在$z=z_0$可导.</p>
+<p>若f(z)在邻域D内均可导，则称<strong>f(z)是D上的解析函数或全纯函数</strong></p>
+<p>故而有<strong>解析→可导→连续</strong>.</p>
+<p>下文讨论的函数均为解析函数(<strong>至多有有限个非解析点或有界区域</strong>)</p>
+<h3 id="12-cauchy-riemann条件">1.2 Cauchy-Riemann条件</h3>
+<p>对复数z可导，则沿<strong>任意路径得到的导数应该相同</strong>. 由函数$f(z)=u+iv$解析，分别沿x轴和y轴求导，有：
+$$f&rsquo;(z)=\lim\limits_{\Delta z \to 0}\frac{\Delta u}{\Delta z}+i\frac{\Delta v}{\Delta z}
+= \lim\limits_{\Delta x \to 0}\frac{\Delta u}{\Delta x}+i\frac{\Delta v}{\Delta x}
+= \lim\limits_{\Delta x \to 0}\frac{\Delta u}{\Delta iy}+i\frac{\Delta v}{\Delta iy}$$
+比较虚部和实部，有：$
+\frac{\partial u}{\partial x}+i\frac{\partial v}{\partial x}=
+-i\frac{\partial u}{\partial y}+\frac{\partial v}{\partial y} $
+从而得到Cauchy-Riemann条件：$$\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},\frac{\partial v}{\partial x}=-\frac{\partial u}{\partial y}$$</p>
+<p>Notes. 这是解析函数的必要不充分条件.</p>
+<p>利用该条件，可得到解析函数的特性：</p>
+<p><strong>Theo 1</strong> 解析函数f(z)与$\bar z$无关.</p>
+<p><strong>Pf.</strong> 设$g(z,\bar z)$，则利用共轭换元，只需证明对$\bar z$偏导为零. 由$g(z)=u(\frac{z+\bar z}{2})+iv(\frac{z+\bar z}{2i}),\frac{\partial u}{\partial \bar z}= \frac{1}{2},\frac{\partial v}{\partial \bar z}= \frac{1}{2i}$，得：$$\frac{\partial g}{\partial \bar z}=
+\frac{\partial u}{\partial x}\frac{\partial x}{\partial \bar z}
++\frac{\partial u}{\partial y}\frac{\partial y}{\partial \bar z}
++i(\frac{\partial v}{\partial x}\frac{\partial x}{\partial \bar z}
++\frac{\partial v}{\partial y}\frac{\partial y}{\partial \bar z})
+=\frac{1}{2}(\frac{\partial u}{\partial x}-\frac{\partial v}{\partial y})+\frac{1}{2i}(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x})=0$$
+其中最后一步使用Cauchy-Riemann条件.</p>
+<p><strong>Theo 2</strong> 若复变函数f(z)可导，则任意阶可导.</p>
+<p><strong>Theo 3</strong> 若已知解析函数的实部u或虚部v，则可通过积分方法<strong>知一推一</strong>.</p>
+<p><strong>Pf.1</strong> 先将v对y求导运用Cauchy-Riemann条件，$$v=\int \frac{\partial v}{\partial y} dy+h(x)=\int \frac{\partial u}{\partial x} dy+h(x)$$ 再对v对x求导运用一次Cauchy-Riemann条件，再依次解出$h&rsquo;(x),h(x),v$$$\frac{\partial v}{\partial x}=\int \frac{\partial^2 u}{\partial x^2} dy+h&rsquo;(x)=-\frac{\partial u}{\partial y}$$
+最后验证$f(x,y)$可化为f(z). 如已知u=2xy,f(0)=0，则$f(z)=-iz^2$</p>
+<p><strong>Pf.2</strong> 利用全纯性先通过u找到导数$f&rsquo;(z)$ $$\frac{d f}{d z}=\frac{\partial f}{\partial x}=\frac{\partial u}{\partial x}+i \frac{\partial v}{\partial x}=\frac{\partial u}{\partial x}-i \frac{\partial u}{\partial y} \equiv g(z)$$再对g(z)积分得$$f(z)=\int g(z)dz+C$$</p>
+<p><strong>Pf.3</strong> <strong>共轭代换</strong>. $$u=\frac{f(z)+\overline{f(z)}}{2},v=\frac{f(z)-\overline{f(z)}}{2i} \tag{1}$$，从而$u(\frac{z+\bar z}{2},\frac{z-\bar z}{2i})=(h(z)+iC)+\overline{h(z)+iC}$ 与(1)比较，可得：
+$$f(z)=2h(z)+iC$$</p>
+<h3 id="13-cauchy积分定理">1.3 Cauchy积分定理</h3>
+<p>与一元函数定积分不同，复变积分从复平面一点到另一点积分的路径不唯一，故为<strong>曲线积分</strong>. 但解析函数有以下性质：</p>
+<p><strong>Theo 1</strong> <strong>积分路径无关(闭合曲线积分为零).</strong></p>
+<p><strong>Pf.</strong> 对于<strong>单连通区域</strong>，利用积分微元<strong>dz=dx+idy</strong>和Green公式化为重积分，再结合Cauchy-Riemann条件可证：
+$$\begin{aligned}
+\oint_{C} f(z) d z &amp; =\oint_{C}[u(x, y)+i v(x, y)](d x+i d y) \\
+&amp; =\oint_{C}[u d x-v d y]+i \oint_{C}[u d y+v d x] \\
+&amp; =\iint_{\Sigma}\left[-\frac{\partial u}{\partial y}-\frac{\partial v}{\partial x}\right] d x d y+i \iint_{\Sigma}\left[\frac{\partial u}{\partial x}-\frac{\partial v}{\partial y}\right] d x d y
+\\&amp; = 0+0=0
+\end{aligned}$$</p>
+<p>若为<strong>复连通区域</strong>，同理可用曲线积分中作一小段路径切割方法，注意<strong>内侧和外侧积分方向相反</strong>，具体证明过程中由于f(z)有连续性，从而向内和向外等大反向，切口由于d→0，积分值→0.
+$$\oint_{C} f(z) d z=-\sum_{n=1}^{N} \oint_{C_{n}} f(z) d z$$</p>
+<p><strong>Theo 2</strong> (Cauchy积分定理)  <strong>一点的函数值等于降一阶的环路积分值的$2\pi i$倍</strong>
+<strong>Pf.</strong> 用指数式代换，选取圆形环路积分，
+$$\oint \frac{f(z)}{z-z_0}dz=\oint \frac{f(z)}{re^{i\theta}} re^{i\theta } d\theta =  \oint f(z)d\theta
+$$
+由于<strong>至多只有</strong>一点非解析，故选取任意大小或形状的环路均可，故不妨令$r\to 0$，从而有
+$$\lim\limits_{r \to 0}\oint  f(z_0+re^{i\theta})= \oint \lim\limits_{r \to 0}  f(z_0+re^{i\theta})=2\pi if(z_0)$$</p>
+<p><strong>推论</strong> 利用该公式对$2\pi if(z)=\oint \frac{f(t)}{t-z}dt$求导，得$2\pi  i\frac{d}{dz}f(z)=\oint \frac{d}{dz}\frac{f(t)}{t-z}dt=\oint \frac{f(t)}{(t-z)^2}dt$，可知求导后的函数依旧解析（多项式函数性质），故任意阶可导，即$$2\pi  i\frac{d^n}{dz^n}f(z)=\oint \frac{d}{dz}\frac{f(t)}{t-z}dt=n!\oint \frac{f(t)}{(t-z)^{n+1}}dt$$</p>
+<p><strong>Theo 3</strong> (最大模定理) $|f(z)|$的最大值一定在边界值上取得(只有常值函数在int可取得).</p>
+<p><strong>Pf.</strong> 设$z_0$是内部一点，d是$z_0$到边界的最小距离，M是边界上的最大值，则有：
+$|f(z_0)|=\frac{1}{2\pi} |\oint \frac{f(z_0)}{z-z_0}dz|\leq \frac{1}{2\pi}\oint|\frac{f(z)}{z-z_0}d|z| |\leq\frac{M}{2\pi d}\oint d|z|=M$，故而最大值一定在边界取得.</p>
+<h2 id="2--级数表示与积分">2  级数表示与积分</h2>
+<h4 id="21-taylor级数与laurent级数">2.1 Taylor级数与Laurent级数</h4>
+<p>将Taylor级数推广到复数域，要求函数在<strong>圆域内解析</strong>，则有：
+<strong>Theo.1</strong>
+$$\quad f(z)=\sum_{n=0}^{\infty} a_{n}\left(z-z_{0}\right)^{n},a_n=\frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\left(\xi-z_{0}\right)^{n+1}} d \xi=\frac{f^{(n)}\left(z_{0}\right)}{n !} $$</p>
+<p><strong>Pf.</strong> Cauchy积分公式表示该点函数值，再利用<strong>z-z_0&lt;R</strong>提出R，构造<strong>等比级数</strong>，交换求和与积分次序.
+$$\begin{array}{l}
+f(z)&amp;= \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi-z} d \xi=\frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\left(\xi-z_{0}\right)-\left(z-z_{0}\right)} d \xi \\
+&amp;=\frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi-z_{0}} \frac{1}{1-\frac{z-z_{0}}{\xi-z_{0}}} d \xi \\
+&amp;=\frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi-z_{0}} \sum_{n=0}^{\infty} \frac{\left(z-z_{0}\right)^{n}}{\left(\xi-z_{0}\right)^{n}} d \xi \\
+&amp;=\sum_{n=0}^{\infty}\left[\frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\left(\xi-z_{0}\right)^{n+1}} d \xi\right]\left(z-z_{0}\right)^{n} \\
+\end{array}$$</p>
+<p>确定收敛半径由Abel第二定理，可用<strong>根值判别法或比值判别法</strong>或直接看距离$z_0$最近的非解析点P和$z_0$之间的距离，该距离即为收敛半径R.</p>
+<p>有时可能需要在<strong>非解析点附近展开</strong>，此时展开区域为<strong>圆环</strong>，故将Taylor级数进一步推广，增加负幂次项，得到Laurent级数. 则有：</p>
+<p><strong>Theo.2</strong>  $$f(z)=\sum_{n=-\infty}^{\infty} a_{n}\left(z-z_{0}\right)^{n},<br>
+a_{n}=\frac{1}{2 \pi i} \oint_{C} f(\xi)\left(\xi-z_{0}\right)^{-n-1} d \xi$$</p>
+<p><strong>Pf.</strong> 同理对f(z)进行展开，将圆环这一复连通区域变为单连通区域，得到f(z)为内外环路($C_1,C_2$)积分之和. 分别用同样的方法构造几何级数并交换求和和积分次序，得到结果.
+$$\begin{array}{l}
+f(z)&amp;=\frac{1}{2 \pi i} \oint_{L} \frac{f(\xi)}{\xi-z} d \xi=\frac{1}{2 \pi i} \oint_{C_{2}} \frac{f(\xi)}{\xi-z} d \xi-\frac{1}{2 \pi i} \oint_{C_{1}} \frac{f(\xi)}{\xi-z} d \xi\\
+&amp;=\frac{1}{2 \pi i} \oint_{C_{2}} \frac{f(\xi)}{\left(\xi-z_{0}\right)-\left(z-z_{0}\right)} d \xi-\frac{1}{2 \pi i} \oint_{C_{1}} \frac{f(\xi)}{\left(\xi-z_{0}\right)-\left(z-z_{0}\right)} d \xi \\
+&amp;= \frac{1}{2 \pi i} \oint_{C_{2}} \frac{f(\xi)}{\xi-z_{0}} \sum_{n=0}^{\infty} \frac{\left(z-z_{0}\right)^{n}}{\left(\xi-z_{0}\right)^{n}} d \xi-\frac{1}{2 \pi i} \oint_{C_{1}} \frac{f(\xi)}{z-z_{0}} \sum_{n=0}^{\infty} \frac{\left(\xi-z_{0}\right)^{n}}{\left(z-z_{0}\right)^{n}} d \xi
+\\&amp;= \sum_{n=0}^{\infty}\left[\frac{1}{2 \pi i} \oint_{C_{2}} \frac{f(\xi)}{\left(\xi-z_{0}\right)^{n+1}} d \xi\right]\left(z-z_{0}\right)^{n}+\sum_{n=-\infty}^{-1}\left[\frac{1}{2 \pi i} \oint_{C_{1}} \frac{f(\xi)}{\left(\xi-z_{0}\right)^{n+1}} d \xi\right]\left(z-z_{0}\right)^{n}
+\end{array}$$</p>
+<p>同理收敛半径分为内外两个，外半径和Taylor级数相同，内半径则反之，令$|\frac{a_{n+1}}{a_n}|&gt;1$或$(a_n)^\frac{1}{n}&gt;1$，或为到最近一个解析点的距离</p>
+<h4 id="22-解析函数的零点和奇点">2.2 解析函数的零点和奇点</h4>
+<p>按照Taylor级数的非负次项，将零点分为<strong>k阶零点</strong>，若最低次项为k，则为k阶零点，满足$f(z)=&hellip;=f^{(k)}(z)=0$，此定义与实值函数零点完全相同.</p>
+<p><strong>Theo</strong> (零点孤立性定理) f(z)解析，若$f(z_0)=0$，则一定存在$\epsilon$使得$\forall z\in \check N_\epsilon(z_0), f(z)\neq0$</p>
+<p><strong>Pf.</strong> 反证法. 设$f(z)=(z-z_0)^k\phi(z)$，则若$\forall \epsilon,\exists z, |z-z_0|&lt;\epsilon, f(z)=0$，则$\phi(z)=0$，由于$\phi(z)$连续，故有$|\phi(z)|-|\phi(z_0)|\leq|\phi(z)-\phi(z_0)|&lt;\epsilon&lt;\frac{\phi(z_0)}{2}$，从而$\phi(z_0)&lt;0$，矛盾！</p>
+<p>和用Taylor级数定义零点阶数类似，<strong>奇点的阶数</strong>可通过Laurent级数定义，分<strong>可去奇点、k阶奇点和本征奇点</strong></p>
+<ul>
+<li>可去奇点：极限$\lim_\limits{\Delta z\to0}f(z)$存在</li>
+<li>k阶奇点：Laurent级数的最低次幂为-k.</li>
+<li>本性奇点：Laurent级数不存在最低次幂</li>
+<li>无穷远点：使用倒代换，考察$f(\frac{1}{z})$在0处的奇点类型，但<strong>无穷远点一定是奇点</strong></li>
+</ul>
+<p>按照奇点的分布，分为<strong>孤立奇点和非孤立奇点</strong>，如$\frac{1}{sin\frac{1}{z}}$存在奇点列${\frac{1}{n\pi}}$，z=0是该点列的聚点.</p>
+<h4 id="23-留数定理">2.3 留数定理</h4>
+<p>设孤立奇点$z_0$并选取半径为R的环路积分，则有：
+$$\begin{array}{l}
+I &amp;=\oint f(z)dz=\oint \Sigma a_n(z-z_0)^n dz=\oint \Sigma a_n(Re^{i\theta})^n iRe^{i\theta}d\theta \\
+&amp;= i\Sigma a_n R^{n+1} \int_0^{2\pi}e^{i(n+1)\theta}d\theta = i\Sigma a_n R^{n+1} \delta_{n,-1} \\ &amp;= 2\pi ia_{-1}
+\end{array}$$
+从而定义留数(residue)$$Res f(z_0)=2\pi ia_{-1}$$
+对有限个孤立奇点，则有：</p>
+<p><strong>Theo 1</strong> (留数定理) $$I=\oint_{C} f(z) d z=2 \pi i \sum_{l=1}^{n} \operatorname{Res} f\left(z_{l}\right)$$</p>
+<p>对于留数的求解，可以直接在该点做Laurent展开，但若知道该点的奇点阶数(对于分母为有理式或可等价无穷小的，一般几次则为几阶)，则可较快求出. 如$f(z_0)$是k阶奇点，则<strong>对$(z-z_0)^kf(z)$求k次导数</strong>并除以$(k-1)!$，即为该点留数.</p>
+<p>特别地，对于无穷远点，可作倒代换得到$$Resf(\infty)=\frac{1}{2\pi i}\oint f(z)dz=-\frac{1}{2 \pi i} \oint_{C^{\prime}} f\left(\frac{1}{z^{\prime}}\right) \frac{1}{z^{\prime 2}} d z^{\prime}=-ResF(0),F(z)=f(\frac{1}{z&rsquo;})\frac{1}{z&rsquo;^2}$$
+使用Laurent对F(z)展开，可得$$Resf(\infty)=-ResF(0)=-a_{-1}$$</p>
+<p><strong>Theo 2</strong> (留数和定理) 若一个函数只有有限个孤立奇点，则留数和为零(含无穷远点).</p>
+<p><strong>Pf.</strong>  取C使得C包含所有奇点，逆时针环路积分为所有有限奇点留数和，顺时针环路积分为无穷远点留数，相加得零，从而有：
+$$\operatorname{Res} f(\infty)+\sum_{m} \operatorname{Res} f\left(z_{m}\right)=\frac{1}{2 \pi i} \oint_{C} f(z) d z+\frac{1}{2 \pi i} \oint_{C} f(z) d z$$</p>
+<h4 id="24-留数定理在实值积分的应用围道积分">2.4 留数定理在实值积分的应用：围道积分</h4>
+<p>通过在实轴上构造相应路径得到实值函数，再利用其余路径积分为零或易于计算，运用留数定理得到围道积分值求解. 一般分为形如$\int_{-\infty}^{\infty}f(x)dx,\int_{0}^{\infty}f(x)dx$的无穷型积分，形如$\int_{0}^{2\pi}f(x)sinxdx,\int_{0}^{2\pi}f(x)cosxdx$的三角积分.</p>
+<h5 id="241-围道积分">2.4.1 围道积分</h5>
+<p><strong>Case 1</strong> 实轴上无奇点的围道积分，满足$zf(z)$一直趋零，则<strong>选取半圆围道</strong>，留数和即为积分值.</p>
+<p><strong>Pf.</strong> $$\lim_{R \rightarrow \infty} \oint_{C} f(z) d z=\int_{-\infty}^{\infty} f(x) d x+\lim_{R \rightarrow \infty} \int_{C_{R}} f(z) d z=2 \pi i \sum_{l=1}^{N} \operatorname{Res} f\left(z_{l}\right)$$</p>
+<p>对z进行指数代换，则第二个积分极限值为零. QED</p>
+<p><strong>Case 2</strong> 若实轴上存在奇点，其他不变. 则选取一个小半圆绕开该奇点，其中要求<strong>该奇点为单极点</strong>，得到积分称<strong>P主值积分</strong>.
+$$\lim_{\substack{R \rightarrow \infty \\ \epsilon \rightarrow 0}} \oint^{\infty} f(z) d z=P \int_{-\infty}^{\infty} f(x) d x+\lim_{R \rightarrow \infty} \int_{C_{R}} f(z) d z+\lim_{\epsilon \rightarrow 0} \int_{C_{\epsilon}} f(z) d z$$</p>
+<p><strong>Pf.</strong> 由于该奇点为单极点，故而同样对第三个积分使用指数代换，恰能约分.</p>
+<p>Notes. <strong>复平面上是奇点不代表实数轴上是间断点</strong></p>
+<p><strong>Case 3</strong> 若求解形如$(0,+∞)$的积分，可运用指数代换，利用扇形围道求解. 该类型往往会出现<strong>积分再现</strong></p>
+<p><strong>e.g.</strong> 如$I=\int_{0}^{\infty} \frac{1}{1+x^{3}} d x$，选取$\theta=\frac{2\pi}{3}$，进行指数代换得$\frac{1}{1+\left(r e^{i \frac{2 \pi}{3}}\right)^{3}}=\frac{1}{1+r^{3}}$，从而有$$\begin{array}{l}
+\lim_{R \rightarrow \infty} \oint_{C} \frac{1}{1+z^{3}} d z =\int_{0}^{\infty} \frac{1}{1+x^{3}} d x+\lim_{R \rightarrow \infty} \int_{0}^{2 \pi / 3} \frac{i R e^{i \theta} d \theta}{1+R^{3} e^{i 3 \theta}}+e^{i \frac{2 \pi}{3}} \int_{\infty}^{0} \frac{1}{1+r^{3}} d r \
+\\=2 \pi i \operatorname{Res} f\left(e^{i \pi / 3}\right) \end{array}
+$$
+再对第二个积分作估计（往往为零），从而有：
+$$\lim_{R \rightarrow \infty}\left|\int_{0}^{2 \pi / 3} \frac{i R e^{i \theta} d \theta}{1+R^{3} e^{i 3 \theta}}\right| \leq \lim_{R \rightarrow \infty} \int_{0}^{2 \pi / 3} \frac{\left|i R e^{i \theta}\right|}{\left|1+R^{3} e^{i 3 \theta}\right|} d \theta \leq \lim_{R \rightarrow \infty} \frac{2 \pi R}{3\left(R^{3}-1\right)}=0$$</p>
+<p><strong>Case 4</strong> 合理选择围道避开无穷多个奇点</p>
+<p><strong>e.g.</strong> 由于虚轴上存在无穷多个奇点，从而不能直接选用半圆围道，而选虚轴上长为$2\pi$的矩形区域. 从而
+$$\begin{aligned}
+\lim_{R \rightarrow \infty} \oint_{C} \frac{e^{\alpha z}}{1+e^{z}} d z= &amp; \int_{-\infty}^{\infty} \frac{e^{\alpha x}}{1+e^{x}} d x+\lim_{R \rightarrow \infty} \int_{0}^{2 \pi} \frac{e^{\alpha(R+i y)}}{1+e^{R+i y}} i d y \\
++e^{i \alpha 2 \pi} &amp; \int_{\infty}^{-\infty} \frac{e^{\alpha x}}{1+e^{x}} d x+\lim_{R \rightarrow \infty} \int_{2 \pi}^{0} \frac{e^{\alpha(-R+i y)}}{1+e^{-R+i y}} i d y=2 \pi i \operatorname{Res} f(i \pi)
+\end{aligned}$$
+出现积分再现且放缩可知第二项、第四项积分为零.</p>
+<h4 id="242-约当引理与三角实值积分">2.4.2 约当引理与三角实值积分</h4>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/complex-analysis/">Complex Analysis</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" data-tooltip="[Calculus]Integral: Estimation and Induction ep.1" aria-label="NEXT: [Calculus]Integral: Estimation and Induction ep.1">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" data-tooltip="[Calculus]Math Basis for Interpolation I" aria-label="PREVIOUS: [Calculus]Math Basis for Interpolation I">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/complex-analysismath-basis-for-complex-analysis-i\/';
+        
+          this.page.identifier = '\/2023\/04\/complex-analysismath-basis-for-complex-analysis-i\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/" data-tooltip="[Calculus]Integral: Estimation and Induction ep.1" aria-label="NEXT: [Calculus]Integral: Estimation and Induction ep.1">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusmath-basis-for-interpolation-i/" data-tooltip="[Calculus]Math Basis for Interpolation I" aria-label="PREVIOUS: [Calculus]Math Basis for Interpolation I">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcomplex-analysismath-basis-for-complex-analysis-i%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcomplex-analysismath-basis-for-complex-analysis-i%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fcomplex-analysismath-basis-for-complex-analysis-i%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

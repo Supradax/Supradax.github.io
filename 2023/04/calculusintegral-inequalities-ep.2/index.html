@@ -162,7 +162,7 @@
         </a>
         <h4 class="sidebar-profile-name">Supradax</h4>
         
-          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
         
       </div>
     
@@ -300,90 +300,134 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <h3 id="1-方程的解与定积分递推问题">1 方程的解与定积分递推问题</h3>
-<h4 id="11-迭代数列收敛速度的估计">1.1 迭代数列收敛速度的估计</h4>
-<p>先结合归纳法估计数列值域、单调性，对低阶的一般Stolz公式可以处理，高阶的可结合结论使用等价进行控制(相差低阶量，结合级数求和与面积原理)或<strong>构造无穷小Taylor展开(渐近展开)</strong>.</p>
-<p><strong>【例1】(Stolz公式)</strong> $0&lt;x_n&lt;\pi, x_{n+1}=\sin x_n$，证明：$\lim_\limits{n\to\infty} \sqrt{n} x_n=\sqrt{3}$.</p>
-<p><strong>【例2】</strong> $a_1&gt;1,a_{n+1}(a_n^2-1)=a_n^3$，求：$A=\lim_\limits{n\to\infty}{a_n\over\sqrt n}, \lim_\limits{n\to\infty} {n\over \ln n}({a_n\over\sqrt n}-A)$</p>
-<p><strong>【例3】(渐近展开)</strong> $a_1=1,a_{n+1}=a_n+{1\over a_n}$，$0&lt;b_n&lt;1,b_{n+1}=b_n(1-b_n)$</p>
-<p>   (1) 证明：$\lim_\limits{n\to\infty}\sqrt{n}a_n=\sqrt2$</p>
-<p>   (2) 证明：$a_n=\sqrt{2n}+\frac{\sqrt2 \ln n}{8\sqrt n}+{C\over\sqrt n}+O(\frac{\ln^2 n}{n^{3\over2}})$</p>
-<p>   (3) 证明：$\lim_\limits{n\to\infty} nb_n=1$</p>
-<h4 id="12-方程列问题">1.2 方程列问题</h4>
-<p>此类问题根据零点定理确定存在性，通过特殊点、微分方法(求导、中值定理)、代入分析根的单调性，得到相应代数式求解根的极限.</p>
-<p><strong>【例1】</strong> 证明下列方程列的实根存在并求极限.</p>
-<p>   (1) $f_n(x)=x^n+x^{n-1}+&hellip;+x-1, D\in({1\over2},1)$</p>
-<p>   (2) $f_n(x)=\sin x^n+\sin x^{n-1}+&hellip;+\sin x-1, D\in({\pi\over6},{\pi\over2}]$</p>
-<p>   (3) $f_n(x)=C_n^1\cos x-C_n^2\cos^2 x+..+(-1)^{n+1}C_n^n\cos^n x-{1\over2}, D\in(0,{\pi\over2})$</p>
-<p>   (4) 证明：$x=1+2\ln x$在$(e,+\infty)$上有唯一实根$\xi$，且若设$x_0\in(e,\xi), x_n=1+2\ln x_{n-1}$，则有$\lim_\limits{n\to\infty} x_n=\xi$</p>
-<p>   (5) $x_1&gt;0, x_ne^{x_{n+1}}=e^{x_n}-1$</p>
-<p><strong>【例2】</strong> 对极限的阶数进行估计，如<strong>渐近展开、变换主元</strong>等</p>
-<p>   (1) 设$f_n(x)=x^n+nx-2,f_n(x_n)=0(x_n&gt;0)$，求：$\lim_\limits{n\to\infty} (1+x_n)^n$</p>
-<p>   (2) $\sin x_n=(\ln x_n)^{1\over n}$，求：$\lim_\limits{n\to\infty} (\frac{\pi\sin x_n}{2x_n})^{\frac{1}{x_n-{\pi\over2}}}$</p>
-<p>   (3) $e^x+x^{2n+1}=0$唯一实根$x_n$，计算极限并估阶：$n\to\infty, x_n=a+{b\over n}+{c\over n^2}+o({1\over n^2})$</p>
-<h4 id="13-定积分列问题">1.3 定积分列问题</h4>
-<p>有时无法直接求得积分，可通过观察获得如${I_n±I_{n-1}},{I_n±I_{n-2}} $为定值的结构，还可通过分部积分和适当的恒等变换实现<strong>积分再现</strong>.</p>
-<p><strong>【例1】(积分求解递推)</strong></p>
-<p>   (1) <strong>(三角与指数分部递推)</strong> $\int \ln^nx dx, \int x^ne^{kx} dx, \int \sec^nx dx, \int tan^nx dx, \int \frac{1}{(x^2+a^2)^n} dx, $$\int \arcsin^nx dx, \int \frac{x^{n}}{\sqrt{1-x^{2}}} d x$</p>
-<p>   (2) <strong>(Wallis公式)</strong> 求：二元递推公式 $I(m,n)=\int_0^{\pi\over2} \cos^mx\sin^nx dx$</p>
-<p>   (3) 求：$\int_0^{\pi\over2} \frac{\sin (2n+1)x}{\sin x}dx$</p>
-<p>   (4) 求：$\int_0^{\pi\over2} \frac{\sin 2nx}{\sin x}dx$的积分递推公式. 若将2n改为2n-1，则结果何如?</p>
-<p><strong>【例2】(Fejer积分)</strong> $I_n$的积分核又称Fejer核.</p>
-<p>   (1) 设$I_n= \int_0^\frac{\pi}{2} (\frac{sin nx}{sin x})^2 dx$，证明：$I_n=\frac{n\pi}{2}$</p>
-<p>   (2) 设$J_n=\int_0^\frac{\pi}{2} \frac{sin^2(nt)}{sin t}dt$，求：$\lim_\limits{n\to\infty}\frac{I_n}{\ln n}$</p>
-<p>   (3) 求：$\int_0^\frac{\pi}{2} \cos2nx \ln \cos x dx$</p>
-<p>   (4) 设$a_n=\int_0^\frac{\pi}{2} x(\frac{\sin nx}{\sin x})^3 dx$，证明：$\sum_0^\infty\frac{1}{a_n}$发散</p>
-<h4 id="14-积分函数列问题">1.4 积分函数列问题</h4>
-<h3 id="2-积分分段估计核方法与估计主部">2 积分分段估计：核方法与估计主部</h3>
-<h4 id="21-核方法kernel-method">2.1 核方法(Kernel Method)</h4>
-<p>核函数是一类广义函数，如脉冲阶跃函数$\delta(x)=∞(x=0),\delta(x)=0(x\neq0),\int_{-\infty}^\infty\delta(x)=1$，该类函数有如$\lim_\limits{n\to\infty} nx^{n-1}$等，在Fourier分析中广泛应用，如证明Fourier级数一致收敛性时用到$D(x)=\frac{sin\frac{(n+1)x}{2}}{sin\frac{x}{2}}$</p>
-<p>实际在通过核方法观点获得答案后，往往需<strong>分段估计主部</strong>严谨证明.</p>
-<p><strong>【例1】(单主部问题)</strong> 设$f\in C[0,1]$，</p>
-<p>   (1) 证明：$\lim_\limits{n\to\infty}\int_0^1 x^{n-1}f(x)=0$   $\lim_\limits{n\to\infty}\int_0^1 nx^{n-1}f(x)=f(1)$</p>
-<p>   (2) 若 $\int_0^1 \frac{x^{n-1}}{1+x}dx=\frac{a}{n}+\frac{b}{n^2}+O(\frac{1}{n^2})$ ，求：待定常数a,b.</p>
-<p>   (3) $\lim_{h \rightarrow 0^{+}} \int_{0}^{1} \frac{h}{h^{2}+x^{2}} f(x) d x=\frac{\pi}{2} f(0)$</p>
-<p>   (4) $\lim_{n \rightarrow \infty} \int_{0}^{1} \frac{n}{1+n^{2} x^{2}} f(x) d x=\frac{\pi}{2} f(0)$</p>
-<p><strong>【例2】(多重主部问题)</strong> 若$f(x)=1-x^2+x^3$，求：$\lim_\limits{n\to\infty}\frac{\int_0^1 f^n(x)ln(x+2)dx}{\int_0^1 f^ln(x)dx}$</p>
-<p><strong>【例3】(其他类题)</strong></p>
-<p>   (1) $\lim_{n \rightarrow \infty} \int_{0}^{\frac{\pi}{2}} \sin ^{n} x d x=\lim_{n \rightarrow \infty} \int_{0}^{\frac{\pi}{2}} \cos ^{n} x d x=0=\lim_{n\to\infty}\int_{0}^{\frac{\pi}{2}}\tan^nxdx=0$</p>
-<h4 id="22-积分收敛速度的估计taylor积分余项估计">2.2 积分收敛速度的估计(Taylor积分余项估计)</h4>
-<p>在Taylor展式中积分余项和Cauchy积分余项比较少用，但在对定积分余项阶数进行估计时会有用处. 注意要求是<strong>n的阶乘、n+1阶导数可积(可导不代表导数可积)</strong>
-$$f(x+h)=f(x)+f^{\prime}(x) h+\cdots+\frac{f^{(n)}(x)}{n !} h^{n}+\frac{1}{n !} \int_{0}^{h} f^{(n)}(t)(h-t)^{n} \mathrm{~d} t$$</p>
-<p><strong>【例1】</strong> 若f(x)二次可微且二阶导可积，$B_{n}=\int_{a}^{b} f(x) d x-\frac{b-a}{n} \sum_{i=1}^{n} f\left(a+(2 i-1) \frac{b-a}{2 n}\right)$，证明：$\lim_{n \rightarrow \infty} n^{2} B_{n}=\frac{(b-a)^{2}}{24}\left[f^{\prime}(b)-f^{\prime}(a)\right]$</p>
-<p><strong>【例2】</strong> 若f(x)二阶连续可导且$f&rsquo;(a)=f&rsquo;(b)=0$,证明：$M^{2} \leq \frac{(b-a)^{3}}{3} \int_{a}^{b}\left|f^{\prime \prime}(x)\right|^{2} \mathrm{~d} x$</p>
-<p>除了Taylor级数的积分余项外，我们更多时候使用面积原理对一些Riemann和级数进行估计，我们还关注这种使用积分估计方法的误差限.</p>
-<p><strong>【例3】(Riemann上和下和与面积原理)</strong> 利用积分函数的<strong>凸性</strong>进行<strong>错位放缩、梯形放缩、中点分割</strong>并夹逼得到结果，有时划分可能根据函数性质确定. 证明：</p>
-<p>   (1) <strong>(Euler常数)</strong> $\sum_{n=0}^\infty {1\over n} = O(\ln n)+\gamma$</p>
-<p>   (2) <strong>(上下和)</strong> ①$\lim_\limits{n \rightarrow \infty} \sum_{k=1}^{n^{2}} \frac{n}{n^{2}+k^{2}}=\frac{\pi}{2}$</p>
-<p>        ②$\lim_\limits{n \rightarrow \infty} \sum_{k=a_n}^{b_n} f(\frac{k}{n}) <br>
-= \lim_\limits{n \rightarrow \infty} \int_\frac{a_n}{n}^\frac{b_n}{n} f(x) dx(a_n,b_n\in N_+) $</p>
-<p>   (3) <strong>(梯形面积分割)</strong> $
-\frac{2}{3} n \sqrt{n}&lt;1+\sqrt{2}+\cdots+\sqrt{n}&lt;\frac{4 n+3}{6} \sqrt{n}$</p>
-<p>   (4) <strong>(区间分段点选取)</strong> ① $ \lim_\limits{n \rightarrow \infty} \sum_{k=n}^{\left[e^{n}\right]} \frac{n^{2}(2 k-1)}{n^{4}+k^{4}}=\frac{\pi}{4}
-$
-②$ \lim_\limits{n \rightarrow \infty} \sum_{k=[\sqrt{n}]}^{n^{7}} \frac{n^{4}(2 k-1)}{n^{6}+k^{6}}=\frac{2 \pi}{3 \sqrt{3}} $</p>
-<p>   (5) <strong>(区间分段点选取)</strong> ${\lim_\limits{x \rightarrow 1^{-}} \prod_{k=0}^{\infty}\left(\frac{1+x^{k+1}}{1+x^{k}}\right)^{x^{k}}=\frac{2}{e}} $</p>
-<p>除了使用Taylor展开，在估计<strong>Riemann和与Riemann积分差值</strong>时也用分段积分估计、中值定理和交换积分次序的结合，如例题4. 一般地，这种方法要求<strong>高阶可导</strong>，我们在展开点进行Taylor展开可以得到结果. 但注意这个误差与<strong>区间内点的选择有关</strong>，如下述选择区间右端点和选择左端点会相差一个负号.</p>
-<p><strong>【例4】(收敛速度估计·一阶)</strong> $f\in C[0,1]$，证明：$$n\epsilon_{n}=n\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{i=1}^{n} f\left(\frac{i}{n}\right)=\frac{f(0)-f(1)}{2}$$</p>
-<p><strong>【例5】(收敛速度估计·二阶)</strong> $f\in C^4[0,1]$，证明：$$\lim_\limits{n\to\infty} n^2(\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{k=1}^{n} f\left(\frac{k}{n}\right)+\frac{f(1)-f(0)}{2n}) =\frac{2\left[f^{\prime}(1)-f^{\prime}(0)\right]-3[f(1)-f(0)]}{12 n^{2}} $$</p>
-<p>若使用中点估计，则误差会下降，得到：
-$$\lim_\limits{n\to\infty} n^2(\int_{0}^{1} f(x) d x-\frac{1}{n} \sum_{k=1}^{n} f\left(\frac{k}{n}\right)+\frac{f(1)-f(0)}{2n}) = {f&rsquo;(1)-f&rsquo;(0)\over 24} $$</p>
-<h4 id="23-riemann引理三角和周期分段估计与fourier级数">2.3 Riemann引理、三角和周期分段估计与Fourier级数</h4>
-<p>在证明Fourier级数一致收敛时由Bessel不等式${1\over\pi}\int_{-\pi}^\pi f^2(x)dx\leq {a_0^2\over2}+\sum{a_n^2+b_n^2}$得到推论$\lim_\limits{n \rightarrow \infty} \int_{a}^{b} f(x) \sin n x=\lim_\limits{n \rightarrow \infty} \int_{a}^{b} f(x) \cos n x=0$，可推广为<strong>Riemann-Lesbegue引理</strong>：
-$$\lim_{n \rightarrow \infty} \int_{a}^{b} f(x) g(n x) d x=\frac{1}{T} \int_{0}^{T} g(x) d x \int_{a}^{b} f(x) d x$$
-其中$g(x)=g(x+T)$</p>
-<h4 id="24-二重积分的riemann和">2.4 二重积分的Riemann和</h4>
-<p>与一重积分类似，可将平面划分为n×m个正方形，对区域$\left[\frac{i-1}{n}, \frac{i}{n}\right] \times\left[\frac{j-1}{n}, \frac{j}{n}\right]$ 如选取右上角的积分值，则可得$$\int_{0}^{1} \int_{0}^{1} f(x, y) d x d y=\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=1}^{n} \sum_{i=1}^{n} f\left(\frac{i}{n}, \frac{j}{n}\right)$$</p>
-<p>根据不同的积分域，如可将其拓展为边界线为两条斜线$h(x),g(x)$，这在某些特殊求和中有用.
-$$\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=a}^{b} \sum_{i=p+g(j)}^{n+h(j)} f\left(\frac{i}{n}, \frac{j}{n}\right)=\lim_\limits{n \rightarrow \infty} \int_{\frac{a}{n}}^{\frac{k}{n}} \int_{p+g(j)}^{q+h(y)} f(x, y) d x d y$$</p>
-<p><strong>【例7】(积分区域划分)</strong> 证明下列等式.</p>
-<p>   (1) $\lim_\limits{n \rightarrow \infty} \frac{1}{n} \sum_{j=1}^{n} \sum_{i=1}^{n} \frac{j}{i^{2}+j^{2}}$</p>
-<p>   (2)   $\lim_\limits{n \rightarrow \infty} \sum_{k=4}^{n^{2}} \frac{n^{3}}{n^{4}+k^{4}}=\frac{\pi}{2 \sqrt{2}} $</p>
-<p>   (3) $\lim_\limits{n \rightarrow \infty} \sum_{k=n}^{n !} \frac{\ln \left(n^{2}+k^{2}\right)-2 \ln k}{n}=\frac{\pi}{2}-\ln 2$</p>
-<p>   (4)  $ \lim_\limits{n \rightarrow \infty} \frac{1}{n^{3}} \sum_{j=[\ln n]}^{n !}\left[j \cdot \sum_{i=2 j}^{5 j} \cos \left(\frac{i j}{n^{2}}\right)\right]=\frac{\sqrt{2 \pi}-\sqrt{5 \pi}}{4 \sqrt{5}}$</p>
-<p>   (5) $\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=1}^{\left[e^{n}\right]}\left[\sum_{i=3 n}^{7 n} \sin \left(\frac{i j}{n^{2}}\right)\right]=\ln 7-\ln 3 $</p>
-<p>   (6) $\lim_\limits{n \rightarrow \infty} n^{2} \sum_{j=[\sqrt{n}]}^{n^{k}}\left(\sum_{i=n}^{3 n} \frac{1}{n^{4}+i^{2} j^{2}}\right)=\frac{\pi}{2} \ln 3$</p>
-<h3 id="3">3</h3>
+              <p><strong>Update:</strong></p>
+<ol>
+<li>Implement Section 1 to 4 on 15 Apr. 2023</li>
+<li>Implement Section 5 on  21 Apr. 2023</li>
+</ol>
+<p>定积分不等式一类是从初等数学中的离散型不等式使用Riemann和推广而来，一般能够相互等价；另一类则是利用Newton-Leibniz公式进行函数构造，运用分析单调性、零点的方法. 下面先介绍度量空间中对L范数有重要地位的Cauchy、Chebyshef和Holder不等式，再介绍初等数学中均值不等式的推广和Newton-Leibniz公式的简单运用. 最后引入重积分的方法进行证明.</p>
+<p>一般地，在证明逻辑上，由凸函数性质证明Jensen不等式从而构造Holder不等式，或利用Young不等式作为引理证明Holder不等式，进而推出Minkovski不等式和Cauchy不等式(p=q=$1\over2$)的特立. 其中Carson不等式也是Holder的推论.</p>
+<h2 id="1-cauchy-inequality">1 Cauchy Inequality</h2>
+<h3 id="11-proof">1.1 Proof</h3>
+<p>柯西不等式，离散表达式$$(a_1^2+&hellip;a_n)^2(b_1^2+&hellip;b_n^2)\geq(a_1b_1+&hellip;a_nb_n)^2 \tag{1.1}$$
+两边同除$n^2$，取定$a_k=f(a+(b-a)\frac{k}{n}),b_k=g(a+(b-a)\frac{k}{n})$，则若f,g可积，则$$\int_a^bf^2\int_a^bg^2\geq(\int_a^bfg)^2 \tag{1.2}$$
+同理若在(1.2)中构造f,g为对应$a_n,b_n$的可积阶梯函数，则运用等距分割可得到(1.1)</p>
+<p><strong>Pf.</strong> (二次判别式法) 设$F(t)=\Sigma(a_i-tb_i)^2=(\sum{a_i^2})t^2-2t\sum{a_ib_i}+\sum{b_i^2}\geq0$，由判别式有$\Delta=4(\sum{a_ib_i})^2-4\sum{a_i^2}\sum{b_i^2}\leq0$ i.e. $\sum{a_i^2}\sum{b_i^2}\geq(\sum{a_ib_i})^2$ . 对于积分形式，则换为$F(t)=(\int_a^b(f-tg))^2$，展开后其余相同</p>
+<p>对于Cauchy不等式，可将其推广至更高维度$n=2^m$，即$$\prod_{i=1}^{2^m}{\sum_{k=1}^n{a_{ik}^{2^m}}}\geq\sum_{k=1}^n(\prod_{i=1}^{2^m}a_{ik})^{2^m} \tag{1.3}$$</p>
+<p><strong>pf.</strong> 对任意$dim=2^k$，总能进行两两分组运用不等式(1.1)，再依次不断合并，直至最后一项.</p>
+<h3 id="12-applications">1.2 Applications</h3>
+<p><strong>【例1】(直接应用·合理拆分fg)</strong> f(x)连续且恒大于0，证明：</p>
+<ul>
+<li>(1) $ \int_{a}^{b} f(x) d x \int_{a}^{b} \frac{1}{f(x)} d x \geq(b-a)^{2} $</li>
+<li>(2) $\frac{\int_{a}^{b} f^{3}(x) d x}{\int_{a}^{b} f^{2}(x) d x} \geq \frac{\int_{a}^{b} f^{2}(x) d x}{\int_{a}^{b} f(x) d x}$</li>
+<li>(3) $\left(\int_{0}^{1} \frac{f(x)}{a^{2}+x^{2}} d x\right)^{2} \leq \frac{\pi}{2 a} \int_{0}^{1} \frac{f^{2}(x)}{a^{2}+x^{2}} d x$</li>
+<li>(4) $ \int_{a}^{b} f(x) d x=1 , 则  \left(\int_{a}^{b} f(x) \sin k x d x\right)^{2}+\left(\int_{a}^{b} f(x) \cos k x d x\right)^{2} \leq 1 $</li>
+</ul>
+<p>  <strong>Sol</strong> (1)(2)直接应用；(3)作分拆，令$\tilde f=\left(\int_{0}^{1} {\frac{f(x)}{\sqrt{a^{2}+x^{2}}}} d x\right)^{2}, \tilde g={\frac{1}{\sqrt{a^{2}+x^{2}}}}$，从而配凑右式形式；(4)注意到$sin^2+cos^2=1$，故对两个积分先分别用一次柯西不等式再相加</p>
+<p><strong>【例2】(结合NL公式和定积分技巧)</strong></p>
+<ul>
+<li>(1)$\int_{0}^{\pi} x a^{\sin x} d x \int_{0}^{\frac{\pi}{2}} a^{-\cos x} d x \geq \frac{\pi^{3}}{4}(a&gt;0) $</li>
+<li>(2)$f(1)=f(0)+1$，证明：$ \int_{0}^{1}\left(f^{\prime}(x)\right)^{2} d x \geq 1 $</li>
+<li>(3)$f(1)=f(0)=0,\int_{0}^{1}(f(x))^{2} d x=1$，证明：$\int_{0}^{1}\left(x f^{\prime}(x)\right)^{2} d x \geq \frac{1}{4} $</li>
+</ul>
+<p>  <strong>Sol</strong> (1)第一个积分利用<strong>对称性</strong>，把x提出去得到$\frac{\pi}{2}$，再用对称性化到相同区间；第二个积分将cos换为sin再利用Cauchy不等式被积函数相乘得到定值；(2) 注意到给出的$f$是$f&rsquo;$的原函数，从而对左式用Cauchy不等式可解；(3)同理，但注意到端点处为0且有$xf&rsquo;$的结构，考虑分部积分有$\int 2xff&rsquo;=-1$，从而左式=$\int (xf&rsquo;)^2 \int f^2 \geq (\int xff&rsquo;)^2=\frac{1}{4}$</p>
+<p><strong>【例3】</strong> 若f(x)连续可导，证明：$\int_{0}^{1} f^{2}(x) d x \leq a \int_{0}^{1}\left(f^{\prime}(x)\right)^{2} d x$，当$f(0)=0$时，a可改进为$1\over2$；当$f(1)=0$时，a可改进为$1\over8$直至最佳系数$1\over \pi^2$</p>
+<p>  <strong>Sol</strong> (1)注意到f&rsquo;与f之间的关系，<strong>先对被积函数处理再积分(从内向外放缩)</strong>，有$f^2=(\int_0^x f&rsquo;)^2=(\int_0^x f&rsquo;×1)^2 \leq x\int_0^x f&rsquo;^2 $，此时再从0到1积分，由被积函数$f&rsquo;^2$非负，从而将<strong>区间放大</strong>到$\int_0^1$<strong>作为常数提出</strong>，故左式$\leq \int_0^1f&rsquo;^2\int_0^1 x$=右式. (2)当f(1)=0时，则上述改为<strong>从0到$1\over2$</strong> 积分，则化为$1\over8$，另一边由对称性可得，再将两个不等式相加. (3) 需用Parseval等式，将被积函数作<strong>奇延拓并用Fourier展开</strong>(<strong>奇延拓好处在不引入常数，可能更易</strong>)，从而$\sum{b_n^2}=\int_{-\pi}^\pi f^2$$ \sum{b_n^2 n^2\pi^2}=\int_{-\pi}^\pi f&rsquo;^2$，故有${\int_{-\pi}^\pi f^2\over\pi^2}=\sum{n^2b_n^2}\geq\sum{b_n^2}=\int_{-\pi}^\pi f^2$. 对于取等条件，<strong>当且仅当除$b_1$外所有项均为0时成立</strong>，即当且仅当所有的正弦函数(余弦函数)取等 □</p>
+<h2 id="2-chebyshev-inequality">2 Chebyshev Inequality</h2>
+<p>切比雪夫不等式(概率论中有另一个)，衡量的是<strong>序关系的乘积</strong>，故又称<strong>Chebyshev总和不等式</strong>. 在证明之前需引入<strong>其离散形式——排序不等式</strong>.</p>
+<h3 id="21-arrange-inequality">2.1 Arrange Inequality</h3>
+<p><strong>排序不等式</strong>，描述一系列数$a_1\leq a_2\leq&hellip;\leq a_n,b_1\leq b_2\leq&hellip;\leq b_n $，若从${a_n},{b_n}$中每次各不重复地选取一项相乘 i.e. $\sum{a_ib_{\pi(i)}}$(其中$(Z_{n+1},Z_{n+1},\pi)$构成一个置换群)，则在这$n!$种组合中，当且仅当顺序取时最大，逆序取最小，即<strong>顺序和≥乱序和≥逆序和</strong></p>
+<p><strong>Pf.</strong> 考虑一种取法$\sum{a_ib_{\pi(i)}}$，若恰为顺序和，则不必考虑；若不为顺序和，则必然存在<strong>最小的i使得$i\neq \pi(i)$</strong>，从而对应i的位置一定存在j使得$j=\pi(i)$且满足$j\geq i$(前i-1个由于a,b下标相同，不可能含i)，故只需证明交换$b_i,b_j$可得到更优结果，即$$a_ib_i+a_jb_j-a_ib_j-a_jb_i=(a_j-a_i)(b_j-b_i)\geq0$$</p>
+<p>故而对每一个乱序和，都可以通过两两对换的方式得到更大值，而这种对换是有限的(对逆序最多为$C_n^2$次)且最终结果必然为顺序和(否则可继续对换)，从而顺序和最大. 同理反向对换则可得到更小值，从而逆序和最小. 由于顺序、逆序和乱序构成一个拆分，故命题成立.</p>
+<p>基于排序不等式可得到一系列不等式的最值，如$a^2+b^2+c^2=1,\max ab+bc+ac$，可知有$a\leq b\leq c$且$b\leq c\leq a$，从而a,b,c相等</p>
+<h3 id="22-chebyshev总和不等式">2.2 Chebyshev总和不等式</h3>
+<p>对离散形式，有若${a_n},{b_n}$单调性相同，则有$$\sum{a_i}\sum{b_i}\leq n\sum{a_ib_i} \tag{2.1}$$</p>
+<p><strong>若单调性不同，则不等号方向改变</strong></p>
+<p>对左式展开，等价于$\alpha\beta^T$的L1范数(其中$\alpha=(a_1,&hellip;,a_n)^T,\beta=(b_1,&hellip;,b_n)^T$)，观察到左式实际为<strong>1个顺序和+(n-1)个非顺序和</strong>，右式为n个顺序和，由排序不等式，命题成立. 单调性不同，则变为逆序和，同理</p>
+<p>其中取等要求<strong>非顺序和均等于顺序和</strong>，而由其排列方式(步长为1的轮换)，写出对应不等式，可知<strong>当且仅当无序，即所有元素相同</strong>取等.</p>
+<p>等价变形得：$${\sum{a_i}\over n}{\sum{b_i} \over n}\leq {\sum{a_ib_i}\over n} \tag{2.2}$$</p>
+<p>即<strong>单调性相同，积均值小于均值积</strong></p>
+<p>将(2.2)左右同除$n²$化为积分形式，有<strong>对单调函数f(x),g(x)</strong>，若<strong>单调性相同</strong>(相反则变号)
+$$\int_a^b f\int_a^b g \leq (b-a)\int_a^b fg \tag{2.3}$$</p>
+<p><strong>pf.</strong> 使用<strong>二重积分证明</strong>. <strong>利用单调性相同，构造(f(x)-f(y))(g(x)-g(y))≥0</strong>，从而在$[a,b]×[a,b]$积分，有$\iint f(x)g(x)+f(y)g(y)\geq \iint f(x)g(y)+f(y)g(x)$ i.e. $(b-a)\int fg\geq \int f\int g$. 将两边同除$b-a$，仍有<strong>积均值小于均值积</strong></p>
+<p>下面对Chebyshev不等式<strong>在维度上进行</strong>推广，对<strong>多个具有单调性的数列相乘</strong>，我们先考察三个的情形，即对$\sum{a_n}\sum{b_n}\sum{c_n}$其中$a_n↑,b_n↑,c_n↓$，则对$a_n,b_n$用一次(2.2)，则当所有数非负时(否则无法保证(2.2)右式仍有单调性)，从而转换为单增乘单减，不等号反向；对于具有大于2个递减的数列相乘，则可将其分别取负数，相乘后转换为一个单增数列(负负得正). 从而对非负数列有：($a_kn↑,b_kn↓$)</p>
+<p>$$\prod^p{\frac{a_{kn}}{n}}\prod^q{\frac{b_{kn}}{n}}\leq \frac{\prod^p{a_n}\prod^q{b_n}}{n}\tag{2.4}$$</p>
+<p>不等号为小于号当且仅当$2|q$</p>
+<p>从而写为积分形式有($f_i↑$)
+$$\int f_1\int f_2&hellip;\int f_n\leq (b-a)^{n-1}\int f^n$$</p>
+<p><strong>取等条件为$f_i$为全部相等的常函数</strong>.</p>
+<p><strong>在乘积因子数目上推广</strong>，若f,g单调性相同且$p(x)$非负有：
+$$ \int_{a}^{b} p(x) \mathrm{d} x \int_{a}^{b} p(x) f(x) g(x) \mathrm{d} x \geqslant \int_{a}^{b} p(x) f(x) \mathrm{d} x \int_{a}^{b} p(x) g(x) \mathrm{d} x \tag{2.5}$$</p>
+<p>对其证明同理只需构造相应二重积分$p(x)p(y)(f(x)-f(y))(g(x)-g(y))$展开合并化简即可. 同样地，若f,g单调性相反则不等式变号.</p>
+<h3 id="23-applications">2.3 Applications</h3>
+<p><strong>【例1】</strong> 证明：$(a+b) \int_{a}^{b} f(x) \mathrm{d} x \leqslant 2 \int_{a}^{b} x f(x) \mathrm{d} x$</p>
+<p>  <strong>Sol.</strong>  两边同乘(b-a)，运用(2.3)</p>
+<p><strong>【例2】</strong> 证明：$\int_{0}^{\frac{\pi}{2} }\frac{\cos x}{1+x^2}\geq   \int_{0}^{\frac{\pi}{2} }\frac{\sin x}{1+x^2}$</p>
+<p>  <strong>Sol.</strong> 注意到单调性不同且sinx和cosx积分能<strong>积分再现</strong>，从而令$f=cosx,g=\frac{1}{1+x^2},h=sinx$，由于fg单调性相同，从而$LHS\geq{\pi\over2}\int_{0}^{\frac{\pi}{2}}\cos x\int_{0}^{\frac{\pi}{2}}\frac{1}{1+x^2}= {\pi\over2}\int_{0}^{\frac{\pi}{2}}\sin x\int_{0}^{\frac{\pi}{2}}\frac{1}{1+x^2} \geq RHS$</p>
+<p><strong>【例3】</strong> 若f(x)连续单增，证明：$\frac{\int_{0}^{1} f^{3}(x) \mathrm{d} x}{\int_{0}^{1} f^{2}(x) \mathrm{d} x} \leqslant \frac{\int_{0}^{1} x f^{3}(x) \mathrm{d} x}{\int_{0}^{1} x f^{2}(x) \mathrm{d} x}$</p>
+<p>  <strong>Sol.</strong>  由于所有函数单增非负且不涉及变号，运用(2.5)有$p(x)=f^2(x),f(x)=f(x),g(x)=x$</p>
+<p><strong>【例4】</strong> 证明：$$\int_{0}^{1} \frac{1}{x+1} \mathrm{~d} x \int_{0}^{1} \frac{x+1}{x^{2}+x+1} \mathrm{~d} x \cdots \cdots \int_{0}^{1} \frac{x^{n-2}+\cdots+x+1}{x^{n-1}+\cdots+x+1} \mathrm{~d} x \geqslant \frac{1}{H_{n}}$$其中$H_n=1+{1\over2}+&hellip;+{1\over n}$</p>
+<p>  <strong>Sol.</strong> 可知左式分子分母<strong>等比级数</strong>且分子分母<strong>或能相消</strong>，故将$H_n$改写为$\int_0^1 1+x&hellip;+x^{n-1}$，容易证明只有$H_n$对应被积函数单增，其余单减，从而不等号反向并将所有被积函数相乘. □</p>
+<h2 id="3-holder-inequality">3 Holder Inequality</h2>
+<p>赫尔德不等式n=2的特殊情形为Cauchy不等式，且可推导出闵可夫斯基不等式、权方和不等式和卡尔松不等式.</p>
+<h3 id="31-proof">3.1 Proof</h3>
+<p>${\color{Blue}{Lemma}} $<strong>Young Inequality</strong> 若p,q共轭，即$\frac{1}{p}+\frac{1}{q}=1$或$p+q=pq$，则
+$$ ab\leq \frac{1}{p} a^p+\frac{1}{q} b^q \tag{3.1}$$</p>
+<p><strong>pf.</strong> 取对数并利用lnx为下凸函数和共轭性质$\ln (\frac{1}{p} a^p+\frac{1}{q} b^q) \geq \frac{1}{p}\ln a^p+ \frac{1}{q}\ln b^q=\ln ab$ □</p>
+<p><strong>取等条件</strong> 由于$\ln x$的凸性均存在，故当且仅当$a^p=b^q$时取得.</p>
+<p><strong>Holder不等式</strong> 设p,q共轭，则离散和积分形式为：
+$$ \left(\sum_{i=1}^{n} a_{i}^{p}\right)^{\frac{1}{p}}\left(\sum_{i=1}^{n} b_{i}^{q}\right)^{\frac{1}{q}} \geqslant \sum_{i=1}^{n} a_{i} b_{i}\tag{3.2}$$</p>
+<p>$$\int_{a}^{b}|f(x) g(x)| d x \leq\left(\int_{a}^{b}|f(x)|^{p} d x\right)^{\frac{1}{p}}\left(\int_{a}^{b}|g(x)|^{q} d x\right)^{\frac{1}{q}} \tag{3.3}$$</p>
+<p><strong>pf.</strong> 对于离散版或积分版，都可令$\varphi(x)=\frac{f(x)}{\left(\int_{a}^{b}|f(x)|^{p} \mathrm{~d} x\right)^{\frac{1}{p}}}, \psi(x)=\frac{g(x)}{\left(\int_{a}^{b}|g(x)|^{q} \mathrm{~d} x\right)^{\frac{1}{q}}}$，然后代入Young不等式，对两边求和或积分，将分母约去(分母为固定常数).</p>
+<p><strong>取等条件</strong> 由Young不等式，可知$k_1a_i^p=k_2b_i^q$或$k_1f_i^p=k_2g_i^q$时取等(线性相关)</p>
+<h3 id="32-minkowvski-inequality">3.2 Minkowvski Inequality</h3>
+<p>Minkowvski不等式用于<strong>描述$L^p$测度的三角不等式的正确性</strong>并由此证明**$L^p$范数等价性**其离散形式和积分形式为：</p>
+<p>$$\left(\sum_{k=1}^{n}\left|x_{k}+y_{k}\right|^{p}\right)^{1 / p} \leq\left(\sum_{k=1}^{n}\left|x_{k}\right|^{p}\right)^{1 / p}+\left(\sum_{k=1}^{n}\left|y_{k}\right|^{p}\right)^{1 / p} \tag{4.1}$$</p>
+<p>$$\left(\int_{a}^{b}|f(x)+g(x)|^{p} \mathrm{~d} x\right)^{\frac{1}{p}} \leq\left(\int_{a}^{b}|f(x)|^{p} \mathrm{~d} x\right)^{\frac{1}{p}}+\left(\int_{a}^{b}|g(x)|^{p} \mathrm{~d} x\right)^{\frac{1}{p}} \tag{4.2}$$</p>
+<p><strong>pf.</strong> 先看离散不等式，不妨设$x_n,y_n&gt;0$，从而有$\sum{(x_n+y_n)}^p=\sum{(x_n+y_n)(x_n+y_n)}^{p-1}$
+$$
+\begin{align}
+&amp; = \sum{x_n(x_n+y_n)}^{p-1}+\sum{y_n(x_n+y_n)}^{p-1} \\
+&amp; \leq (\sum x_n^p)^\frac{1}{p}(\sum(x_n+y_n)^{(p-1)q})^\frac{1}{q}
++(\sum y_n^p)^\frac{1}{p}(\sum(x_n+y_n)^{(p-1)q})^\frac{1}{q} \\
+&amp; =((\sum x_n^p)^\frac{1}{p}+(\sum y_n^p)^\frac{1}{p})(\sum(x_n+y_n)^p)^\frac{1}{q}
+\end{align}
+$$
+将第二项移到左边利用共轭性质. □</p>
+<p>对积分版本，同理将其拆分为两段，也可由离散型两边同除n(p,q共轭保证能配凑积分).</p>
+<h2 id="4-agc">4 AGC</h2>
+<p>AGC的基础建立在函数的凸性上，故广泛运用了$Jensen$不等式，可以用<strong>幂平均不等式</strong>统一. 其中在用途最广的几何平均和算术平均之间，可引入众多常用均值，如<strong>对数平均</strong>$\sqrt{ab}\leq\frac{\ln b-\ln a}{b-a}\leq\frac{a+b}{2}$等(将a,b替换为$e^a,e^b$还可得到对应指数平均不等式).</p>
+<p>$$H_{n} \leqslant G_{n} \leqslant A_{n} \leqslant Q_{n}$$
+$$\frac{n}{\sum_{i}^{n} \frac{1}{x_{i}}} \leqslant \sqrt[n]{\prod_{i=1}^{n} x_{i}} \leqslant \frac{\sum_{i=1}^{n} x_{i}}{n} \leqslant \sqrt{\frac{\sum_{i=1}^{n} x_{i}^{2}}{n}}$$</p>
+<p>对于$f&rsquo;&rsquo;(x)\geq 0$，有 <strong>(Hadamard不等式)积分平均</strong>$$f\left(\frac{a+b}{2}\right)(b-a) \leqslant \int_{a}^{b} f(x) \mathrm{d} x \leqslant \frac{f(a)+f(b)}{2}(b-a)$$
+其几何意义为<strong>曲边梯形面积位于凹陷中点构成的四边形和两端构成的直角梯形之间</strong>. 可以看到，积分平均位于凸函数中点和算术平均之间.</p>
+<p><strong>pf.</strong> 由于该不等式对任意b均成立，改为变上限积分求导证明即可.</p>
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/18.jpg" >
+  
+  
+</div>
+
+<h2 id="5-newton-leibniz-equation-and-multiple-integral">5 Newton-Leibniz Equation And Multiple Integral</h2>
+<p><strong>【例1】(边界为零)</strong> f(x,y)定义在$[0,1]×[0,1]$有连续四阶偏导数且在边界上恒为零，若$|f_{xxyy}|\leq M$，证明：$|\iint f(x,y)dxdy|\leq{M\over144}$</p>
+<p>   <strong>Sol</strong> 边界为零且<strong>边界平行于x,y轴</strong>，故四个偏导数$f(x,0),f(x,1),f(0,y),f(1,y)$<strong>任意阶可导且导数恒为零</strong>. 从而只需不停分部积分即可. 如考虑弱化版，假定不在坐标轴上的两边恒为零且二阶混合偏导上界为M，则$\iint f_{xy} = \int dx\int yf_{xy} dy=\int dx\int y df_x$(配凑y使得y=0时分部第一项为零)，同理可得$\iint xy d\sigma ={1\over4}$，从而原式≤${M\over4}$</p>
+<p>   现构造四阶导，令$g=xy(1-x)(1-y)$，从而$\iint f_{xxyy}g=\iint f_{xx}g_{yy}=\iint fg_{xxyy}$，故对g积分可得系数$1\over144$</p>
+<p>Note. 本例为分部积分与偏导数的结合，其中分部积分常通过配凑微分使得非积分部分为零来化简.</p>
+<p><strong>【例2】(柯西不等式)</strong> 设f(x,y)在$[a,b]×[g(x),h(x)]$上可微且g,h连续，若$f(x,g(x))=0$，证明：存在正数k使得$\iint f^2 d\sigma \leq k \iint f_y^2 d\sigma$</p>
+<p>   <strong>Sol</strong> <strong>出现平方，首先考虑柯西不等式. 遇到积分，可先不考虑积分号(即微分再积分，往往能提高精度)</strong>，从而考虑$f=\int f_y dy$，两边平方并用柯西不等式得$f^2 = (\int f_ydy)^2\leq (h-g)^2\int f_y^2$(这里对内层积分的上限进行放缩，从而得到二重积分)，再$\int_a^b$得$\int_a^b f^2 \leq k_1\iint f_y^2$，再对左侧$\int_g^h$，由于有界性且<strong>右侧为一常数</strong>，可确定相应的k.</p>
+<p><strong>【例3】(NL配凑与对称性)</strong> $u\in[0,1]$且$u(x)=1+k\int_x^1 u(y)u(y-x)dy$，证明：$k\leq\frac{1}{2}$</p>
+<p>   <strong>Sol</strong> 变量$y,y-x$同时存在，单一换元无法实现分离或形式统一，故考虑升维构造(升维一般目的为<strong>配凑形式、交换次序化简表达式或获得常数、利用序关系等</strong>)，故两边$\int_0^1$并令t=y-x得$2\int_0^1 u = 1+ 2k\int_0^1 \int_x^1 u(y)u(t)dtdy$，u(y-x)和u(y)<strong>在一起无法分离</strong>，从而交换积分次序，得$\int_0^1 u(y)dy\int_0^y u(y-x)dx$，此时再做换元$t=y-x$，得$-\int_0^1 u(y)\int_0^y u(t)dt$恰能凑微分，得${-1\over2}(\int_0^1 u(t)dt)^2$，该积分构成二次方程的一个解，判别式可得k取值.</p>
+<p>    <strong>变式A(轮换对称)</strong> f(x)连续且$\int_0^1 f(x)dx=a$，证明：$\int_0^1 \int_x^1 f(x)f(y) dxdy={a^2\over2}$</p>
+<p>   <strong>Sol</strong>  本题和例题均可用轮换对称 <strong>(对应函数是一元函数，否则需考察多元函数定义域对称性)</strong>
+为利用轮换对称性，先交换积分次序，再把x,y互换，二者相加得到$\int_0^1\int_0^1 f(x)f(y)d\sigma$ □</p>
+<p>    <strong>变式B</strong> f(x)只在$[0,1]$上恒等于1，其余恒为0，求：$\int_0^1 u(x)u(y+x) dxdy$</p>
+<p>   <strong>Sol</strong> 本题不同于例题，使用换元t=y+x无法得到可凑微分或对称性的表达式，但注意到其余地方恒等于0，故由线性规划可确定被积函数非零的区域，而这些地方积分值恒为1，故只需求出面积.</p>
+<p><strong>【例4】(绝对值不等式)</strong> f(x)只在$[a,b]$上连续且值不恒为零，设$g(x)={1\over2h}\int_{x-h}^{x+h}f(t)dt(h&gt;0)$，证明：$\int_a^b |g|\leq\int_a^b |f|$</p>
+<p>   <strong>Sol</strong> 由于f处处有定义且范围外值为零，不影响积分值，故可换元得$u=t+x$，则$\int_{-h}^h f(t)dt$，而<strong>h是给定常数</strong>，从而两边积分并用绝对值不等式放缩，再交换积分次序使常数$\int_a^b g$被提出去，再积分消去h.</p>
               
 
 
@@ -410,7 +454,7 @@ $$\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=a}^{b} \sum_{i=p+g(
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/data-structuretree/" data-tooltip="[Data Structure]Tree" aria-label="NEXT: [Data Structure]Tree">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -517,7 +561,7 @@ $$\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=a}^{b} \sum_{i=p+g(
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/data-structuretree/" data-tooltip="[Data Structure]Tree" aria-label="NEXT: [Data Structure]Tree">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -620,7 +664,7 @@ $$\lim_\limits{n \rightarrow \infty} \frac{1}{n^{2}} \sum_{j=a}^{b} \sum_{i=p+g(
     
     <h4 id="about-card-name">Supradax</h4>
     
-      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
     
     
       <div id="about-card-job">

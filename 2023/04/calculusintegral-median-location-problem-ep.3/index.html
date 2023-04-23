@@ -162,7 +162,7 @@
         </a>
         <h4 class="sidebar-profile-name">Supradax</h4>
         
-          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Leaner</h5>
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
         
       </div>
     
@@ -315,6 +315,21 @@
 <h4 id="12-rollelagrangecauchy与taylor定理构造">1.2 Rolle、Lagrange、Cauchy与Taylor定理构造</h4>
 <p>有时构造时会利用<strong>广义Rolle定理</strong> i.e. 若$\lim_\limits{x\to+\infty}f(x)=\lim_\limits{x\to-\infty}f(x)$，则$\exists \xi,f&rsquo;(\xi)=0$</p>
 <p>构造时刻选用走分离(直接构造，将某个参量视为变量)，对有具体表达式的可考虑解微分方程.</p>
+<p><strong>【例1】(Cauchy中值定理)</strong> 证明：存在一点使得</p>
+<ol>
+<li>$\frac{b f(a)-a f(b)}{b-a}=f(\xi)-\xi f^{\prime}(\xi)$</li>
+<li>(T1变式) $\frac{f(b)-f(a)}{b-a}=\frac{\xi^{2} f^{\prime}(\xi)}{a b}$</li>
+<li>(Lagrange余项) $f(x)=f\left(x_{0}\right)+f^{\prime}\left(x_{0}\right)\left(x-x_{0}\right)+f^{\prime \prime}\left(x_{0}\right) \frac{\left(x-x_{0}\right)^{2}}{2 !}+f^{\prime \prime \prime}(\xi) \frac{\left(x-x_{0}\right)^{3}}{3 !}$</li>
+<li>(T3变式A) $\frac{f(b)-f(a)-f^{\prime}(a)(b-a)}{g(b)-g(a)-g^{\prime}(a)(b-a)}=\frac{f^{\prime \prime}(\xi)}{g^{\prime \prime}(\xi)}$</li>
+<li>(T3变式B) $f(b)=f(a)+\frac{1}{2}(b-a)\left(f^{\prime}(a)+f^{\prime}(b)\right)-\frac{1}{12}(b-a)^{3} f^{\prime \prime \prime}(\xi)$</li>
+<li>(T3变式C)$\frac{f(a+h)+f(a-h)-2 f(a)}{h^{2}}=\frac{f^{\prime \prime}(a+\theta h)+f^{\prime \prime}(a-\theta h)}{2}$</li>
+</ol>
+<p><strong>Sol.</strong></p>
+<ul>
+<li>T1,T2在于通分约分，T1同除ab得$\frac{{f(a)\over a}-{f(b)\over b}}{{1\over a}-{1\over b}}$，同理T2把ab乘过去再上下同除ab.</li>
+<li>T3把除了最右一项外所有项移到左边再同除$(x-x_0)^3$，因式分解一定能将其分为$f(x)-f(x_0)$($(a-b)^n=f(a)-f(b)$)，从而对上下连续用三次Cauchy中值定理可证. T4是T3的简化版，只需用2次，如分子整理为$f(b)(1-f&rsquo;(a))-f(a)(1-f&rsquo;(a))$，T5完全一致，T6则构造$(f(a+h)+f(a-h))-(f(a+0)+f(a-0))$与$(h^2-0^2)$并用两次Cauchy中值定理</li>
+</ul>
+<p><strong>Notes.</strong> 一般地，Cauchy中值定理的核心在于<strong>合理分配差分</strong>. 该方法在<strong>证明Lagrange余项，处理可重双中值和可分离单中值</strong>被广泛应用.</p>
 <p><strong>【例2】(Lagrange误差估计)</strong></p>
 <h4 id="13-原函数解微分方程配合分部积分">1.3 原函数：解微分方程(配合分部积分)</h4>
 <p>解微分方程注意常见复合函数$\ln f(x), e^{±x}f(x), \frac{f(x)}{g(x)}, f^2(x), f(x)sinx$再进行积分.</p>
@@ -341,7 +356,21 @@
 <p>  <strong>Sol.</strong> 解微分方程有$F=\frac{f}{x^2}$，则F(1)=F(2)□</p>
 <p>   <strong>变式A</strong>  若$(0,\pi)$可导且f(0)=0，证明：存在一点$2f&rsquo;(xi)=\tan {\xi\over2} f(\xi)$</p>
 <p>  <strong>Sol.</strong> 注意sin和cos导数且涉及<strong>乘除法求导</strong>，令$F=2f(x)cos{x\over2}$，有F(0)=F($\pi$)=0 □
-但是</p>
+在构造过程中，往往<strong>不需要将整个方程解出来</strong>，尤其是二阶方程，此类方程不易用初等形式表达. 且对于含积分问题，常需用Newton-Leibniz化简，如变式B.</p>
+<p>   <strong>变式B</strong>  $\int_a^cf(x)dx=\int_c^bf(x)dx=0$，证明：存在一点使$f&rsquo;(\eta)=\int_a^\eta f(x)dx$</p>
+<p>  <strong>Sol.</strong> 令$F=\int_a^x f$，则易知F有零点a,b,c. 一种方法是直接解出微分方程$y&rsquo;&rsquo;=y$，构造$g=F(e^F+e^{-F})$，但运算量较大；另一种则是观察结构，有$y&rsquo;&rsquo;-y&rsquo;+y&rsquo;-y=0$，令$z=y&rsquo;-y$，得$z&rsquo;-z=0$，构造$g(z)=e^{-z}z$且易知z有两个零点 □ 变式C则进一步体现<strong>无需解出原函数</strong>的含义——可能计算量大、无法求解或不满足题设条件.</p>
+<p>   <strong>变式C</strong>  f(1)=1,f(x)是奇函数，证明：存在一点使$f&rsquo;&rsquo;(\eta)+f&rsquo;(\eta)=1$ .</p>
+<p>  <strong>Sol.</strong> 易得f(0)=0，从而$f&rsquo;(\xi)=f&rsquo;(-\xi)=1$(Lagrange中值定理与奇函数性质)，构造$g(x)=e^xf&rsquo;(x)-\int_0^xf&rsquo;(t)dt$，注意到右侧积分无法表达，但<strong>f&rsquo;是偶函数</strong>，从而$g(\xi)=g(-\xi)$ □</p>
+<p>   <strong>变式D</strong> 若f(x)&gt;0(x&gt;0),f(0)=0，证明：存在一点$\alpha\frac{f&rsquo;(\xi)}{f(\xi)}=\frac{f&rsquo;(1-\xi)}{f(1-\xi)}$</p>
+<p>  <strong>Sol.</strong> 此前一道类题不能构造$\ln f(x)$在于不满足题设条件，但本题没有约束，故可用. 积分有$\ln f^\alpha(x)+\ln f(1-x)=k$故构造$g=f^\alpha(x)f(1-x)$(<strong>舍弃对数，进行化简</strong>) □</p>
+<p>以下还有两道类题：</p>
+<ul>
+<li>1.
+f(0)=f(1)且二阶可导，证明：存在一点$f&rsquo;&rsquo;(\xi)={2f&rsquo;(\xi)\over1-\xi}$</li>
+<li>2.若一阶可导，证明：存在一点$\frac{f(a)-f(\xi)}{g(\xi)-g(b)}=\frac{f&rsquo;(\xi)}{g&rsquo;(\xi)}$</li>
+<li>3.f(0)=f($\pi\over2$)=$-\frac{1}{2}$, 证明：存在一点$f&rsquo;(\xi)-f(\xi)=sin\xi$</li>
+</ul>
+<p>【答案】分别构造$(1-x^2)f&rsquo;$,$fg-f(a)g-g(b)f$,$e^{-x}(f+\frac{\sin x+\cos x}{2})$</p>
 <h4 id="14-介值定理darboux定理构造">1.4 介值定理(Darboux定理)构造</h4>
 <p>Darboux定理可通过构造<strong>两个连续分段函数</strong>$F(x)=f&rsquo;(a)(x=a),\frac{f(x)-f(a)}{x-a}(x\neq a)$，G(x)同理在$x=b$处构造，令$\mu = \frac{f(b)-f(a)}{b-a}$，再证明对任何介于f&rsquo;(a),f&rsquo;(b)之间的值k，若介于$f&rsquo;(a)$和$\mu$，则由连续函数F(x)的介值性可知存在；反之若介于$\mu$和$f&rsquo;(b)$，则由G(x)的介值性，即无论如何都存在$F(x_0)=k$或$G(x_0)=k$，运用Lagrange中值定理即得. 对[a,b]的任意子区间也成立. 从而<strong>导函数不一定连续但一定有介值性</strong></p>
 <p>介值构造的一个典型应用是在Taylor展开时比较二阶系数使用.</p>
@@ -349,14 +378,23 @@
 <p>在处理积分问题时，常借助变限积分和Newton-Leibniz对已有条件化简.</p>
 <p><strong>【例1】</strong> f(x)连续可导且$\int_0^1f(x)dx=\int_0^1xf(x)dx=0$，证明：f(x)在(0,1)存在两个不同的零点</p>
 <p>  <strong>Sol.</strong> 设$F=\int_0^x fdx$，则有天生零点$x=0$，结合$f=F&rsquo;$代入得F(1)=0，再代入第二个积分有$\int_0^1 xdF(x)$分部积分只剩积分项，运用积分中值定理得$F(c)=0$，使用2次Rolle定理 □</p>
+<h4 id="16-数形结合">1.6 数形结合</h4>
+<p>Lagrange中值定理表示曲线上两点连线的割线中间某点必有一点切线斜率等于该割线斜率，Cauchy中值定理则表示参数曲线$(f(t),g(t))$上两点连线间某点切线斜率等于该割线的斜率.</p>
+<p>在证明和斜率有关的性质时，可采用构造函数或反证法. 本题均采用反证，直接证明由读者思考.</p>
+<p><strong>【例1】</strong> 非线性函数可导且$f(b)&gt;f(a)$，证明：存在一点使$f&rsquo;(\xi)&gt;\frac{f(b)-f(a)}{b-a}$.</p>
+<p><strong>Notes</strong> 该命题可改为$|f&rsquo;(\xi)|&gt;|\frac{f(b)-f(a)}{b-a}|$</p>
+<p><strong>【例2】</strong> 若连续可导且f(0)=f(2)=0，M为f(x)最大值，证明：存在$|f&rsquo;(\xi)|&gt;M$且若$|f&rsquo;(x)|\leq M$，则M=0</p>
 <h3 id="2-双中值问题">2 双中值问题</h3>
 <h4 id="31-可重双中值">3.1 可重双中值</h4>
+<p>对于可重双中值，可令两个中值相等，命题被化简为单中值问题. 常规方法多为利用Cauchy中值定理证明.</p>
 <p><strong>【例1】</strong> $f(x)\in D[a,b]$，证明：$\exists \xi,\eta\in (a,b), f&rsquo;(\xi)=\frac{f&rsquo;(\eta)}{2\eta}(a+b)$</p>
 <p><strong>【例2】</strong> $f(x)\in D[a,b],f(a)=f(b)=1$，证明：$\exists \xi,\eta\in (a,b), e^{\eta-\xi}(f(\eta)-f&rsquo;(\eta))=1$</p>
-<h4 id="32-不重双中值">3.2 不重双中值</h4>
+<h4 id="32-不重双中值数形结合">3.2 不重双中值（数形结合）</h4>
+<p>对于不重双中值，需要寻找分界点. 该分界点可能是<strong>极值点(利用最值和导数为零)、中点、待定法</strong></p>
 <p><strong>【例1】（数形结合）</strong>  $f(x)\in D[0,1],f(0)=f(1)$，证明：$$\exists \xi,\eta\in (0,1),\xi\neq\eta, f&rsquo;(\xi)+f&rsquo;(\eta)=0$$</p>
 <p><strong>【例2】（数形结合）</strong>  $f(x)\in D[0,1],f(0)=0,f(1)=1$, 证明：$$\exists \xi,\eta\in (0,1),\xi\neq\eta, {1\over f&rsquo;(\xi)}+{1\over f&rsquo;(\eta)}=2$$</p>
-<p><strong>【例3】</strong> $f(x)\in D[0,1],f(0)=0,f(1)={1\over3}$, 证明：$$\exists \xi,\eta\in (0,1),\xi\neq\eta, f&rsquo;(\xi)+f&rsquo;(\eta)=\xi^2+\eta^2$$</p>
+<p><strong>推论</strong> $\frac{\lambda_{1}}{f^{\prime}\left(\xi_{1}\right)}+\frac{\lambda_{2}}{f^{\prime}\left(\xi_{2}\right)}+\cdots+\frac{\lambda_{n}}{f^{\prime}\left(\xi_{n}\right)}=\lambda_{1}+\lambda_{2}+\cdots+\lambda_{n}$，其中$\sum{\lambda_i}=1$
+<strong>【例3】</strong> $f(x)\in D[0,1],f(0)=0,f(1)={1\over3}$, 证明：$$\exists \xi,\eta\in (0,1),\xi\neq\eta, f&rsquo;(\xi)+f&rsquo;(\eta)=\xi^2+\eta^2$$</p>
               
 
 
@@ -593,7 +631,7 @@
     
     <h4 id="about-card-name">Supradax</h4>
     
-      <div id="about-card-bio">An <strong>Onward</strong> Leaner</div>
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
     
     
       <div id="about-card-job">

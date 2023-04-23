@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Forecast on Supradax&#39;s Blog</title>
+    <title>forecast on Supradax&#39;s Blog</title>
     <link>https://Supradax.github.io/tags/forecast/</link>
-    <description>Recent content in Forecast on Supradax&#39;s Blog</description>
+    <description>Recent content in forecast on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Modeling I]Basic Prediction and Optimization Models</title>
+      <link>https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/</link>
+      <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[ML]Interpolation: Primer</title>
       <link>https://Supradax.github.io/2023/03/mlinterpolation-primer/</link>

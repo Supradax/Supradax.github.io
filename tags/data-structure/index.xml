@@ -6,7 +6,16 @@
     <description>Recent content in Data Structure on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/data-structure/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/data-structure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Data Structure]Tree</title>
+      <link>https://Supradax.github.io/2023/04/data-structuretree/</link>
+      <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/04/data-structuretree/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[Data Structure]Stack, Queue and Monotonic Version</title>
       <link>https://Supradax.github.io/2023/03/data-structurestack-queue-and-monotonic-version/</link>

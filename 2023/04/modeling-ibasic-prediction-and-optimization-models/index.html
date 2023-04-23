@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Modeling I]Basic Prediction and Optimization Models",
+  
+  "image": "https://Supradax.github.io/img/calc.jpg",
+  
+  "datePublished": "2023-04-22T00:00:00Z",
+  "dateModified": "2023-04-22T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/modeling-ibasic-prediction-and-optimization-models\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Modeling I]Basic Prediction and Optimization Models">
+<meta name="twitter:title" content="[Modeling I]Basic Prediction and Optimization Models">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-04-22T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-04-22T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="forecast">
+    
+      <meta property="article:tag" content="optimization">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/calc.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/calc.jpg">
+
+
+    <title>[Modeling I]Basic Prediction and Optimization Models</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Modeling I]Basic Prediction and Optimization Models
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-04-22T00:00:00Z">
+        
+  April 22, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>本篇blog涉及到的模型基本与微分动力系统相关，主要解决问题类型为优化、预测和决策三类典型问题</p>
+<h2 id="1-建模基本方法人口模型">1 建模基本方法：人口模型</h2>
+<p>建模时需完成以下步骤：</p>
+<ol>
+<li>根据问题类型(优化/评估/预测)提出目标</li>
+<li><strong>基于现实</strong>明确<strong>影响因素及其量化方法</strong></li>
+<li>选用<strong>离散模型</strong>或<strong>连续模型</strong>(连续一般要求光滑：至少一阶连续可导)</li>
+<li>确定数学表达式：<strong>线性与非线性</strong>、<strong>状态量和变化量</strong>、<strong>绝对变化和相对变化</strong>，满足<strong>建模APP原则</strong>(Applicable应用性、Publishable可解释性和Provable可证性)</li>
+<li>定性分析，再确定解(解析解、数值逼近、递推关系)</li>
+<li>用测试集检验拟合效果(<strong>绝对和相对误差</strong>、<strong>灵敏性分析</strong>)(若过于灵敏则该模型不稳定)</li>
+</ol>
+<p>按照上述步骤，对人口建模：
+<strong>【问题】</strong> 对给定的一个<strong>封闭区域</strong>人口初值$M_0$，在生产力停滞的情况下，<strong>建立模型预测在未来一段时间内的人口增长情况</strong></p>
+<p><strong>【基本假设】</strong></p>
+<ol>
+<li>人口增长只和出生率$\alpha$和死亡率$\beta$相关</li>
+<li>人口总量$P(t)$受环境资源限制，相同生产力水平下存在上限$M$</li>
+<li>人口变化连续可导</li>
+</ol>
+<p><strong>【模型建立】</strong>
+出生死亡率表征相对变化量，从而$P&rsquo;(t)=(\alpha-\beta)P(t)$，可化为$P&rsquo;(t)=kP(t)$，但该模型未考虑资源限制，容易想到，当人口量越接近上限时，增长速度会减缓；超过上限时应当回落. 从而有$$P&rsquo;(t)=k(M-P(t))P(t)\Rightarrow P(t)=\frac{M_0M}{1+M_0e^{-kMt}} \tag{1.1}$$</p>
+<p><strong>【连续求解】</strong> 该模型参数k和M未知，需通过给定数据求解. 对给定$(t_i,P(t_i))$，变换(1.1)得$kMt=\ln{P(t)\over M}-\ln(M_0-P(t))$，其中左边第一项kM可视整体，右边第一项含未知量M，第二项给定. 从而需要<strong>预先人为设置超参数M</strong>，再用最小二乘法确定kM的值. 故需设置多个M择优.</p>
+<p><strong>【离散求解】</strong> 可用Euler方法(<strong>差分替代微分</strong>)得一阶精度，同理需预设上限M，得$$\frac{P(t+\Delta t)}{\Delta t}=k(M-P(t))P(t) \tag{1.2}$$</p>
+<p>然而(1.2)中的<strong>步长△t</strong>的选择，太大则导致误差很大，太小则迭代速度过慢</p>
+<p><strong>【模型评估】</strong>
+(1.1)中两边微分有$P&rsquo;&rsquo;(t)=k(M-2P(t))P&rsquo;(t)=k^2(M-2P(t))P(t)$，从而当$P(t)={1\over2}M$时，曲线到达拐点. 当k、M给定时，作为参数的初值条件$M_0$构成(1.1)的曲线簇，不难发现对于初值比上限一半小的点，增速会先快后慢趋近M；大于上限的会单调递减至M；介于二者之间则缓增至M，整体收敛.</p>
+<h2 id="2-向量场方法">2 向量场方法</h2>
+<h3 id="21-军备竞赛模型">2.1 军备竞赛模型</h3>
+<p><strong>【问题】</strong> 设两个国家军费投入分别为$x(t),y(t)$，试建模说明：要么一者先崩溃，要么二者制衡</p>
+<p><strong>【基本假设】</strong></p>
+<ol>
+<li>一方军费的投入数目会对另一方形成威慑</li>
+<li>双方均各自存在能支撑的最高军费</li>
+</ol>
+<p><strong>【模型建立】</strong> 由于双方存在相互制约且假定模型光滑，有$$
+\frac{\mathrm{d} x}{\mathrm{d} t} =a_1y-b_1x+c_1,
+\frac{\mathrm{d} y}{\mathrm{d} t} =a_2x-b_2y+c_2
+\tag{2.1}$$
+该模型中，一方军费增加速率受到三方面影响，当对方军费y增长时，增速上升；当自身军费充足时，增速下降；随经济自然增长，军费会有一自然增长偏置值c. 其中在解释性上，在无法证明线性不是最优解时采用线性；军费的变化采用变化率而非绝对量，原因在于军费增加的威慑是一种趋势，具有滞后性；x和y相加而非相乘的理由在于认为自身军费减少和对方军费增加地位相同</p>
+<p><strong>【模型评估】</strong> (2.1)只有2个变数，可视为一个<strong>相平面</strong>上的向量，其总和构成一个向量场. 且该场是一个<strong>保守场(位置决定向量值)</strong>. (2.1)中右侧为两条直线，即在这两条直线上，有一个变数增长速率为零，不考虑退化情形，这两条直线将平面划分为3或4个区域. 由于x,y&gt;0，只考虑第一象限，可分为交点在和不在第一象限两类情况
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/19.jpg" >
+  
+  
+</div>
+</p>
+<p>由线性规划可分析出所有区域点的移动方向，如图1，在I和III中的点会趋于沿着临界线上行，II中则往右上方移动，其中必有一者因达到上限而崩溃；如图2，四个区域均有往交点移动的趋势，会达到相对制衡的局面，该点即<strong>稳定点</strong>.</p>
+<p><strong>【微分动力系统】</strong> 类似(2.1)构成一个微分动力系统，这个系统仅受状态量影响，不受时间影响，称<strong>平面自治系统</strong>；这个系统也没有外部激励. 一般需要通过解微分方程得解析解，定性分析则确定临界线(变化率为零的点)划分区域进行讨论.
+$$\frac{\mathrm{d} x}{\mathrm{d} t} =a_1x+b_1x(x^2+y^2-1),
+\frac{\mathrm{d} y}{\mathrm{d} t} =a_2x+b_2y(x^2+y^2-1) \tag{2.2}$$
+对(2.2)的动力系统，讨论一些特殊情形(参数取值为0,-1,1).</p>
+<ol>
+<li>$\frac{\mathrm{d} x}{\mathrm{d} t} =\frac{\mathrm{d} y}{\mathrm{d} t} =0$：平面各点运动趋势均为零，为一常量场</li>
+<li>如图1，$\frac{\mathrm{d} x}{\mathrm{d} t} =-y,\frac{\mathrm{d} y}{\mathrm{d} t} =-x$: 相加减有$d(x+y)=-(x+y)dt,d(x-y)=(x-y)dt$，两边积分有$|y^2-x^2|=c^2$，可知运动轨迹为<strong>渐近线相同的双曲线簇</strong></li>
+<li>如图2，$\frac{\mathrm{d} x}{\mathrm{d} t} =y,\frac{\mathrm{d} y}{\mathrm{d} t} =-x$: 凑微分，$2xdx=2xydt,2ydy=-2xydt$相加消去t，积分得$x^2+y^2=c^2$，可知轨迹为<strong>闭轨</strong>且为<strong>同心圆簇</strong>，其中中心点为<strong>半稳定点</strong>(一旦受到微小扰动，不会停在该点)</li>
+<li>如图3，$\frac{\mathrm{d} x}{\mathrm{d} t} =x(x^2+y^2-1),\frac{\mathrm{d} y}{\mathrm{d} t} =y(x^2+y^2-1)$: 同理分别乘x,y，相加凑全微分有$(x^2+y^2)&rsquo;=2(x^2+y^2)(x^2+y^2-1)\Rightarrow (r^2)&rsquo;=2r^2(r^2-1)$，分析知单位圆上为<strong>半稳定点</strong>，圆内向原点集中，圆外向外扩散. 若将$x&rsquo;,y&rsquo;$取相反数，则圆内圆外都趋于圆周运动，此时圆上为稳定点</li>
+<li>如图4，$\frac{\mathrm{d} x}{\mathrm{d} t} =y+x(x^2+y^2-1),\frac{\mathrm{d} y}{\mathrm{d} t} =-x+y(x^2+y^2-1)$: 该场的单位圆为<strong>不稳定极限环</strong>，而将$x&rsquo;,y&rsquo;$取反，则为稳定极限环，若只取反一个，则得到<strong>涡流场</strong></li>
+<li>如图5，$\frac{\mathrm{d} x}{\mathrm{d} t} =y+x(x^2+y^2-1),\frac{\mathrm{d} y}{\mathrm{d} t} =x+y(x^2+y^2-1)$，该场具有2个不稳定平衡点(-1,1),(1,-1)和1个半稳定(0,0)
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/20.jpg" >
+  
+  
+</div>
+</li>
+</ol>
+<h3 id="22-生态竞争模型">2.2 生态竞争模型</h3>
+<p>我们先研究两个物种竞争(不考虑资源上限限制)的数量构成的向量$(x,y)$在向量场上的分布.</p>
+<p><strong>【基本假设】</strong> 自身数量增长率与竞争者数目负相关，故设$$\frac{\mathrm{d} x}{\mathrm{d} t} =b_1-a_1y,
+\frac{\mathrm{d} y}{\mathrm{d} t} =b_2-a_2y \tag{2.3}$$
+若二者为捕食关系，设A捕食B，则B的数目与A负相关，A的数目与B正相关，只需将(2.3)改为：$$\frac{\mathrm{d} x}{\mathrm{d} t} =b_1+a_1y,
+\frac{\mathrm{d} y}{\mathrm{d} t} =b_2-a_2y \tag{2.4}$$
+若二者为共生关系，则改为：
+$$\frac{\mathrm{d} x}{\mathrm{d} t} =b_1+a_1y,
+\frac{\mathrm{d} y}{\mathrm{d} t} =b_2+a_2y \tag{2.5}$$</p>
+<p>但该模型存在缺陷，未考虑自身数目对增长速度的影响且当双方数量为0时，仍然存在增速，这不合理. 针对第二个问题，可将加法换为乘法，得到：
+$$\frac{\mathrm{d} x}{\mathrm{d} t} =(a_1-b_1y)x,
+\frac{\mathrm{d} y}{\mathrm{d} t} =(a_2-b_2x)y \tag{2.6}$$</p>
+<p><strong>Notes</strong> 奥卡姆剃刀原理：如无必要，勿增其实. 即尽可能用最低的模型复杂度解决问题</p>
+<p>对(2.6)解微分方程得$(y^{a_1}e^{-b_1y})(x^{a_2}e^{-b_2x})=k(k\geq0)$(可观察到<strong>该方程没有区分捕猎者和猎物，二者地位相同</strong>)，可知当k=0时曲线退化为一点；当k非零时，由于曲线光滑，方程$f(x)g(y)=k$可化为$f(x)=\frac{k}{g(y)}$并通过求右侧值域反推f(x)值域，确定每个y对应的x的最值. 由于随着y增长，x的两根距离先单调递增后单调递减，从而曲线闭合</p>
+<p>该模型与时间t无关，故该闭合曲线不会随时间发生加速. 且观察向量场可知，当该曲线接近坐标轴时，标志着一方的灭亡. 对给定的K，设周期T，则可积分求出一周期内双方数量$\bar x(t),\bar y(t)$</p>
+<p>若以合理程度捕杀猎物x，即有$x&rsquo;=(a_1-b_1y-c_1)x,y&rsquo;=(a_2-b_2y-c_2)y$(合理意味着乘积第一项不会恒为负，捕杀猎物导致捕猎者增速减缓)，从而猎物均值减少，捕猎者均值增多；但相反，若捕杀捕猎者y，则$y&rsquo;$不变，$x&rsquo;=(a_2-b_2+c_2)y$(捕杀y导致x增速增快)，观察到 <strong>(Volterra原理)捕杀捕猎者，导致捕猎者和猎物数量同时增加</strong></p>
+<p>当存在三种生物ABC时，需建立三元动力系统，并用投影法. 简单推广可得(三者为竞争关系)：
+$$\begin{array}{c}
+x&rsquo;=(a_2-b_2y)(a_3-b_3z)x\\y&rsquo;=(a_1-b_1x)(a_3-b_3z)y\\z&rsquo;=(a_1-b_1x)(a_2-b_2y)z
+\tag{2.7}
+\end{array}$$</p>
+<p>可以观察到，当三者数量均很大时，会共同膨胀，但合理的数据和初值条件会保证其不易发生；若两个数量很大时，另一个生存环境会改善；一个数量很大时，会抑制其他两个的增长.</p>
+<h3 id="23-支持向量机初步">2.3 *支持向量机初步</h3>
+<h2 id="3-优化模型药剂量模型">3 优化模型：药剂量模型</h2>
+<p><strong>【问题1】</strong> 医院需要<strong>相隔相同时间T</strong>为某种疾病的病患提供激素注射，使得血液激素浓度增幅为$c$，问：当T和c为几何时最合适？</p>
+<p><strong>【基本假设】</strong> 激素浓度具有上限$H$和下限$L$，且体内激素浓度高时吸收也快. 模型目标为在保证安全的前提下，延长时间T节省医疗资源.</p>
+<p><strong>【模型建立】</strong></p>
+<ul>
+<li>考虑单次注射后变化情况. 有$c&rsquo;(t)=-kc(t)$，积分得$c(t)=c_0e^{-kT}$</li>
+<li>考虑第n次和第n+1次注射的关系，有$c_{n+1}=c+c_{n}e^{-kT}$</li>
+</ul>
+<p><strong>【模型评估】</strong> 不难从递推中看出，当c、T为定值时，$c_n+k$为等比数列(k待定系数)，解得$c_{n+1}=\frac{c_0(1-e^{-k(n+1)T})}{1-e^{-kT}}$，极限为$\frac{c_0}{1-e^{-kT}}$. 为尽可能延长时间T，理想情况为当前注射恰到最高水平，等到下一次注射达到最低水平，即有$$\frac{c_0}{1-e^{-kT}}=H, \frac{c_0}{1-e^{-kT}}e^{-kT}=L \tag{3.1}$$
+联立解得$c_0,T$. 在具体实践中，若初值水平较低，此时按固定剂量$c_0$不一定能达到H，从而决策者可增大剂量至水平H，提前达到平衡位置附近.</p>
+<p><strong>【问题2】</strong> 生长素对植物发芽具有二重性(少量促进，过量抑制)，现有一些数据$(c_i,P_i)$(浓度与发芽率)，现探究浓度为几何时发芽率最高.</p>
+<p><strong>【数据预处理】</strong> 对化学药剂浓度类数据，往往不能在这个维度上线性取点，需做一定变换(如对数坐标等)，以避免点过于集中而无法观测规律的情形</p>
+<p><strong>【模型设计与求解】</strong> 目标为根据已知数据点绘制连续函数$P(c)$，基于二重性的特点，可以验证有$P&rsquo;(c)(L-c)&gt;0$，其中L为临界值. 故而不妨设线性关系$P&rsquo;(c)=k(L-c)$，解得$P(c)=-\frac{k}{2}c^2+kLc+C$(C为待定常数)，即P(c)为抛物线.</p>
+<p>但实验表明该模型偏差较大，注意到<strong>生长素的影响可能为相对性的</strong>，即生长素对发芽率的增益是乘上一个系数，而不是直接相加，构造$$\frac{P&rsquo;(c)}{P(c)}=k(L-c)\Rightarrow P(c)=C_0e^{-\frac{k}{2}c^2+kLc} \tag{3.2}$$
+再两边取对数，最小二乘确定k和L</p>
+<p><strong>Notes</strong> 样本不是越多越好，噪声过多、没有代表性的样本只会干扰结果. 大数据的3V特点为Volume, Velocity, Variety</p>
+<h2 id="4-预测模型传染病sir模型">4 预测模型：传染病(SIR)模型</h2>
+<p><strong>【问题】</strong> SIR模型中涉及易感(Susceptable)、已感(Infected)和移除(Removed)三类人群，其中移除指痊愈或已故的短期内不会再感的人群. 对给定数据点$(t_i,S(t_i),I(t_i),R(t_i))$，试求其拟合曲线.</p>
+<p><strong>【基本假设】</strong> I从S以恒定的交叉感染率$\alpha$转换而来且S、I基数越大，接触量越大，转换速率越快；R只能从I以治愈率与死亡率总和$\beta$转换而来且I基数越大，转换速率越快并满足人口守恒. 故有
+$$I&rsquo;(t)=\alpha I(t)S(t)-\beta R(t), R&rsquo;(t)=\beta I(t), S&rsquo;(t)+I&rsquo;(t)+R&rsquo;(t)=0$$</p>
+<p>其中对于SEIR模型，增加了Exposed(潜伏者)且规定其发病率为$\gamma$且潜伏期为$\delta$，则有$$E&rsquo;=\alpha S(t)(I(t)+E(t))-\gamma E(t-\delta),I&rsquo;(t)=\gamma E(t-\delta)-\beta I(t),R&rsquo;(t)=\beta I(t)$$
+<strong>【模型分析】</strong> 对SIR模型，$I&rsquo;(t)=0$临界点即$S(t)={\beta\over\alpha}$，为疫情峰值</p>
+<h2 id="5-决策模型博弈">5 决策模型：博弈</h2>
+<p><strong>【问题】</strong> 在棒球运动中，甲接球和乙发球时按甲能否正确预判乙的得分期望历史平均数据如下表所示，对甲而言可选择以概率p预判为A或B来提高得分，对乙则可选择以概率q发A或B类型球来降低甲得分. 则对甲乙而言是否存在一个最优概率$p_0,q_0$？这两个概率间有何关系？</p>
+<table>
+<thead>
+<tr>
+<th>预判/动作</th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$a_1$</td>
+<td>$a_2$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$a_3$</td>
+<td>$a_4$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>【基本假设】</strong> 假定两人采取<strong>保守策略</strong>，即得分期望EX不高于历史均值(以历史平均为最坏情况)，故对甲而言，若乙发A、B类球，则得分期望分别满足$$EX\leq pa_1+(1-p)a_2, EX\leq pa_3+(1-p)a_4, 0\leq p\leq1 \tag{5.1}$$
+对乙而言，保守策略为甲得分高于历史，从而有
+$$EX\geq qa_1+(1-q)a_3, EX\leq qa_2+(1-q)a_4, 0\leq q\leq1 \tag{5.2}$$
+对(5.1)求解maxmize EX对应的p，对(5.2)则为minimize EX对应的q. <strong>对决策问题，往往通过概率论的方法将其转换为几何优化问题</strong></p>
+<p><strong>【博弈】</strong> 若同时考虑联合分布pq：$$f(p,q)=a_1pq+a_2p(1-q)+a_3q(1-p)+a_4(1-p)(1-q)$$
+可知该曲线为双曲抛物面，<strong>存在鞍点</strong>并可通过偏导求得. <strong>甲乙双方的最优策略即尽可能保持在鞍点附近</strong>——在该点截面朝上开口抛物的方向恰为乙所在方向，该点乙对q的决策使甲分数最小；同理朝下开口方向为甲所在方向，该点甲对p的决策使甲分数最大. 如若甲离开鞍点，由双曲抛物面性质可知在正交方向上必存在一点使得q能进一步降低期望EX</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/forecast/">forecast</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimization/">optimization</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" data-tooltip="[ML]Info Entropy and Random Forest: Primer" aria-label="NEXT: [ML]Info Entropy and Random Forest: Primer">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/data-structuretree/" data-tooltip="[Data Structure]Tree" aria-label="PREVIOUS: [Data Structure]Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/modeling-ibasic-prediction-and-optimization-models\/';
+        
+          this.page.identifier = '\/2023\/04\/modeling-ibasic-prediction-and-optimization-models\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" data-tooltip="[ML]Info Entropy and Random Forest: Primer" aria-label="NEXT: [ML]Info Entropy and Random Forest: Primer">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/data-structuretree/" data-tooltip="[Data Structure]Tree" aria-label="PREVIOUS: [Data Structure]Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmodeling-ibasic-prediction-and-optimization-models%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmodeling-ibasic-prediction-and-optimization-models%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmodeling-ibasic-prediction-and-optimization-models%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

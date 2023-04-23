@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[Data Structure]Prefix Sum and Differential",
+  "headline": "[Data Structure]Tree",
   
-  "image": "https://Supradax.github.io/img/treedp.jpg",
+  "image": "https://Supradax.github.io/img/dptree.jpg",
   
-  "datePublished": "2023-03-22T00:00:00Z",
-  "dateModified": "2023-03-22T00:00:00Z",
+  "datePublished": "2023-04-20T00:00:00Z",
+  "dateModified": "2023-04-20T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/03\/data-structureprefix-sum-and-differential\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/data-structuretree\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,20 +59,20 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Data Structure]Prefix Sum and Differential">
-<meta name="twitter:title" content="[Data Structure]Prefix Sum and Differential">
-<meta property="og:url" content="https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/">
+<meta property="og:title" content="[Data Structure]Tree">
+<meta name="twitter:title" content="[Data Structure]Tree">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/data-structuretree/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/data-structuretree/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-03-22T00:00:00">
+    <meta property="article:published_time" content="2023-04-20T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-03-22T00:00:00">
+    <meta property="article:modified_time" content="2023-04-20T00:00:00">
   
   
   
@@ -84,7 +84,7 @@
     
       <meta property="article:tag" content="Data Structure">
     
-      <meta property="article:tag" content="Prefix Sum">
+      <meta property="article:tag" content="Tree">
     
   
 
@@ -104,18 +104,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/treedp.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/treedp.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/dptree.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/dptree.jpg">
 
 
-    <title>[Data Structure]Prefix Sum and Differential</title>
+    <title>[Data Structure]Tree</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/data-structuretree/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -275,15 +275,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [Data Structure]Prefix Sum and Differential
+      [Data Structure]Tree
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-03-22T00:00:00Z">
+      <time datetime="2023-04-20T00:00:00Z">
         
-  March 22, 2023
+  April 20, 2023
 
       </time>
     
@@ -302,12 +302,84 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p>Sometimes we may do a lot of operations like addition but only modify a little part of the result, say, only several addends vary which means we can achieve this goal by proceeding on several subtraction. Perhaps there are cases more complicated than this, when the addition and subtraction shift to multiplication and division (perhaps we need to use <strong>logarithm</strong> to diminish the scale) or even something more abstract(<strong>some operation satisfying commutative law and associtative law with respective inverse operation</strong>).</p>
-<p>Sometimes we may not that care about the sum of the whole but the changes which forces us to record the differences. That is what is called <strong>differential array</strong>.</p>
-<p>This can be expanded to higher dimension, say, a prefix sum table or differential table and even beyond a plane.</p>
-<h2 id="1-prefix-sum-in-1d">1. Prefix Sum in 1D</h2>
-<p><strong>Problem A</strong> You will receive a integer sequences whose length is <code>n</code> and <code>m</code> querys like <code>l,r</code> and you are expected to receive the sum from the lth to rth.</p>
-<p><strong>Analysis</strong> We can see that if m is too large, we have to much repetive addition and that is a giant cost of time. Therefore it is smart to record the sum of [0,i] and execute a subtraction each time.</p>
+              <h2 id="1-基本概念">1 基本概念</h2>
+<h3 id="11-术语">1.1 术语</h3>
+<ul>
+<li>树的构成：双亲和孩子结点；左右孩子；叶子、分支和根结点；森林</li>
+<li>树的类型：二叉树、满二叉树、完全二叉树、平衡二叉树、搜索二叉树、Huffman树</li>
+<li>树的参数：树高、深度、(结点)度数</li>
+</ul>
+<ol>
+<li>平衡二叉树：对任意节点，|左子树高-右子树高|$\leq1$</li>
+<li>满二叉树</li>
+</ol>
+<h3 id="12-二叉树基本性质">1.2 二叉树基本性质</h3>
+<p>在二叉树中，记出度为i的结点数为$n_i(i=0,1,2)$与结点数n，且按照满二叉树排列从1开始计数. 其中$n_0$即叶子结点数</p>
+<ul>
+<li>$n = n_0+n_1+n_2$</li>
+<li>$n_0 = n_2+1$  pf. 一条边贡献一个出度，而树满足$V=E+1$，故$n_0+n_2+n_1-1=n_1+2n_2$ □</li>
+<li>高度为h的m叉树的结点最多为$\frac{m^h-1}{m-1}$ pf. 从1开始到$m^{h-1}$的等比数列求和</li>
+<li>有n个结点的m叉树最小高度$\ceil{log_m(n(m-1)+1)}$  pf. 结论3的推论，反解出h即可(向上取整显然)</li>
+<li>二叉树结点位置索引为k，则左右孩子索引为$2k,2k+1$；反之已知左右孩子索引$n$，则双亲为$\floor{n\over2}</li>
+</ul>
+<p>对于完全二叉树，则有性质：</p>
+<ul>
+<li>$n_1=0$ iff 奇数个结点，$n_1=1$ iff偶数个节点且<strong>只能在左子树上</strong></li>
+<li>若有n个节点，则树高$\floor{log_2n}$且$i\leq \floor{n\over2}$的节点为分支，此后为叶子</li>
+</ul>
+<h3 id="13-概念区分">1.3 概念区分</h3>
+<ol>
+<li>m叉树 v.s.度数为m的树：前者指指针域内指向孩子结点的数目或孩子结点上限，可为空树；后者指最大度数结点为m，一定不能为空(至少有m+1个结点)</li>
+<li>满二叉树v.s.完全二叉树：均满足$n_1=0$，但前者要求更高，必须按照从左向右依次排列，后者不需</li>
+<li></li>
+</ol>
+<h3 id="14-计算">1.4 计算</h3>
+<ol>
+<li>
+<p>(简单图论)求结点数、度数、高度和深度
+(1)
+(2)</p>
+</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+<h3 id="15-遍历方式">1.5 遍历方式</h3>
+<p>树的BFS为层序遍历(基于队列实现)，DFS为前序、中序和后序遍历，即中左右、左中右和左右中. 以“左中右”为例，表示<strong>没有左孩子时再遍历当前结点</strong>. 在给定具体树时可以<strong>将子树按左右子树整体处理</strong></p>
+<p>其中DFS非递归实现可用栈模拟递归，前序入栈则读取当前结点并将左右孩子依次压栈，直至到达叶子；中序则先入栈当前结点，不断让左孩子进栈直至到达叶子(需打标记)</p>
+<h3 id="16--树二叉树与森林的转换">1.6  树、二叉树与森林的转换</h3>
+<p>树的结构决定其必须选定根节点(以任意节点为根节点均能构造结构不同的一棵树)，而<strong>森林和树通过相同的方法可与二叉树等价</strong>.</p>
+<ol>
+<li>树与森林的变换</li>
+</ol>
+<ul>
+<li>树→二叉树：受到存储结构<strong>孩子兄弟表示法</strong>启发，采用<strong>连线、删线</strong>的方法，即将**兄弟结点(同一个根的结点，不是同层结点)<strong>连线并接到</strong>同层最左的右孩子上(链表结构)**并删除所有双亲连接除第一个最左结点外的结点连线</li>
+<li>森林→二叉树：先对森林每棵树都变为二叉树，再将每棵树的根节点依次接到前一棵树根节点的右边</li>
+</ul>
+<ol start="2">
+<li>二叉树的逆变换(还原)</li>
+</ol>
+<ul>
+<li>二叉树→树：只需找到每个结点左孩子的<strong>右孩子链</strong>并把双亲连上，再断开右孩子链</li>
+<li>二叉树→森林：先进行第一步，再删除所有原有<strong>右孩子边</strong>实现对树的拆分</li>
+</ul>
+<p>其中，二叉树和变换前的树<strong>前序遍历相同</strong>，<strong>二叉树的中序和变换前的后序相同</strong></p>
+<h2 id="2-存储方式">2 存储方式</h2>
+<ol>
+<li>
+<p>孩子表示法：最常用结构，即将同个结点的所有孩子链式存储(较少时如二叉树，可数组存储)；有时为回溯方便，可存储<strong>孩子的双亲索引</strong></p>
+</li>
+<li>
+<p>孩子兄弟表示法：对每个结点，用<strong>二叉链表(指针域为n称n叉链表)</strong>，数据结构为<strong>数据域、指向第一个兄弟节点指针、指向下一个兄弟指针</strong></p>
+</li>
+</ol>
+<p>具体实现，可基于纯链表(动态开点)、静态链表和数组(线段树)</p>
+<h2 id="3-线索二叉树">3 线索二叉树</h2>
+<p><strong>需求：<strong>当对二叉树频繁</strong>查找其前驱或后继</strong>时，需要同步更改其<strong>中序、前序、后序和层序</strong>序列，故对二叉树<strong>线索化</strong>得到<strong>线索二叉树(Thread Binary Tree)</strong>(按四类遍历分四类线索二叉树). <strong>线索化</strong>被广泛应用在按某种顺序<strong>多次查询结点前驱后继</strong>的<strong>非线性结构</strong>中</p>
+<p><strong>数据结构：</strong> 数据域、ltag和rtag(表征<strong>左右孩子是否为线索</strong>)、左右孩子. 利用<strong>二叉树n个结点产生n+1个空指针域</strong>的特性，如对序列如ABCDEF，若C左孩子为空，则指向B；若右孩子为空，则指向D. 可以发现，<strong>第一个遍历到的节点左孩子为空，最后一个的右孩子为空</strong>(也可以将这两个结点设置为dummyhead的左右孩子，则遍历时无需先找到起点)</p>
+<p>以中序遍历为例，注意其逻辑，当无左孩子时才访问中间结点，故需设置pre指向上一个访问结点和p表示当前结点，若p无左孩子，则将p的左孩子设置为pre并更新tag(表示序列前驱)，而p无右孩子的情形则不能说明问题；同理，当访问右孩子时，一定保证当前结点已经访问，从而若pre无右孩子，则pre的右孩子指向p并更新tag(表示序列后继)</p>
+<p>这个过程在中序遍历的递归中即可实现，即先向左递归，在中间处理后，再向右递归.</p>
 
   
     
@@ -316,17 +388,56 @@
     
   
   
-    
-  
-  
-    
   
 
 
 <figure class="highlight cpp language-cpp">
   <figcaption>
     
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+      <span>thread.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">Node* pre = NULL;
+//ltag,rtag初始化为false
+void InThreading(Node* rt){
+	if(rt)	return;
+	InTheading(rt-&gt;left);
+	//中序处理，对前序则将下面三行移到最上方
+	if(!rt-&gt;left)	rt-&gt;ltag=true,rt-&gt;left=pre;
+	if(!pre-&gt;right)	pre-&gt;rtag=true,rt-&gt;right=rt;
+	pre = rt;
+
+	InThreading(rt-&gt;right);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>若欲利用线索，如查询结点n的后继，则rtag=1时，表明为线索，则右孩子为后继；否则根据中序，后继为右孩子的最左叶子；同理若查询前驱，ltag=1显然，否则为左孩子的最右叶子，上述即查找函数. 而有线索的二叉树，只需从最左叶子开始反复调用get_back直至空，get_back类似next中的链表，故称<strong>线索化将二叉树按照遍历顺序化为双向链表</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>thread.cpp</span>
     
   </figcaption>
   <table>
@@ -336,118 +447,11 @@
           <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
         </td>
         <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; sum(nums.size(),nums[0]);
-for(int i=1;i&lt;nums.size();i&#43;&#43;)	sum[i]&#43;=sum[i-1];
-
-int query(int l,int r){
-	return sum[r]-sum[l-1];
-}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-<p><strong>Problem B</strong> Can you return an arary <code>res[i]</code> such that res[i] is the sum of all elements <strong>except</strong> <code>nums[i]</code> in <strong>WITHOUT SUBTRACTION</strong>?</p>
-<p><strong>Analysis</strong> We need to <strong>define a suffix sum</strong> s.t. <code>res[i] = pre[i-1]+suf[i+1]</code>. Another similar problem is that <em>work out the sum beyond interval [l,r]</em></p>
-<h2 id="2-differential-in-1d">2. Differential in 1D</h2>
-<p>In some cases we are asked to <strong>modify an interval the same way</strong> and such operations are in the majority. Through differenctial we can simply complete this by <strong>marking</strong> and in the end calculate it up. Actually it is an <strong>inverse concept to prefix sum</strong>.</p>
-<p><strong>Problem A</strong> There is an array with the length of <code>n</code> and there are <code>m</code> operations where &ldquo;l r val&rdquo; means to add p to the elements located in [l,r] respectively . And we are wondering what the array is in the end.</p>
-<p><strong>Analysis</strong> If we are want to add p from nums[l] to nums[r], we simply place a mark in the <code>diff[]</code> array where <strong>diff[l]+=p, diff[r+1]-=p</strong> then when we add them up as the prefix sum, it will be the final changes.
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; diff(nums.size(),nums[0]);
-while(m--){
-	int l,r,val;cin&gt;&gt;l&gt;&gt;r&gt;&gt;val; 
-	diff[l]&#43;=val;
-	if(r-1&lt;nums.size())	diff[r-1]-=val;
-}
-for(int i=1;i&lt;diff.size();i&#43;&#43;)	diff[i]&#43;=diff[i-1],nums[i]&#43;=diff[i];
-return nums[i];</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-</p>
-<p><strong>Problem B</strong> There is <code>n</code> light bolbs displaying in a line and there are <code>m</code> operations where &ldquo;0 l r&rdquo; means to turn off from lth to rth lights while &ldquo;1 l r&quot;means to turn on. And we are wondering how many lights are still on in the end.</p>
-<p><strong>Analysis</strong> This time there is something different where we <strong>may not do identical thing on each element</strong> thus <strong>failing the differential algorithm</strong>.</p>
-<h2 id="3-prefix-sum-in-2d">3. Prefix Sum in 2D</h2>
-<p>Let&rsquo;s take a look at the 2D version of prefix sum. We only do two things in this data structure, compute the prefix sum and output the sum of a certain area where it is a rectangle this time.</p>
-<p>We need to define the prefix sum <code>pre[i][j]</code> as the sum in the rectangle whose left-upper is <code>(0,0)</code> and right-bottom is <code>(i,j)</code> then there we have <strong>pre(i,j) = pre(i-1,j)+pre(i,j-1)-pre(i-1,j-1)+nums(i,j)</strong> <strong>where the inclusive-exclusive principle is applied.</strong></p>
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/linearlist/02.jpg" >
-   
-   
- </div>
-
-<p><strong>Problem</strong> There is a m×n matrix and there are <code>q</code> querys about the sum from <code>(x1,y1)</code> to <code>(x2,y2)</code>.
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">//leaving the Row 0 and Column 0 empty helps
-int pre[m][n]={0};
-for(int i=1;i&lt;m;i&#43;&#43;)
-	for(int j=1;j&lt;n;j&#43;&#43;)
-		pre[i][j] = nums[i][j] &#43; pre[i-1][j]&#43;pre[i][j-1]-pre[i-1][j-1]
-while(q--){
-	int x1,x2,y1,y2; cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
-	cout&lt;&lt;pre[x2][y2]-pre[x1-1][y2]-pre[x2][y2-1]&#43;pre[x1-1][x2-1]&lt;&lt;endl;
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">Node* get_back(Node*rt){
+	if(rt-&gt;rtag)	return rt-&gt;right;
+	rt=rt-&gt;right;	
+	while(rt-&gt;left)	rt=rt-&gt;left;
+	return rt;
 }</code></pre>
         </td>
       </tr>
@@ -455,67 +459,8 @@ while(q--){
   </table>
 </figure>
 </p>
-<h2 id="4-differential-in-2d">4. Differential in 2D</h2>
-<p>Likewise, we can places some marks to depict the changes but this time the amount is <code>2 to the power of 2</code> . As can be seen ,each time we put a <code>+d</code> there, the whole light blue rectangle will be affected. Therefore, to simply change datas in a certain area, we have to do something to <strong>set off</strong> extra influences we don&rsquo;t want.
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/linearlist/03.jpg" >
-   
-   
- </div>
-</p>
-<p>Suppose we are going to add p to each element in the rectangle <code>(x1,y1)</code> to <code>(x2,y2)</code> and we place a <code>+d</code> on <code>(x2,y2)</code> which makes us place <code>-d</code> on <code>(x1-1,y2),(x2,y1-1)</code> and <code>+d</code> on <code>(x1-1,y1-1)</code>. Similarly, leaving the Row 0 and Column 0 empty helps a lot.</p>
-<p><strong>Problem</strong> There is a m×n rectangle field and each time we put a layer onwards from <code>[x1,y1]</code> to <code>[x2,y2]</code>, we are wondering how many blocks after having put <code>k</code> carpets on.</p>
-<p><strong>Analysis</strong> It only requires us to modify the state in a field and such state is <strong>not inversable</strong> ,unlike the problem B in session 2, thus making difference algorithm alive once again.</p>
-
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-
-
-<figure class="highlight cpp language-cpp">
-  <figcaption>
-    
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class="code-highlight language-cpp cpp"><code class="cpp">int diff[m][n]={0}, cnt=0;
-while(q--){
-	int x1,x2,y1,y2; cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
-	diff[x2][y2]&#43;&#43;, diff[x1-1][y2-1]&#43;&#43;;
-	diff[x1-1][y2]--, diff[x2][y1-1]--;
-}
-for(int i=1;i&lt;m;i&#43;&#43;)
-	for(int j=1;j&lt;n;j&#43;&#43;){
-		diff[i][j] = diff[i][j] &#43; diff[i-1][j]&#43; diff[i][j-1]-diff[i-1][j-1]
-		if(diff[i][j]&lt;=0) cnt&#43;&#43;;	
-	}</code></pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-<h2 id="5-differential-on-a-tree">5. Differential on a Tree</h2>
+<p>而若要对二叉树进行修改，则只需在插入位置附近更改线索.</p>
+<p>上文建立的线索树为<strong>全线索树</strong>，有时只需查找前驱或后继，即左/右线索树.</p>
               
 
 
@@ -531,7 +476,7 @@ for(int i=1;i&lt;m;i&#43;&#43;)
                     
   <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/data-structure/">Data Structure</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/prefix-sum/">Prefix Sum</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/tree/">Tree</a>
 
                   </div>
                 
@@ -544,7 +489,7 @@ for(int i=1;i&lt;m;i&#43;&#43;)
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurelinear-list/" data-tooltip="[Data Structure]Linear List" aria-label="NEXT: [Data Structure]Linear List">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" data-tooltip="[Modeling I]Basic Prediction and Optimization Models" aria-label="NEXT: [Modeling I]Basic Prediction and Optimization Models">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -552,7 +497,7 @@ for(int i=1;i&lt;m;i&#43;&#43;)
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" data-tooltip="[Algorithm]Sorting Algorithm and the Applications" aria-label="PREVIOUS: [Algorithm]Sorting Algorithm and the Applications">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-inequalities-ep.2/" data-tooltip="[Calculus]Integral: Inequalities ep.2" aria-label="PREVIOUS: [Calculus]Integral: Inequalities ep.2">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -570,19 +515,19 @@ for(int i=1;i&lt;m;i&#43;&#43;)
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -613,9 +558,9 @@ for(int i=1;i&lt;m;i&#43;&#43;)
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/data-structureprefix-sum-and-differential\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/data-structuretree\/';
         
-          this.page.identifier = '\/2023\/03\/data-structureprefix-sum-and-differential\/'
+          this.page.identifier = '\/2023\/04\/data-structuretree\/'
         
       };
       (function() {
@@ -651,7 +596,7 @@ for(int i=1;i&lt;m;i&#43;&#43;)
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/data-structurelinear-list/" data-tooltip="[Data Structure]Linear List" aria-label="NEXT: [Data Structure]Linear List">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" data-tooltip="[Modeling I]Basic Prediction and Optimization Models" aria-label="NEXT: [Modeling I]Basic Prediction and Optimization Models">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -659,7 +604,7 @@ for(int i=1;i&lt;m;i&#43;&#43;)
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/" data-tooltip="[Algorithm]Sorting Algorithm and the Applications" aria-label="PREVIOUS: [Algorithm]Sorting Algorithm and the Applications">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/calculusintegral-inequalities-ep.2/" data-tooltip="[Calculus]Integral: Inequalities ep.2" aria-label="PREVIOUS: [Calculus]Integral: Inequalities ep.2">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -677,19 +622,19 @@ for(int i=1;i&lt;m;i&#43;&#43;)
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/data-structureprefix-sum-and-differential/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/data-structuretree/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -720,19 +665,19 @@ for(int i=1;i&lt;m;i&#43;&#43;)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structureprefix-sum-and-differential%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-structuretree%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structureprefix-sum-and-differential%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-structuretree%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Fdata-structureprefix-sum-and-differential%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fdata-structuretree%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

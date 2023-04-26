@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[ML]Info Entropy and Random Forest: Primer",
+  "headline": "[Algorithm]Catalan Number",
   
-  "image": "https://Supradax.github.io/img/calc.jpg",
+  "image": "https://Supradax.github.io/img/convex.jpg",
   
-  "datePublished": "2023-04-23T00:00:00Z",
-  "dateModified": "2023-04-23T00:00:00Z",
+  "datePublished": "2023-04-25T00:00:00Z",
+  "dateModified": "2023-04-25T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/04\/mlinfo-entropy-and-random-forest-primer\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/algorithmcatalan-number\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,30 +59,30 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[ML]Info Entropy and Random Forest: Primer">
-<meta name="twitter:title" content="[ML]Info Entropy and Random Forest: Primer">
-<meta property="og:url" content="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/">
+<meta property="og:title" content="[Algorithm]Catalan Number">
+<meta name="twitter:title" content="[Algorithm]Catalan Number">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/algorithmcatalan-number/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/algorithmcatalan-number/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-04-23T00:00:00">
+    <meta property="article:published_time" content="2023-04-25T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-04-23T00:00:00">
+    <meta property="article:modified_time" content="2023-04-25T00:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="ML">
-    
   
   
     
-      <meta property="article:tag" content="ML">
+      <meta property="article:section" content="Simulation">
+    
+  
+  
+    
+      <meta property="article:tag" content="Combinatorial Math">
     
   
 
@@ -102,18 +102,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/calc.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/calc.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/convex.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/convex.jpg">
 
 
-    <title>[ML]Info Entropy and Random Forest: Primer</title>
+    <title>[Algorithm]Catalan Number</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/algorithmcatalan-number/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -273,15 +273,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [ML]Info Entropy and Random Forest: Primer
+      [Algorithm]Catalan Number
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-04-23T00:00:00Z">
+      <time datetime="2023-04-25T00:00:00Z">
         
-  April 23, 2023
+  April 25, 2023
 
       </time>
     
@@ -290,7 +290,7 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
     
   
 
@@ -300,50 +300,22 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <h2 id="1-信息熵">1 信息熵</h2>
-<p>熵(Entropy)，衡量系统的<strong>不确定性</strong>，从热力学Boltzmann熵沿用而来，热力学概率$\Omega$表示可能事件与总状态数目之比. 信息熵由香农提出，用于<strong>衡量信息量的大小</strong>也即<strong>消除不确定性的多少</strong>.</p>
-<p>对一条4个位的二进制信息，若每个位置0、1的概率为0.2、0.8，则显然信息A(1111)的信息量小于信息B(0000).</p>
-<p>而由于每个位置相互独立，期望构造连续函数使得$f(AB)=f(A)+f(B)$，从而$f(x)$为对数，底数不同的对数只相差常数，只需约定使用统一底数. 而<strong>出现概率越高的事件含信息量越少且要结合数学期望计算，故有香农公式</strong> $$H=-\sum_i p_i\log_2 p_i\tag{1.1}$$</p>
-<p>其中，二进制(总可能状态)取$f(x)=\log_2 x$，则<strong>对数部分表征信息长度</strong>，$p_i$表征数学期望对应概率，负号表征信息量与固有概率负相关. 也可化为$\log {1\over p_i}$，表征<strong>在分布P下每取到一次状态$x_i$<strong>的平均次数，则H表征</strong>信息在二进制表示的长度期望</strong></p>
-<h3 id="11-相对熵kl散度">1.1 相对熵(KL散度)</h3>
-<p>对<strong>联合分布</strong>$P(X,Y)$，显然有$\sum_i^n\sum_j^n p_{ij}=1$. 其中<strong>条件分布</strong>$P(X=x_i,Y)$需对$X=x_i$一行做归一化，<strong>变量X的边际分布</strong>即只看X、合并X相同的Y的分布.</p>
-<p>若P(X,Y)中X和Y独立，则满足$P(XY)=P(X)P(Y)$，即<strong>边际分布对应乘积为联合分布</strong>.</p>
-<p>对给定的两个分布P、Q，我们想知道<strong>在已知信息P的情况下，新获得的信息Q消除不确定的多少</strong>，即<strong>P对Q的相对熵</strong>，i.e.$D(P||Q)$，定义为
-$$D(P||Q)=\sum_i^n{p_i\ln \frac{p_i}{q_i}}=\sum_i^n{p_i\ln \frac{1}{q_i}}-\sum_i^n{p_i\ln \frac{1}{p_i}}=\sum_i^n{p_i\ln \frac{1}{q_i}}-H(P) \tag{1.2}$$</p>
-<p>即<strong>KL散度=交叉熵-信息熵</strong>，在ML中由于真实分布作为训练数据给定，从而信息熵确定，当KL散度最小化时误差最小，等效于最小化交叉熵</p>
-<p>若我们假定$Q$为真实分布，则第一项的$1\over q$为取出该状态的所需实际平均次数，乘$p_i$表示误把P当作真实分布时，能够获得的信息量多寡. 两个信息量的差值，表示在得知分布Q后仍按分布P计算的误差.</p>
-<p>当P、Q为任意两个分布时，则KL散度表示<strong>两个分布间信息量的差异</strong>；<strong>当P、Q同分布时，$D(P||Q)=D(Q||P)=0$</strong>. 由概念可知，从分布P到Q的<strong>信息损失</strong>和从Q到P的损失一般不相等，故多数情况下$D(P||Q)\neq D(Q||P) $</p>
-<p>由相对熵(KL散度)定义，可知<strong>相对熵有非负性、不对称性、不满足三角不等式</strong>，并不是度量</p>
-<h3 id="12-联合熵互信息和条件熵">1.2 联合熵、互信息和条件熵</h3>
-<p>除了考察两个信息的差异(相互增益)，还要用 <strong>互信息$I(X,Y)$</strong> 刻画其交集，故定义$$I(X,Y)=D(P_{X,Y}||P_XP_Y)=\sum_i^n\sum_j^n{p_{ij}\ln \frac{p_{ij}}{p_ip_j}} \tag{1.3}$$
-即<strong>XY的联合分布与XY独立同分布时的相对熵</strong></p>
-<p>联合熵定义为$$I(X,Y)+H(X,Y)=H(X)+H(Y)$$，即互信息与联合熵之和为各自熵之和，联合熵刻画<strong>两个分布的差异</strong></p>
-<p>条件熵刻画的是<strong>当已知Y时，获得新信息X带来的增益</strong>，定义为
-$$H(X|Y)=H(X)-I(X,Y)\tag{1.4}$$
-即增益等于X的信息量减去X和Y的互信息(已知的交叉部分)</p>
-<p>由(1.4)可知，互信息具有对称性，即$$I(X,Y)=H(X)-H(X|Y)=H(Y)-H(Y|X)=I(Y,X)$$</p>
-<h3 id="13-熵不等式">1.3 熵不等式</h3>
-<p>利用Jensen不等式，运用概率之和为1构造不等式</p>
+              <p>In combinatorial math, Catalan Number is a sequence that occur in lots of counting problems which are more or less related to the line chart.</p>
+<h2 id="1-counting-in-a-line-chart">1 Counting in a Line Chart</h2>
+<p><strong>Theo. 1</strong> With a grid and two points$P(0,b_0),Q(n,b_n)$ given, if allowed to draw a diagonal so as to match up P and Q, this is possible <strong>iff</strong>:
+$$|b_n-b_0|\leq n, 2|(|b_n-b_0|+n) \tag{1}$$</p>
+<p><strong>pf.</strong></p>
 <ol>
-<li>
-<p>熵的上界
-$$H_d(X)=\sum_i^n p_i \log \frac{1}{p_i} \leq   \log \sum_i^n p_i\frac{1}{p_i} = \log n \tag{1.5}$$</p>
-</li>
-<li>
-<p>平均熵不等式
-$$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)) \tag{1.6}$$
-其中$2r_i=p_i+q_i$</p>
-</li>
+<li>Necessity. $|b_n-b_0|\leq \sum{b_n-b_{n-1}}=n$ and decompose each diagonal as $i+j, i-j$ and thus $k+|b_k-b_0|$ adds 2 or remains the same as k adds 1, making it is always even.</li>
+<li>Sufficiency. We may suppose it begins at $(0,0)$ and ends at $(n,m)$, and cut off a right triangle at the right corner and fill the rest in the left with a shape &ldquo;/\&rdquo; . This is possible because n-m is even. Therefore a construction proof is given.</li>
 </ol>
-<p><strong>pf.</strong> $H(P)+H(Q)=-\sum{(p_i\ln p_i+q_i\ln q_i)}\leq -\sum{2(r_i\ln 2r_i)}=2H(R)$，另一边同理代入相对熵后用Jensen不等式</p>
-<h2 id="2-随机森林算法">2 随机森林算法</h2>
-<p>在分类算法中，得知不同指标(<strong>对应不同随机变量</strong>)的具体人数分布列，为构建一棵<strong>决策树</strong>将实现分类，要求<strong>每一次分类都能获得最多的信息量将不同群体区分开，要求最优的分类顺序</strong></p>
-<p>故而该算法中，</p>
-<ol>
-<li>第1个指标的确定. 直接计算信息熵$H(X_i)$，取最大者</li>
-<li>第n+1个指标的确定. 当已知前n个指标时，要求下一个指标使<strong>当前信息增益最大</strong>，常用的算法有<strong>ID3、C4.5和CART等</strong></li>
-</ol>
-<p>更多随机变量的情况要采用Beyes网络</p>
+<p><strong>Theo. 2</strong> The total number of different lines is $\binom{n}{\frac{n+b_n-b_0}{2}}$</p>
+<p><strong>pf.</strong> There is n segments in total including $x$ &ldquo;/&rdquo; and $y$ &ldquo;\&rdquo; s.t. $n=x+y,x-y=b_n-b_0$. It implies that $x=\frac{n+b_n-b_0}{2}$</p>
+<p><strong>Problem A</strong> If the polyline has no intersection with the x-axis and how many feasible methods are there?</p>
+<p>  <strong>Sol.</strong> If there is an illegal line,say it intersects with the x-axis, we can flip the part on the left of the <strong>first</strong> intersection along the x-axis. It is obviously such symmetry transformation is a <strong>bijection</strong> which means it is equivalent to know how many different lines between $P&rsquo;(0,-b_0),Q&rsquo;(n,b_n)$ are there. It indicates that $\binom{n}{\frac{n-b_n+b_0}{2}}$</p>
+<p><strong>Problem B</strong> What if the polyline is allowed to have intersections but not to transcend x-axis?</p>
+<p>  <strong>Sol.</strong> It is equivalent to not allowing it to intersect with $y=-1$ and therefore this time we flip along $y=-1$.</p>
+<h2 id="2-catalan-number">2 Catalan Number</h2>
               
 
 
@@ -357,7 +329,7 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/combinatorial-math/">Combinatorial Math</a>
 
                   </div>
                 
@@ -370,7 +342,7 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="NEXT: [Marcov]Marcov Chain">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -378,7 +350,7 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" data-tooltip="[Modeling I]Basic Prediction and Optimization Models" aria-label="PREVIOUS: [Modeling I]Basic Prediction and Optimization Models">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="PREVIOUS: [Marcov]Marcov Chain">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -396,19 +368,19 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -439,9 +411,9 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/mlinfo-entropy-and-random-forest-primer\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/algorithmcatalan-number\/';
         
-          this.page.identifier = '\/2023\/04\/mlinfo-entropy-and-random-forest-primer\/'
+          this.page.identifier = '\/2023\/04\/algorithmcatalan-number\/'
         
       };
       (function() {
@@ -477,7 +449,7 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="NEXT: [Marcov]Marcov Chain">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -485,7 +457,7 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/" data-tooltip="[Modeling I]Basic Prediction and Optimization Models" aria-label="PREVIOUS: [Modeling I]Basic Prediction and Optimization Models">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="PREVIOUS: [Marcov]Marcov Chain">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -503,19 +475,19 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/algorithmcatalan-number/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -546,19 +518,19 @@ $$\frac{H(P)+H(Q)}{2}\leq H(R)\leq \frac{H(P)+H(Q)}{2}+{1\over4}(D(P||Q)+D(Q||P)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinfo-entropy-and-random-forest-primer%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-number%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinfo-entropy-and-random-forest-primer%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-number%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinfo-entropy-and-random-forest-primer%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-number%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

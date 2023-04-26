@@ -331,22 +331,9 @@
 <ol>
 <li>m叉树 v.s.度数为m的树：前者指指针域内指向孩子结点的数目或孩子结点上限，可为空树；后者指最大度数结点为m，一定不能为空(至少有m+1个结点)</li>
 <li>满二叉树v.s.完全二叉树：均满足$n_1=0$，但前者要求更高，必须按照从左向右依次排列，后者不需</li>
-<li></li>
-</ol>
-<h3 id="14-计算">1.4 计算</h3>
-<ol>
-<li>
-<p>(简单图论)求结点数、度数、高度和深度
-(1)
-(2)</p>
-</li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
 </ol>
 <h3 id="15-遍历方式">1.5 遍历方式</h3>
-<p>树的BFS为层序遍历(基于队列实现)，DFS为前序、中序和后序遍历，即中左右、左中右和左右中. 以“左中右”为例，表示<strong>没有左孩子时再遍历当前结点</strong>. 在给定具体树时可以<strong>将子树按左右子树整体处理</strong></p>
+<p>树的BFS为层序遍历(基于队列实现)，DFS为前序(pre-order)、中序(in-order)和后序遍历(post-order)，即中左右(NLR)、左中右和左右中. 以“左中右”为例，表示<strong>没有左孩子时再遍历当前结点</strong>. 在给定具体树时可以<strong>将子树按左右子树整体处理</strong></p>
 <p>其中DFS非递归实现可用栈模拟递归，前序入栈则读取当前结点并将左右孩子依次压栈，直至到达叶子；中序则先入栈当前结点，不断让左孩子进栈直至到达叶子(需打标记)</p>
 <h3 id="16--树二叉树与森林的转换">1.6  树、二叉树与森林的转换</h3>
 <p>树的结构决定其必须选定根节点(以任意节点为根节点均能构造结构不同的一棵树)，而<strong>森林和树通过相同的方法可与二叉树等价</strong>.</p>
@@ -362,11 +349,14 @@
 </ol>
 <ul>
 <li>二叉树→树：只需找到每个结点左孩子的<strong>右孩子链</strong>并把双亲连上，再断开右孩子链</li>
-<li>二叉树→森林：先进行第一步，再删除所有原有<strong>右孩子边</strong>实现对树的拆分</li>
+<li>二叉树→森林：先删除所有根节点的<strong>各层最右的右孩子边</strong>实现对树的拆分(森林转换为BT后根节点右指针必为空)，再将二叉子树转换为树</li>
 </ul>
-<p>其中，二叉树和变换前的树<strong>前序遍历相同</strong>，<strong>二叉树的中序和变换前的后序相同</strong></p>
+<p>其中，二叉树**(先)前序遍历<strong>和变换前的森林</strong>先根遍历相同**，<strong>二叉树的中序和变换前的后根遍历相同</strong>. 先根遍历即先遍历当前结点，再遍历所有子树；后根遍历则先遍历子树再当前结点，由于非二叉，故无中根遍历(<strong>若有则表明森林退化为二叉树</strong>).</p>
 <h2 id="2-存储方式">2 存储方式</h2>
 <ol>
+<li>
+<p>双亲表示法：查双亲O(1)，查孩子O(V)，典型应用为<strong>并查集(Union Find Set)</strong></p>
+</li>
 <li>
 <p>孩子表示法：最常用结构，即将同个结点的所有孩子链式存储(较少时如二叉树，可数组存储)；有时为回溯方便，可存储<strong>孩子的双亲索引</strong></p>
 </li>
@@ -376,8 +366,9 @@
 </ol>
 <p>具体实现，可基于纯链表(动态开点)、静态链表和数组(线段树)</p>
 <h2 id="3-线索二叉树">3 线索二叉树</h2>
-<p><strong>需求：<strong>当对二叉树频繁</strong>查找其前驱或后继</strong>时，需要同步更改其<strong>中序、前序、后序和层序</strong>序列，故对二叉树<strong>线索化</strong>得到<strong>线索二叉树(Thread Binary Tree)</strong>(按四类遍历分四类线索二叉树). <strong>线索化</strong>被广泛应用在按某种顺序<strong>多次查询结点前驱后继</strong>的<strong>非线性结构</strong>中</p>
-<p><strong>数据结构：</strong> 数据域、ltag和rtag(表征<strong>左右孩子是否为线索</strong>)、左右孩子. 利用<strong>二叉树n个结点产生n+1个空指针域</strong>的特性，如对序列如ABCDEF，若C左孩子为空，则指向B；若右孩子为空，则指向D. 可以发现，<strong>第一个遍历到的节点左孩子为空，最后一个的右孩子为空</strong>(也可以将这两个结点设置为dummyhead的左右孩子，则遍历时无需先找到起点)</p>
+<p><strong>需求：<strong>当对二叉树频繁</strong>查找其前驱或后继以及增减结点时</strong>时，需要同步更改其<strong>中序、前序、后序和层序</strong>序列，<strong>为避免对整体递归遍历</strong>，故对二叉树<strong>线索化</strong>得到<strong>线索二叉树(Thread Binary Tree)</strong>(按四类遍历分四类线索二叉树). <strong>线索化</strong>被广泛应用在按某种顺序<strong>多次查询结点前驱后继</strong>的<strong>非线性结构</strong>中</p>
+<p><strong>数据结构：</strong> 数据域、ltag和rtag(表征<strong>左右孩子是否为线索</strong>)、左右孩子. 利用**二叉树n个结点产生n+1个空指针域(这n+1个空指针全被线索化，但是不论何种线索二叉树均为剩2个空指针)**的特性，如对序列如ABCDEF，若C左孩子为空，则指向B；若右孩子为空，则指向D. 可以发现，<strong>第一个遍历到的节点左孩子为空，最后一个的右孩子为空</strong>(也可以将这两个结点设置为dummyhead的左右孩子，则遍历时无需先找到起点)</p>
+<h3 id="31-中序线索二叉树">3.1 中序线索二叉树</h3>
 <p>以中序遍历为例，注意其逻辑，当无左孩子时才访问中间结点，故需设置pre指向上一个访问结点和p表示当前结点，若p无左孩子，则将p的左孩子设置为pre并更新tag(表示序列前驱)，而p无右孩子的情形则不能说明问题；同理，当访问右孩子时，一定保证当前结点已经访问，从而若pre无右孩子，则pre的右孩子指向p并更新tag(表示序列后继)</p>
 <p>这个过程在中序遍历的递归中即可实现，即先向左递归，在中间处理后，再向右递归.</p>
 
@@ -406,15 +397,15 @@
         <td class="code">
           <pre class="code-highlight language-cpp cpp"><code class="cpp">Node* pre = NULL;
 //ltag,rtag初始化为false
-void InThreading(Node* rt){
+void setThread(Node* rt){
 	if(rt)	return;
-	InTheading(rt-&gt;left);
+	setThread(rt-&gt;left);
 	//中序处理，对前序则将下面三行移到最上方
 	if(!rt-&gt;left)	rt-&gt;ltag=true,rt-&gt;left=pre;
 	if(!pre-&gt;right)	pre-&gt;rtag=true,rt-&gt;right=rt;
 	pre = rt;
 
-	InThreading(rt-&gt;right);
+	setThread(rt-&gt;right);
 }</code></pre>
         </td>
       </tr>
@@ -422,7 +413,7 @@ void InThreading(Node* rt){
   </table>
 </figure>
 
-<p>若欲利用线索，如查询结点n的后继，则rtag=1时，表明为线索，则右孩子为后继；否则根据中序，后继为右孩子的最左叶子；同理若查询前驱，ltag=1显然，否则为左孩子的最右叶子，上述即查找函数. 而有线索的二叉树，只需从最左叶子开始反复调用get_back直至空，get_back类似next中的链表，故称<strong>线索化将二叉树按照遍历顺序化为双向链表</strong>
+<p>若欲利用线索，如<strong>查询结点n的后继</strong>，则rtag=1时，表明为线索，则右孩子为后继；否则根据中序，后继为右孩子的最左叶子；同理若查询前驱，ltag=1显然，否则为左孩子的最右叶子，上述即查找函数. 而有线索的二叉树，只需从<strong>最左叶子</strong>开始反复调用get_back直至空，get_back类似next中的链表，故称<strong>线索化将二叉树按照遍历顺序化为双向链表</strong>
 
   
     
@@ -459,8 +450,351 @@ void InThreading(Node* rt){
   </table>
 </figure>
 </p>
-<p>而若要对二叉树进行修改，则只需在插入位置附近更改线索.</p>
-<p>上文建立的线索树为<strong>全线索树</strong>，有时只需查找前驱或后继，即左/右线索树.</p>
+<p>而若要对二叉树进行修改，则只需在插入位置附近更改线索. 以中序遍历为例，当在已有节点P后面添加节点Q时，</p>
+<ol>
+<li>P为叶子：Q为左孩子，则Q右指针指向P，左指针指向P原左指针域对象；Q为右孩子，Q左指针指向P，右指针指向P原右指针域对象</li>
+<li>P为分支：与P为叶子完全相同</li>
+</ol>
+<p>上文建立的线索树为<strong>全线索树</strong>，有时只需查找前驱或后继，即左/右线索树，即<strong>只需对左/右指针域线索化</strong>.</p>
+<h3 id="32-前序与后序线索二叉树">3.2 前序与后序线索二叉树</h3>
+<p>对前序和后序，线索二叉树<strong>构建方式相同</strong>，只需修改递归顺序，但查询前驱后继则存在较大差异
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>thread.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">Node *pre=NULL; //初始化
+void setThread(Node*rt, Node* pre){
+	if(!rt) return;
+	if(!pre-&gt;rs)	pre-&gt;rs=rt,pre-&gt;rtag=true;
+	if(!rt-&gt;ls)	rt-&gt;ls=pre,pre-&gt;ltag=true;
+	pre = rt;
+}
+void dfs(Node*rt){
+	setThread(rt,pre); //若为中序和后序，与遍历处理方式相同
+	if(rt-&gt;ls)	dfs(rt-&gt;ls);
+	if(rt-&gt;rs) 	dfs(rt-&gt;rs);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>后序线索二叉树的最大差异在于查询下一节点<strong>需知双亲结点</strong>，故需使用<strong>栈</strong>辅助，依旧不能有效解决问题.</p>
+<ul>
+<li>
+<p>前序线索二叉树：第一个元素即根节点，然后反复调用nxtNode()函数. 其中nxtNode当tag非零时对应指向对象为所求，否则后继为右子树最左叶子，前驱为左子树最右叶子.</p>
+</li>
+<li>
+<p>后序线索二叉树：第一个元素即最左叶子，同理反复调用nxtNode()，当tag非零时指向r即所求，否则分三类：</p>
+</li>
+</ul>
+<ol>
+<li>若r是rt，则后继为空</li>
+<li>若r是ls且p有rs，则r后继为rs的最左叶子</li>
+<li>若r是rs 或 r是ls但p无rs，则r后继为p</li>
+</ol>
+<h2 id="4-morris遍历">4 Morris遍历</h2>
+<h2 id="5-huffman树">5 Huffman树</h2>
+<p><strong>据频率分布分配不同字符(串)不等长编码</strong>从而节省内存，但不等长导致有时操作困难. 具体字符(串)只在叶子且从rt出发到达叶子的路径，按层序依次编号，如$010$(0/1表示向左/右的边). 具体算法为将各叶子按频率进行排序，选取最小的两个合并(频率相加)，不断选取两个最小的合并直至只剩一个作为根节点，故<strong>Huffman树不唯一</strong></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>huffman.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">class Node{
+public:
+	char info = 0;
+	float freq = 0;
+	Node* ls, *rs; 
+	
+	bool operator &lt;(Node &amp;a, Node&amp;b){
+		return a.freq&lt;b.freq;
+	}
+}
+
+vector&lt;Node&gt; chars;
+Node* huffman(){
+	priority_queue&lt;Node*&gt; q;
+	for(auto ele:chars)	q.push(ele); //排序初始化
+
+	while(q.size()!=1){
+		Node* a = q.top(); q.pop();
+		Node* b = q.top(); q.pop();
+		Node* c = (Node*)malloc(sizeof(Node));
+		c.ls = a, c.rs=b;
+		q.push(c);
+	}
+	return q.top();
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="6-堆">6 堆</h2>
+<p>堆分为<strong>小顶堆(minheap)和大顶堆(maxheap)</strong>，以小顶堆为例，堆是一个<strong>满足任意子树的根节点小于子树任意节点的完全二叉树</strong>. 堆支持<strong>上滤</strong>和<strong>下滤</strong>的操作.</p>
+<p>将所有元素放入堆中并依次取出堆顶元素，则实现<strong>堆排序</strong>，该数据结构加以封装即为<strong>优先队列</strong></p>
+<ul>
+<li><strong>上滤(sift up)和下滤(sift down)</strong>
+由于堆是完全二叉树这类稠密树，故采用<strong>顺序存储</strong>. 上滤，将一个元素放至数组末尾，并维护其比父节点大的性质(不满足则不断交换直至满足或到达堆顶)；下滤则将元素放至堆顶，与<strong>两个孩子中较小者比较，若比其大则交换，直至成为叶子或满足</strong></li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sift.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void sift_up(int cnt){
+	while(cnt&amp;&amp;t[cnt]&lt;t[cnt/2])
+		swap(t[cnt],t[cnt/2]), cnt/=2;
+}
+void sift_down(int cnt){
+	while(t[cnt]){ //保证非空
+		int idx = t[cnt*2&#43;1]&lt;t[cnt*2&#43;2]? cnt*2&#43;1:cnt*2&#43;2;
+		if(t[idx]&lt;t[cnt])
+			swap(t[idx],t[cnt]), cnt=idx;
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<ul>
+<li>建堆
+建堆分<strong>自顶而下</strong>和<strong>自下而上</strong>. 自顶向下，即将所有元素放至元素末尾，执行上滤. 平均对每个元素上滤复杂度为O(logn)，故整体<strong>O(nlogn)</strong>. 自下而上，则将堆乱序建好，再从倒数第二层开始依次往上执行上滤. 则对第h层有$2^{h-1}$个元素，平均复杂度为\sum_{(h-1)2^{h-1}}$，而$n=\sum_{h2^h}$，可知复杂度为O(n).</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>creation.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void build_downwards(int data[],int size){
+	for(int cnt=0;cnt&lt;size;cnt&#43;&#43;){
+		t[cnt]-&gt;val=data[cnt];
+		sift_up(cnt);
+	}
+}
+
+void build_from_ground_up(int data[],int size){
+	for(int cnt=0;cnt&lt;size;cnt&#43;&#43;)
+		t[cnt]-&gt;val = data[cnt];
+	//为编程方便，从倒数第一层开始也可
+	while(cnt)	sift_up(cnt--);
+	
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<ul>
+<li>增减元素
+对增添元素，只需放在末尾(与自顶向下相同)再上滤，复杂度O(logn)；对删减堆顶元素，则<strong>将末尾元素替换掉堆顶元素再下滤</strong>，复杂度O(logn).</li>
+</ul>
+<h2 id="7-bst">7 BST</h2>
+<p>二分搜索树(Binary Search Tree)，比堆的性质更好，满足<strong>根节点≥左子树任意节点且≤右子树任意节点</strong>. 故而可进行二分查找.</p>
+<h3 id="71-二分查找">7.1 二分查找</h3>
+<p><strong>二分查找</strong>，即对<strong>有序数组</strong>进行划分. 为了解决边界问题，<strong>令l=-1，r=N，留出边界(否则当目标在左右边界上时需特判)</strong>，如此则退出条件为<strong>l和r相邻</strong>，则<strong>l为小于的上确界，r为大于的下确界</strong></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>binary search</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int find(vector&lt;int&gt; data, int target){
+	int l=-1, r=data.size();	//假定data单调递增
+	while(l&#43;1!=r){
+		int m = l&#43;r&gt;&gt;1;
+		if(data[m]==target) return m;
+		if(data[m]&gt;target)	r=m;
+		else l=m;
+	}
+	return EOF;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>利用该程序，第一个大于target的元素索引为r，最后一个≤target的元素为l.</p>
+<p>实际上除去区间查找问题，对于满足<strong>若有m个能解决问题，则比m多或少的时候也能解决问题</strong>这类<strong>存在包含序关系</strong>的条件，则可对m进行二分降低复杂度.</p>
+<ul>
+<li>(蓝桥·分巧克力)对给定的一些长方形巧克力，要求将其<strong>垂直或水平</strong>切开分给k个人<strong>等大正方形</strong>巧克力，试求满足的最大的正方形边长.</li>
+</ul>
+<p>  <strong>Sol.</strong> 显然若边长为m时为最优解，则任何比m小的都是解，故可二分. 下界为0，上界为所有长方形最长的一边的最大值.</p>
+<h3 id="72-三分查找">7.2 三分查找</h3>
+<h3 id="73-bst">7.3 BST</h3>
+<ul>
+<li>查询、插入与删除
+查询为二分操作，插入删除均基于查询. 插入只需查询该节点是否存在(假设相同权值的只存储一个)，查至叶子仍不存在则添加；删除同理查询，若为叶则直接删除，若只有一个孩子则缩点，若有两个则<strong>找到直接后继或直接前驱放在原来的位置</strong>，由中序遍历可知，该结点可以是<strong>左子树的最右结点或右子树的最左结点</strong></li>
+<li>建树
+BST的建树可自顶向下采用插入操作，复杂度O(nlogn).</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>bst.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">Node* query(Node*rt, int val){
+	if(!rt)	return nullptr;
+	else if(rt-&gt;val == val)	return rt;
+	
+	return rt-&gt;val&gt;val? query(rt-&gt;ls,val):query(rt-&gt;rs,val);
+}
+
+void insert(int val){
+	if(!rt||rt-&gt;val == val)	return;
+	if(!rt-&gt;ls &amp;&amp; !rt-&gt;rs)	
+		if(rt-&gt;val&lt;val)	rt-&gt;rs = new Node(val);
+		else rt-&gt;ls = new Node(val);
+}
+
+bool del(int val){
+	Node* target = query(rt,val);
+	if(!target)	return false;
+	if(!target-&gt;ls&amp;&amp;!target-&gt;rs)	//叶子结点
+		target = nullptr;
+	else if(target-&gt;ls)	//一个孩子
+		target = target-&gt;ls;
+	else if(target-&gt;rs)
+		target = target-&gt;rs;
+	else{	//两个孩子
+		Node* p =target-&gt;rs;
+		while(p-&gt;ls)	p=p-&gt;ls;
+		p-&gt;rs = target-&gt;rs;
+		target = p;
+	}
+	return true;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="8-更多树">8 更多树</h2>
+<h3 id="81-b树">8.1 B树</h3>
+<h3 id="82-b树">8.2 B+树</h3>
+<h3 id="83-红黑树">8.3 红黑树</h3>
               
 
 

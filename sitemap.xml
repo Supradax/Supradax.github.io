@@ -2,10 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Supradax.github.io/2023/04/algorithmcatalan-number/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/combinatorial-math/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/posts/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/simulation/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/04/marcovmarcov-chain/</loc>
+    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/</loc>
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/categories/</loc>
+    <loc>https://Supradax.github.io/tags/calculus/</loc>
+    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/math/</loc>
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/ml/</loc>
@@ -14,22 +41,10 @@
     <loc>https://Supradax.github.io/categories/ml/</loc>
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/posts/</loc>
-    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/</loc>
-    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/</loc>
-    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/forecast/</loc>
-    <lastmod>2023-04-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/math/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/optimization/</loc>
@@ -51,9 +66,6 @@
     <lastmod>2023-04-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/calculusintegral-median-location-problem-ep.3/</loc>
-    <lastmod>2023-04-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/calculus/</loc>
     <lastmod>2023-04-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/calculusintegral-estimation-and-induction-ep.1/</loc>
@@ -147,9 +159,6 @@
     <lastmod>2023-03-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/simulation/</loc>
-    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/simulation/</loc>
     <lastmod>2023-03-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/data-structuresegment-tree-and-its-improvement/</loc>

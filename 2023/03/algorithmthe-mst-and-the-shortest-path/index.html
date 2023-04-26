@@ -307,6 +307,7 @@
           <div class="post-content markdown">
             <div class="main-content-wrap">
               <p><strong>MST</strong>, the minumum spanning tree, which is extracted from a connected graph with the least scale and overall weight. The MST has wide applications in the real world, for example, to minimize the total cost in a complicated work if we want to connect each server together.</p>
+<p><strong>Update:</strong>  4/25/2023 Amended the section ExKruskal Tree.</p>
 <p>Though the mst is not unique, but we only need one and that&rsquo;s enough. The most common two algorithms is Prim&rsquo;s and Kruskal&rsquo;s.</p>
 <h2 id="1-template-prim-algorithm-and-kruskal-algorithm">1 Template: Prim Algorithm and Kruskal Algorithm</h2>
 <p>The Prim&rsquo;s adpot a greedy idea &ndash; begin from an arbitrary node and then add its adjacent edges in. Then we pick out the one with the least weight where means we need to use <strong>priority queue or min-heap</strong> to cope with each edge. And if there is no replicated edges which connect two nodes in the current tree, we put them in until each node lies inwards.</p>
@@ -418,11 +419,55 @@ void merge(int x,int y){parent[find(x)]=find(y);}
 <p><strong>Summary</strong> We notice that the Prim&rsquo;s <strong>begin from a node and stretch to the whole tree</strong> while the Kruskal&rsquo;s traverse all edges and <strong>assemble</strong> each one with no conflict against the previous ones.</p>
 <p>The overall complexity of Prim&rsquo;s ** O(V²) which suits dense graph** (But it depends on the data structure, it can also be O(VE)) while the Kruskal&rsquo;s is O(ElogE) which suits <strong>Sparse Graph</strong>(The most cost is the sorting of the edge weight).</p>
 <p>Note. <strong>The MST can&rsquo;t assure that the distance between each node is the least</strong> which means it can&rsquo;t replace the three shortest-path algorithms.</p>
-<h2 id="2-second-best-mst-and-kth-mst">2 Second-Best MST and Kth MST</h2>
+<h2 id="2-expansion-of-mst">2 Expansion of MST</h2>
+<h4 id="21-second-best-mst-and-kth-mst">2.1 Second-Best MST and Kth MST</h4>
 <p>One direct idea is to delete one edge from the MST and use the MST algorithm once again and sort them up whose complexity will be O(ElogE+VE)</p>
 <p>We have theorem here: <strong>the second-best MST has and only has one edge different from the MST</strong> which can be seen in the <em>Introduction to Algorithms</em>. Thus we only need to <strong>exchange an edge not in the MST for greatest edge in the MST if there is a cycle in the graph</strong> and if the weight are the same, we replace the second greatest instead.</p>
 <p>Note. The edge not in the MST can&rsquo;t be greater than the one to be exchanged; otherwise it is contradict against the MST(We can delete any edge in the cycle to get a tree).</p>
 <p>As for the kth we can only enumerate all combinations of edges and sort them up.</p>
+<h4 id="22-kruskal-reconstruction-tree">2.2 Kruskal Reconstruction Tree</h4>
+<p>Proof of the correctness of Kruskal&rsquo;s and Prim&rsquo;s algorithms.
+<strong>pf.</strong> Let G be an n-order graph (with possible multiple edges), then the case of n=2 is trivially true. Assuming it holds for n=k, now consider the case of n=k+1. Let e=(a,b) be the global minimum edge. If e is in the MST, then we can contract e and consider any nodes simultaneously connected to a and b as multiple edges, which reduces the order of the graph from k+1 to k. This can be proved by the induction hypothesis. If e is not in the MST, then as shown in the figure, there must exist a path in the MST passing through c connecting a and b. Without loss of generality, assume that c is the first node connecting to a. Then removing (a,c) and adding (a,b) will result in a smaller tree than the MST, which is a contradiction.□
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/29.jpg" >
+  
+  
+</div>
+
+对Kruskal的生成树，还满足：<strong>对任意两点u,v，所有路径上边的最大值中的最小值一定在MST中</strong>
+  <strong>pf.</strong> Suppose the path from u to v in the MST is u→(a,b)→v. Assuming the opposite, there exists another path and the minimum value on that path is (a,c). Since the MST is connected, there must be a path connecting u and c. Removing (a,b) and adding (a,c) will result in a smaller MST, which is a contradiction!</p>
+<p>Therefore, it can be inferred that Kruskal&rsquo;s minimum spanning tree is also a <strong>minimum bottleneck tree</strong>.</p>
+<p>In the Kruskal construction process, after sorting all edges in ascending order, if a new branch node is created to connect two branches every time a union operation is performed using the disjoint set, the resulting** binary tree **is called the <strong>Kruskal reconstruction tree</strong>.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/1.png" >
+  
+  
+</div>
+</p>
+<p>For this tree, the following properties hold:</p>
+<ul>
+<li>Leaves represent nodes in the original graph, and branch nodes represent edges in the original graph.</li>
+<li>The weight of the path from a leaf node to the root node is monotonically increasing.</li>
+<li>The lowest common ancestor (LCA) of two nodes is the shortest edge with the largest weight among all paths between them.
+  <strong>pf.</strong>  For property 2, the construction order determines it. For property 3, combining the properties of the Kruskal MST, the desired node must be on the path between the two nodes. If it is not the LCA, it contradicts the connectivity of the MST.</li>
+</ul>
+<ol>
+<li>(Blue Bridge Cup 2023)  For a given network system where points represent hosts and edges represent the stability of the channels between two hosts, the stability of a path is determined by its minimum edge. The network stability of two hosts is defined as the maximum stability among all paths connecting them. Now inquire about the network stability of any two hosts.</li>
+</ol>
+<p>  <strong>Sol.</strong> Use Kruskal&rsquo;s maximum reconstruction tree and simply use binary lifting to find the LCA of two nodes.</p>
+<ol start="2">
+<li>(Shanghai Problem H) For a given undirected graph, where nodes represent cities and edges represent roads between cities with weights representing the cost of passing through, starting from a given city, one can increase the corresponding cost of passing through at each new city. Only when the current passing cost is not less than the cost of the road can it be passed through. The goal is to find the maximum cost that can be obtained by continuously passing through the roads.</li>
+</ol>
+<p>  <strong>Sol.</strong> Since there is a bottleneck upper limit, Kruskal&rsquo;s minimum spanning tree algorithm is used. Since the weight of any subtree of the minimum spanning tree is not greater than the weight of the root node, when the passing cost is not less than the root node, one can always pass through any leaf node in the subtree and <strong>obtain the weights of all leaves</strong>. Therefore, it is only necessary to perform a DFS to accumulate the weights of leaf nodes into branch nodes. For the given city, one only needs to find the corresponding leaf node, continuously accumulate the weights up the tree until it is no longer possible to do so.</p>
+<p>Notes. In the NOI2018, the &ldquo;travel capital&rdquo; was set to a fixed value, which weakened the difficulty of the problem.</p>
 <h2 id="3-the-shortest-path-algorithm">3 The Shortest-Path Algorithm</h2>
 <p>The three well-known algorithms are: <strong>Dijkstra, Bellman-Ford ,Floyd-Warshall</strong>, we will bring them in the following three sections:</p>
 <h4 id="31-dijkstra-algorithm">3.1 Dijkstra Algorithm</h4>

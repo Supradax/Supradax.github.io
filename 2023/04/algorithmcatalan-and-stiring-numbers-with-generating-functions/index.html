@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Catalan and Stiring Numbers with Generating Functions",
+  
+  "image": "https://Supradax.github.io/img/catalan.jpg",
+  
+  "datePublished": "2023-04-25T00:00:00Z",
+  "dateModified": "2023-04-25T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/algorithmcatalan-and-stiring-numbers-with-generating-functions\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Catalan and Stiring Numbers with Generating Functions">
+<meta name="twitter:title" content="[Algorithm]Catalan and Stiring Numbers with Generating Functions">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-04-25T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-04-25T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Simulation">
+    
+  
+  
+    
+      <meta property="article:tag" content="Combinatorial Math">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/catalan.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/catalan.jpg">
+
+
+    <title>[Algorithm]Catalan and Stiring Numbers with Generating Functions</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Catalan and Stiring Numbers with Generating Functions
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-04-25T00:00:00Z">
+        
+  April 25, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>In combinatorial math, Catalan Number is a sequence that occur in lots of counting problems which are more or less related to the line chart.</p>
+<h2 id="1-counting-in-a-line-chart">1 Counting in a Line Chart</h2>
+<p><strong>Theo. 1</strong> With a grid and two points$P(0,b_0),Q(n,b_n)$ given, if allowed to draw a diagonal so as to match up P and Q, this is possible <strong>iff</strong>:
+$$|b_n-b_0|\leq n, 2|(|b_n-b_0|+n) \tag{1}$$</p>
+<p><strong>pf.</strong></p>
+<ol>
+<li>Necessity. $|b_n-b_0|\leq \sum{b_n-b_{n-1}}=n$ and decompose each diagonal as $i+j, i-j$ and thus $k+|b_k-b_0|$ adds 2 or remains the same as k adds 1, making it is always even.</li>
+<li>Sufficiency. We may suppose it begins at $(0,0)$ and ends at $(n,m)$, and cut off a right triangle at the right corner and fill the rest in the left with a shape &ldquo;/\&rdquo; . This is possible because n-m is even. Therefore a construction proof is given.</li>
+</ol>
+<p><strong>Theo. 2</strong> The total number of different lines is $\binom{n}{\frac{n+b_n-b_0}{2}}$</p>
+<p><strong>pf.</strong> There is n segments in total including $x$ &ldquo;/&rdquo; and $y$ &ldquo;\&rdquo; s.t. $n=x+y,x-y=b_n-b_0$. It implies that $x=\frac{n+b_n-b_0}{2}$</p>
+<p><strong>Problem A</strong> If the polyline has no intersection with the x-axis and how many feasible methods are there?</p>
+<p>  <strong>Sol.</strong> If there is an illegal line,say it intersects with the x-axis, we can flip the part on the left of the <strong>first</strong> intersection along the x-axis. It is obviously such symmetry transformation is a <strong>bijection</strong> which means it is equivalent to know how many different lines between $P&rsquo;(0,-b_0),Q&rsquo;(n,b_n)$ are there. It indicates that $\binom{n}{\frac{n-b_n+b_0}{2}}$</p>
+<p><strong>Problem B</strong> What if the polyline is allowed to have intersections but not to transcend x-axis?</p>
+<p>  <strong>Sol.</strong> It is equivalent to not allowing it to intersect with $y=-1$ and therefore this time we flip along $y=-1$.</p>
+<h2 id="2-catalan-number">2 Catalan Number</h2>
+<p><strong>Problem</strong> If the order of elements pushed into the stack is confirmed, how many possible pop-out sequence are there?</p>
+<p><strong>Sol.</strong> Let it be $C(n)$. It is easy to divide the problem into many, say, we can label the last element and check the stack size when it is pushed in. If there are k elements inside, it means there are C(k) methods to go on and C(n-k) methods for the previous n-k elements to come along with. Thus obtaining,
+$$C(n)=\sum_{i=0}^{n-1}C(i)C(n-i),C(0)=1 \tag{2.1}$$</p>
+<p>Notice that (2.1) is somewhat similar to <strong>Cauchy Product</strong>,
+$$f(x)=1+c_1x+&hellip;, f^2(x)=\sum_{k=0}^{\infty}\sum_{i+j=k}c_ic_jx^k=\sum_{k=0}^\infty c_{n+1}x^n$$, thus,</p>
+<p>$$xf^2(x)=f(x)-c_0=f(x)-1 \tag{2.2}$$</p>
+<p>Figure it out we have $f(x)=\frac{1-\sqrt{1-4x}}{2x}$ and expand it with Taylor series, $$f(x)=\sum_{n=0}^\infty\frac{C_{2n}^n}{n+1}x^n, C(n)=\frac{C_{2n}^n}{n+1}\tag{2.3}$$</p>
+<p>Therefore, to verify whether the solution follows Catalan Number, we can test it with (2.1) or (2.3)</p>
+<p>There are many scenarios where Catalan Number hides behind</p>
+<ul>
+<li>the numbers of methods from A to B in a grid along the diagnals(2.1);</li>
+<li>the methods to divide a polygan into n parts(choose 2n points on a circle and match them up to get n segments without intersections)(2.1);</li>
+<li>the amount of BST with n nodes given(2.1)</li>
+<li>with n pairs of brackets, the amount of strings where the brackets match up correctly(the same as the stack problem)(2.1)</li>
+</ul>
+<h2 id="3-generating-function">3 Generating Function</h2>
+<h3 id="31-generating-function">3.1 Generating Function</h3>
+<p>There is a type of polynomials whose value is not important but their indices and coefficients matter in the counting.</p>
+<p>To work out $a_n$ s.t. $a_0=1,a_1=3,2a_{n+1}=3a_n-a_{n-1}$, let $f(x)=a_0+a_1x+a_2x^2+&hellip;$, then we have $(2x^2-3x+1)f(x)=1$, and $f(x)=\frac{1}{2x^2-3x+1}=\frac{1}{x-1}-\frac{2}{2x-1}$ $=-(1+x+&hellip;)+2(1+2x^2+4x^3)=\sum(2^{k+1}-1)x^k$ i.e. $a_n=2^{n+1}-1$</p>
+<p>The calculation of generating function requires methods like changing the order among infinite series, derivative and integral and applying Taylor expansion.</p>
+<p><strong>Problem A(Composition in the multi-sets and the number of solutions to uncertain equiations)</strong> The weight can be measured on the scale with the given weights, supposing there are 3 1kg weight, 2 3kg weight in total.</p>
+<p><strong>Sol.</strong> $f(x)=(1+x)^3(1+x^3)^2=1+3(x+x^2+x^3)+6(x^4+x^5)+3(x^6+x^7+x^8)+x^9$, the index points out the scale of each weight, the item 1 and x implies whether to use the weight, and the final expression means that there are 3 methods to measure those weighs 1-3 and 6-8kg, 1 for the 1kg and 9kg and 6 for the 4kg and 5kg(weights with the same scale is taken identical).</p>
+<ul>
+<li>If allowed to put the object and weights on the same side, then $f(x)=(1+x+x^{-1})^3(1+x^3+x^{-3})^2$</li>
+<li>If not to distinguish weights with the same scale, then$f(x)=(1+x+x^2+x^3)(1+x^3+x^6)$(only coefficients vary)</li>
+</ul>
+<p><strong>Problem B Number Division</strong> To divide m into the sum of many numbers.</p>
+<ul>
+<li>If it is unordered and divided into n parts, $f(x)=(1+x+x^2+&hellip;+x^n)^m$, the coefficient of $x^m$ is thus obtained.</li>
+<li>If it is ordered, then $f(x)=(1+x+x^2+&hellip;x^n)(1+x^2+&hellip;+x^{2\left \lfloor \frac{n}{2}  \right \rfloor})&hellip;(1+x^{n-1})$</li>
+<li><strong>(Ferrers Diagram)</strong> If $N=\sum_{i=1}^n{x_ia_i}, l_i\leq x_i\leq u_i$ with $a_i$ given, then $f(x)=(x^{l_1a_1}+&hellip;x^{r_1a_1})&hellip;$</li>
+</ul>
+<p><strong>Theo.</strong> A decimal number and a corresponding binary number are mapped uniquely.</p>
+<p><strong>pf.</strong> For any integer, it can be decompleted into the sum of several items in $2^n$, and thus $f(x)=(1+x)(1+x^2)(1+x^4)&hellip;=\frac{1-y^2}{1-y}·\frac{1-y^4}{1-y^2}&hellip;=\frac{1}{1-y}=\sum y^i$, the coefficient 1 determines an unique expression in existence.</p>
+<p><strong>Notes.</strong> <strong>Expential Generating Function</strong>, widely applied in sequences to do with combination numbers, is defined as $g(x)=1+x+{x^2\over2!}+&hellip;=e^x, g(x)=1-x+{x^2\over2!}+..=e^{-x}$</p>
+<p><strong>Problem C(Arrangement from multisets)</strong> If there are $n_i$ pieces of object k, how many arrangements are there to pick out m pieces?</p>
+<p><strong>Analysis</strong> If m=2, then we have $m!\sum \frac{1}{n_i!n_j!}$. To construct a formula in such shape, we turn to exponential function, whose coefficients reveal the fact. $$G(x)=(1+\frac{x}{1!}+&hellip;+\frac{x^n_1}{n_1!})&hellip;(1+\frac{x}{1!}+&hellip;+\frac{x^n_k}{n_k!})\tag{3.1}$$</p>
+<p><strong>Problem C(2)</strong> Use 4 colors to dye n blocks and the amount of the red and green are even. How many arrangements are there?</p>
+<p>  <strong>Sol.</strong> $f(x)=(1+\frac{x^2}{2!}+..)^2(1+\frac{x}{1!}+&hellip;)^2=(\frac{e^x+e^{-x}}{2})^2e^{2x}$</p>
+<h3 id="32-chessboard-polynomials">3.2 Chessboard Polynomials</h3>
+<p>In the particular problem <strong>8 queens</strong>, it wonders the amount of the layout such that no queens lie in the same column, row or diagnal. And now there is no restriction on diagonals.</p>
+<p>Write the chessboard as C and the queen amount $k$, and $n_k(C)$ is to be calculated. If C can be divided into two parts, $C_b$ cast away one block in C and $C_r$ cast away the column and row the block lie in. Then we have:
+$$n_k(C)=n_{k-1}(C_r)+n_k(C_b), n_k(C)=\sum_{j=0}^k n_j(C_r)n_{k-j}(C_b)\tag{3.2}$$</p>
+<p>Based on (3.2), the generating functions are:($C_1,C_2$ are discrete)
+$$f(C)=xf(C_r)+f(C_b), f(C)=f(C_1)f(C_2)\tag{3.3}$$</p>
+<p>If<strong>the area of forbidden zone in a rectangle-grid are in the minority</strong>, it is wise to consider from the opposite. According to exclusive-inclusive principle, we have:(C&rsquo; is the forbidden zone)
+$$n!n!-n_1(C&rsquo;)(n-1)!(n-1)!+n_2(C&rsquo;)(n-2)!(n-2)!-&hellip;\tag{3.4}$$</p>
+<ul>
+<li><strong>Error Permutation Problems:</strong> $n!-C_n^1(n-1)!+C_n^2(n-2)!-&hellip;$</li>
+</ul>
+<h2 id="4-stiring-numbers">4 Stiring Numbers</h2>
+<h4 id="41-first-kind-stiring-number">4.1 First Kind Stiring Number</h4>
+<p><strong>Scenario</strong> Supposing there are n people distributed into m loops, the amount of possible situations is defined as the first kind Stiring number $S(n,m)$.</p>
+<p><strong>Sol.</strong> Suppose to take in a newcomer, he can foster a loop on his own or find one to insert in where he can be on the left side of the n people already existing, then we have $$S(n,m)=S(n-1,m-1)+nS(n-1,m)\tag{4.1}$$ $$S(n,0)=0,S(n,1)=(n-1)!,S(n,n)=1 \tag{4.2}$$</p>
+<p><strong>Generating Function</strong> The rising factorial is the solution to (4.1) while the falling factorial meets another definition(4.5)  $$x^{\bar n}=x(x+1)..(x+n-1),x^\underline{n}=x(x-1)&hellip;(x-n+1) \tag{4.4}$$
+$$S(n+1,m)=S(n,m-1)-nS(n,m)\tag{4.5}$$</p>
+<p><strong>pf.</strong> Now focus on $f_n(x)=x(x+1)&hellip;(x+n-1)=\sum^{n-1} S(n,k)x^k,f_{n+1}=x(x+1)&hellip;(x+n)$ $=\sum^n S(n+1,k)x^k$, then for the term $x^k$, $S(n+1,k)$ partly derives from $f_n$ where n in the addictive term $(x+n)$ contributes to $nS(n,k)$; the rest comes from the x in $(x+n)$ which consists of $S(n-1,k-1)x^{k-1}·x$ for $x^k$. Now that for any k it holds water, so does m. □</p>
+<p><strong>Applications</strong> Given n buildings arranged in a row with different heights ranging from 1 to n, if a and b buildings can be seen from the left and right sides respectively, you are required to determine the possible number of arrangements for these buildings.</p>
+<p>   <strong>Analysis</strong> The highest building serves as the ridge in the problem which can be seen from both sides. And on either side of it, there are a and b loops&ndash;the heights differ from one another making it only one possible arrangement to ensure only one visible building in a loop. Thus $\sum{C_n^iS(i,a)+C_n^{n-1-i}S(i,b)}(i\geq a, n-1-i\geq b)$ is obtained.</p>
+<p>To get the table of S(n,m), we can choose to iterate by (4.1),(4.5) or adopt polynomial multiplication by FFT(O($n\log^2 n$)).
+To get the table of S(n,m), we can choose to iterate by (4.1),(4.5) or adopt polynomial multiplication by FFT(O($n\log^2 n$)).</p>
+<h4 id="42-second-kind-stiring-number">4.2 Second Kind Stiring Number</h4>
+<p><strong>Scenario</strong> Supposing there are n people distributed into m sets, the amount of possible situations is defined as the second Stiring number $S_2(n,m)$(which is abbreviated as $S(n,m)$)</p>
+<p><strong>Sol.</strong> Likewise, suppose n people set up within m rooms, then the newcomer can find a new room in or choose an exisiting one(rooms doesn&rsquo;t differ). And thus obtaining
+$$S(n,m)=S(n-1,m-1)+mS(n-1,m)\tag{4.6}$$
+$$S(n,0)=S(0,n)=0, S(n,n)=S(n,1)=1 \tag{4.7}$$</p>
+<p>Given that the generating functions generally are 1D, we get m fixed and have $a_n=m!S(n,m)$(m! means are taken into account to adopt exponential generating function which implies <strong>ordered premise</strong>). Because each room is not empty, $g(x)=(e^x-1)^m=\sum_{i=0}^mC_m^ke^{kx}(-1)^{m-k}$,expand $e^{kx}$, $$g_m(x)=\sum_0^m(1+\frac{k}{1!}x+\frac{k^2}{2!}x^2&hellip;)C_m^k(-1)^{m-k} \tag{4.8}$$</p>
+<p>Thus $a_n=m!S(n,m)=\sum_0^m(-1)^{m-k}C_m^kk^n$, i.e.
+$$S(n,m)=\frac{1}{m!}\sum_0^m(-1)^{m-k}C_m^kk^n\tag{4.9}$$</p>
+<p><strong>Applications</strong> Several placing-balls models(n balls differ).</p>
+<ul>
+<li>m unordered non-empty boxes. S(n,m)</li>
+<li>m ordered non-empty boxes.  m!S(n,m)</li>
+<li>m unordered boxes.  $\sum_0^m S(n,i)$</li>
+<li>m ordered boxes. $A_m^i\sum_0^m S(n,i)$</li>
+</ul>
+<p>Notes. Two kinds of Stiring Numbers have a somewhat symetric property. $\Sigma_{k=0}^n S_1(n,k)S_2(k,m)=\Sigma_{k=0}^n S_2(n,k)S_1(k,m)$</p>
+<h4 id="43-stiring-inversion">4.3 Stiring Inversion</h4>
+<h2 id="5-burnside-lemma-and-polya-theorem">5. Burnside Lemma and Polya Theorem</h2>
+<p>In the dying problems, the graph is static which means we can&rsquo;t rotate or flip even though such motion makes two states the same. Now we are going to look for those essentially different which means we can&rsquo;t simply swift the view to make them identical.</p>
+<h4 id="51-burnside-lemma">5.1 Burnside Lemma</h4>
+<p><strong>Theo 1</strong></p>
+<p><strong>Theo 2(Burnside Lemma)</strong> G is the Permutation Group, $Z_k$ is the subset of G s.t. k is the fixed point, L is the equivalence class, $c_1(k)$ indicates the number of fixed point in a permutation.
+$$L|Z_k|=\sum c_1(k)\tag{5.1}$$</p>
+<p><strong>Dihedralk Group</strong></p>
+<h4 id="52-polya-theorem">5.2 Polya Theorem</h4>
+<p>When <strong>the color amount is far less than the regions to dye</strong>, we tend to compute by starting off from color itself instead of the state. And it explains the reasonability for the rise of <strong>Polya Theorem</strong>. However,Polya Theorem <strong>fails when the tactic of color distribution is constrained</strong>, for instance, the color on each cube surface differs.</p>
+<p><strong>Theo 3(Polya Theorem)</strong> G is the Permutation Group with the color amount m, L is the equivalence class and $c(\sigma_k)$ is the loop amount in each permutation $\sigma_k$ in G.
+$$L|G|=\sum m^{c(\sigma_k)}\tag{5.1}$$</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/combinatorial-math/">Combinatorial Math</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlgaussian-distribution/" data-tooltip="[ML]Gaussian Distribution" aria-label="NEXT: [ML]Gaussian Distribution">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="PREVIOUS: [Marcov]Marcov Chain">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/algorithmcatalan-and-stiring-numbers-with-generating-functions\/';
+        
+          this.page.identifier = '\/2023\/04\/algorithmcatalan-and-stiring-numbers-with-generating-functions\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlgaussian-distribution/" data-tooltip="[ML]Gaussian Distribution" aria-label="NEXT: [ML]Gaussian Distribution">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/" data-tooltip="[Marcov]Marcov Chain" aria-label="PREVIOUS: [Marcov]Marcov Chain">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-and-stiring-numbers-with-generating-functions%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-and-stiring-numbers-with-generating-functions%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Falgorithmcatalan-and-stiring-numbers-with-generating-functions%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

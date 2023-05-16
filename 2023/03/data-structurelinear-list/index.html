@@ -793,9 +793,7 @@ void reorder(Node* head){
 </p>
 </li>
 <li>
-<p>链表归并排序</p>
-</li>
-</ol>
+<p>链表归并排序
 
   
     
@@ -804,17 +802,13 @@ void reorder(Node* head){
     
   
   
-    
-  
-  
-    
   
 
 
 <figure class="highlight cpp language-cpp">
   <figcaption>
     
-      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+      <span>sample.cpp</span>
     
   </figcaption>
   <table>
@@ -825,6 +819,95 @@ void reorder(Node* head){
         </td>
         <td class="code">
           <pre class="code-highlight language-cpp cpp"><code class="cpp"></code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+</ol>
+<h1 id="3-稀疏矩阵">3 稀疏矩阵</h1>
+<p>对矩阵存在大量重复元素或零的矩阵(如<strong>对称与反对称矩阵、上下三角矩阵、(三)对角矩阵和稀疏矩阵等</strong>)，可使用<strong>三元组$(c,r,val)$</strong>(坐标+值)的表记录元素信息(<strong>要求索引排列有序</strong>). 进而节约大量<strong>内存空间</strong>，稠密图则会占用更多.</p>
+<p>然而单纯使用三元组表在进行<strong>矩阵加法、乘法等运算时时间复杂度不会比存储整个矩阵更优</strong>，故采取类似邻接表的方法——<strong>十字链表</strong>.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/09.jpg" >
+  
+  
+</div>
+</p>
+<p>其中<strong>节点结构为(行标；列标；节点数据；当前行的下一结点；当前列的下一结点)</strong>，等效于将矩阵每个数据项视为一个结点，用十字网格构建的一张图. 对于该结构，在求解矩阵加法和乘法时，<code>getitem(i,j)</code>只会对非零数据项进行处理，使时间复杂度也降低.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Orthogonal List.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">class Node{
+	int i,j,val;
+	Node *rnxt, *cnxt;
+	Node(int i,int j,int val){
+		this-&gt;i=i, this-&gt;j=j,this-&gt;val=val;
+	}
+};
+
+Node* add(Node* a, Node* b, int r, int c){
+	Node *ans=new Node(0,0,0);
+	Node *cura = a, *curb =b, *p=ans;
+	while(cura&amp;&amp;curb){
+		while(a&amp;&amp;b){
+			if(a-&gt;j&lt;b-&gt;j)	swap(a,b);
+			//假定a索引比b索引大，则b先处理
+			if(p-&gt;j==b-&gt;j)	p-&gt;val&#43;=b-&gt;val;
+			else p = p-&gt;cnext = new Node(b-&gt;i,b-&gt;j,b-&gt;val);
+			a = a-&gt;cnxt, b=b-&gt;cnxt;
+		}
+		a = cura-&gt;rnxt, b=curb-&gt;rnxt,p=ans-&gt;rnxt;
+	}
+}
+
+Node* times(Node* a, Node* b, int r, int c){
+	Node *ans=new Node(0,0,0);
+	Node *cura = a, *curb =b, *p=ans;
+	while(cura&amp;&amp;curb){
+		while(a){
+			while(b){ 
+			//矩阵相乘只有aij*bmn中j=m成立时才需计算
+				if(a-&gt;j&lt;b-&gt;m)	a=a-&gt;cnxt;
+				else if(a-&gt;j&gt;b-&gt;m)	b=b-&gt;rnxt;
+				else{
+					if(p)	p-&gt;val&#43;=a-&gt;val*b-&gt;val;
+					else p=new Node(a-&gt;i,b-&gt;j,a-&gt;val*b-&gt;val);
+					a=a-&gt;cnxt, b=b-&gt;rnxt;
+				}
+			}
+			a = cura, b=curb-&gt;cnxt, p=ans-&gt;cnxt;
+		}
+		a = cura-&gt;rnxt, p=ans-&gt;rnxt;
+	}
+}</code></pre>
         </td>
       </tr>
     </tbody>

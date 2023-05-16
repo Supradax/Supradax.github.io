@@ -539,7 +539,224 @@ The time complexity has been proved O(nloglogn) and this is what is called <stro
 
 <p>It is clear that the composite number will be excluded by its least prime divisor. And the time complexity is O(n).</p>
 <h2 id="iveuler-function">§IV	Euler Function</h2>
-<p>Euler Function,</p>
+<p><strong>Lemma</strong> <strong>Exclusive-and-Inclusive Principle</strong>, widely applied in the higher-dimension prefix sum algo and many other fields. Another well-renowned appliance lies in the counting of numbers without common divisor. For instance, the number of integers within n which can&rsquo;t be divided by 2 and 3 is $n-(\frac{n}{2}+\frac{n}{3})+\frac{n}{6}$</p>
+<p>Euler Function $\phi(n)$, indicating $\phi(n)=$<strong>card{$x\in N_+|x&lt;n,gcd(x,n)=1$}</strong> And it is trivial to verify that:
+$\phi(1):=1, \phi(p)=p-1, \phi(p^m)=(p-1)p^{m-1}$(p is prime).For the last equation, only the (p-1) multiples in total of p has common divisor with $p^m$.</p>
+<p>With accordance to the exclusive-inclusive principle, there is:
+$$n=\prod{p_i^{\alpha_i}},\phi(n)=n-\sum{n\over{p_i}}+\sum{n\over{p_ip_j}}-&hellip;=n\prod{(1-\frac{1}{p_i})} \tag{4.1}$$</p>
+<p>(4.1) is the expression of $\phi$ and we claim $\phi$ as a <strong>Multiplicative Function</strong></p>
+<ul>
+<li><strong>Arethmetic Function</strong>:functions whose domain is $N_+$</li>
+<li><strong>Multiplicative Function</strong>: if (a,b)=1, then $f(x)f(y)=f(xy)$. If (a,b) is not necessary, then f is claimed to be <strong>Completely Multiplicative Function</strong></li>
+<li><strong>Addictive Function</strong>: if (a,b)=1, then $f(x+y)=f(x)+f(y)$</li>
+</ul>
+<p><strong>Theo.</strong> $\phi(x)$ is productive.</p>
+<p>  <strong>pf.</strong> $\phi(a)\phi(b)=a\prod{(1-\frac{1}{p_i})}b\prod{(1-\frac{1}{q_i})}$, owing to $(a,b)=1$ then $p_i\neq q_j$, thus</p>
+<p>  $\phi(a)\phi(b)=ab\prod{(1-\frac{1}{r_i})}=\phi(ab)$, where a,b,ab can be decomposed into the product of $p_i,q_i,r_i$ respectively. □</p>
+<p><strong>Deduction(Fermat&rsquo;s Little Theorem)</strong> $a^{p-1}\equiv 1\mod{p}$ where p is prime.</p>
+<p>  <strong>Lemma.</strong>  $a^{\phi(n)}\equiv1\mod n$.</p>
+<p>  <strong>pf.</strong> Let $p_i$ be those s.t. $(p_i,n)=1$ and the amount is $\phi(n)$, then the value of $ap_i \mod n$ differs(supposing $a(p_i-p_j)|n$, but still (a,n)=1 and $|p_i-p_j|&lt;n$ making $p_i=p_j$ i.e. $i=j$) and therefore we have $(ap_1)(ap_2)&hellip;(ap_{\phi(n)})\equiv p_1&hellip;p_{\phi(n)} \mod n$<br>
+i.e. $a^{\phi(n)}\equiv 1 \mod n$. Plug in the prime p, we have
+$a^{p-1}\equiv 1 \mod p$. □</p>
+<p>To calculate $\phi(x)$ effectively, we opt to follow the original <strong>Euler sieve</strong> to pick out the primes.</p>
+<p>A crucial idea is that <strong>the non-prime are excluded by its least prime divisor $p$</strong>. Thus supposing $m=p×i$ and $p|i$, i contains all prime divisors of m**(p is prime)**, we have $\phi(m)=p(i\prod{(1-\frac{1}{p_i})})=p\phi(i)$. And if not, (p,i)=1 and $\phi$ is productive, there we have $\phi(m)=\phi(i)\phi(p)$
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">/*phi[] is for all numbers
+p[] is to record the discovered primes while the cnt indicates the its amount;
+vis[] is to label the verified non-primes */
+int phi[N], p[N], vis[N], cnt; 
+void get_phi(int n){
+	phi[1]=1;
+	for(int i=2;i&lt;=n;i&#43;&#43;){
+		//the unvisited are prime
+		if(!vis[i])	p[cnt&#43;&#43;]=i, phi[i]=i-1;
+		for(int j=0;i*p[j]&lt;=n;j&#43;&#43;){
+			int m=i*p[j];
+			vis[m] = true;
+			//p[j]|i means i contains all prime divisors of m
+			if(!i%p[j]){
+				phi[m] = p[j]*phi[i];
+				break;
+			}else	phi[m]=(p[j]-1)*phi[i];
+			//i can&#39;t divide p[j] means (i,p[j])=1
+		}
+	}
+
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="v-mobius-inversion">§V Mobius Inversion</h2>
+<h4 id="51-fraction-floor-sum数论分块">5.1 Fraction Floor Sum(数论分块)</h4>
+<p>In the scenario to compute $\sum_{i=1}^n \left \lfloor \frac{n}{i}  \right \rfloor $ where n is given, there must be a j s.t. $\left \lfloor \frac{n}{i}  \right \rfloor  = \left \lfloor \frac{n}{j}  \right \rfloor $. If able to know the upper bound of j, then we can apply $\left \lfloor \frac{n}{i}  \right \rfloor(j-i)$, which diminishes the complexity from O(n) into O($\sqrt{n}$)</p>
+<p><strong>Theo. 1</strong> The amount of different values among $\left \lfloor \frac{n}{i}  \right \rfloor $ is no more than $2\sqrt{n}$</p>
+<p>  <strong>pf.</strong> For those $i\leq\sqrt n$, thanks to the amount of i is $\sqrt n$ to the most; for those $i&gt;\sqrt n$, $1\leq \left \lfloor \frac{n}{i}  \right \rfloor \leq \left \lfloor \frac{n}{\sqrt[]{n} }  \right \rfloor&lt;\sqrt[]{n}+1$ there are only no more than $\sqrt n$ numbers to choose. Sum them up and $2\sqrt n$ is got.</p>
+<p><strong>Theo. 2</strong>  $j = \left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor }   \right \rfloor $</p>
+<p>  <strong>pf.</strong> $\frac{n}{i} \leq\left \lfloor \frac{n}{i}  \right \rfloor$, $j=\left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor} \ \right \rfloor
+\geq \left \lfloor \frac{n}{\frac{n}{i} }  \right \rfloor=i$ which means j is the upper bound of all possible i. And now verify $\left \lfloor \frac{n}{i}  \right \rfloor =\left \lfloor \frac{n}{j}  \right \rfloor$, plug i,j in we have:</p>
+<p>   $\left \lfloor \frac{n}{j} \right \rfloor \leq \frac{n}{\left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor} \ \right \rfloor
+}\leq\frac{n}{\frac{n}{\left \lfloor \frac{n}{i} \right \rfloor}}=\left \lfloor \frac{n}{i}  \right \rfloor$ □</p>
+<p>And now to compute the fraction floor sum from 1 to n, we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>floor sum.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int get_floor_sum(int n){
+	int i=1, res=0;
+	while(i&lt;=n){
+		int j = n/(n/i);
+		res&#43;=(j-i&#43;1)*(n/i);
+		i = j&#43;1;
+	}
+	return res;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Theo 3(Fair Distribution)</strong>  For $a,b,c\in Z$,$\left \lfloor \frac{a}{bc}  \right \rfloor =\left \lfloor \frac{\left \lfloor \frac{a}{b}  \right \rfloor }{c}  \right \rfloor $</p>
+<p><strong>pf.</strong> It is apparent that the right side is less equal to the left. Now $\left \lfloor \frac{\left \lfloor \frac{b}{a}  \right \rfloor }{c}  \right \rfloor &lt;
+\left \lfloor \frac{\frac{b}{a}+1}{c} \right \rfloor\leq\left \lfloor \frac{b}{ac}\right \rfloor+1$ i.e. $\left \lfloor \frac{\left \lfloor \frac{b}{a}  \right \rfloor }{c}  \right \rfloor \leq\left \lfloor \frac{b}{ac}\right \rfloor$ □</p>
+<h4 id="52-dirichlet-convultion">5.2 Dirichlet Convultion</h4>
+<p>There are some common productive functions as below:</p>
+<ul>
+<li>unit $\epsilon(x)=\delta_{ix}$</li>
+<li>identity $id_k(x)=x^k$</li>
+<li>constant $1(x)=1$</li>
+<li>euler $\phi(x)=\sum{\delta_{1,gcd(i,n)}}$</li>
+</ul>
+<p>Dirichlet convultion is the discrete version and the D-convultion of productive function f and gis defined as:
+$$h=f*g, h(n)=\sum_{d|n}f(\frac{n}{d})g(d)=\sum_{ab=n}f(a)g(b)\tag{5.1}$$</p>
+<p>And D-convultion has some properties.</p>
+<ul>
+<li>Communicative Law. $f*g=g*f$ (obvious in 2nd definition in (5.1))</li>
+<li>Associative Law. $f*(g*h)=(f*g)*h$ (Expand two sums)</li>
+<li>Distribution Law. $f*(g+h)=f*g+f*h$</li>
+<li>Unique. $f=g$ i.e. $f<em>h=g</em>h$</li>
+<li>Productive. $h=f*g$, $h(ab)=h(a)h(b),(a,b)=1$</li>
+<li>Reverse. If $f(1)\neq 0, f*g=\epsilon$, then g is reversable.</li>
+</ul>
+<p><strong>Notes.</strong> The productive property holds water thanks to (a,b)=1, making there is no redundant items when expanding the product of two sums.</p>
+<p><strong>Mobius Function $\mu(x)$</strong>, which is defined as $\mu(1)=1, \mu(n)=0$ if n has duplicated prime divisors and $\mu(n)=(-1)^k$ where k is the amount of different prime divisors n has.</p>
+<p><strong>Theo 1.</strong> $\sum_{d|n}\mu(d)=\epsilon(n)$</p>
+<p>  <strong>pf.</strong> $\sum_{d|n}\mu(d)=\sum_{d|n&rsquo;}\mu(d)$, where $n&rsquo;$ leaves only one different divisor in n. When choosing more than one $p_i$, $\mu(x)=0$, that is to say, such a selection contributes nothing to the result and so the equation makes sense.</p>
+<p>   It is obvious that $\mu(d)=\sum_0^k C_k^i(-1)^i=0^k$ i.e. $\mu(d)=\delta_{0,k}$. And when k=0, n=1, matching the definition of $\epsilon$.</p>
+<p><strong>Notes.</strong> The n in Theo 1 is commonly turned out to be <strong>gcd(i,j)</strong></p>
+<p><strong>Theo. 2</strong> $\mu(x)$ is productive.</p>
+<p><strong>Theo. 3</strong> $\phi*1=id$</p>
+<p>  <strong>pf.</strong> Because D-convultion is productive, we might not consider $n=p^k$ as well. Therefore, $\phi*1=\sum_{d|n}\phi(\frac{n}{d})=\sum_0^k\phi(p^i)=1+(p-1)(p^0+&hellip;p^{n-1})=p^k=n$ and then apply the unique decomposition theo. □</p>
+<p><strong>Theo. 4(Mobius Inversion)</strong> If $f(n)=\sum_{d|n}g(d)=(1* g)(n)$, then $g(n)=(f*\mu)(n)$</p>
+<p>  <strong>pf.</strong> $g=g*\epsilon=g*(1*\mu)=(g*1)*\mu=f*\mu$</p>
+<p><strong>Notes.</strong> It is still correct to swap d and n to enumate the multiples. $f=id* g$, then $g=\mu * f$</p>
+<p>Similar to $\phi$, $\mu$ can be figured out via the linear sieve. Since each number$m$ is filtered by the minimum prime divisor$p$, say $m=pi$</p>
+<ul>
+<li>if $p|i$, then i contains p as well, making $\mu(m)=0$</li>
+<li>if not, then i doesn&rsquo;t contain p and therefore m has one more different prime divisor than i. No matter $\mu(i)=-1,0,1$, $\mu(m)=-\mu(i)$</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>floor sum.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int mu[N], p[N], vis[N], cnt=0;
+void get_mu(int n){
+	for(int i=2;i&lt;=n;i&#43;&#43;){
+		if(!vis[i])	mu[i]=-1,p[&#43;&#43;cnt]=i;
+		for(int j=1;i*j&lt;=n;j&#43;&#43;){
+			int m = i*p[j];
+			vis[m]=true;
+			if(!i%p[j]){
+				mu[m]=0;
+				break;	
+				//break timely to avoid redundant calculation
+			}
+			else mu[m]=-mu[i];
+		}
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>Summary.</strong>  Important equations.</p>
+<ul>
+<li>$1*\mu=\epsilon$, $1*\phi=id$, $id*\mu=\phi$</li>
+</ul>
+<h4 id="53-problem-set">5.3 Problem Set</h4>
+<p><strong>Problem. A</strong> Given n coins, with only the first intially heads-up, how many minimum flips are required to make all the coins show heads-up? At each turn, you can choose a postiive integer i to flip all the coins at positions j where $i|j$.</p>
+<p>  <strong>Analysis</strong> The state of coins is irrelavant to the flipping order but the times. A simplier problem is that you are allowed to flip two neighbor coin each turn(if the solution exists), then apply greedy algo: you can&rsquo;t flip the same pair of coins more than once. Arriving each coin, we only need to decide whether to flip the current coin and keep going.</p>
+<p>   Likewise, it is clear that we must flip the first so that coins at position 2-n show tails-up. The times of flips should all be <strong>odd</strong>. And it is still clear to see <strong>all the coins at prime numbers $p_i$</strong> should be flipped; there are also some coins might be flipped many times, for instance, 6 is flipped when it comes to 2 and 3; but for numbers like 12,24 etc which have identical prime divisors, they are already corrected as it comes to 6(the number contains all the prime divisor without repeating). Therefore, <strong>only the prime number and those have even prime different factors required flipping</strong> i.e. it is enough to count up the amount of prime numbers and those $\mu(n)=1$.</p>
+<p><strong>Problem. B</strong> For $x\in[a,b],y\in[c,d]$ where a,b,c,d are given. How many pairs (x,y) are there s.t. gcd(x,y)=k?</p>
+<h2 id="vi-fast-number-theory-transformation-fntt">§VI Fast Number Theory Transformation FNTT</h2>
               
 
 

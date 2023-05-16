@@ -6,7 +6,16 @@
     <description>Recent content in ML on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Gaussian Distribution</title>
+      <link>https://Supradax.github.io/2023/05/mlgaussian-distribution/</link>
+      <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/mlgaussian-distribution/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[ML]Info Entropy and Random Forest: Primer</title>
       <link>https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/</link>

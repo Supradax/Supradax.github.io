@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[Marcov]Marcov Chain",
+  "headline": "[ML]Gaussian Distribution",
   
-  "image": "https://Supradax.github.io/img/marcov.jpg",
+  "image": "https://Supradax.github.io/img/stack.jpg",
   
-  "datePublished": "2023-04-23T00:00:00Z",
-  "dateModified": "2023-04-23T00:00:00Z",
+  "datePublished": "2023-05-07T00:00:00Z",
+  "dateModified": "2023-05-07T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/04\/marcovmarcov-chain\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/05\/mlgaussian-distribution\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,30 +59,30 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Marcov]Marcov Chain">
-<meta name="twitter:title" content="[Marcov]Marcov Chain">
-<meta property="og:url" content="https://Supradax.github.io/2023/04/marcovmarcov-chain/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/04/marcovmarcov-chain/">
+<meta property="og:title" content="[ML]Gaussian Distribution">
+<meta name="twitter:title" content="[ML]Gaussian Distribution">
+<meta property="og:url" content="https://Supradax.github.io/2023/05/mlgaussian-distribution/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/05/mlgaussian-distribution/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-04-23T00:00:00">
+    <meta property="article:published_time" content="2023-05-07T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-04-23T00:00:00">
+    <meta property="article:modified_time" content="2023-05-07T00:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="Math">
-    
   
   
     
-      <meta property="article:tag" content="Calculus">
+      <meta property="article:section" content="ML">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
     
   
 
@@ -102,18 +102,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/marcov.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/marcov.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/stack.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/stack.jpg">
 
 
-    <title>[Marcov]Marcov Chain</title>
+    <title>[ML]Gaussian Distribution</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/04/marcovmarcov-chain/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/05/mlgaussian-distribution/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -273,15 +273,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [Marcov]Marcov Chain
+      [ML]Gaussian Distribution
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-04-23T00:00:00Z">
+      <time datetime="2023-05-07T00:00:00Z">
         
-  April 23, 2023
+  May 7, 2023
 
       </time>
     
@@ -290,7 +290,7 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
     
   
 
@@ -300,21 +300,50 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <h2 id="1-marcov-model">1 Marcov Model</h2>
-<p>If a system has several states and each action can transform the current to another with certain possiblities, then such a random system is called <strong>Marcov Model</strong>.</p>
-<p>For instance, a state transition graph can be mapped with a <strong>state transition probability matrix</strong> $\begin{bmatrix}
-p_{00} &amp;  p_{01}  &amp;  p_{02} \\
-p_{10} &amp;  p_{11}  &amp;  p_{12} \\
-p_{20} &amp;  p_{21}  &amp;  p_{22} \\
-\end{bmatrix}$
-where $p_{ij}$ means state i has a probability to transform into j. And such matrix has a property that $\sum_i^n{p_{ji}}=1$ which means it has an eigenvalue 1 and eigenvector $(1,1,1)^T$</p>
-<p>The matrix can be decomposed as $P^{-1}JP$ where J is Jordan Canonical Form(JCF) and $A$ is called <strong>steady-state</strong> where $A^n\to B(n\to\infty)$</p>
-<p>The Marcov matrix has several properties:</p>
-<ol>
-<li>The convergence is not unique, it depends on the initial condition.</li>
-<li></li>
-<li></li>
-</ol>
+              <h2 id="1-极大似然估计">1 极大似然估计</h2>
+<p>极大似然估计(Maximum Likelihood Estimation)，对模型$p(X|\theta)$，频率学派认为模型参数$\theta$固定，利用已有样本结合求导方法优化损失函数的方法. 除极大似然估计外，使用<strong>点估计(采样为数据点)<strong>的方法还有</strong>最小二乘、矩估计、Bayes估计</strong>等.</p>
+<p>对模型$p(X|\theta)$，使用某种优化方法得到的统计量$\tilde\theta$，当$E[\theta]\neq E[\tilde\theta]$时，称<strong>有偏估计</strong>，反之称<strong>无偏估计</strong>，对不同模型和不同统计量，有偏性可能不同.</p>
+<p>以频率学派观点，先假定<strong>似然函数(Likelihood Function)</strong>，$$L(x_1,&hellip;x_n;\theta)=\prod {P(X=x_i,\theta)}\tag{1.1}$$由于连乘不便求导，两边取对数得$$\log L = \sum{\log P(X=x_i,\theta)} \tag{1.2}$$
+从而求导取极值解得$\tilde\theta$(一般L在端点取值为0且非负，故最大点是极值点)
+$${L&rsquo;(\tilde\theta)\over L(\tilde\theta)}=\sum{P&rsquo;(X=x_i|\tilde\theta)\over{P(X=x_i|\tilde\theta)}}=0 \tag{1.3}$$</p>
+<p><strong>e.g.</strong> 设离散随机变量X且取值{0,1,2}的分布列为$\theta^2,2\theta(1-\theta),(1-\theta)^2$，假定10个样本中有3个0,4个1,3个2，则有$L(\theta)=\theta^6(2\theta(1-\theta))^4 (1-\theta)^6=16\theta^{10}(1-\theta)^{10}$，$\log L =\log\theta+\log(1-\theta)$，从而$\theta={1\over2}$</p>
+<p>该似然函数的原理为假定该事件序列存在固定发生概率$\theta$，按照这些概率相乘推测出该事件序列发生概率. 其哲学观点为<strong>既然这件事已经这样发生，那么这样发生的概率是最大的</strong>，从而将似然函数极大. 其偏差估计在于<strong>这件事不一定是概率最大的</strong> 若解出多个$\tilde\theta$，则代入找最大值.</p>
+<h2 id="2-高斯分布">2 高斯分布</h2>
+<h3 id="21-高斯分布的引出">2.1 高斯分布的引出</h3>
+<p>考虑在一个xOy平面中，瞄准原点射击，求子弹落点的分布(<strong>要求这个分布性质足够好</strong>). 在承认<strong>x和y方向独立同分布</strong>的前提下，记该分布在x和y轴上<strong>概率密度函数(PDF)</strong>(Probability Density Function，积分得累积分布函数CDF F(x) Cummulative Distribution Function)为$f(x),f(y)$. 注意到<strong>x,y地位对等且可将坐标轴任意旋转</strong>，从而射击到距离原点为r的圆上<strong>等概率</strong>，即$$g(r)=\oint_{x^2+y^2=r^2} f(x)f(y)ds\tag{2.1}$$</p>
+<p>转换为极坐标有$$g(r)=\int_0^{2\pi} f(r\cos\theta)f(r\sin\theta)d\theta\tag{2.2}$$，由于g(r)与$\theta$无关，故两边求导有
+$$0=\frac{\partial g(r)}{\partial \theta}=\frac{\partial }{\partial \theta } \int_0^{2\pi} f(r\cos\theta)f(r\sin\theta)d\theta
+= \int_0^{2\pi} \frac{\partial }{\partial \theta }f(r\cos\theta)f(r\sin\theta)d\theta\tag{2.3}$$
+由于g(r)与$\theta$无关，即半径为r的圆上概率导数为零，
+变换回x-y坐标得$$\frac{xf(x)}{f&rsquo;(x)}= \frac{yf(y)}{f&rsquo;(y)}=C\tag{2.4}$$
+利用Cauchy方法解Cauchy方程(2.4)得唯一连续解，$$f(x)=C_1e^{-C_2\frac{x^2}{2} }\tag{2.5}$$，联立期望方程和均一化有$$\int\limits_{-\infty}^{+\infty} f(x)dx=1, \int\limits_{-\infty}^{+\infty} xf(x)dx=0 \tag{2.6}$$
+前者可化为二重积分加极坐标换元计算，后者为奇函数显然成立，对给定的均值和方差可同理代入确定系数$C_1,C_2$，从而得<strong>参数为$\mu,\sigma$正态(高斯)分布</strong>，记作$N(\mu,\sigma^2)$：
+$$f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2} } \tag{2.7}$$
+Notes. 由极限中心定理，可知正态分布是二项分布当$n\to\infty$的极限情况；而参数为$np$的Poison分布$f(n)=\lambda\frac{e^{-\lambda n}}{n!}$是$np$较小且$n$较大时的近似分布</p>
+<h3 id="22-极限中心定理">2.2 极限中心定理</h3>
+<h3 id="23-多重独立高斯分布">2.3 多重独立高斯分布</h3>
+<p>对多重iid高斯分布，PDF为$p(x)=\frac{1}{(\sqrt{2\pi})^p\sqrt{|\Sigma|}}\exp{-\frac{1}{2}(X-\mu I)^T\Sigma^{-1}(X-\mu I)} $</p>
+<h3 id="24-极大似然估计下的高斯分布">2.4 极大似然估计下的高斯分布</h3>
+<p>对给定N个维度为p的样本，样本矩阵为$X=(x_1,&hellip;,x_n)^T,x_i\in R^p$，假定<strong>每个样本独立同分布(iid:independent identical distribution)于同个高斯概率模型$N(\mu,\Sigma)$</strong>，其中模型参数$\theta=(\mu,\Sigma^2)$，极大似然估计MLE参数$\theta_M=(\mu_M,\sigma^2_M)$</p>
+<p>下面依次对维度为1的高斯分布和为n的独立高斯同分布进行似然估计并分析其均值和方差的有偏性.
+对单个高斯分布$X\sim N(\mu,\sigma)$和N个一维样本$X=(x_1,&hellip;x_n)$进行MLE.</p>
+<h4 id="241-一维情况">2.4.1 一维情况</h4>
+<p>对一个维度的情况，有$\log L=\sum{\log\frac{1}{\sqrt[]{2\pi}\sigma }-\frac{(x_i-\mu)^2}{2\sigma^2}}$，对参数$\mu$求导，只需$\sum2(x_i-\mu)=0$，解得$\mu_M=\bar x$；同理对参数$\sigma$求导并令偏导数为0，解得$\sum -\frac{1}{\sigma }+(x_i-\mu)^2\sigma^{-3}=0$$\Rightarrow N\sigma ^2=\sum (x_i-\mu)^2$，从而有$\sigma_M^2=\frac{1}{N}\sum (x_i-\mu_M)^2 $(此处只能代入估计的均值导致有偏)
+$$\mu_M=\sum \frac{x_i}{N}, \sigma_M^2=\frac{1}{N}\sum (x_i-\mu_M)^2$$</p>
+<p>再证明 <strong>$\mu_M$是无偏估计，$\sigma_M$是有偏估计</strong>
+<strong>pf.</strong> $E[\mu_M]=E[\sum \frac{x_i}{N}]=\sum \frac{E[x_i]}{N}=\sum \frac{\mu}{N}=\mu$，从而均值无偏；但对方差，有
+$$\begin{array}{l}
+E[\sigma_M^2]=\frac{1}{N}\sum E[x_i^2+\mu_M^2-2x_i\mu_M]\\=
+\frac{1}{N}\sum E[x_i^2]-\mu_M^2 \\
+=\frac{1}{N}\sum (E[x_i^2]-\mu^2)+(\mu^2-\mu_M^2)\\
+=\frac{1}{N}\sum (E[x_i^2]-E^2[x_i])+(E^2[\mu_M]-E[\mu_M^2])\\
+=Var[x_i]-Var[\mu_M]
+\end{array}$$
+其中$Var[\mu_M]=Var[\frac{1}{N}\sum x_i]=\frac{1}{N^2}\sum Var[x_i]=\frac{N\sigma^2 }{N^2}
+=\frac{\sigma^2 }{N}$，从而
+$$\sigma _M^2=E[\sigma_M^2]=\sigma ^2-\frac{1}{N}\sigma^2 \Rightarrow  \sigma_M^2=\frac{N-1}{N}\sigma^2$$
+故在通过计算样本方差并转换为无偏估计时，需除以N-1而非N. 在定性认识上，由于$\mu_M$不是真正的$\mu$，使用样本作为均值估计方差时<strong>对高斯分布而言数据会更集中，导致方差变小</strong>，但好在估计方差时这种误差可以通过乘一个系数消除.</p>
+<h4 id="242-多维情况">2.4.2 多维情况</h4>
               
 
 
@@ -328,7 +357,7 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/calculus/">Calculus</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
 
                   </div>
                 
@@ -341,7 +370,7 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" data-tooltip="[Algorithm]Catalan and Stiring Numbers with Generating Functions" aria-label="NEXT: [Algorithm]Catalan and Stiring Numbers with Generating Functions">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -349,7 +378,7 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" data-tooltip="[ML]Info Entropy and Random Forest: Primer" aria-label="PREVIOUS: [ML]Info Entropy and Random Forest: Primer">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" data-tooltip="[Algorithm]Catalan and Stiring Numbers with Generating Functions" aria-label="PREVIOUS: [Algorithm]Catalan and Stiring Numbers with Generating Functions">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -367,19 +396,19 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -410,9 +439,9 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/marcovmarcov-chain\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/05\/mlgaussian-distribution\/';
         
-          this.page.identifier = '\/2023\/04\/marcovmarcov-chain\/'
+          this.page.identifier = '\/2023\/05\/mlgaussian-distribution\/'
         
       };
       (function() {
@@ -448,7 +477,7 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" data-tooltip="[Algorithm]Catalan and Stiring Numbers with Generating Functions" aria-label="NEXT: [Algorithm]Catalan and Stiring Numbers with Generating Functions">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -456,7 +485,7 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/mlinfo-entropy-and-random-forest-primer/" data-tooltip="[ML]Info Entropy and Random Forest: Primer" aria-label="PREVIOUS: [ML]Info Entropy and Random Forest: Primer">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/" data-tooltip="[Algorithm]Catalan and Stiring Numbers with Generating Functions" aria-label="PREVIOUS: [Algorithm]Catalan and Stiring Numbers with Generating Functions">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -474,19 +503,19 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/marcovmarcov-chain/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/mlgaussian-distribution/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -517,19 +546,19 @@ where $p_{ij}$ means state i has a probability to transform into j. And such mat
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmarcovmarcov-chain%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlgaussian-distribution%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmarcovmarcov-chain%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlgaussian-distribution%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmarcovmarcov-chain%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlgaussian-distribution%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

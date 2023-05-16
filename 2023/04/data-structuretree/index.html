@@ -307,12 +307,8 @@
 <ul>
 <li>树的构成：双亲和孩子结点；左右孩子；叶子、分支和根结点；森林</li>
 <li>树的类型：二叉树、满二叉树、完全二叉树、平衡二叉树、搜索二叉树、Huffman树</li>
-<li>树的参数：树高、深度、(结点)度数</li>
+<li>树的参数：树高(<strong>相对根节点</strong>)、深度(层数)、(结点)度数</li>
 </ul>
-<ol>
-<li>平衡二叉树：对任意节点，|左子树高-右子树高|$\leq1$</li>
-<li>满二叉树</li>
-</ol>
 <h3 id="12-二叉树基本性质">1.2 二叉树基本性质</h3>
 <p>在二叉树中，记出度为i的结点数为$n_i(i=0,1,2)$与结点数n，且按照满二叉树排列从1开始计数. 其中$n_0$即叶子结点数</p>
 <ul>
@@ -573,6 +569,7 @@ Node* huffman(){
 </figure>
 
 <h2 id="6-堆">6 堆</h2>
+<h3 id="61-二叉堆">6.1 二叉堆</h3>
 <p>堆分为<strong>小顶堆(minheap)和大顶堆(maxheap)</strong>，以小顶堆为例，堆是一个<strong>满足任意子树的根节点小于子树任意节点的完全二叉树</strong>. 堆支持<strong>上滤</strong>和<strong>下滤</strong>的操作.</p>
 <p>将所有元素放入堆中并依次取出堆顶元素，则实现<strong>堆排序</strong>，该数据结构加以封装即为<strong>优先队列</strong></p>
 <ul>
@@ -672,10 +669,11 @@ void build_from_ground_up(int data[],int size){
 <li>增减元素
 对增添元素，只需放在末尾(与自顶向下相同)再上滤，复杂度O(logn)；对删减堆顶元素，则<strong>将末尾元素替换掉堆顶元素再下滤</strong>，复杂度O(logn).</li>
 </ul>
+<h3 id="62-可并堆">6.2 可并堆</h3>
 <h2 id="7-bst">7 BST</h2>
 <p>二分搜索树(Binary Search Tree)，比堆的性质更好，满足<strong>根节点≥左子树任意节点且≤右子树任意节点</strong>. 故而可进行二分查找.</p>
 <h3 id="71-二分查找">7.1 二分查找</h3>
-<p><strong>二分查找</strong>，即对<strong>有序数组</strong>进行划分. 为了解决边界问题，<strong>令l=-1，r=N，留出边界(否则当目标在左右边界上时需特判)</strong>，如此则退出条件为<strong>l和r相邻</strong>，则<strong>l为小于的上确界，r为大于的下确界</strong></p>
+<p><strong>二分查找(折半查找)</strong>，即对<strong>有序数组</strong>进行划分. 为了解决边界问题，<strong>令l=-1，r=N，留出边界(否则当目标在左右边界上时需特判)</strong>，如此则退出条件为<strong>l和r相邻</strong>，则<strong>l为小于的上确界，r为大于的下确界</strong></p>
 
   
     
@@ -722,8 +720,28 @@ void build_from_ground_up(int data[],int size){
 <li>(蓝桥·分巧克力)对给定的一些长方形巧克力，要求将其<strong>垂直或水平</strong>切开分给k个人<strong>等大正方形</strong>巧克力，试求满足的最大的正方形边长.</li>
 </ul>
 <p>  <strong>Sol.</strong> 显然若边长为m时为最优解，则任何比m小的都是解，故可二分. 下界为0，上界为所有长方形最长的一边的最大值.</p>
+<p><strong>Notes. 查找的基础知识</strong>
+常见的查找算法有<strong>顺序、二分、分块、哈希等</strong></p>
+<ol>
+<li>定义$ASL=p_iX_i$(Average Search Length)为查询一个元素平均所需的次数(<strong>只有访问到有数据的结点才计数</strong>)，其中$X$为各个数据项的随机变量，$p_i$为对应的分布列. ASL分为查找成功和失败两类，除通过分布列计算，还可用基本事件数计算，如含n个元素的顺序查找$ASL_{succ}=\frac{1}{n}(\sum in_i)=\frac{n+1}{2}, ASL_{fail}=\frac{1}{n}n^2=n$（查找失败都需查到顺序表末）</li>
+<li>对顺序查找，通过设置前后**哨兵(Sentry)**能简便处理越界</li>
+<li>对二分查找，要求<strong>支持随机访问且数据有序</strong>平均一定快于顺序，但对某个数据项不一定总快于(如表头或表末)，其空指针域代表查找失败数据项(但不占用一次查找次数，因为空指针上无数据项). 由二分查找构建的<strong>二分查找树</strong>一定满足<strong>任意节点左子树结点数等于或比右子树多1</strong></li>
+<li><strong>分块查找</strong>，是<strong>综合顺序和二分查找</strong>的产物，由<strong>索引表(有序)和块(可无序)</strong>，其中<strong>索引值为对应块的最值</strong>，以最大值为例，<strong>满足后续所有块中数据的值均不小于该值</strong>. 若将主表均分k段，则$ASL=\frac{k(k+1)}{2}+\frac{\frac{n}{k}(\frac{n}{k}+1)}{2}$，解得当$k=\sqrt{n}$时效率最高. 其中若将<strong>索引表查询二分优化</strong>，则优化为$ASL=log_2{k}+\frac{\frac{n}{k}(\frac{n}{k}+1)}{2}$(准确地讲log是<strong>渐进近似</strong>)
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/linearlist/10.jpg" >
+  
+  
+</div>
+</li>
+<li>二分查找、BST的序列满足<strong>不交叉(类似聚点定理的二分证明)</strong></li>
+</ol>
 <h3 id="72-三分查找">7.2 三分查找</h3>
 <h3 id="73-bst">7.3 BST</h3>
+<p>二叉查找/搜索树(Binary Search Tree)，相比堆，满足<strong>左子树所有数据的值不大于当前结点，右子树则不小于</strong>，故有<strong>中序遍历为单调递增序列</strong></p>
 <ul>
 <li>查询、插入与删除
 查询为二分操作，插入删除均基于查询. 插入只需查询该节点是否存在(假设相同权值的只存储一个)，查至叶子仍不存在则添加；删除同理查询，若为叶则直接删除，若只有一个孩子则缩点，若有两个则<strong>找到直接后继或直接前驱放在原来的位置</strong>，由中序遍历可知，该结点可以是<strong>左子树的最右结点或右子树的最左结点</strong></li>
@@ -791,10 +809,110 @@ bool del(int val){
   </table>
 </figure>
 
+<h3 id="74-avl">7.4 AVL</h3>
+<p>AVL，<strong>自平衡二叉树</strong>. 如当BST不断执行插入有序数列时，<strong>BST会退化为单链表</strong> ，AVL则在BST基础上涉及一套平衡机制避免该退化情况.</p>
+<p>在AVL中，每个结点相比BST具有<strong>平衡因子(Balance Factor)</strong>，定义为<strong>左子树平衡因子-右子树平衡因子</strong>，且叶子bf=0(初始化). 当插入节点时，需进行回溯将路径上所有结点的平衡因子进行更新</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>avl.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//判断二叉树是否平衡
+bool isBalanced(Node* rt){
+	if(!rt &amp;&amp; !rt-&gt;ls &amp;&amp; !rt-&gt;rs) return true; //叶子和空节点总是平衡的
+	if(abs(rt-&gt;ls-&gt;bf-rt-&gt;rs-&gt;bf)&gt;1)	return false;
+	return isBalanced(rt-&gt;ls)&amp;&amp;isBalanced(rt-&gt;rs); //只要一侧不平衡则整棵不平衡
+}
+//插入节点并更新bf值，假定该节点一定不存在
+int insert(Node* rt, int val){
+	if(rt){
+		rt=new Node(val,0);	//到达目标结点
+		return 1;
+	}
+	//递归查找并获取树高
+	if(val&gt;rt-&gt;val)	rt-&gt;h=rt-&gt;ls? rt-&gt;ls-&gt;h-insert(rt-&gt;rs, val):-insert(rt-&gt;rs, val);
+	else rt-&gt;h=rt-&gt;rs?:insert(rt-&gt;ls,val)-rt-&gt;rs-&gt;h:insert(rt-&gt;ls);
+	//回溯，返回最大树高
+	int h = 0;
+	if(rt-&gt;ls)	h&#43;=rt-&gt;ls-&gt;h;
+	if(rt-&gt;rs)  h&#43;=rt-&gt;rs-&gt;h;
+	return h;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>可见，当插入节点时，可能导致BF绝对值超过1，此时需通过<strong>左旋或右旋</strong>来维护AVL性质(使用旋转目的在于不改变BST的有序性). 一般根据插入节点位置不同分为<strong>LL、LR、RL、RR</strong>四类，对应方法分别为<strong>右旋、右旋+左旋、左旋+右旋、左旋.</strong></p>
+<p>下面设插入到子节点C的插入结点为P，祖父、父和子结点为A,B,C. 则：</p>
+<ul>
+<li>LL: P插入到C的左侧，B、C左重右轻，BF分别为2和1，则在插入该子节点后，将B和C右旋(逆时针旋转)使得C的父节点由B变A，B的父节点由A变C.</li>
+<li>RR:</li>
+<li>LR:</li>
+<li>RL:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>avl.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void rotate_rightwards(Node* a){	//赋值三次指针
+	Node *b=a-&gt;ls, *c = a-&gt;ls-&gt;ls;	
+	a-&gt;ls=c, b-&gt;ls=c-&gt;ls, c-&gt;ls=b; 
+}
+void rotate_leftwards(){
+	Node *b=a-&gt;rs, *c = a-&gt;rs-&gt;rs;	
+	a-&gt;rs=c, b-&gt;rs=c-&gt;ls, c-&gt;rs=b; 
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</li>
+</ul>
+<h3 id="75-red-and-black">7.5 Red and Black</h3>
 <h2 id="8-更多树">8 更多树</h2>
 <h3 id="81-b树">8.1 B树</h3>
 <h3 id="82-b树">8.2 B+树</h3>
-<h3 id="83-红黑树">8.3 红黑树</h3>
               
 
 

@@ -2,25 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Supradax.github.io/2023/04/algorithmcatalan-number/</loc>
-    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+    <loc>https://Supradax.github.io/2023/05/mlgaussian-distribution/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/ml/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/ml/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/posts/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/</loc>
     <lastmod>2023-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/combinatorial-math/</loc>
     <lastmod>2023-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/posts/</loc>
-    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/categories/simulation/</loc>
-    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/</loc>
-    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/</loc>
     <lastmod>2023-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/marcovmarcov-chain/</loc>
@@ -33,12 +42,6 @@
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/math/</loc>
-    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/ml/</loc>
-    <lastmod>2023-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/ml/</loc>
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/modeling-ibasic-prediction-and-optimization-models/</loc>

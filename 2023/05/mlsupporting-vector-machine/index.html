@@ -383,6 +383,7 @@ $$W^T\varphi(x)=\sum \alpha_iy_i\varphi(x_i)^T\varphi(x)\tag{11}$$</p>
 <p>   <strong>pf.</strong> 对求解$f(x) s.t. g(x)\leq0,h(x)=0$，构造对应的对偶命题，转换为对x全区域求导，对含m个不等式和n个等式约束条件进行求导，得到$-\nabla f(p)=\sum \lambda_i\nabla g_i(p)+\sum\lambda_i\nabla h_i(p)(\star)$，即<strong>目标的梯度可被不等或等式约束条件的梯度线性表出</strong>. 若极值点是内点，则约束不起作用；若在边界，则只有部分约束起作用(起作用的称<strong>紧致变量</strong>，不起作用的为<strong>松弛变量</strong>). 不妨假设只有k个约束起作用(极值点在这k个边界的交集上)，则去掉余下n-k个边界，<strong>最终求得的极值点仍为p</strong>. 可得$-\nabla f(p)=\sum_1^k \lambda_i\nabla u_i(p)(\star\star)$，($\star\star$)-($\star$)得：<strong>所有松弛项满足</strong>$\lambda_ig_i(p)=0$，i.e.<strong>对线性表出不起作用</strong>，<strong>要么分量为零，要么梯度值为零</strong></p>
 <p>   从分析的角度，则有$z=f(x,y)s.t.g(x,y)=0$，假定p是极值点，由<strong>隐函数存在定理</strong>，若在g附近有隐函数$y=\phi(x)$，则使得$dz=df(x,\phi)=f_x+f_y\phi&rsquo;=0$，对g求导有$g&rsquo;_x+g&rsquo;_y\phi&rsquo;=0$，从而$f_xg_y+g_xf_y=0$，假定极值点处隐函数及其反函数均存在，即$f_x,f_y\neq0$，则$$f_x=\frac{f_y}{g_y}g_x,f_y=\frac{f_x}{g_x}g_y\Rightarrow \lambda_1=\frac{f_y}{g_y}=\frac{f_x}{g_x}=\lambda_2$$，从而可写成向量的分量等式，组合起来得到$\nabla f(p)+\sum \lambda_i\nabla g_i(p)=0$. 对更高维数，可将y看成向量值函数进行归纳证明.</p>
 <p>   对无约束的情形，显然Hesse矩阵在一点满足正定或负定可以取得极值，而在有约束时，假设约束是<strong>仿射</strong>的，则将可行域进行平移使之成为一个线性子空间，并取一个基(阶数为m). 再运用基扩充定理补充一个完整的空间，记过渡矩阵满足$x&rsquo;=xP^{-1}$，则原有$x^THx\geq0$转换为$(Px&rsquo;)^THPx\geq0$，<strong>只需$P^THP$左上角的m阶子阵正定或负定</strong>.</p>
+<p>待补充</p>
               
 
 

@@ -6,7 +6,25 @@
     <description>Recent content in Algorithm on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Partition Algo.: Interval Problems</title>
+      <link>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</link>
+      <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Optimization</title>
+      <link>https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/</link>
+      <pubDate>Wed, 17 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/</guid>
+      <description>&lt;p&gt;DP优化的三个方向：状态总数(空间)、决策时间、状态转移时间&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull</title>
       <link>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</link>

@@ -400,12 +400,57 @@ $$S(n,m)=\frac{1}{m!}\sum_0^m(-1)^{m-k}C_m^kk^n\tag{4.9}$$</p>
 <p><strong>Theo 1</strong></p>
 <p><strong>Theo 2(Burnside Lemma)</strong> G is the Permutation Group, $Z_k$ is the subset of G s.t. k is the fixed point, L is the equivalence class, $c_1(k)$ indicates the number of fixed point in a permutation.
 $$L|Z_k|=\sum c_1(k)\tag{5.1}$$</p>
-<p><strong>Dihedralk Group</strong></p>
+<p><strong>Dihedralk Group</strong> A specific group maintaining regular polygans on a plane consists of n reflection $y$(along the diagnal or the perpendicular bisector) and n rotation(rotate an angle of $\frac{2k\pi}{n}$) $x$ linear transformation, which is noted as $D_{2n}$.
+$$D_{2n}=&lt;x,y|x^n=1,y^2=1,y^{-1}xy=x^{-1}&gt;$$</p>
+<p><strong>Problem A</strong> The amount of arrangement to color a 2×2 chessboard with 2 colors(Only rotations allowed).</p>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/geo/24.jpg"  alt="All Possible States Without any Transformation(16 in total)">
+   
+    
+     <span class="caption">All Possible States Without any Transformation(16 in total)</span>
+   
+ </div>
+
+<p>   <strong>Sol.</strong> Apply all transformations in G. And get loops:
+$\sigma_1=(1)&hellip;(16),\sigma_2=\sigma_4=(1)(2)(3,4,5,6)(7,8,9,10)(11,12)(13,14,15,16)$
+$\sigma_3=(1)(2)(3,5)(4,6)(7,9)(8,10)(11)(12)(13,15)(14,16)$
+With Burnside Lemma, $L=\frac{1}{4}(16+2+2+4)=6$</p>
+<p><strong>Regular Hexahedron(Cube) Group</strong> It contains only rotation but with different axes. 3 crossing the centers of a pair of surfaces(I)(Rotate 0,90°,180°,270°), 4 diagnals(II)(Rotate 120°,240°) and 6 crossing the midpoints of the opposite edges(Rotate 180°)(III).
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/geo/25.jpg"  alt="Axes in a Cube">
+   
+    
+     <span class="caption">Axes in a Cube</span>
+   
+ </div>
+</p>
+<p><strong>Problem B</strong> The amount of arrangement to color the cube surfaces with different colors.</p>
+<p>   <strong>Sol.</strong> Only the identical tranformation will remain the arrangement unchanged making it $\frac{6!}{1+3×3+4×2+6}=30$</p>
 <h4 id="52-polya-theorem">5.2 Polya Theorem</h4>
 <p>When <strong>the color amount is far less than the regions to dye</strong>, we tend to compute by starting off from color itself instead of the state. And it explains the reasonability for the rise of <strong>Polya Theorem</strong>. However,Polya Theorem <strong>fails when the tactic of color distribution is constrained</strong>, for instance, the color on each cube surface differs.</p>
 <p><strong>Theo 3(Polya Theorem)</strong> G is the Permutation Group with the color amount m, L is the equivalence class and $c(\sigma_k)$ is the loop amount in each permutation $\sigma_k$ in G.
 $$L|G|=\sum m^{c(\sigma_k)}\tag{5.1}$$</p>
-<p>12</p>
+<p><strong>Problem A</strong>
+   <strong>Sol.</strong> The dying arrangement is not restricted(unlike Problem B) so we can adopt Polya Theorem.
+$\sigma_1=(1)(2)(3)(4),\sigma_2=\sigma_4=(1,2,3,4),\sigma_3=(1,3)(2,4)$. Unlike Burnside Lemma, Polya focuses on the loop of each positions to dye instead of concrete states. Thus $\frac{2^4+2^1+2^1+2^2}{4}=6$ is obtained.</p>
+<p><strong>Problem C</strong> The amount of arrangement to color the cube surfaces with at most 6 colors.</p>
+<p>   <strong>Sol.</strong> For identity, $c(\sigma)=6$; For (I), $c(\sigma)=2+1=3$; For (II), the three surfaces intersected at the vertex alters, $c(\sigma)=2$; For(III),the surfaces intersected with the edge remain stable, $c(\sigma)=2$. Thus $\frac{6^6+6^3×3+6^2×8+6^2×6}{24}=1,992$ is obtained.</p>
+<p><strong>Problem D</strong></p>
+<p><strong>Problem E</strong></p>
+<h4 id="53--sample-problems">5.3  Sample Problems</h4>
+<ol>
+<li>A ring measuring N with 2 colors, the color arrangement amount is required.</li>
+</ol>
+<p>   <strong>Sol.</strong> Apply Polya Theorem directly. For each rotation, $\sigma_k=gcd(k,N)$, thus is $\frac{1}{N}\sum{2^{gcd(i,N)}}$obtained.</p>
+<p>   <strong>Optimization</strong> We can alter the order to sum. Instead of work out gcd, we can choose to count up <strong>the times of appearances of each divisor d</strong> during the process. Let d=gcd(i,N), then i=pd,N=qd, where (pd,qd)=d i.e. (p,q)=1. For each N=qd&gt;pd=i i.e. the times for each d is $\sum_0^N\delta_{(p,q),1}\phi(\frac{N}{d})$</p>
               
 
 

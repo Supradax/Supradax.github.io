@@ -6,13 +6,49 @@
     <description>Recent content in Categories on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cluster</title>
+      <link>https://Supradax.github.io/categories/cluster/</link>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/cluster/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ML</title>
       <link>https://Supradax.github.io/categories/ml/</link>
-      <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/categories/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Structure</title>
+      <link>https://Supradax.github.io/categories/data-structure/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/data-structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Algorithm</title>
+      <link>https://Supradax.github.io/categories/algorithm/</link>
+      <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DP</title>
+      <link>https://Supradax.github.io/categories/dp/</link>
+      <pubDate>Wed, 17 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/categories/dp/</guid>
       <description></description>
     </item>
     
@@ -35,38 +71,11 @@
     </item>
     
     <item>
-      <title>Data Structure</title>
-      <link>https://Supradax.github.io/categories/data-structure/</link>
-      <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/categories/data-structure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Algorithm</title>
-      <link>https://Supradax.github.io/categories/algorithm/</link>
-      <pubDate>Sat, 08 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/categories/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Forecast</title>
       <link>https://Supradax.github.io/categories/forecast/</link>
       <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/categories/forecast/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cluster</title>
-      <link>https://Supradax.github.io/categories/cluster/</link>
-      <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/categories/cluster/</guid>
       <description></description>
     </item>
     
@@ -94,15 +103,6 @@
       <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/categories/sort/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DP</title>
-      <link>https://Supradax.github.io/categories/dp/</link>
-      <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/categories/dp/</guid>
       <description></description>
     </item>
     

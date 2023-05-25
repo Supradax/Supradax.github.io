@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Modeling II] Linear Programming and Integer Programming",
+  
+  "image": "https://Supradax.github.io/img/segdp1.jpg",
+  
+  "datePublished": "2023-05-24T00:00:00Z",
+  "dateModified": "2023-05-24T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/05\/modeling-ii-linear-programming-and-integer-programming\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Modeling II] Linear Programming and Integer Programming">
+<meta name="twitter:title" content="[Modeling II] Linear Programming and Integer Programming">
+<meta property="og:url" content="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-05-24T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-05-24T00:00:00">
+  
+  
+  
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/segdp1.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/segdp1.jpg">
+
+
+    <title>[Modeling II] Linear Programming and Integer Programming</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Modeling II] Linear Programming and Integer Programming
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-05-24T00:00:00Z">
+        
+  May 24, 2023
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h1 id="i-线性规划lp初步">I 线性规划(LP)初步</h1>
+<ol>
+<li>问题构成：</li>
+</ol>
+<ul>
+<li>目标函数 $\max z = (L(x_i))$ (L是$x_i$的线性组合)</li>
+<li>约束条件 $L_1(x_i)≥k_1, L_2(x_i)&gt;k_2,L_3(x_i)=k_3$<br>
+其中目标函数求最小值可转换为求$\max -z$, 约束条件&lt;k同理；且等式约束$L(x_i)=k$可转换为$L(x_i)≥k$或$L(x_i)≤k$</li>
+</ul>
+<p>故一般地，可定义<strong>线性规划的标准型</strong>为<strong>目标函数、不等式约束、等式约束和上下界</strong>四部分构成
+$$\min_x c^Tx s.t.$$ $$A_{ub}x≤b_{ub},A_{eq} x=b_{eq},x_i\in[lb,ub]$$
+2. 求解方法：单纯形法</p>
+<p>易知在二维<strong>决策变量</strong>中，线性规划的可行域是一个一堆半平面的交集（不含等式约束，每多一个线性无关的等式约束使得维数下降1），在其中寻找到固定斜率的直线使得截距最大(小). 在三维情形中，可行域则为半空间的交，此时寻找固定法方向的平面使得z轴截距最大(小). 而且有以下性质：</p>
+<ul>
+<li>可行域R一定是凸集(凸集的交还是凸集)，但可能为空、封闭或无界</li>
+<li>R非空时，最优解可能不存在(如$max x_1$ s.t. $x_1&gt;0$)，最优解的个数可能是有限、无穷多个</li>
+<li>若存在有限最优解，则一定在R的某个顶点取到</li>
+</ul>
+<p>对于形式上非线性规划的问题，但本质还是线性的，可通过恒等变形化为标准型：</p>
+<ol>
+<li>
+<p><strong>绝对值的线性组合</strong>. $\min |x_1|+&hellip;+|x_n|$ s.t. $Ax\leq b$. 作分拆$|x_i|=\frac{|x_i|+x_i}{2}+\frac{|x_i|-x_i}{2}=u_i+v_i$，从而化归为$\min \sum{u_i+v_i}$ s.t. $u_i\geq0,v_i\geq0,A(u-v)\leq b$</p>
+</li>
+<li>
+<p><strong>最大(小)值的最小(大)值</strong>. $\min \max|q_ix_i|$ s.t. $Ax\leq b$，再定义新的决策变量和对应n个约束$y_1\geq q_ix_i,y_2\leq -q_ix_i$，分别计算最优解$\tilde{y_1},\tilde{y_2}$并取最大值$\max \tilde{y_1},\tilde{y_2}$</p>
+</li>
+</ol>
+<h3 id="11-连续型调度问题lp">1.1 连续型调度问题（LP）</h3>
+<p><strong>【例1】</strong> 某液体商品有m个产地，n个销地，各地产量、需求量为$p_i,d_i$，若将商品从产地i运到销地j的单位运价为$c_{ij}$，求：总运费最小的调运方案.</p>
+<p>  <strong>Sol.</strong> 引入决策$x_{ij}$表示从i运到j的商品数，则目标函数为$\min \sum_{i,j=1}^{i,j=n}c_ijx_ij$，各地产量要求$a_k=\sum_{i=1}^n{x_{ki}}$，销售需求量要求$b_k=\sum_{i=1}^m{x_{ik}}$，取值范围为$x_{ij}\geq0$</p>
+<p>  <strong>Notes.<strong>如果该商品按件计数(<strong>定义域在欧式空间中不连续</strong>)，则为</strong>整数规划问题</strong></p>
+<h3 id="12-离散型调度问题0-1规划与匈牙利算法">1.2 离散型调度问题（0-1规划）与匈牙利算法</h3>
+<p><strong>【例2】</strong> 生产甲乙两种机床，利润为$y_1,y_2$. 生产甲、乙需用机器A、B、C分别加工(2,1,0),(1,1,1)小时，若每天三个机器可加工总时长为(10,8,7)小时，求：每天各生产多少台甲乙最优？</p>
+<p>  设甲乙生产$x_1,x_2$台（选取合适决策变量），则目标函数为$\max z = x_1y_1+x_2y_2$，约束条件为$x_1,x_2≥0,2x_1+x_2≤10 x_1+x_2≤8,x_2≤7$</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight python language-python">
+  <figcaption>
+    
+      <span>LP参考代码(默认单纯形法)</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-python python"><code class="python">import numpy as np
+from scipy.optimize import linprog
+
+# 定义目标函数的系数
+c = np.array([y1, y2])
+# 定义不等式约束的系数矩阵A_ub和常数向量b_ub
+A_ub = np.array([[2, 1],[1, 1],[0,1]])
+b_ub = np.array([10,8,7])
+# 定义变量的下界和上界
+bounds = [(0, None), (0, None)]
+# 求解线性规划问题
+result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds)
+# 输出结果
+print(&#39;最优解：&#39;, result.x)
+print(&#39;最优目标函数值：&#39;, result.fun)
+
+&#34;&#34;&#34;
+若添加等式约束x1&#43;2x2=5，则再补充：
+ 定义等式约束的系数矩阵A_eq和常数向量b_eq
+A_eq = np.array([[1, 2]]), b_eq = np.array([5])
+result = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=bounds)
+&#34;&#34;&#34;</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>对于一般的LP问题，当决策变量维数为n时，定义满足L(x)=b的点集为<strong>超平面</strong>，若干个半空间的交集形成的区域为<strong>多胞形</strong>(<strong>空集是特殊的多胞形</strong>)，其中有界(封闭)的多胞形称<strong>多面体</strong>. 下面给出关于上文涉及的几何概念的数学定义：</p>
+<ul>
+<li>区域R是凸集 当且仅当 $\forall x,y\in R,k\in[0,1], kx+(1-k)y\in R$</li>
+<li>x是多胞形R的<strong>极点</strong>(如平面多边形的顶点) 当且仅当 不存在$y_1,y_2\in R,k\in(0,1)$ 使得$ky_1+(1-k)y_2=x$</li>
+</ul>
+<p><strong>【例3】</strong> 分配n个人去做n项工作，每人仅做一项，定义花费矩阵{$c_{ij}$}($c_{ij}$表示第i个人做第j份工作的成本花费)，求：如何分配使得总花费最少?(即求一个置换$\sigma$使得$\min \sum{c_{i\sigma(i)}}$)
+   定义<strong>01决策变量$x_{ij}$</strong>，$x_{ij}=0$表示不让第i个人去做第j项工作，则目标函数为$\min \sum_{i,j=1}^{i,j=n}c_ijx_ij$，约束关系为$x_{ij}=0$或$1$.</p>
+<p><strong>匈牙利算法</strong> 原理为对一个成本矩阵C(<strong>必须是方阵</strong>)，<strong>对C初等行列变换不影响最优指派$\sigma$</strong>，可以通过机械的步骤求解：(定义<strong>独立零元素</strong>为方阵C中满足所在行列没有另一个0的元素)</p>
+<ol>
+<li>每一行减去各行的最小元素，产生零元素</li>
+<li>寻找独立零元素，从单个0的行开始，给0画圈，然后划掉所在列的</li>
+<li></li>
+<li>得到一个矩阵使得<strong>每个0所在行列没有0</strong>(对应一个置换矩阵)</li>
+</ol>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight python language-python">
+  <figcaption>
+    
+      <span>参考代码</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-python python"><code class="python">import numpy as np
+from scipy.optimize import linear_sum_assignment
+
+# 定义成本矩阵
+cost = np.array([[5, 3, 2, 7],
+                 [2, 6, 1, 3],
+                 [8, 2, 5, 1],
+                 [3, 1, 6, 2]])
+# 使用线性和分配方法求解最优指派
+row_ind, col_ind = linear_sum_assignment(cost)
+
+# 输出最优指派结果
+print(&#39;最优指派结果：&#39;)
+for i in range(len(row_ind)):
+    print(f&#39;工人 W{i&#43;1} -&gt; 任务 J{col_ind[i]&#43;1}&#39;)
+
+# 输出总成本
+total_cost = cost[row_ind, col_ind].sum()
+print(&#39;总成本：&#39;, total_cost)</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>若$c_{ij}=0/1$表示i和j之间不存在/存在边，则目标$\max \sum x_{ij}c_{ij}$表示<strong>在二分图$(G;V_1,V_2),|V_1|=|V_2|$<strong>中找到一个</strong>最大匹配</strong>. 可以看到，该问题是匈牙利算法的一个特殊情形，而该问题可用寻找增广路的方式求解.</p>
+<ul>
+<li><strong>交替路</strong>：从<strong>未匹配点出发</strong>，依次经过非匹配、匹配&hellip;交替的路径</li>
+<li><strong>增广路</strong>：从<strong>未匹配点出发</strong>，走交替路能到达另一个未匹配点(<strong>该路可通过交换匹配边和非匹配边，使得匹配边＋1</strong>)
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/36.jpg" >
+  
+  
+</div>
+
+如左图，已经匹配好的1-5,2-4这四个点为匹配点，对应的边为匹配边. 匈牙利算法在该问题体现为<strong>不断找增广路增加匹配点</strong></li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Matching.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool distributed[N]={0};  //该工作是否已匹配
+int employee[N]={0}; //对应工作的员工
+
+bool dfs(int u){	//对第u个员工
+	for(auto job:neighbor[u]){
+		if(distributed[job])	continue;
+	//先考虑job分配给u，若不先标记
+	//会导致后续考虑把job分配给其他人
+		distributed[job]=true;
+	//如果这份工作原来没人或给了这个人不会造成原来的一系列人失业
+	//则接受这个提议；递归进去修改原来的人
+		if(!employee[job] ||dfs(employee[job])){
+			employee[job]=u;
+			return true;
+		}
+	}
+	return false;
+}
+
+int main(void){
+	/*...*/
+	for(int i=1;i&lt;=n;i&#43;&#43;)
+		if(distributed[i])	continue;
+		else dfs(i);
+	/*...*/
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="ii-整数规划初步">II. 整数规划初步</h2>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" data-tooltip="[ML]Supporting Vector Machine" aria-label="NEXT: [ML]Supporting Vector Machine">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/" data-tooltip="[Data Structure]B,B&#43; and Red Black Tree" aria-label="PREVIOUS: [Data Structure]B,B&#43; and Red Black Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/05\/modeling-ii-linear-programming-and-integer-programming\/';
+        
+          this.page.identifier = '\/2023\/05\/modeling-ii-linear-programming-and-integer-programming\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" data-tooltip="[ML]Supporting Vector Machine" aria-label="NEXT: [ML]Supporting Vector Machine">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/" data-tooltip="[Data Structure]B,B&#43; and Red Black Tree" aria-label="PREVIOUS: [Data Structure]B,B&#43; and Red Black Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmodeling-ii-linear-programming-and-integer-programming%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmodeling-ii-linear-programming-and-integer-programming%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmodeling-ii-linear-programming-and-integer-programming%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Supporting Vector Machine",
+  
+  "image": "https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg",
+  
+  "datePublished": "2023-05-25T00:00:00Z",
+  "dateModified": "2023-05-25T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/05\/mlsupporting-vector-machine\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "SVM,支持向量机，在聚类算法中应用广泛.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="SVM,支持向量机，在聚类算法中应用广泛.">
+
+
+<meta property="og:description" content="SVM,支持向量机，在聚类算法中应用广泛.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Supporting Vector Machine">
+<meta name="twitter:title" content="[ML]Supporting Vector Machine">
+<meta property="og:url" content="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="SVM,支持向量机，在聚类算法中应用广泛.">
+<meta name="twitter:description" content="SVM,支持向量机，在聚类算法中应用广泛.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-05-25T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-05-25T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Cluster">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Cluster">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+
+
+    <title>[ML]Supporting Vector Machine</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Supporting Vector Machine
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-05-25T00:00:00Z">
+        
+  May 25, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/cluster">Cluster</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>SVM</strong>,支持向量机，在聚类算法中应用广泛.</p>
+<h3 id="1-模型构建">1 模型构建</h3>
+<p>对二分类问题，数据集为$(\vec{x},y),y_i=±1$，目标为寻找一个超平面$W^Tx+b$使得$y=sgn(W^Tx+b)$，前提为数据集<strong>线性可分(Linear Separable)</strong>，即存在W使得$y_i(W^Tx_i+b)\geq0$(对形如同心圆环、异或则非线性可分). 记SVM为$(W,b)$.</p>
+<p>对二维情况，尽管分割线存在无数多条，但我们希望模型的容错性更高，定义<strong>将分割线进行平移</strong>，第一次交到的点对应的向量为<strong>支持向量</strong>，与第一次与两类点相交确定的平面为支持平面，支持平面之间的距离称为<strong>间距</strong>. 一般地，模型的<strong>支持向量越少越好、间距越大越好</strong>，在高维的极端情况下可能所有同类点共面，会出现<strong>过拟合</strong>.</p>
+<p>注意到，当数据点有限个时，要么不存在W，要么为无穷多个解. 接下来考虑求解W.</p>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/10.jpg"  alt="The Sample Processdure">
+   
+    
+     <span class="caption">The Sample Processdure</span>
+   
+ </div>
+
+<p><strong>FACT 1</strong> $W^TX+b=0$与$aW^TX+ab=0(a&gt;0)$表示同一个平面，即$(W,b),(aW,ab)$两个SVM等价.</p>
+<p><strong>FACT 2</strong> 高维空间点$x$到超平面$\alpha$距离公式$dim \alpha = n-1$为$d=\frac{|W^Tx+b|}{||W||}$</p>
+<p>由FACT 1，对任何超平面，总能找到一个缩放比例a令$|W^Tx|+b=1$，而这并不改变这个超平面本身. 从而求<strong>最大间隔d(硬间隔)</strong> 转化为优化$\min ||w||$. 为方便求导，化为如下优化问题：
+$$\min {1\over2}||w||^2 s.t. y_i(W^Tx_i+b)\geq c \tag{1}$$
+其中$c&gt;0$得到的W只相差一个缩放比例，但为同一平面. 而c=0会出现矛盾，并不合法.</p>
+<p><strong>Notes.</strong> 对二次凸优化问题，即目标为二次，约束为线性，则<strong>要么有唯一解，要么无解</strong>，故而式(1)的解具有唯一性.</p>
+<h3 id="2-非线性可分">2. 非线性可分</h3>
+<p>对非线性可分问题，可加入<strong>松弛变量(Slack Variable)</strong>，在目标函数作为正则项(Regualtion Term)(即规范化得到某个形式)，对每个限制条件允许$\xi_i$的波动，当$\xi_i\to\infty$时一定能找到解，但我们并不希望这样，故在目标函数进行约束. 即将式(1)改为：
+$$\min {1\over2}||w||^2+c\sum_{i=1}^n \xi_i s.t. y_i(W^Tx_i+b)\geq 1-\xi_i,\xi_i\geq0 \tag{2}$$</p>
+<p>此外，通过<strong>非线性映射$\varphi$进行升维</strong>，能够证明，对有限个数据点，当$\dim ran\varphi=\infty$时一定线性可分(如异面直线的投影在平面内不可分，但在三维空间中存在一个平面将其分开)，则将(2)改写为：
+$$\min {1\over2}||w||^2+c\sum_{i=1}^n \xi_i s.t. y_i(W^T\varphi(x_i)+b)\geq 1-\xi_i,\xi_i\geq0 \tag{3}$$</p>
+<p><strong>【例】</strong> 对异或问题，平面上记异或值为0、1的点为两类，$(1,1),(0,0)$和$(1,0),(0,1)$，显然在$R^2$线性不可分，但作映射$(a,b)→(a^2,b^2,ab,a,b)$，则至少存在$W^T=(-1,-1,-1,-1,6)$$b=1$可分.</p>
+<p>在实际应用中，我们往往不需知道$\varphi$的具体表达式，只需知道其<strong>卷积</strong>，即只需知道$\varphi(x_1)^T\varphi(x_2)$的值. 从而定义<strong>核函数</strong>$Ker(x_1,x_2)=\varphi(x_1)^T\varphi(x_2)$</p>
+<p><strong>引理</strong> 在泛函分析中，有定理：$Ker(x_1,x_2)=\varphi(x_1)^T\varphi(x_2)$这个分解成立 当且仅当 $Ker(x_1,x_2)=Ker(x_2,x_1)$且$\forall c_i\in R, x_i$，有$\sum_{i,j=1}^n c_ic_jKer(x_i,x_j)\geq0$(交换与半正定)</p>
+<p>为运用核函数，需考虑其<strong>对偶问题</strong>.</p>
+<h3 id="3-kkt条件与对偶问题">3. KKT条件与对偶问题</h3>
+<p>对Lagrange乘子法，$\min f(x) s.t. h(x)=0$是一个标准的等式约束问题. 这个问题严格等价于$$\min_{\forall \lambda\in R} f(x)+\lambda h(x) \tag{4}$$</p>
+<p><strong>pf.</strong> 正推显然，现在倒推. 若$h(x)=0$，则转化为前者；若$h(x)\neq0$，则由于$\lambda$的任意性，该值会趋于无穷，故只能有$h(x)=0$.</p>
+<p>再引入不等式约束，$\min f(x) s.t. g(x)\leq0$，则问题严格等价于$$\min_x \max_{\forall \lambda\geq0} f(x)+\lambda g(x) \tag{5}$$</p>
+<p><strong>pf.</strong> 正推显然，现在倒推. 若$g(x)&gt;0$，则取遍所有正$\lambda$，必为无穷大，不可能找到解. 故解只可能在$g(x)\leq0$找到. 可以看到，<strong>对偶问题的核心在于解放x的定义域，可以直接计算梯度</strong></p>
+<p>对于最优解$\tilde x$，我们想最大程度地探寻其满足的条件，注意到式5中有：$\lambda\geq0, g(\tilde x)\leq0$. 假定该函数可微，则满足极值条件$\nabla f(\tilde x)+\lambda\nabla g(\tilde x)=0$和内层最大值取等条件$\lambda g(\tilde x)=0$，这四个条件合称<strong>KKT条件</strong>.
+$$\lambda\geq0, g(\tilde x)\leq0,\lambda g(\tilde x)=0,\nabla f(\tilde x)+\lambda\nabla g(\tilde x)=0 \tag{6}$$</p>
+<p>在条件极值的优化问题中，我们分别将<strong>原问题</strong>等价转换成了含松弛变量$\lambda$的<strong>对偶问题</strong>，进而对对偶问题进行求解，得到原问题的解. 对含等式和不等式约束的问题，可进行如下对偶：
+$$\min f(w):g(w)\leq\vec0, h(w)=\vec0 $$ $$\rightarrow \max \theta(\alpha,\beta)=\max \inf_wL(w,\alpha,\beta)=\max\inf_w f(w)+\alpha^Tg(w)+\beta^Th(w)(\alpha\geq\vec0) \tag{7}$$</p>
+<p>在一般情况下，这两个问题并不等价(需要和式5一样先取最大值才等价，，但这不利于求解问题)，而且假定$w^\star$是原问题的解，$\alpha^\star,\beta^\star$是对偶问题的解，则有$f(w^\star)\geq\theta(\alpha^\star,\beta^\star)$(由于原问题等价于求最大值的最小值，对偶命题为最小值的最大值，显然前者大于等于后者，此即<strong>弱对偶定理</strong>)，从而定义<strong>对偶间距G(Duality Gap)</strong>，当$G=0$时，可将原问题化归为对偶问题.</p>
+<p><strong>强对偶定理</strong> 若$f(w)$是凸函数且$g,h$是线性的，则$G=0$. 可知，KKT条件是取到最优解的必要条件.</p>
+<p>接下来对SVM优化问题进行求解，由式7，求$\theta(\alpha,\beta)$的最大值，需先对$w,\alpha,\beta$分别求偏导，式5中无等式约束，代入两类不等约束条件，得：$$L(\alpha,\beta)=\frac{1}{2}||w||^2+c\sum_{i=1}^n\xi_i+\sum_{i=1}^n\beta_i\xi_i+\sum_{i=1}^n\alpha_i[1+\xi_i+y_iW^T\varphi(x_i)-y_ib_i ]\tag{8}$$</p>
+<p>$$\begin{align}
+\frac{1}{2}||W||^2&amp;= \frac{1}{2}(\sum\alpha_iy_i\varphi(x_i))^T(\sum\alpha_iy_i\varphi(x_i))
+\\&amp;=\frac{1}{2}\sum_{i,j=0}^n\alpha _i\alpha_jy_iy_j\varphi(x_i)^T\varphi(x_j)
+\end{align} \tag{9}$$</p>
+<p>依次对L求偏导计算极值，得：
+$$\frac{\partial L}{\partial W}=0 \Rightarrow W=\sum_{i=1}^N\alpha _iy_i\varphi(x_i) \tag{10}$$</p>
+<p>$$\frac{\partial L}{\partial \xi}=0 \Rightarrow \alpha_i+\beta_i=C,\frac{\partial L}{\partial b}=0 \Rightarrow \alpha^TY=\vec{0} \tag{11}$$</p>
+<p>将上式代入式8，得到含核函数的优化目标：$$\theta(\alpha)=\sum\alpha_i-\frac{1}{2}\sum_{i,j=1}^N\alpha_i\alpha_jy_iy_jKer(x_i,x_j)s.t.\alpha_i\in[0,C],\sum\alpha_iy_i=0 \tag{12}$$
+而实际上并不需要求得W的具体值也可以完成分类目标，因为得到最优解$\alpha^\star$后，由(10)可求得下述式子，再进一步求出$sgn(W^TX+b)$
+$$W^T\varphi(x)=\sum \alpha_iy_i\varphi(x_i)^T\varphi(x)\tag{11}$$</p>
+<p>常见的使用内核有：<strong>Linear$K=x^Ty$, Poly$K=(1+x^Ty)^d$, Gaussian$K=e^{-\frac{||x-y||^2}{\sigma^2} }$, Tanh$K=\tanh(\beta x^Ty+b)$</strong> 四种. 第一种由于线性没有改变维数，不能起到本质作用. 可证明多项式内核映射到的维数随次数升高而升高，高斯内核映射到无穷维，上述四种均能作为核函数(即能够被分解成两个映射的积)</p>
+<h3 id="4-多分类问题">4. 多分类问题</h3>
+<ul>
+<li>
+<p>变换优化目标函数和限制条件，变为多类</p>
+</li>
+<li>
+<p><strong>一对多</strong>    以三分类问题为例，构造3个SVM，分别为(1,2)v.s.(3),(1,3)v.s.(2),(2,3)v.s.(1)，对新数据点进行三次预测并vote，如(+1,+1,-1)时答案为第1类；当有冲突时，<strong>先硬间隔(即+1，-1)后软间隔</strong>，如(+1,+1,-1)时无法判断(三类都被投了2票)，则此时回到定义式看<strong>软间隔</strong>$y_i$，软间隔最大的作为最终分类(位于更内部). 对k分类，该方法需构造<strong>k个</strong>SVM.</p>
+</li>
+<li>
+<p><strong>一对一</strong>    以三分类为例，构造$C_3^2$个SVM，分别为(1,2),(1,3),(2,3)，同理均进行预测并进行投票，无法判别时再检测软间隔. 需构造$C_k^2$个SVM且效果最好，但消耗多(一般k在100以内).</p>
+</li>
+</ul>
+<h3 id="5-lagrange乘子法与对偶问题的再说明">5. Lagrange乘子法与对偶问题的再说明</h3>
+<p>下面对Lagrange乘子法与凸优化中的一些定理加以证明：</p>
+<p><strong>Theo 1 凸目标函数的局部最优解一定是全局最优解.</strong></p>
+<p>   <strong>pf.</strong> 若不然，设$f(\vec x)$为局部最优解，而$f(\vec y)&lt;f(\vec x)$，则由凸函数定义$f(k\vec x+(1-k)\vec y)\leq kf(\vec x)+(1-k)f(\vec y)&lt;kf(\vec x)+(1-k)f(\vec x)=f(\vec x)$，令$k\to 1$，则$k\vec x+(1-k)\vec y\in N_\epsilon(\vec x)$，这与x是极值矛盾.</p>
+<p><strong>Theo 2 (凸优化中Lagrange等式极值的推导)</strong></p>
+<p>   <strong>pf.</strong> 设约束为$Ax=b$且$\vec p$为极值点，D为可行域，则等价于$\nabla f(p)^T(x-p)\geq0,\forall x\in D$(相当于Hesse矩阵正定)，由于$Ax=b$，故x是线性流形，可设$x=p+KerA$，从而$\nabla f(p)^Ty\geq0,y\in KerA$，而$y,-y\in KerA$，故$\nabla f(p)^Ty=0\Rightarrow \nabla f(p)^T\in range A$ 故$\nabla f(p) = A^T\lambda$，故$\nabla f(p)$可由$A^T$的列向量线性表出，对应的系数即为Lagrange乘子</p>
+<p><strong>Theo 3. Lagrange乘数的代数、分析含义</strong></p>
+<p>   <strong>pf.</strong> 对求解$f(x) s.t. g(x)\leq0,h(x)=0$，构造对应的对偶命题，转换为对x全区域求导，对含m个不等式和n个等式约束条件进行求导，得到$-\nabla f(p)=\sum \lambda_i\nabla g_i(p)+\sum\lambda_i\nabla h_i(p)(\star)$，即<strong>目标的梯度可被不等或等式约束条件的梯度线性表出</strong>. 若极值点是内点，则约束不起作用；若在边界，则只有部分约束起作用(起作用的称<strong>紧致变量</strong>，不起作用的为<strong>松弛变量</strong>). 不妨假设只有k个约束起作用(极值点在这k个边界的交集上)，则去掉余下n-k个边界，<strong>最终求得的极值点仍为p</strong>. 可得$-\nabla f(p)=\sum_1^k \lambda_i\nabla u_i(p)(\star\star)$，($\star\star$)-($\star$)得：<strong>所有松弛项满足</strong>$\lambda_ig_i(p)=0$，i.e.<strong>对线性表出不起作用</strong>，<strong>要么分量为零，要么梯度值为零</strong></p>
+<p>   从分析的角度，则有$z=f(x,y)s.t.g(x,y)=0$，假定p是极值点，由<strong>隐函数存在定理</strong>，若在g附近有隐函数$y=\phi(x)$，则使得$dz=df(x,\phi)=f_x+f_y\phi&rsquo;=0$，对g求导有$g&rsquo;_x+g&rsquo;_y\phi&rsquo;=0$，从而$f_xg_y+g_xf_y=0$，假定极值点处隐函数及其反函数均存在，即$f_x,f_y\neq0$，则$$f_x=\frac{f_y}{g_y}g_x,f_y=\frac{f_x}{g_x}g_y\Rightarrow \lambda_1=\frac{f_y}{g_y}=\frac{f_x}{g_x}=\lambda_2$$，从而可写成向量的分量等式，组合起来得到$\nabla f(p)+\sum \lambda_i\nabla g_i(p)=0$. 对更高维数，可将y看成向量值函数进行归纳证明.</p>
+<p>   对无约束的情形，显然Hesse矩阵在一点满足正定或负定可以取得极值，而在有约束时，假设约束是<strong>仿射</strong>的，则将可行域进行平移使之成为一个线性子空间，并取一个基(阶数为m). 再运用基扩充定理补充一个完整的空间，记过渡矩阵满足$x&rsquo;=xP^{-1}$，则原有$x^THx\geq0$转换为$(Px&rsquo;)^THPx\geq0$，<strong>只需$P^THP$左上角的m阶子阵正定或负定</strong>.</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/cluster/">Cluster</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" data-tooltip="[Modeling II] Linear Programming and Integer Programming" aria-label="PREVIOUS: [Modeling II] Linear Programming and Integer Programming">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/05\/mlsupporting-vector-machine\/';
+        
+          this.page.identifier = '\/2023\/05\/mlsupporting-vector-machine\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" data-tooltip="[Modeling II] Linear Programming and Integer Programming" aria-label="PREVIOUS: [Modeling II] Linear Programming and Integer Programming">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlsupporting-vector-machine%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlsupporting-vector-machine%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Fmlsupporting-vector-machine%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

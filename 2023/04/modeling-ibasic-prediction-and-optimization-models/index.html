@@ -449,6 +449,166 @@ $$EX\geq qa_1+(1-q)a_3, EX\leq qa_2+(1-q)a_4, 0\leq q\leq1 \tag{5.2}$$
 对(5.1)求解maxmize EX对应的p，对(5.2)则为minimize EX对应的q. <strong>对决策问题，往往通过概率论的方法将其转换为几何优化问题</strong></p>
 <p><strong>【博弈】</strong> 若同时考虑联合分布pq：$$f(p,q)=a_1pq+a_2p(1-q)+a_3q(1-p)+a_4(1-p)(1-q)$$
 可知该曲线为双曲抛物面，<strong>存在鞍点</strong>并可通过偏导求得. <strong>甲乙双方的最优策略即尽可能保持在鞍点附近</strong>——在该点截面朝上开口抛物的方向恰为乙所在方向，该点乙对q的决策使甲分数最小；同理朝下开口方向为甲所在方向，该点甲对p的决策使甲分数最大. 如若甲离开鞍点，由双曲抛物面性质可知在正交方向上必存在一点使得q能进一步降低期望EX</p>
+<h2 id="6-评价类问题">6. 评价类问题</h2>
+<h4 id="61-层次分析法ahp">6.1 层次分析法(AHP)</h4>
+<p>对于分析评价类问题，需明确<strong>评价的目标(目标层)、评价的准则(准则层)和达到这个目标的可选方案(方案层)</strong>，面对多个评价指标时，需运用一定评价分析方法(需自行查找相应数据支撑).</p>
+<p>根据各个指标权重估分，则对象A、B的得分为$$\sum{w_ia_i},\sum{w_ib_1}(\sum{w_i}=1,a_i,b_i,w_i\in[0,1])$$</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>权重</th>
+<th>A得分</th>
+<th>B得分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$w_1$</td>
+<td>$a_1$</td>
+<td>$b_1$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$w_2$</td>
+<td>$a_2$</td>
+<td>$b_2$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$w_3$</td>
+<td>$a_3$</td>
+<td>$b_3$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>权重表</strong>中最核心的一项为权重值，其计算为<strong>层次分析法(The Analytic Hierarchy Process)<strong>的核心. 在层次分析中，存在一定的主观性，但这种主观由于是</strong>两两比较得出</strong>且最终计算出的权重也是依据<strong>相对关系</strong>得来，故整体比较可靠.</p>
+<p><strong>整张表通过两两对比，先是对指标ABC在权重上列表分析，再将对象AB等按照各项指标列表分析填表，最终计算加权得分.</strong></p>
+<ol>
+<li>用1-9表示重要程度，A比B标度为1表示同等重要，3,5,7,9表示A比B的更重要的程度(2,4,6,8介于其中)，而$\frac{1}{3},\frac{1}{5},\frac{1}{7},\frac{1}{9}$则表示B比A更重要的程度.</li>
+</ol>
+<p>由该方法可知，最终得到的<strong>判断矩阵M</strong>主对角为1(A和A同等重要)，对称位置上元素乘积为1(<strong>正互反矩阵</strong>).</p>
+<ol start="2">
+<li>修正判断矩阵M为<strong>一致矩阵A</strong>.即满足$a_{ik}=a_{ij}a_{jk}$的传递关系. 含义为i相对k的重要程度=i相对j的重要程度×j相对k的重要程度. 但一般<strong>完全一致较难</strong>，只要**一致性检验(刻画与一致矩阵的差距)**在可控范围内即可.</li>
+</ol>
+<p>下面推导一些正互反矩阵M的相关性质：
+<strong>引理1</strong> <strong>一致矩阵一定是主对角为1的秩1矩阵</strong></p>
+<p><strong>pf.</strong> 对于一致矩阵A，由于$a_{ik}=a_{ij}a_{jk}$，易得$A^2=nA$，由Hamilton-Cayley定理，A的特征值为n或0. 而tr(A)=n，故n是1重特征值，0是n-1重. 故一致矩阵一定是<strong>主对角为1且秩1的正项矩阵</strong></p>
+<p><strong>引理2</strong> <strong>n阶正互反矩阵一致时当且仅当最大特征值为n. 也即不一致时最大特征值大于n.</strong></p>
+<p><strong>pf.</strong> 假定A非一致且最大特征值k，则$Ax=kx$，构造矩阵B使得$b_{ij}=a_{ij}\frac{x_i}{x_j}$. 则B正互反($b_{ij}b_{ji}=1$)，从而$\sum_{j=1}^n{b_{ij}}=\frac{{a_{ij}x_j}}{x_i}=\frac{kx_i}{x_i}=k$，而$kn=\sum_{i,j=1}^{i,j=n}b_{ij}=\sum_{i=j}b_{ij}+\sum_{i\neq j}b_{ij}=n+\sum_{i&gt;j}(b_{ij}+\frac{1}{b_{ij}})≥n+\frac{1}{2}(n^2-n)×2=n^2$，故$n&gt;k$.</p>
+<ol start="3">
+<li>计算<strong>一致性指标CI</strong>并查找与阶数n对应的<strong>平均随机一致性指标RI(多次蒙特卡洛得到结果)</strong>，再计算<strong>一致性比例CR</strong>.<strong>CR&lt;0.1可接受</strong>
+$$CI=\frac{\lambda_{max}-n}{n-1}, CR=\frac{CI}{RI}$$</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RI</td>
+<td>0</td>
+<td>0</td>
+<td>0.52</td>
+<td>0.89</td>
+<td>1.12</td>
+<td>1.26</td>
+<td>1.36</td>
+<td>1.41</td>
+<td>1.46</td>
+<td>1.49</td>
+<td>1.52</td>
+<td>1.54</td>
+<td>1.56</td>
+<td>1.58</td>
+<td>1.59</td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li>权重计算. <strong>先对各行各列(比例)归一化</strong>，可用算术平均、几何平均或特征值法求得具体权重.</li>
+</ol>
+<ul>
+<li>算数平均权重向量的分量$w_i=\frac{1}{n}\sum_j{\frac{a_{ij}}{\sum_k{a_{kj}}}}$</li>
+<li>几何平均权重向量的分量$w_i=\sqrt[n]{\prod_j{\frac{a_{ij}}{\sum_k{a_{kj}}}}}$</li>
+<li>特征值法：求出A的<strong>最大特征值及其特征向量，再对特征向量归一化</strong></li>
+</ul>
+<p>可同时用三种方法说明权重相近，增加模型的信度.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight python language-python">
+  <figcaption>
+    
+      <span>矩阵计算</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-python python"><code class="python">
+import numpy as np
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# 使用numpy的eig函数计算特征值和特征向量
+eigenvalues, eigenvectors = np.linalg.eig(matrix)
+print(&#34;特征值：&#34;, eigenvalues)
+print(&#34;特征向量：&#34;, eigenvectors)
+#计算行列式
+det = np.linalg.det(matrix)</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h4 id="62-topsis分析法优劣解距离法逼近理想解排序法">6.2 TOPSIS分析法(优劣解距离法/逼近理想解排序法)</h4>
+<p>层次分析存在指标数不能较多的缺陷；对于具体的数据，层次分析不能量化这些数据为重要程度. 故对有大量数据支撑的，尽量不用层次分析.</p>
+<p><strong>归一化方法：</strong> (M,m是所有数据中的最大/小值)</p>
+<ol>
+<li>最小值归一化：$\frac{M-x}{M-m}$</li>
+<li>最大值归一化：$\frac{x-m}{M-m}$</li>
+</ol>
+<p><strong>综合评价指标：</strong></p>
+<ol>
+<li>越大评分越高的为<strong>极大(效益)型指标</strong>，反之为<strong>极小(成本)型指标</strong>.</li>
+<li><strong>中间型指标：</strong> 越接近中间某个值越好(如水的pH值)</li>
+<li><strong>区间型指标：</strong> 最佳点是一个区间
+故需先将所有指标转换为极大型(<strong>指标正向化</strong>)，对极小型有$x&rsquo;=M-x$，对中间型有$x&rsquo;=1-\frac{|x_i-x_{best}|}{\max |x_i-x_{best}|}$，对区间型，则$M=\max a-m,M-b, x&rsquo;=1(a\leq x\leq b),1-\frac{a-x}{M}(x&lt;a),1-\frac{x-b}{M}(x&gt;b)$</li>
+</ol>
+<p>故对于n个评价对象和m个评价指标(已正向化)后得到的正向化矩阵为$X_{m×n}$，将其<strong>标准化(消去量纲)</strong> 得到标准化Z，采用$L^2$测度，即$z_{ij}=\frac{x_{ij}}{\sqrt{\sum_{j=1}^n{x_{ij}}}}$(对每一行标准化，同一行是同一个指标/量纲)</p>
+<p>再运用$\frac{x-m}{M-m}=\frac{x-m}{(M-x)+(x-m)}$，即到最小值$D_-$的距离与到最小和最大$D_+$的距离之和的比值(故称<strong>优劣距离法</strong>)，再归一化作为其最终得分(<strong>同一行</strong>). 其中对第i个<strong>对象</strong>：
+$$D_i^+ = \sqrt{\sum_{j=1}^m w_j(Z_j^+-z_{ij})^2},D_i^- = \sqrt{\sum_{j=1}^m w_j(Z_j^- -z_{ij})^2}$$
+$$S_i=\frac{D_i^-}{D_i^++D_i^-}$$</p>
               
 
 

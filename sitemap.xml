@@ -2,25 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Supradax.github.io/2023/05/mlgaussian-distribution/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <loc>https://Supradax.github.io/2023/05/mlsupporting-vector-machine/</loc>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/cluster/</loc>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/cluster/</loc>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/ml/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/ml/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/posts/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/</loc>
-    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/</loc>
+    <lastmod>2023-05-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/</loc>
+    <lastmod>2023-05-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/data-structure/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/data-structure/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/tree/</loc>
+    <lastmod>2023-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</loc>
+    <lastmod>2023-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/algorithm/</loc>
+    <lastmod>2023-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/partition/</loc>
+    <lastmod>2023-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/</loc>
+    <lastmod>2023-05-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/data-structuresplay-and-sustainable-tree/</loc>
+    <lastmod>2023-05-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/algorithm/</loc>
+    <lastmod>2023-05-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/dp/</loc>
+    <lastmod>2023-05-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/dp/</loc>
+    <lastmod>2023-05-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/05/mlgaussian-distribution/</loc>
     <lastmod>2023-05-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/</loc>
@@ -56,15 +104,6 @@
     <loc>https://Supradax.github.io/2023/04/data-structuretree/</loc>
     <lastmod>2023-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/data-structure/</loc>
-    <lastmod>2023-04-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/data-structure/</loc>
-    <lastmod>2023-04-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/tree/</loc>
-    <lastmod>2023-04-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/2023/04/calculusintegral-inequalities-ep.2/</loc>
     <lastmod>2023-04-15T00:00:00+00:00</lastmod>
   </url><url>
@@ -89,22 +128,16 @@
     <loc>https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/</loc>
     <lastmod>2023-04-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/categories/algorithm/</loc>
-    <lastmod>2023-04-08T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/tags/geometry/</loc>
     <lastmod>2023-04-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/04/algorithmnetwork-flow-ek-and-dinic/</loc>
     <lastmod>2023-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/algorithm/</loc>
-    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/tags/graph/</loc>
     <lastmod>2023-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</loc>
+    <loc>https://Supradax.github.io/2023/04/data-sturcturetrie-string-algo-and-xor/</loc>
     <lastmod>2023-04-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/calculuscurvilinearsurface-and-multiple-integral-ep.1/</loc>
@@ -123,12 +156,6 @@
     <lastmod>2023-03-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/mlsimulated-annealing/</loc>
-    <lastmod>2023-03-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/cluster/</loc>
-    <lastmod>2023-03-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/cluster/</loc>
     <lastmod>2023-03-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/algorithmtarjan-algorithm/</loc>
@@ -191,9 +218,6 @@
     <loc>https://Supradax.github.io/2023/03/algorithmsorting-algorithm-and-the-applications/</loc>
     <lastmod>2023-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/dp/</loc>
-    <lastmod>2023-03-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/categories/sort/</loc>
     <lastmod>2023-03-21T00:00:00+00:00</lastmod>
   </url><url>
@@ -201,9 +225,6 @@
     <lastmod>2023-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</loc>
-    <lastmod>2023-03-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/dp/</loc>
     <lastmod>2023-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/tags/number-theory/</loc>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Partition on Supradax&#39;s Blog</title>
+    <link>https://Supradax.github.io/tags/partition/</link>
+    <description>Recent content in Partition on Supradax&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/partition/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm]Partition Algo.: Interval Problems</title>
+      <link>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</link>
+      <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

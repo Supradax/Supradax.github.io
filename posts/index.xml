@@ -6,7 +6,61 @@
     <description>Recent content in Posts on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Supporting Vector Machine</title>
+      <link>https://Supradax.github.io/2023/05/mlsupporting-vector-machine/</link>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/mlsupporting-vector-machine/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;SVM&lt;/strong&gt;,支持向量机，在聚类算法中应用广泛.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Modeling II] Linear Programming and Integer Programming</title>
+      <link>https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/</link>
+      <pubDate>Wed, 24 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]B,B&#43; and Red Black Tree</title>
+      <link>https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/</guid>
+      <description>&lt;p&gt;Splay Tree, a masterpiece by Tarjan, is a handy self-balanced BST.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Partition Algo.: Interval Problems</title>
+      <link>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</link>
+      <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Algorithm]Dynamic Programming: Optimization</title>
+      <link>https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/</link>
+      <pubDate>Wed, 17 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/</guid>
+      <description>&lt;p&gt;DP优化的三个方向：状态总数(空间)、决策时间、状态转移时间&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Data Structure]Splay and Sustainable Tree</title>
+      <link>https://Supradax.github.io/2023/05/data-structuresplay-and-sustainable-tree/</link>
+      <pubDate>Wed, 17 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/data-structuresplay-and-sustainable-tree/</guid>
+      <description>&lt;p&gt;Splay Tree, a masterpiece by Tarjan, is a handy self-balanced BST.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[ML]Gaussian Distribution</title>
       <link>https://Supradax.github.io/2023/05/mlgaussian-distribution/</link>
@@ -125,11 +179,11 @@
     </item>
     
     <item>
-      <title>[Data Sturcture]Trie, KMP and AC Automaton</title>
-      <link>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</link>
+      <title>[Data Sturcture]Trie, String Algo and XOR</title>
+      <link>https://Supradax.github.io/2023/04/data-sturcturetrie-string-algo-and-xor/</link>
       <pubDate>Tue, 04 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://Supradax.github.io/2023/04/data-sturcturetrie-kmp-and-ac-automaton/</guid>
+      <guid>https://Supradax.github.io/2023/04/data-sturcturetrie-string-algo-and-xor/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Trie&lt;/strong&gt;, 字典树，用于快速查询有限组合的序列。&lt;/p&gt;</description>
     </item>
     

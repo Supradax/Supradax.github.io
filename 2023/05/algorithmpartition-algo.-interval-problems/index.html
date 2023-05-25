@@ -1,0 +1,1210 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm]Partition Algo.: Interval Problems",
+  
+  "image": "https://Supradax.github.io/img/catalan.jpg",
+  
+  "datePublished": "2023-05-20T00:00:00Z",
+  "dateModified": "2023-05-20T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/05\/algorithmpartition-algo.-interval-problems\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm]Partition Algo.: Interval Problems">
+<meta name="twitter:title" content="[Algorithm]Partition Algo.: Interval Problems">
+<meta property="og:url" content="https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-05-20T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-05-20T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+  
+  
+    
+      <meta property="article:tag" content="Partition">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/catalan.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/catalan.jpg">
+
+
+    <title>[Algorithm]Partition Algo.: Interval Problems</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm]Partition Algo.: Interval Problems
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-05-20T00:00:00Z">
+        
+  May 20, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-分块算法">1. 分块算法</h2>
+<p>对于形如满足两个操作<strong>给整个区间加上一个数；查询区间和/最大值等</strong>的数据结构，可使用线段树实现O(nlogn)；但对数据量较小的问题，也可用<strong>分块算法</strong>达到$O(n\sqrt n)$级别. 线段树本质上就是多层分块.</p>
+<p>对分块算法，需要定义<strong>块数</strong>Blocks与<strong>块长B</strong>(良好的定义可<strong>平衡复杂度、优化常数</strong>，多数情况下为$B=\sqrt n$)，不足一块的按一块补全. 其核心思想在于<strong>查询区间包含完整块的，直接调用一整块的信息；不包含完整块的，使用暴力处理</strong>.</p>
+<p>一般地，分块算法的优势在于实现多个操作的同时，有些操作复杂度很低，如O(1)；有些则较高，如O(n²)；分块的核心为通过分块，得到一个能接受介于O(1),O(n²)的总体复杂度.</p>
+<p><strong>例1·区间加法、单点查询：标签</strong>两种询问，一种为对给定区间加上一个给定常数，一种为询问$a_i$的值.</p>
+<p><strong>分析</strong> 对区间加法，只需再维护一个数组，当给定区间覆盖一整个块时，只打上标签；当没有覆盖一整块时，将tag下放并逐点修改. 对于前者，最多执行$\sqrt n$次(只有$\sqrt n$块)；后者则最多执行$2\sqrt n$次(至多只有2个块不完整). 故而复杂度为$O(m\sqrt n)$. 若待定块数B，则最坏情况有$m(B+2\frac{n}{B})\geq m\sqrt{2n}$，故合理的块长$B=k\sqrt n$</p>
+<p><strong>代码</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int a[N],tag[upper_bound(sqrt(N))]={0};
+int n, b;	//序列长度、块长
+
+void init(vector&lt;int&gt; nums){	//tag初始化为0
+	n = num.size()-1; b = (int)sqrt(n)&#43;1;
+	for(int i=0;i&lt;n;i&#43;&#43;)	a[i]=nums[i];
+}
+void calc(int l,int r,int x,int c){	//对第x个块进行暴力
+	for(int i=l;i&lt;=r;i&#43;&#43;)	a[i]&#43;= c&#43;tag[x];
+	tag[x]=0;
+}
+
+void add(int l, int r, int c){
+	//从0开始，则index/block即为所在块的编号
+	//对不完整的两端进行暴力，l和r更新为完整的块的序号
+	if(l%b)	{calc(l,(l/b&#43;1)*b-1,l/b,c);l=l/b&#43;1;}
+	if(r%b)	{calc((r/b-1)*b&#43;1,r,r/b,c);r=r/b-1;}
+	//对完整的块打标签
+	for(int i=l;i&lt;=r;i&#43;&#43;)	tag[i]&#43;=c;
+}
+
+int query(int idx){return a[idx];}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>例2·区间加法、区间查询:标签+块内二分</strong>  两种询问，一种为对给定区间加上一个给定常数，一种为询问给定区间中小于给定值的数的个数.</p>
+<p><strong>分析</strong> 区间加法同例1. 但询问区间小于的个数，可先对<strong>各块内部进行排序</strong>且当区间加上同个数时，不影响序关系；只有在残块相加时需重排. 由于维护各个区块的有序性，故在区块内部可二分. 对区间加法，完整块最多$\sqrt n$次，残缺块最多$2\sqrt{n}\log \sqrt n$次；对查询，$\sqrt n$个区块各需查一次，每次为$\log \sqrt n$，故总体为$O(\sqrt n\log \sqrt n)$</p>
+<p><strong>代码</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;int&gt; a(N,INF),tag((int)sqrt(N)&#43;1);
+//a初始为INF防止干扰残块小于c的统计
+int n, b;	//序列长度、块长
+
+void init(vector&lt;int&gt; nums){	
+	n = num.size()-1; b = (int)sqrt(n)&#43;1;
+	for(int i=0;i&lt;n;i&#43;&#43;)	a[i]=nums[i];
+	for(int i=0;i&lt;n;i&#43;=b)	sort(a.begin()&#43;i,a.begin()&#43;i&#43;b-1);
+}
+void calc(int l,int r,int x,int c){	
+	for(int i=l;i&lt;=r;i&#43;&#43;)	a[i]&#43;= c&#43;tag[x];
+	sort(a.begin()&#43;x*b,a,begin()&#43;x*b&#43;b-1);
+	tag[x]=0;
+}
+void add(int l, int r, int c){
+	if(l%b)	{calc(l,(l/b&#43;1)*b-1,l/b,c);l=l/b&#43;1;}
+	if(r%b)	{calc((r/b-1)*b&#43;1,r,r/b,c);r=r/b-1;}
+	for(int i=l;l&lt;=r;i&#43;&#43;)	tag[i]&#43;=c;
+}
+
+int query(int l, int r, int c){
+	int cnt=0;
+	//残缺块暴力
+	if(l%b)	for(int i=l;i&lt;l/b*b&#43;b;i&#43;&#43;)	cnt&#43;=a[i]&lt;c;
+	if(r%b)	for(int i=r;i&gt;r/b*b;i--)	cnt&#43;=a[i]&lt;c;
+	l = l/b&#43;1, r=r/b-1;
+	//完整块二分查找
+	for(int i=l;i&lt;=r;i&#43;&#43;){
+		int x =l*b-1, y=x&#43;b-1&#43;1;
+		while(x&#43;1&lt;y){
+			int m = (x&#43;y)&gt;&gt;1;
+			(a[m]&lt;c)? x=m:y=m;
+		}
+		cnt&#43;=x-b*l&#43;1;
+	}
+	return cnt;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>例3·区间加法、区间查询</strong> 两种询问，一种为对给定区间加上一个给定常数，一种为询问给定区间和.</p>
+<p><strong>分析</strong> 查询和，只需维护一个和数组. 每次加法对完整块有<code>sum[i]=c*b;</code>完整块直接调用，残缺块累加.</p>
+<p><strong>例4·区间开方、区间查询</strong> 两种询问，一种为对给定区间进行开方并下取整，一种为询问给定区间和.</p>
+<p><strong>分析</strong> 注意到<strong>开方并下取整这一操作是收敛的(收敛到0或1)</strong>，故对第一个操作可暴力(只需每次先判断整个块是否为0或1)，一个
+“非暴力块”被定义为<strong>整个块全为0或1构成</strong>，否则需对该块暴力. 在收敛前，设数列最大值为V，则每个块收敛前上界为$O(\sqrt n\log V)$，故总体$O(n\log V)$；此后每次开方、查询操作均为$\sqrt n$，故复杂度$O(n\log V +m\sqrt n)$</p>
+<p><strong>例5·单点插入、单点询问</strong> 两种询问，一种为对在<code>a[l]</code>前插入r，一种为询问$a_i$.</p>
+<p><strong>分析</strong> 可使用<code>&lt;vector&lt;vector&gt;&gt;</code>维护块，当某一个块大于阈值(偏离$\sqrt n$太多时)，重新分块. 设阈值为$2\sqrt n$，则最坏情况为所有数字插在同个块的头部，每插入一次$\sqrt n$，每插入$\sqrt n$个重新分块，再消耗$\sqrt n$，即$O(m\sqrt n+\frac{m}{\sqrt n}×\sqrt n)=O(m\sqrt n)$；对于查询，分块查，故复杂度为$O(m\sqrt n)$.</p>
+<p><strong>例6·区间加法和乘法、单点查询</strong>三种询问，两种为对给定区间加上或乘上一个给定常数，一种为询问给定区间中的和.</p>
+<p><strong>分析</strong> 与<strong>例1</strong>完全相同，只是当加法存在tag时，需先更新再进行乘法(当乘法和加法共存时，先放乘法tag再放加法tag)；当乘法存在tag时，可直接改加法tag. (优先级问题)</p>
+<p><strong>例7·最小众数</strong> 查询给定区间最小众数.(n在1e6内)</p>
+<p><strong>分析</strong> 由于n有限，可<strong>离散化处理</strong>. 当n再小2个量级时，可给每个块都加上一个数组；但如本题，则每个块只能带一个哈希表(离散化序号→出现次数)并构建二元映射&lt;序号，出现次数&gt;，再进行按第二位降序，第一位升序进行排序.</p>
+<p><strong>例8·区间修改、区间查询</strong> 两种询问，一种为询问区间等于c的数的个数，一种为将一整个区间修改为c.</p>
+<p><strong>分析</strong> 由于一整个区间修改，可单独维护一个tag(初始化为INF，表示尚未修改)，当被覆盖时直接修改tag. 在询问时只需看tag与c是否相等. 对于残块，询问时<strong>先下放tag</strong>，再逐一遍历，修改时<strong>先下放tag</strong>，再逐一修改.</p>
+<h2 id="2-莫队算法">2. 莫队算法</h2>
+<p>莫队算法的本质是一种对支持<strong>离线操作</strong>的题目，通过<strong>合理调整测试点的顺序</strong>来最大程度降低复杂度的方法. 核心思想是<strong>每次只变动一格</strong>地经过每个数据点(一般这个过程是O(1)的). 概括地讲，<strong>离线+暴力+分块</strong></p>
+<p>在处理<strong>离线(含高维)区间查询问题</strong>，以一维区间为例，莫队通过分块方式，<strong>按左端点所在的块作为第一关键字，右端点的大小作为第二关键字</strong>进行排序，得到<strong>最终处理顺序</strong>. 每次移动左、右端点1格从状态$[L_i,R_i]$移动至$[L_{i+1},R_{i+1}]$. 可以发现，<strong>若将L、R看成二维平面，则复杂度为单次复杂度×两个状态间的ManHattan距离</strong>. 下面证明其复杂度.</p>
+<p>   将两个相邻状态(L,R)间连线，构建n阶完全图，边权为两个点的曼哈顿距离. 目标为寻找一个权值最小的哈密顿路径，但这是NP问题. 莫队算法给出的是上界为$O(n\log n)$的一条路径.</p>
+<p><strong>例题</strong> 给定一个数组，查询给定区间内不同的数的个数.</p>
+<p>   <strong>分析</strong> 暴力法即使用<code>unordered_set</code>($O(mn)$). 若用莫队，由于左右端点相互独立，故分别考虑. 对左端点，由于对左端点所在块作为第一关键字，故对单个查询，左端点移动不超过$\sqrt n$次，m次询问的总上界为$m\sqrt n$；对右端点，由于按照第二关键字排序，即<strong>在同个块内单调递增</strong>，故最多移动n次，在每个块中的询问期望$m\over \sqrt n$次，故右端点为$O(m\sqrt n)$次. 综上为$O(m\sqrt n)$.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/geo/26.jpg"  alt="暴力法(左)与莫队法(右)的不同路径">
+   
+    
+     <span class="caption">暴力法(左)与莫队法(右)的不同路径</span>
+   
+ </div>
+</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typedef struct Itv{	//Interval
+	int l, r;
+	bool operator &lt;(const Itv x, const Itv y) const{
+		//不属于同一块则按块比较，否则按右端点比较
+		return x.l/b&lt;y.l/b ? true : x.r&lt;y.r;
+	}
+}
+priority_queue&lt;Itv&gt; q;
+int cnt[N]={0},a[N]={0}; //统计各个数字出现次数,a为离散化数组
+int sum=0; //sum为全局变量
+
+void add(int x){	//左移或右移时增加次数
+	if(!cnt[a[x]]) sum&#43;&#43;;
+	cnt[a[x]]&#43;&#43;;	
+}
+void del(int x){
+	cnt[a[x]]--;
+	if(!cnt[a[x]])	sum--;
+}
+
+/*main.cpp*/
+//左右指针初始化：不是l=r=0(指向一个点)，只要保证不是合法区间即可(表示空集)，否则会导致形如[0,0]无法被添加
+int l=1, r=0; 
+while(!q.empty()){
+	Itv cur = q.top(); q.pop();
+	//缩小区间：由于是闭区间，必须先删端点再移动
+	while(l&lt;cur.l)	del(l&#43;&#43;);
+	while(r&gt;cur.r)	del(r--);
+	//扩大区间：必须先移动跳过已经在集合里的端点再添加
+	while(l&gt;cur.l)	add(--l);
+	while(r&lt;cur.r)	add(&#43;&#43;r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="3-可改莫队">3. 可改莫队</h2>
+<p>对于支持<strong>单点修改且区间查询</strong>的问题，可将莫队算法加以改进，得到$O(mn^\frac{2}{3})$的复杂度.</p>
+<p><strong>例题</strong> 给定一个数组，要求支持询问[L,R]上不同数的个数和将第p个数更改为c两个操作.</p>
+<p>  <strong>分析</strong> 满足离线条件. 此时将<strong>修改时间</strong>作为第三个维度(和L、R同样地位)，即对于任何操作，记为$(L_n,R_n,t_n)$，其中$t_n=t_{n-1}+1$. 此时必须将L、R按块排序(作为第一、二关键字，可颠倒)，t按大小排序(不同块间相互独立，同一块内必须按时间顺序). 由于同一块内按照时间排序，而每一次的修改只能在一个块中发生(一次只移动1个单位)，不需考虑时间问题. 故add()和del()无需修改.</p>
+<p>  从而有：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typedef struct Itv{	//Interval
+	int l, r, t, opt,v; //opt:0表示修改，1表示查询
+	bool operator &lt;(const Itv x, const Itv y) const{
+		//加入第三个维度
+		if(x.l!=y.l)	return x.l&lt;y.l;
+		else if(x.r!=y.r)	return x.r&lt;y.r;
+		else return x.t&lt;y.t;
+	}
+}
+priority_queue&lt;Itv&gt; q;
+int cnt[N]={0},a[N]={0}; 
+int sum=0; 
+
+/*main.cpp*/
+int l=1, r=0; 
+while(!q.empty()){
+	Itv cur = q.top(); q.pop();
+	
+	while(l&lt;cur.l)	del(l&#43;&#43;);
+	while(r&gt;cur.r)	del(r--);
+
+	while(l&gt;cur.l)	add(--l);
+	while(r&lt;cur.r)	add(&#43;&#43;r);
+	
+	if(cur.opt)	print(sum);
+	else{//修改则令l=r=pos,再调用add和del.
+		del(l); a[l]=cur.v; add(l);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="4-树链剖分">4. 树链剖分</h2>
+<p>树链剖分分为<strong>轻重链</strong>、<strong>虚实链</strong>、<strong>长短链</strong>剖分，下面主要介绍前两种.</p>
+<h4 id="41-轻重链剖分">4.1 轻重链剖分</h4>
+<p>对一个结点而言，其中有一个子结点对应的子树规模最大，则该结点称<strong>重儿子</strong>，其余称<strong>轻儿子</strong>(由于可以有规模相同的两个子树，故轻重链剖分<strong>不唯一</strong>). 根结点定义为重结点，<strong>两个</strong>重结点的连边称为<strong>重边</strong>，其余称轻边. 有以下性质：</p>
+<ul>
+<li>相邻的重边可形成一条<strong>重链</strong>，重链的起始点<strong>均与轻边相连</strong>(叶子或根结点除外)</li>
+<li>轻边的条数不多于$\log n$条(以二叉树为例，每往轻边走一次，子树规模至少减少一半；故对多叉树，真数为$1-\frac{1}{D}$，其中D是最大度)</li>
+</ul>
+<p>在进行剖分时，需进行两次DFS.</p>
+<ul>
+<li>第一次：统计各个子树大小(线性时间)</li>
+<li>第二次：标注重儿子(线性时间)，逻辑为<strong>先进入重儿子的递归，再检测轻儿子</strong>，按第二次遍历顺序给各个顶点打上<strong>时间戳dfn</strong>,使得<strong>同一条重链的时间戳相连</strong>.</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>DFS.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//先统计子树大小、深度、重儿子，结构：单向邻接表
+int dfs1(int rt, int depth){
+	if(!rt)	return 0;
+	dep[rt] = depth;
+	int cnt = 0;
+	//统计子树大小、深度
+	for(int v:neighbor[rt])	cnt&#43;=dfs1(v,depth&#43;1);
+	//统计重儿子
+	int heaviest=-1, weight=-1;
+	for(int v:neighbor)	
+		if(size[v]&gt;heaviest)	heaviest=v, weight=size[v];
+	heavy[heaviest] = true;
+	return (size[rt] = cnt);
+}
+//再标记重链顶端元素，更新top[]；打dfn的欧拉序一定要重儿子优先，若合并统计top，则需第三次dfs
+int dfs2(int cur, int upmost){
+	for(int v:neighbor)
+	
+	
+	for(int v:neighbor[cur])
+		if(!heavy[v]){top[v]=cur;dfs(v,v);}
+		else{top[v]=upmost;dfs(v,upmost);}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>形如场景1、2，需结合线段树实现：</p>
+<p><strong>场景1</strong> 将以x为根的子树所有结点加上z；求子树内所有节点值之和</p>
+<p>  利用线段树，将时间戳处于<code>[x,x+size(x)-1]</code>的范围加上z或查询其和.理由是重链往后的size(x)-1个结点都是其子树内的结点.</p>
+<p><strong>场景2</strong> 对给定路径上的所有点加上z；并求该路径上所有结点值之和</p>
+<p>   <strong>引理</strong> 除根外的任意结点的父节点一定在重链上.(如不然，该父结点没有最大子树，这是不可能的)</p>
+<p>   故对任何一条路径(u,v)，可以维护两个指针，让<strong>所在链顶部</strong> <strong>深度较大</strong>(否则会跳过头)的往上跳到<strong>top</strong>[]<strong>(在第二次dfs顺便标记)</strong>，直到二者重合或在同一重链上.(若父节点和当前结点以轻边相连，则此时父节点为该链的顶端). 按照重链剖分，每次对重链部分用线段树求和，直至位于同一重链，由于同一重链连续，故可再用一次线段树求和求剩下的点.(一个点到自身也可视重链)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void mchain(int x,int y,int z){
+	while(top[x]!=top[y]){
+		if(dep[top[x]]&lt;dep[top[y]])	swap(x,y);
+		modify(dfn[top[x]],dfn[x],z);	//修改一整条重链
+		x = father[top[x]];
+	}
+	//若两个结点位于同一条重链但不重合，把其中的一部分补了
+	modify(min(dfn[x],dfn[y]),max(dfn[x],dfn[y]),z);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+对于查询子树和的操作，将modify部分改为query部分，并将每个重链进行累加返回即可.</p>
+<p>对于上述场景，重链剖分$\log n$，线段树求和$\log n$，共m次询问，故复杂度$O(m\log^2n)$</p>
+<p><strong>场景3</strong> 求LCA.</p>
+<p>   <strong>分析</strong> 在场景2中已实现. 同理为确定双指针，顶端深的一个往上跳即可.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>LCA.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int lca(int x,int y){
+	while(top[x]!=top[y]){
+		if(dep[top[x]]&lt;dep[top[y]])	swap(x,y);
+		x = father[top[x]];
+	}
+	//若两个结点位于同一条重链但不重合，把其中的一部分补了
+	return dep[x]&gt;dep[y] ? x:y;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="42-虚实链剖分">4.2 虚实链剖分</h4>
+<p><strong>例题</strong> 对一棵n阶树，有k个<strong>关键点</strong>，且每条边均有非负边权，要求求出切断从根节点到任意关键点的最小花费的边集.(<strong>每次询问导致关键点重新分配，但不会更改边权</strong>)</p>
+<p><strong>分析</strong> 若只有1次询问，可用树上dp，即定义f(u)为切断结点u到任何关键点的最小花费，则考虑其儿子v，若v是关键点，则必须切断，即$f(u)+=w(u,v)$；若v不是，则可考虑切断(u,v)或靠子树v内部切断，即$f(u)=\min w(u,v),f(v)$. 然而有m次询问，复杂度O(mn).</p>
+<p>但实际上，若<strong>关键点个数较少</strong>，则本质上没必要对整个树DP，而选取一些有用点. 这些有用点只能是<strong>由关键点在LCA运算下张成的空间</strong>. 这棵树被定义为<strong>虚树</strong>，虚树中的任何两个点在原树中的路径为<strong>虚边</strong>. 虚边的权值视具体问题而定，本题中为<strong>原树中两点路径中权值最小的边的权</strong></p>
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/geo/28.jpg" >
+  
+  
+</div>
+
+<p><strong>虚树的建立：单调栈法</strong>
+，按dfs序排序，保证栈里<strong>相邻节点在虚树上相邻</strong>且<strong>按照DFS序单增</strong>，接下来进行连边.</p>
+<ul>
+<li>若栈顶是待入节点的祖先，证明两个点在同一条链上，直接入栈</li>
+<li>若不是，则需开始弹栈来维护在同一条虚链上这一性质. 由于维护的是单调栈，故需看dfs下的序关系. 若LCA(当前，栈顶)的序小于次栈顶，说明LCA不在当前单调栈的虚链上，不断弹栈直至LCA小于等于次栈顶，此时虚链<strong>回退完毕</strong>可以<strong>开始拐弯</strong>.若LCA等于次栈顶，LCA和栈顶相连；若大于次栈顶，则说明LCA连在次栈顶上，把栈顶和次栈顶连好后直接入栈.</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Partition.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//统计dfs序
+int dfn[N]={0},cnt=0;
+void dfs(int rt){
+	if(!rt)	return;
+	dfn[rt] = cnt&#43;&#43;;
+	for(int to:neighbor[rt])	dfs(to);
+}
+//按dfs序排序
+inline bool cmp(const int x, const int y){return dfn[x]&lt;dfn[y];}
+int get_second(){
+	int m = s.top(); s.pop(); 
+	int n = s.top(); s.push(m);
+	return m;
+}
+//先建一个边集，再由边集换为邻接表(对up排序然后合并即可)
+void connect(int down, int up){ //相连的一定有祖先关系
+	int weight = INF;
+	while(down!=up){	//parent_value指与父节点相连的边的边权
+		weight = min(weight, parent_value[down]);
+		down = parent[down];
+	}
+	edges.push_back(Edge(down,up,weight));
+}
+
+void build(){
+	stack&lt;int&gt; s;	s.push(rt);	
+	vector&lt;int&gt; crucial; //存放关键点的集合
+	sort(crucial.begin(),crucial.end(),cmp);//按dfs排序
+	for(auto cur:crucial){	//考察每个关键节点
+		if(cur==rt)	continue; //避免重复入栈
+		int l = lca(cur, s.top());
+		if(l!=s.top()){
+			while(cmp(l,get_second())){	
+				connect(get_second(),s.top());
+				s.pop();
+			}
+			//不相等，说明l插在次栈顶和栈顶之间
+			if(dfn[l]&gt;dfn[get_second()]){
+				connect(l,s.top());s.pop(),s.push(l);
+			}
+			//相等，说明l就是次栈顶，直接连边无需入栈
+			else {connect(l,s.top());s.pop();}
+		}
+		//把虚链处理完，把当前关键点插入即可
+		s.push(cur);
+	}
+	//栈里还剩一条链，把栈清空
+	while(s.size()!=1){
+		connect(get_second(),s.top());
+		s.pop();
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>变式1</strong></p>
+<p><strong>变式2</strong></p>
+<p>该类题与Kruskal重构树类似，均为树规模大而关键点少.</p>
+<h4 id="43-dfs序与欧拉序">4.3 DFS序与欧拉序</h4>
+<ul>
+<li><strong>DFS序</strong>：按DFS顺序记录访问点的先后顺序</li>
+<li><strong>Euler序</strong>：当前每到达一个点(<strong>离开</strong>和<strong>回到</strong>均记录一次)，可见每一条链，如1,3,5(端点取第1次离开)中间可能有其他点(如2)，但是均出现两次(可认为没有出现)，只出现奇数次的点即为该链.</li>
+</ul>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/geo/27.jpg"  alt="Euler Order:1,2,2,3,5,5,6,6,7,7,3,4,8,8,4,1">
+   
+    
+     <span class="caption">Euler Order:1,2,2,3,5,5,6,6,7,7,3,4,8,8,4,1</span>
+   
+ </div>
+
+<p>利用欧拉序，我们可以知道 <strong>(u,v)上有哪些结点</strong>，从而将树上的链问题转换为区间问题.</p>
+<p>先计算出u,v的最小公共祖先LCA(u,v)( <strong>Tarjan算法、树链剖分、倍增算法、ST表</strong> )</p>
+<ul>
+<li>若(u,v)中u,v有一个是LCA,则直接去掉重复出现的结点，所得即链.</li>
+<li>若(u,v)均不是LCA，则去重后需在最后添加上LCA.</li>
+</ul>
+<h2 id="5-树上莫队">5. 树上莫队</h2>
+<p><strong>例题</strong> 一棵树的每个节点有一权值，支持询问：从u到v的路径上权值不同的结点数</p>
+<p>   <strong>分析</strong> 先预处理求解出欧拉序，作为一维数组p[]，再打表记录<strong>每个点在欧拉序中的起点st[]</strong>. 同理进行分块. 对每次询问，均先求解LCA. 将对应的左右指针移动到st[u],st[v]，其中需记录vis[]，即表示每个节点是否已访问. 对区间扩大，若已访问，则改为未访问(取反)并删去该节点的计数；同理，对区间缩小，若未访问，则改为已访问(取反)并添加该节点. <strong>其中若LCA不是u,v，则再记录一次LCA并返回答案，然后减掉LCA</strong>.</p>
+<p><strong>变式(蓝桥2023C++A)</strong> 若一棵树内部各种权值的点的个数相同，则称其<strong>颜色平衡树</strong>，对给定的一棵树，求颜色平衡的子树的个数.</p>
+<p>   <strong>分析</strong> 同理求欧拉序并存储每个点在欧拉序中的<strong>起止点</strong><code>st[],ed[]</code>，其中对应查询区间为<code>[st[i],ed[i]]</code>. 在统计个数时，对数值离散化打表，利用map的红黑树模型，添加键值对 <strong>&lt;出现次数，颜色vector<!-- raw HTML omitted -->&gt;</strong>   (为零时删除)，直至到达目标区间时再检查是否所有值均相同. 总共n次询问，每次到达目标区间$O(\sqrt n\log n)$，检查的花费为$O(1)$(若map中元素大于1，则一定不同). 从而整体最坏复杂度$O(n^\frac{3}{2}\log n)$</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/partition/">Partition</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/" data-tooltip="[Data Structure]B,B&#43; and Red Black Tree" aria-label="NEXT: [Data Structure]B,B&#43; and Red Black Tree">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/" data-tooltip="[Algorithm]Dynamic Programming: Optimization" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Optimization">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/05\/algorithmpartition-algo.-interval-problems\/';
+        
+          this.page.identifier = '\/2023\/05\/algorithmpartition-algo.-interval-problems\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/data-structurebb-and-red-black-tree/" data-tooltip="[Data Structure]B,B&#43; and Red Black Tree" aria-label="NEXT: [Data Structure]B,B&#43; and Red Black Tree">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/algorithmdynamic-programming-optimization/" data-tooltip="[Algorithm]Dynamic Programming: Optimization" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Optimization">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/algorithmpartition-algo.-interval-problems/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Falgorithmpartition-algo.-interval-problems%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Falgorithmpartition-algo.-interval-problems%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Falgorithmpartition-algo.-interval-problems%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

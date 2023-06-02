@@ -1,0 +1,685 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Real Analysis]Seven Fundamental Theorems of Real Analysis",
+  
+  "image": "https://Supradax.github.io/img/trie.jpg",
+  
+  "datePublished": "2023-05-30T00:00:00Z",
+  "dateModified": "2023-05-30T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/05\/real-analysisseven-fundamental-theorems-of-real-analysis\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.">
+
+
+<meta property="og:description" content="七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Real Analysis]Seven Fundamental Theorems of Real Analysis">
+<meta name="twitter:title" content="[Real Analysis]Seven Fundamental Theorems of Real Analysis">
+<meta property="og:url" content="https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.">
+<meta name="twitter:description" content="七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-05-30T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-05-30T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="Real Analysis">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/trie.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/trie.jpg">
+
+
+    <title>[Real Analysis]Seven Fundamental Theorems of Real Analysis</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Real Analysis]Seven Fundamental Theorems of Real Analysis
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-05-30T00:00:00Z">
+        
+  May 30, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.</p>
+<p><strong>注</strong> 在不具备<strong>完备性</strong>(任何两个实数之间均存在一个实数)的拓扑空间中，有些定理不能使用。在度量空间中，由于存在序关系，所有定理均仍能使用；但在无度量的拓扑空间（由开集定义）中，开覆盖和紧集套自然更基本，Cauchy收敛原理被减弱为无穷多个元素位于邻域内，确界、单调有界、Dedekind&rsquo;s cut由于基于序关系，故无法继续使用.</p>
+<ul>
+<li><strong>实数公理</strong>：序关系（两个实数可比）、域公理、完备性公理((R,≤)是完备集，满足最小上界性)</li>
+</ul>
+<p><strong>引理</strong></p>
+<ul>
+<li>有理数的稠密性：两个有理数间一定存在有理数 $x&lt;{x+y\over2}&lt;y$</li>
+<li>质数有无穷多个.
+<strong>pf.</strong> 假设有限个，则$m=p_1&hellip;p_n+1$<strong>不能被$p_1,&hellip;,p_n$唯一分解</strong>，矛盾</li>
+<li>$\frac{1}{\sqrt r}$是无理数(r是质数) <strong>pf.</strong> 设$\frac{1}{\sqrt r}={p\over q},(p,q)=1$，则$p^2r=q^2$，由唯一分解定理，$q|r$，从而等式右侧至少有两个质因数r，从而$p|r, (p,q)=r\neq 1$，矛盾!</li>
+</ul>
+<h3 id="1-dedekind定理确界原理和有限覆盖定理">1 Dedekind定理、确界原理和有限覆盖定理</h3>
+<p>先证明Dedekind定理与确界原理等价，再证明确界原理与有限覆盖等价.</p>
+<h4 id="11-dedekinds-cut">1.1 Dedekind&rsquo;s Cut</h4>
+<p><strong>定义</strong> 在Q中找一个数p，将Q划分为<strong>下集</strong>A和<strong>上集</strong>B，满足<strong>A无最大元素</strong>.(划分:A、B的无交并为全集)</p>
+<p><strong>公理</strong> 显然Q上的Dedekind分割的上集可能无最小元p，现在R上进行分割. 我们定义一个实数对应一个<strong>对Q的分割且下集均小于这个数</strong>，从而<strong>实数具有稠密性，具体地，这个实数可以是有理数或无理数</strong> 这是因为，两次分割间必须存在有理数，否则是同一个分割，从而两个实数相等</p>
+<p><strong>定理1 Dedekind定理</strong> 对实数上的任何Dedekind分割，上集中一定有最小元.</p>
+<p><strong>pf.</strong> 反证法. 定义下集A、上集B所有有理数集为C,D，则取$a\in C$，由于A中无最大元，从而存在$b\in A, a&lt;b$，故存在$c\in C, a&lt;c&lt;b$，从而C中无最大元，<strong>这构成Q上的Dedekind分割. 而这个分割确定了一个实数d</strong>，若$d\in A$，则由于A无最大元，故C中存在有理数p&gt;d，从而$p\in D$，矛盾! 从而$d\in B$，假设d不是最小元，则存在B中元素e&lt;d，故$e\in A$，矛盾！□</p>
+<p><strong>注1</strong> 类似Peano公理中对自然数的定义，整个自然数实质上是一个<strong>集族</strong>，即$A\subset B$等价于$A&lt;B$</p>
+<p><strong>注2</strong> 任何两个实数间必存在一个无理数. 由上述知两个实数间一定有一个有理数，从而有无数个有理数. 任取两个x,y(x&lt;y)，由于无最大的质数，故取$p$使得$\frac{1}{\sqrt p}&lt;y-x$，由有理数四则运算封闭性，有无理数$x+\frac{1}{\sqrt p}\in(x,y)$</p>
+<h4 id="12-确界原理">1.2 确界原理</h4>
+<p><strong>定理2</strong> R中的集合若存在上界，则存在上确界(最小上界).</p>
+<p><strong>Dedekind→：</strong> 若集合存在最大值，则上确界即为最大值. 定义<strong>集合E的所有上界构成的集合为上集</strong>，若能证明该分割是Dedekind分割，则上集存在最小元，即最小上界. 只需证下集没有最大元. 假设有最大元a，则a是一个上界，a在上集中，矛盾！</p>
+<p><strong>→Dedekind：</strong> 显然上集B有下界，故有下确界m. 若$m\in A$，则A无最大元，故存在$n\in A,n&gt;m$，从而n是B的下界，与m是最大上界矛盾！</p>
+<h4 id="13-有限覆盖定理heine-borel定理">1.3 有限覆盖定理(Heine-Borel定理)</h4>
+<p><strong>定理3</strong> 若闭区间有一个开覆盖，则必存在一个有限子覆盖.</p>
+<p><strong>确界→：</strong> 定义集合E使得$[a,x](x\leq b)$存在一个有限子覆盖，则x存在上界而有上确界M，假设M&lt;b，则由<strong>选择公理</strong>，可找到一个开区间覆盖M，从而邻域内存在一个比M大的数，与M是上确界矛盾！从而M=b，只需再找一个能覆盖b的开区间，则为所求.</p>
+<p><strong>→确界：</strong> 假设不存在最小上界，任取集合中一点a和一个上界b，对$[a,b]$中的每一个x，<strong>若x是上界</strong>，由于无最小上界，存在比x小的上界y，则构造以x为中心、y-x为半径的开区间；<strong>若x不是上界</strong>，由于区间内无最大值，故S中存在y使x&lt;y，同理构造开区间. 故而第一类和第二类共同构成一个开覆盖，而由有限覆盖定理，选出一簇有限开区间，由于<strong>第一类覆盖有限且无上确界</strong>，从而存在上界m使得m小于任何第一类开区间的左端点，故m无法被第一类覆盖，而第二类覆盖的内点均不是上界，故m无法被覆盖，矛盾！□</p>
+<ul>
+<li><strong>选择公理</strong>：总能从一个含无穷多个元素的集合中以某种方式挑选出一些元素构成新的集合</li>
+</ul>
+<h3 id="2-单调有界定理闭区间套定理聚点定理柯西收敛原理">2 单调有界定理、闭区间套定理、聚点定理、柯西收敛原理</h3>
+<h4 id="21-单调有界定理">2.1 单调有界定理</h4>
+<p><strong>定理4</strong> 若数列$a_n$单调有界，则必然收敛于某一实数a.</p>
+<p>  <strong>确界→：(三歧性)</strong> 不妨设单调递增，由于有界，故有上确界M. 只需证明a=M. 假设a&lt;M，则当$\epsilon={\frac{|M-a|}{2}}$时，$a_n&lt;a+\epsilon&lt;M$，而由于单调，故$a+{\frac{|M-a|}{2}}&gt;a_n$，与M是上确界矛盾. 假设a&gt;M，则当$\epsilon={\frac{|M-a|}{2}}$时，$a_n&gt;a-\epsilon&gt;M$，这与M是上界矛盾.</p>
+<h4 id="22-闭区间套定理">2.2 闭区间套定理</h4>
+<p><strong>定理5</strong> 若$[a_n,b_n]\in[a_{n+1},b_{n+1}],a_n↑,b_n↓,|b_n-a_n|→0$，则有$c\in R,a_n,b_n→c$</p>
+<p>  <strong>单调有界→：</strong> $a_n,b_n$收敛，设极限为M、N. 若M≠N，则$\epsilon→0$时，$|b_n-a_n|$显然不趋于零.</p>
+<h4 id="23-聚点定理bolzano-weierstrass定理">2.3 聚点定理(Bolzano-Weierstrass定理)</h4>
+<p><strong>定理6</strong> 若有<strong>有界数列$a_n$</strong>，必然存在一个收敛的无穷子列.</p>
+<p>  <strong>闭区间套→：</strong> 将区间<strong>二分</strong>，由于有无穷多项，<strong>至少有一个区间有无穷多项，每次选择这一半（若均有则取右侧）并在其中任取一个点</strong>，从而构成闭区间套及对应的子列</p>
+<h4 id="24-cauchy收敛原理">2.4 Cauchy收敛原理</h4>
+<p><strong>定理7</strong> 若$a_n→a$，则存在N使得$\forall n,m&gt;N, |a_n-a_m|&lt;\epsilon$</p>
+<p>   <strong>聚点定理→：</strong> 必然存在收敛子列收敛于a，则$|a_n-a|\leq |a_n-a_{kn}|+|a_{kn}-a|&lt;\epsilon$</p>
+<p>   <strong>→确界原理：</strong> 固定正整数n，则一定存在k使得$k\over n$是E的上界而$k-1\over n$不是. 每个n唯一确定一个k，故构造这样的数列$a_n$并证明其极限为上确界. 对任意m、n，满足$a_n-\frac{1}{n}&lt;a_m,a_m-\frac{1}{m}&lt;a_n$，从而$|a_n-a_m|&lt;\max \frac{1}{n},\frac{1}{m}→0$，故存在极限M. M不是上界，则由$|a_n-a|&lt;\epsilon$，当$\epsilon$足够小时，$a_n$也不是上界，矛盾！若M是上界但不存在确界，则存在另一个上界N使得N&lt;M，则当n→∞时，$N&lt;\frac{k-1}{n}&lt;\frac{k}{n}$，但$\frac{k-1}{n}$不是上界，矛盾！</p>
+<p>此外还可使用十进制系统进行定义.</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/real-analysis/">Real Analysis</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" data-tooltip="[Abstract Algebra]Group Theory in Algo(I)" aria-label="NEXT: [Abstract Algebra]Group Theory in Algo(I)">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" data-tooltip="[ML]Supporting Vector Machine" aria-label="PREVIOUS: [ML]Supporting Vector Machine">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/05\/real-analysisseven-fundamental-theorems-of-real-analysis\/';
+        
+          this.page.identifier = '\/2023\/05\/real-analysisseven-fundamental-theorems-of-real-analysis\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" data-tooltip="[Abstract Algebra]Group Theory in Algo(I)" aria-label="NEXT: [Abstract Algebra]Group Theory in Algo(I)">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/mlsupporting-vector-machine/" data-tooltip="[ML]Supporting Vector Machine" aria-label="PREVIOUS: [ML]Supporting Vector Machine">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Freal-analysisseven-fundamental-theorems-of-real-analysis%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Freal-analysisseven-fundamental-theorems-of-real-analysis%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F05%2Freal-analysisseven-fundamental-theorems-of-real-analysis%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -300,21 +300,55 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <h2 id="1-marcov-model">1 Marcov Model</h2>
-<p>If a system has several states and each action can transform the current to another with certain possiblities, then such a random system is called <strong>Marcov Model</strong>.</p>
-<p>For instance, a state transition graph can be mapped with a <strong>state transition probability matrix</strong> $\begin{bmatrix}
+              <h2 id="1-markov-model">1 Markov Model</h2>
+<p><strong>n-steps Markov Model</strong>，在涉及<strong>状态+动作</strong>的场景中，每一个时刻对应一个状态，按照<strong>当前状态和转移矩阵</strong>进行一次<strong>转移</strong>. 在概率图中，状态为点，转移为有向边，概率为权值. 如概率转移矩阵如下：行指标From, 列指标To.
+$\begin{bmatrix}
 p_{00} &amp;  p_{01}  &amp;  p_{02} \\
 p_{10} &amp;  p_{11}  &amp;  p_{12} \\
 p_{20} &amp;  p_{21}  &amp;  p_{22} \\
 \end{bmatrix}$
-where $p_{ij}$ means state i has a probability to transform into j. And such matrix has a property that $\sum_i^n{p_{ji}}=1$ which means it has an eigenvalue 1 and eigenvector $(1,1,1)^T$</p>
-<p>The matrix can be decomposed as $P^{-1}JP$ where J is Jordan Canonical Form(JCF) and $A$ is called <strong>steady-state</strong> where $A^n\to B(n\to\infty)$</p>
-<p>The Marcov matrix has several properties:</p>
+$p_{ij}$意味着从状态i转移到j的概率，由概率定义，<strong>同一行、列的概率之和均为1</strong>，从而有一个特征值为1的特征向量$(1,&hellip;,1)$</p>
+<p>对于<strong>初始状态向量$X_0$</strong>，有$X_n=PX_{n-1}$，而n次执行后有$X_n=P^nX_0=Q^{-1}J^nQX_0$，其中J为对应的Jordan标准型，可用快速幂再优化.</p>
+<p>对转移矩阵，当$P^n$趋于收敛时，即$||P_n-P||&lt;\epsilon$时，称该状态为<strong>稳定状态(steady-state)</strong>，显然根据初值不同，有多种稳态，也可能发散(<strong>如恰好初始值位于谱半径大于1的特征子空间中</strong>). 对状态向量，则当$PX=X$时，即<strong>X恰为特征值1的特征向量时，则X对应的为稳态</strong>. 即对应的特征子空间为所求，而由Marcov矩阵的特点，这个子空间一定存在，故Marcov一定存在一个初值对应一个稳态.</p>
+<p>n-steps Markov模型的特点在于<strong>下一状态只取决于当前状态且转移矩阵不随时间变化</strong></p>
+<h2 id="2-hidden-markov-modelhmm">2 Hidden Markov Model(HMM)</h2>
+<p>HMM的三要素为$\lambda=(A,B,\pi)$. 其中A为状态转移概率矩阵，B为<strong>观测概率矩阵($b_j(k)=P(o_t=v_k|i_t=q_j)$表示t时刻处于$q_j$看到的是$v_k$的概率)</strong>，$\pi$为<strong>初态向量</strong></p>
+<p>设Q是状态集合，V(isible)是可观测集合，N、M是可能的状态数和观测数(q不可见，v可见)，I(nvisible)、O(berserve)为长度T的状态和观测序列.</p>
+<p>与Marcov模型不同，HMM有三假设：</p>
+<ul>
+<li><strong>齐次(一阶)Marcov假设</strong> 当前状态只和上一状态有关，与<strong>其他时刻或观测值无关</strong></li>
+<li><strong>观测独立性假设</strong> 观测值只和当前状态有关(导致特征选择无法关联上下)</li>
+<li><strong>参数不变性假设</strong> 整个训练过程A,B,$\pi$不变</li>
+</ul>
+<p>根据前两条，联合概率可改写为$$P(o_1,i_1,&hellip;,o_n,i_n)=P(i_1)P(o_1|i_1)P(i_2|i_1)P(o_2|i_2)&hellip;P(i_n|i_{n-1})P(o_n|i_n)$$</p>
+<p>利用HMM有三个基本(Canonical)问题可适用：</p>
+<ul>
+<li><strong>Filter</strong></li>
+</ul>
 <ol>
-<li>The convergence is not unique, it depends on the initial condition.</li>
-<li></li>
-<li></li>
+<li><strong>观测序列出现概率</strong> (初值不确定)</li>
 </ol>
+<p>   <strong>穷举法</strong>. 考察所有的状态序列，即有$P(I|\lambda)=\pi_{i_1}a_{i_1i_2}&hellip;a_{i_{t-1}i_t}$(其中$\pi_i$为所有可能的初值对应的概率)，对于所要的观测序列O，概率为$P(O|I,\lambda)=b_{i_1}(o_1)&hellip;b_{i_t}(o_t)$，从而$P(O|\lambda)=\sum_I P(O|I,\lambda)P(I|\lambda)$(需枚举所有的状态序列). 使用DP优化，有如下两个算法.</p>
+<p>   <strong>前向法</strong>. 定义<strong>前向变量</strong>为$f_t(i)=P(o_1,&hellip;,o_t,i_t=q_i|\lambda)$，表示在t时刻，观测序列为$o_1,&hellip;,o_t$且状态为$q_i$的概率，则模型$\lambda$下观测序列为O的概率$P(O|\lambda)=\sum_{i=1}^N{f_T(i)}$.</p>
+<p>具体步骤为计算初值，$f_1(i)=\pi_ib_i(o_1),i=1,&hellip;,N$, 状态转移方程$f_{t+1}(i)=\sum_{j=1}^Nf_t(j)a_{ij} b_i(o_{t+1})$，即t+1时刻状态为i并观测到$o_{t+1}$的概率为t时刻看到$o_t$且能够转移过来的概率之和(先转移到i)，乘上看到$o_{t+1}$概率(再观测). 其中$P(O|\lambda)=\sum_{i=1}^N f_T(i)$为所求.</p>
+<p>   <strong>后向法</strong>. 定义<strong>后向变量</strong>为$r_t(i)=P(o_{t+1},&hellip;,o_T|i_t=q_i,\lambda)$，表示t时刻状态为$q_i$时，能观测到之后序列的概率，现在向前递推.</p>
+<p>首先初始化$r_T(i)=1,i=1,&hellip;,N$(不能为零，否则状态迭代全为零)，向前转移方程为$r_t(i)=\sum_{j=1}^N a_{ij}b_j(o_{t+1})r_{t+1}(j)$，表示需要在此前完成状态转移到下一步的j并成功观测到$o_{t+1}$，才能进入j. 而由于任意j都能达到目标，故需求和. 最终$P(O|\lambda)=\sum_{i=1}^N \pi_i b_i(o_1)r_1(i)$为所求. (<strong>若初值确定，则无需求和</strong>)</p>
+<ol start="2">
+<li>
+<p><strong>单状态的概率</strong> 在t时刻状态为$q_i$的概率.</p>
+</li>
+<li>
+<p><strong>多状态的概率</strong> 在t,t+1时刻状态为$q_i,q_j$的概率.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Learning. 参数估计</p>
+</li>
+<li>
+<p>Decoding. 序列可能性问题</p>
+</li>
+</ul>
               
 
 

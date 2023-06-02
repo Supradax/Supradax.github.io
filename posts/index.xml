@@ -6,7 +6,34 @@
     <description>Recent content in Posts on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Genetic Algorithm</title>
+      <link>https://Supradax.github.io/2023/06/mlgenetic-algorithm/</link>
+      <pubDate>Fri, 02 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/06/mlgenetic-algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Abstract Algebra]Group Theory in Algo(I)</title>
+      <link>https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/</link>
+      <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Real Analysis]Seven Fundamental Theorems of Real Analysis</title>
+      <link>https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/</link>
+      <pubDate>Tue, 30 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/</guid>
+      <description>&lt;p&gt;七大实数基本定理，在Peano公理定义的自然数、有理数的基础上将实数系统完备化. 从任何一个出发，均可定义出实数的概念且能够证明这七个定理在实数范围内等价.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[ML]Supporting Vector Machine</title>
       <link>https://Supradax.github.io/2023/05/mlsupporting-vector-machine/</link>

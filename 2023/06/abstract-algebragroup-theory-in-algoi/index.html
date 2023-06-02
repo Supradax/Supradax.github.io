@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Abstract Algebra]Group Theory in Algo(I)",
+  
+  "image": "https://Supradax.github.io/img/marcov.jpg",
+  
+  "datePublished": "2023-06-01T00:00:00Z",
+  "dateModified": "2023-06-01T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/06\/abstract-algebragroup-theory-in-algoi\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Abstract Algebra]Group Theory in Algo(I)">
+<meta name="twitter:title" content="[Abstract Algebra]Group Theory in Algo(I)">
+<meta property="og:url" content="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-06-01T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-06-01T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="Abstract Algebra">
+    
+      <meta property="article:tag" content="Group">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/marcov.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/marcov.jpg">
+
+
+    <title>[Abstract Algebra]Group Theory in Algo(I)</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Abstract Algebra]Group Theory in Algo(I)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-06-01T00:00:00Z">
+        
+  June 1, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-群">1 群</h2>
+<h4 id="11-基本概念">1.1 基本概念</h4>
+<p><strong>半群</strong>是二元代数系统&lt;S,·&gt;，满足结合律和封闭性，当存在单位元时，为<strong>幺半群</strong>；存在逆元时，为<strong>群</strong>. 若乘法可交换，则为<strong>Abel群</strong>. 对&lt;T,·&gt;，T⊂S，则称T为S的<strong>子群</strong>.</p>
+<p>容易验证，群中一个元素的逆元和单位元唯一.</p>
+<p>经典的群有如<strong>循环群、置换群(对称群)、二面体群、旋转群、、GL(n,R)(一般可逆线性群)、SL(n,R)(行列式恰为1的实矩阵乘群)</strong> 等.</p>
+<h4 id="12-同态与同构">1.2 同态与同构</h4>
+<p>若存在两个群，定义映射$f:(G,+)→(G&rsquo;,·)$，满足<strong>保持乘法</strong> i.e. $f(xy)=f(x)f(y)$时，称f是<strong>群同态映射</strong>；若f是双射，则f是<strong>群同构映射</strong>.</p>
+<p>群同态f满足将G中单位元映射到G&rsquo;中的单位元(f(x)=f(xe)=f(x)f(e)=f(x)e&rsquo;)，进而将逆元映射到逆元.</p>
+<p>受线性空间理论的启发，在G中定义 <strong>核Ker(f)</strong> 使得$f(Ker(f))=1&rsquo;$，<strong>像Im(f)<strong>为$f(G)$的全集. 其中</strong>Ker(f)只有e等价于f是单射；当Im(f)＝G时，f是满射</strong>. 后者显然，对前者，充分性显然，必要性假定f(a)=f(b)，则$f(a)f^{-1}(b)=f(a)f(S)=f(aS)=f(e)$(此处的$f^{-1}$是原象集)，则$aS\in Ker f$，S只能是$a^{-1}$，从而f(b)只能由a映射得到，故a=b.</p>
+<p>容易验证，<strong>Ker是定义域G的子群，Im是陪域G&rsquo;的子群</strong>，即kerf&lt;G,Imf&lt;G&rsquo;. 定义一族群$(G_i,·_i)$的多元有序对为<strong>直积</strong>，由于各个独立分量为群，故整体也是群. 若定义<strong>投影映射</strong>为直积到某一个分量上的群，则这个映射是<strong>群同态</strong>(先做直接乘法，再把这个分量提出；和先提出这个分量，再做乘法结果相同)</p>
+<h4 id="13-陪集商集">1.3 陪集、商集</h4>
+<p>若H&lt;G，a∈G，则aH是<strong>由a引出的H的一个左陪集</strong>，aH={ax|x∈H}，同理有<strong>右陪集</strong>. 而实质上，通过<strong>左乘定义的</strong>的映射f:H→aH是<strong>双射</strong>使得 <strong>|H|=|aH|(陪集大小相同)</strong> 且<strong>所有左陪集构成了G的一个分拆(两个陪集要么相等，要么无交).</strong></p>
+<p>  <strong>pf.</strong></p>
+<ol>
+<li>由于f(x)=ax是双射(单射:对ax=ay左乘$a^{-1}$，满射显然)，故将x推广到包含所有x的H，双射仍成立，从而|H|=|aH|.</li>
+<li>若aH∩bH非空，则任取ax=by∈aH∩bH，只需证明aH,bH相互包含. 从而$b=a(xy^{-1})\in aH$，故$bH\subset aHH=aH$</li>
+</ol>
+<p>由于陪集构成一个划分，故不同的<strong>左乘元素</strong>也可构成一个集合(如线性流形、模5等价类等)，称<strong>商集G/H={aH|a∈G}</strong>，其中商集的大小称<strong>指数</strong>，记作 <strong>[G:H]=|G/H|</strong> .</p>
+<p><strong>Theo Lagrange定理：若|G|&lt;∞，H&lt;G,则|G|=[G:H]|H|</strong>，从而 <strong>|H|||G|</strong></p>
+<p>  <strong>pf.</strong> 由于陪集大小相同，且共有[G:H]个这样的陪集，其无交并恰为G，显然成立.</p>
+<p>  <strong>推论</strong>若有限群K&lt;H&lt;G，则[G:K]=[G:H][H:K]；若H,K&lt;G，则${|HK|\over|K|}={|H|\over|H\cap K|}$</p>
+<h4 id="14-正规子群">1.4 正规子群</h4>
+<p>对群G任意两个元素，交换是苛刻的，故考虑<strong>放松到左陪集与右陪集相等</strong> 由以下的命题可知，<strong>陪集的代表元可不同</strong>.</p>
+<p><strong>Theo 1</strong> H&lt;G,x∈G 则xH=H当且仅当x∈H；对xH=yH当且仅当$y^{-1}x\in H$
+  必要性取e∈H，则xe=x∈H，充分性显然. 对第二个命题，充分性：y,x∈H，由陪集无交性质可知；必要性则取e∈H，则x=yh∈yH，存在h使$h=y^{-1}x$</p>
+<p>若N&lt;G，则N是<strong>正规子群</strong>(N◁G)当且仅当 <strong>aN=Na(a∈G)</strong>. 且该定义用逆元、N的元素的两种表达等价，即 <strong>$aNa^{-1}\subset N, ana^{-1}\in N$</strong> . 有两个平凡的正规子群，<strong>{e},G</strong>；对Abel群，子群即正规子群.</p>
+<p>  <strong>pf.</strong> 显然后两种等价. 1→2：aN=Na即任取$n_1\in N$总有$an_1=n_2a,an_1a^{-1}=n_2\in N$. 取遍所有$n_1$可得. 2→1：可得$aN\subset Na$，令$a&rsquo;=a^{-1}$，则有$Na\subset aN$ □</p>
+<p>容易证明，<strong>子群、正规子群</strong>对交集封闭.</p>
+<p>下面定义陪集的乘法，即(aN)(bN)=abN，需验证其良定义性，即$aN=cN,bN=dN$，是否有$abN=cdN$. 将N取出具体元素，则有$an_1=cn_3,bn_2=dn_4, \forall n\in N$ $abn=cn_3n_1^{-1}dn_4n_3^{-1}n\in cn_1dN\subset cdN$，从而验证<strong>商集与陪集乘法构成商群</strong></p>
+<h4 id="15-群同构三大定理">1.5 群同构三大定理</h4>
+<p><strong>Theo.1</strong> <strong>若f是群同态，ker(f)◁G, 则G/ker(f)≌im(f)</strong>. 若f是满的，则imf=G&rsquo;；若f是单的，则kerf={e}；若G有限，则|G|=|ker(f)||im(f)|.</p>
+<p>  <strong>pf.</strong> 推论显然. 定义映射g:kerf→imf. 即g(akerf)=f(a). 先
+说明表达式的合理性，即同态f的kerf是正规子群，由于取n∈kerf,$f(ana^{-1})=f(a)e&rsquo;f(a^{-1})=e&rsquo;$，故$ana^{-1}\in kerf$.再看良定义，若akerf=bkerf, g(akerf)=g(a$a^{-1}$bkerf)=g(a)g($a^{-1}$bkerf)=g(a) (kerf的正规性).记N=kerf.  容易验证g是同态，g(aNbN)=g(abN)=f(ab)=f(a)f(b)=g(aN)g(bN)；再验证g是单射,只看kerg，则g(aN)=e&rsquo;=f(a)，从而a∈kerf；最后看满射，任何$a&rsquo;\in imf$，有$a&rsquo;=f(a)=g(aN)$</p>
+<p>由第一定理，适当构造f，可有第二、第三定理：
+<strong>Theo.2</strong> 若N◁G,H&lt;G, 则有H/(H∩N)≌HN/N.</p>
+<p><strong>Theo.3</strong>  若M,N◁G, M&lt;N，则(G/M)/(N/M)≌G/N. (类比约分)</p>
+<p>两个定理均需先证明是被商的是子群，再构造一个映射f使kerf为被商的子群，imf为被同构的群。即f:H→HN/N, G/M→G/N.</p>
+<h4 id="16-轨道稳定化子理论">1.6 轨道——稳定化子理论</h4>
+<p>对群的变换的映射(满足G→Perm(S)是个群同态)称<strong>群作用</strong>，群作用也可构成一个群，如置换群、<strong>左乘变换$φ_a$</strong>，不难验证$(G,·)→(φ_x,○)$是群同态. 对左乘作用，定义一个<strong>共轭作用</strong>$\phi_a(y)=xyx^{-1}$，若Perm(S)=G，则共轭作用是一个<strong>自同构</strong>.</p>
+<p>类比太阳系轨道，可以发现<strong>不同的轨道间要么相等，要么无交</strong>；对一个具体的行星（元素）不断施加绕转（群作用），不会脱离其轨道. 从而定义 <strong>轨道$Orb(s)=${$s&rsquo;\inS|\exists x\in G, s&rsquo;=xs$}, 稳定化子(使某个元素不动的作用)Stab(s)={$x\in G|x·s=s$}</strong> 此外，Stab(s)&lt;G且xs=ys当且仅当$x^{-1}y\in Stab(s)$</p>
+<p>  <strong>pf.</strong> 假设轨道s与t有交，存在xs=x&rsquo;t，任取$y\in G$，则$y·s=(yx^{-1})x·s=(yx^{-1})x&rsquo;·t\in Orb(t)$，从而Orb(s)⊂Orb(t). 至于Stab(s)&lt;G，es=s, xys=x(ys)=xs=s, 逆元显然存在□</p>
+<p><strong>Theo. 轨道-稳定化子定理</strong> 存在G/Stab(s)到Orb(s)的双射，对有限群则有 <strong>|G|=|Stab(s)||Orb(s)|</strong></p>
+<p>  <strong>pf.</strong> 令f(xStab(s))=xs (把x对s的稳定化子的乘法映射到x直接作用在s上)，(良定义)xStab(s)=yStab(s),则$xy^{-1}\in Stab(s)$，则xs=ys；由于Orb(s)是选遍作用得到的集合，故f是满射；单射则xs=ys，有$xy^{-1}\in Stab(s)$，从而Stab(s)=yStab(s). 若有限，则取集合的阶可得.</p>
+<p>利用该定理，对于<strong>不知道有限群大小，但知道作用在一个集合S上</strong>，则可找到某个点的轨道和稳定化子，求出G的阶.
+<strong>例1</strong> 对二面体群$D_{2n}$，由正n边形到自身的**对称变换（翻折和旋转）**构成. 对n多边形，一共有n个顶点，故n个轨道；观察其中一个顶点，稳定化子只有两个（恒等变换和沿过该点的轴翻折），从而$|D_{2n}|=2n$(即二面体(变换)群恰由n个翻折变换和n个旋转变换构成)</p>
+<h2 id="2-循环群cyclic-group">2 循环群(Cyclic Group)</h2>
+<h4 id="21-与z的同构关系">2.1 与Z的同构关系</h4>
+<p><strong>群G的阶|G|为G中元素的数目</strong>，若存在n使得$a^n=e,a^k\neq e(0&lt;k&lt;n)$(自乘得到单位元的最小幂次)，则称<strong>元素a的阶</strong>为n i.e. o(a)=n.</p>
+<p>若群G可表示为{$x^n|n\in Z_+$}，则称G为<strong>循环群</strong>. 由于循环次数与Z关联密切，故有以下命题：</p>
+<ul>
+<li><strong>Z的子群&lt;Z,+&gt;有且仅有nZ</strong></li>
+<li>若G是<strong>无限循环群</strong>，则G≌Z；若G<strong>有限</strong>，则$G≌Z_n$</li>
+</ul>
+<p><strong>pf.</strong> nZ显然是Z的子群，在G任意子群中均有<strong>最小正元素n</strong>，再用反证配合带余除法推出存在比n更小的正元素(设$x^m\in G,m=qn+r(r\neq0)$,群对乘法封闭，故$x^r\in G$，但$r&lt;n$，矛盾)□</p>
+<p><strong>pf.</strong> G={$x^n|n\in Z_+$}，故构造<strong>满同态$f:Z\to G,f(e)=x$</strong>，再看Ker={x}(若有$x^m$，则群阶数不超过m，矛盾). 故f是单射. 设|G|=n，则同理构造$f:Z\to G,f(e)=x$，易验证同余的在G中映射值相同，故<strong>商集与G构成双射</strong>. □</p>
+<h4 id="22-幂次与生成元">2.2 幂次与生成元</h4>
+<p>在循环群中，<strong>任一元素可由一个元素有限自乘得到</strong>，称该元素为<strong>G的生成元</strong>. 生成元不一定唯一，如Z中生成元为±1，5阶群的生成元可为$a,a^2, a^3$</p>
+<p><strong>Theo.1</strong>  阶数为n的有限循环群G，有：</p>
+<ul>
+<li><strong>以$a^m$和以$a^d$为生成元的子群是同一个. (d=gcd(m,n))</strong></li>
+<li><strong>整个群的生成元为$a^p$，其中gcd(p,n)=1，个数为$\varphi(n)$</strong></li>
+<li>若G是素数阶群，则G是循环群</li>
+</ul>
+<p><strong>pf.</strong> 设m=kd，则$a^m=a^{kd}=(a^d)^k\in$&lt;$a^d$&gt;，故&lt;$a^m$&gt;⊂&lt;$a^d$&gt;. 反之由<strong>Bezout定理</strong>，d=ns+mt，故$a^d=(a^n)^s (a^m)^t=(a^m)^t\in$&lt;$a^d$&gt;，故&lt;$a^d$&gt;⊂&lt;$a^m$&gt;. 从而&lt;$a^d$&gt;=&lt;$a^m$&gt;. 对命题2，由于d=1而a是G的生成元，从而任何与其互质的数均可生成该群. 对命题3，由Lagrange定理，由于|G|为质数，从而[G:H]或|H|为p. 任取不为单位元的元素a，设a所在生成子群为H，由于H至少含e和a，从而|H|=p，H=G. 即<strong>任何非单位的生成子群都是整个群，每个非单位元都是生成元</strong>，从而为循环群.</p>
+<h2 id="3-置换群permutation-group">3 置换群(Permutation Group)</h2>
+<h4 id="31-置换与矩阵">3.1 置换与矩阵</h4>
+<p>在整数1~n内构造一个双射，对这n个数进行重排，则称该映射为<strong>置换$\sigma$</strong>. 对阶数为n个集合S的<strong>全体置换变换T(不是被置换的元素S)<strong>在置换运算下构成一个群&lt;T,$\sigma$&gt;.(<strong>由全排列，阶数是n!</strong>)
+且置换可用</strong>置换矩阵P</strong>等同看待，其中$P=(e_{\sigma(1)},&hellip;e_{\sigma(n)})$因为置换满足如下性质：</p>
+<ul>
+<li>单位元(id)：单位矩阵(恒等映射)；逆元：$\sigma$是双射</li>
+<li>乘法封闭(双射复合双射仍为双射).  $P_2P_1=P_2(e_{\sigma(1)},&hellip;e_{\sigma(n)})=(P_2e_{\sigma(1)},&hellip;P_2e_{\sigma(n)})=(e_{\mu(\sigma(1))},&hellip;e_{\mu(\sigma(n))})$</li>
+</ul>
+<p>对于任何一个置换，显然可以通过<strong>有限次对换</strong>实现，对换次数即为<strong>逆序数</strong>，根据逆序数的奇偶性，可分<strong>奇置换和偶置换</strong>.</p>
+<h4 id="32-置换的分解阶数与周期">3.2 置换的分解、阶数与周期</h4>
+<p>对形如(12543)的置换，逐个置换，当出现有循环开头的元素时，循环结束.(1)(2)(53)(4)，可分解为个<strong>置换循环</strong>，将只有一个元素的循环略去，则该置换记为(53). <strong>无交的两个置换乘法可交换</strong>，因为这两个区域的置换分别进行，相互独立. 从而体现为 <strong>置换矩阵的乘法可交换当且仅当两个置换矩阵间满足$i\neq\sigma(i)$</strong> 的集合无交.</p>
+<p>对<strong>只有一个置换循环</strong>的单个置换$\sigma$自乘，则每自乘一次等价于将循环右移一位，从而其周期为T，即$\sigma^k=id$. 对有多个置换循环的，由于不同循环间相互独立，可进行交换使同个循环乘在一起，从而<strong>周期为所有置换循环长度的最小公倍数</strong>. 因此<strong>循环矩阵、置换矩阵一定是周期矩阵</strong></p>
+<p>对置换的逆，只需将置换循环依次倒着写，如(12)(354)的逆为(21)(453).</p>
+<h4 id="33-置换矩阵的性质">3.3 置换矩阵的性质</h4>
+<ul>
+<li>根据定义，第一类初等矩阵、基础循环矩阵J和反单位阵均为特殊的置换矩阵，- 由奇置换、偶置换的概念，可将置换矩阵P进行逆序数次对换，从而$|P_\sigma|=(-1)^{N(\sigma)}$</li>
+<li>由置换的乘积，可知$P_{\tau\sigma}=P_\tau P_\sigma$, $P_e=I,P_{\sigma^{-1}}=P_\sigma^{-1}=P_\sigma&rsquo;$. 作用在矩阵上，$AP_\sigma$为对A列向量的置换，$P_\sigma A$则为对行向量的置换.</li>
+<li>能与全体置换矩阵乘法可交换的矩阵，即行列向量可被对应调换. 由于置换矩阵可被分解为<strong>对换矩阵之积</strong>，故只需考虑对一个矩阵，对换任何两行与对换相应的任何两列，得到结果相同. 不妨设第对换1、i行和第1、i列，则对角线$a_{11}=a_{ii}$，从而对角线所有元素相同，再看$a_{ij}=a_{1j}(i\neq j)$，取遍j与i，则除对角线外的所有元素必须相同. 从而可交换的矩阵为$mI+nJ$</li>
+</ul>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/abstract-algebra/">Abstract Algebra</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/group/">Group</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlgenetic-algorithm/" data-tooltip="[ML]Genetic Algorithm" aria-label="NEXT: [ML]Genetic Algorithm">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" data-tooltip="[Real Analysis]Seven Fundamental Theorems of Real Analysis" aria-label="PREVIOUS: [Real Analysis]Seven Fundamental Theorems of Real Analysis">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/abstract-algebragroup-theory-in-algoi\/';
+        
+          this.page.identifier = '\/2023\/06\/abstract-algebragroup-theory-in-algoi\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlgenetic-algorithm/" data-tooltip="[ML]Genetic Algorithm" aria-label="NEXT: [ML]Genetic Algorithm">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/real-analysisseven-fundamental-theorems-of-real-analysis/" data-tooltip="[Real Analysis]Seven Fundamental Theorems of Real Analysis" aria-label="PREVIOUS: [Real Analysis]Seven Fundamental Theorems of Real Analysis">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fabstract-algebragroup-theory-in-algoi%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fabstract-algebragroup-theory-in-algoi%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fabstract-algebragroup-theory-in-algoi%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -516,6 +516,29 @@ for(int i=1;i&lt;m;i&#43;&#43;)
 </figure>
 
 <h2 id="5-differential-on-a-tree">5. Differential on a Tree</h2>
+<p>In order to cope with problems like <strong>count up the time an edge or a vertex has been passed</strong>, it is not bright to traverse all possible paths by dfs, making it O(n²). Differential on a tree is a technique combined with dp on tree that works by labeling several vertex and then add them up by recursion.</p>
+<h4 id="51-differential-on-vertices">5.1 Differential on Vertices</h4>
+<p>Descrpited as below is a tree where it is required to label the passed nodes along the path &lt;s,t&gt;. For instance, s=5,t=4, then LCA(s,t)=2. Thus <strong>counts on 5 and 4 increase one</strong> while <strong>their LCA and its parent decreases one</strong> i.e. <code>cnt[2]--, cnt[1]--</code>.
+Having processed all the paths this way, applying a dfs s.t. <code>cnt[parent]+=\sum cnt[son]</code> finishes the work. Therefore, when differentialing on vertices, we need to <strong>label the endpoints of a path and their LCA with its parent</strong>(If not, the parent will be mistakenly taken as passed once).</p>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/21.jpg" >
+   
+   
+ </div>
+
+<h4 id="52-differential-on-edges">5.2 Differential on Edges</h4>
+<p>In trees, it is easier dealt with nodes than edges, thus forcing us allocating an edge to an endpoint. Think and ponder, it is the property that a node has only one parent(except the root) in a tree that enlights us to <strong>match an edge to the son</strong>.</p>
+<p>And this time, for a path &lt;s,LCA(s,t),t&gt;, still we execute <code>cnt[s]++,cnt[t]++</code> but <code>cnt[LCA(s,t)]-=2</code> which accounts for the fact that to modify the parent of the LCA disrupt the counting on a irrelative edge, say, &lt;1,2&gt; more exactly.</p>
+<p><strong>Example: Transporting Program</strong>  In a traffic network which is actually a tree, with m paths given and one opportunity offered to modify the weight on a certain edge to zero, suppose the m orders embark in the meanwhile, please provide the earliest time when the last order ends up.</p>
+<p>   <strong>Sol.</strong> The cost has a upper bound(the sum of all edges) and if it is possible for cost m, then it is as well to any cost more than m. Therefore binary search turns up. First, we enumerate all the paths and record the total time for each(Differential on a tree). Then in the binary search, for those lower than threshold t, skip them(the process can be sped up by sorting and binary seach) but label the edges which are passed by the <strong>longer paths</strong> and then look for <strong>the greatest edge traversed by all the longer paths</strong>(cuz if there exist one getting around it, then it is impossible to diminish all longer paths less than t). If the longest one decreases lower than t, we take yes for the answer and otherwise deny it.</p>
+<p><strong>Updates:</strong></p>
+<ul>
+<li>08,June,2023: Differential on Trees</li>
+</ul>
               
 
 

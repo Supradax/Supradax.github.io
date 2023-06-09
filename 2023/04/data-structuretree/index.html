@@ -511,6 +511,31 @@ void dfs(Node*rt){
 <li>若r是rs 或 r是ls但p无rs，则r后继为p</li>
 </ol>
 <h2 id="4-morris遍历">4 Morris遍历</h2>
+<p>定义<strong>Morris(遍历)序</strong>，整个遍历策略为：</p>
+<ul>
+<li>cur无左树，则cur向右移动(通过右指针)</li>
+<li>cur有左树，则移动到<strong>左树的最右端mostRight</strong>，若mostRight的<strong>右指针为空，则指到cur</strong>，<strong>若非空，则置空</strong>. 然后cur左移动.</li>
+</ul>
+<p>对形如下图的树，Morris序为1242513637. 观察有<strong>节点无左树，出现一次；节点有左树，则出现两次且在两次之间一定能把左树遍历完</strong></p>
+<p><strong>核心</strong> 利用<strong>叶子的空闲指针</strong>往上指回去.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/20.jpg" >
+   
+   
+ </div>
+</p>
+<p>通过Morris序，可以转换为先中后序遍历，判断BST.</p>
+<ul>
+<li><strong>先序</strong>. 第一次来到即访问.</li>
+<li><strong>中序</strong>. 只能到一次，直接访问；能回到两次则第二次再打印（若有左树，说明能回2次，先不访问；若叶子结点有右指针，说明这次是第二次）.</li>
+<li><strong>后序</strong>. 第二次到达时，<strong>逆序打印左子树的右边界</strong></li>
+</ul>
+<p><strong>复杂度</strong>. 不用额外栈空间，故空间复杂度为O(1). 下面证明<strong>不断向右找最右叶子的过程不会导致总时间复杂度超过O(n)</strong> 考虑一个完全满二叉树，则每次都会看左树的右边界2次，<strong>相当于每个子树的左子树的最右链剖分</strong>，故仍然线性.</p>
+<p><strong>Notes.</strong> Morris（<strong>第二次回到之前可解决</strong>）. 递归讨论（必须<strong>第三次</strong>回到结点，如树形dp左右子树信息整合）. 凡是与遍历有关的，可<strong>以Morris作最优解</strong>，如中序检查BST.</p>
 <h2 id="5-huffman树">5 Huffman树</h2>
 <p><strong>据频率分布分配不同字符(串)不等长编码</strong>从而节省内存，但不等长导致有时操作困难. 具体字符(串)只在叶子且从rt出发到达叶子的路径，按层序依次编号，如$010$(0/1表示向左/右的边). 具体算法为将各叶子按频率进行排序，选取最小的两个合并(频率相加)，不断选取两个最小的合并直至只剩一个作为根节点，故<strong>Huffman树不唯一</strong></p>
 
@@ -669,7 +694,64 @@ void build_from_ground_up(int data[],int size){
 <li>增减元素
 对增添元素，只需放在末尾(与自顶向下相同)再上滤，复杂度O(logn)；对删减堆顶元素，则<strong>将末尾元素替换掉堆顶元素再下滤</strong>，复杂度O(logn).</li>
 </ul>
-<h3 id="62-可并堆">6.2 可并堆</h3>
+<h3 id="62-可并堆左偏树">6.2 可并堆：左偏树</h3>
+<p>优先队列过度封装，有时需合并两个堆，则无法完成. 一般可并堆有Fibonacci堆、左偏树与配对堆. 后二者代码量小，较常见.</p>
+<p><strong>左偏树</strong>(小顶堆为例)，满足结点不大于儿子的键值. <strong>距离</strong>为到达<strong>最近的外结点</strong>（无左或右儿子）的距离. 左偏树维护<strong>左子节点的距离不小于右子节点的距离，即左侧更密</strong>，从而一个结点的距离被定义为小的一个，即<strong>右子节点的距离+1</strong>. <strong>空结点距离定义为-1(叶子为0)</strong>.</p>
+<p>在合并过程中进行递归合并，若左子节点距离小于右子节点，则交换之；并且维护当前结点距离，即为递归后的右结点距离+1.</p>
+<p><strong>例题</strong> 维护n个小根堆，每个堆有且仅有一个数，支持两种操作：将第x、y个数所在堆合并；输出第x个数所在堆的最小数并删之.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>Leftlist Tree.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#define ls(x) llt[x].l
+#define rs(x) llt[x].r
+typedef struct Node{int l,r,fa,val,dis;} llt[N];
+int merge(int x,int y){
+	if(!x||!y)	return x&#43;y; //有个空则返回其中一个
+	//让大的往小的树上合并
+	if(llt[x].val&gt;llt[y].val||(llt[x].val==llt[y].val &amp;&amp; x&gt;y))	
+		swap(x,y);
+	rs(x)=merge(rs(x),y);
+	llt[rs(x)].fa=x;	//维护父节点
+	if(llt[ls(x)].dis&lt;llt[rs(x)].dis)	swap(ls(x),rs(x)); 
+	llt[x].dis = llt[rs(x)].dis&#43;1; //维护距离
+	return x;
+}
+void pop(int x){
+	llt[x].val=-1; //打个标记表示删除
+	//独立成堆，再次合并
+	llt[ls(x)]=ls(x), llt[rs(x)]=rs(x);
+	//必须有赋值，否则有些会断掉，x不起作用只是挂着
+	llt[x].fa=merge(ls(x),rs(x)); 
+}
+//可使用路径压缩，破坏的是并查集结构不是左偏树的结构
+int find(int x){return llt[x].fa==x?x:llt[x].fa=find(llt[x].fa);}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
 <h2 id="7-bst">7 BST</h2>
 <p>二分搜索树(Binary Search Tree)，比堆的性质更好，满足<strong>根节点≥左子树任意节点且≤右子树任意节点</strong>. 故而可进行二分查找.</p>
 <h3 id="71-二分查找">7.1 二分查找</h3>
@@ -717,9 +799,13 @@ void build_from_ground_up(int data[],int size){
 <p>利用该程序，第一个大于target的元素索引为r，最后一个≤target的元素为l.</p>
 <p>实际上除去区间查找问题，对于满足<strong>若有m个能解决问题，则比m多或少的时候也能解决问题</strong>这类<strong>存在包含序关系</strong>的条件，则可对m进行二分降低复杂度.</p>
 <ul>
-<li>(蓝桥·分巧克力)对给定的一些长方形巧克力，要求将其<strong>垂直或水平</strong>切开分给k个人<strong>等大正方形</strong>巧克力，试求满足的最大的正方形边长.</li>
+<li><strong>例1</strong>对给定的一些长方形巧克力，要求将其<strong>垂直或水平</strong>切开分给k个人<strong>等大正方形</strong>巧克力，试求满足的最大的正方形边长.</li>
 </ul>
-<p>  <strong>Sol.</strong> 显然若边长为m时为最优解，则任何比m小的都是解，故可二分. 下界为0，上界为所有长方形最长的一边的最大值.</p>
+<p>  <strong>Sol.</strong> 显然若边长为m时为最优解，则任何比m小的都是解，故可二分. 下界为0，上界为所有长方形最长的一边的最大值.若a/m*b/m之和大于n，则向上二分，反之向下</p>
+<ul>
+<li><strong>例2</strong> 扫地机器人. 一列方格，已知机器人布局，若要求机器人一段时间后返回出发点，每次可以移动至相邻方格取清扫，求能清扫所有区域的最快结束时间.</li>
+</ul>
+<p>  <strong>Sol.</strong> 对时间二分，一定不超2N，再看第一个机器人，由贪心可知一定得往左回去再回到原位，若还有剩余时间，尽可能向右扫；再看第二个，由贪心知至少得和第一个到达的最远距离接上，接不上则向上二分；全接上则向下.</p>
 <p><strong>Notes. 查找的基础知识</strong>
 常见的查找算法有<strong>顺序、二分、分块、哈希等</strong></p>
 <ol>
@@ -909,10 +995,200 @@ void rotate_leftwards(){
 </figure>
 </li>
 </ul>
-<h3 id="75-red-and-black">7.5 Red and Black</h3>
-<h2 id="8-更多树">8 更多树</h2>
-<h3 id="81-b树">8.1 B树</h3>
-<h3 id="82-b树">8.2 B+树</h3>
+<h3 id="8-st表与lca">8. ST表与LCA</h3>
+<h4 id="81-st表倍增算法">8.1 ST表：倍增算法</h4>
+<p>解决区间最值问题(RMQ)一般用<strong>ST表(Sparse Table)</strong>（不支持修改）和<strong>线段树</strong>，建表均为O(nlogn)，查询分别为O(1),O(logn).</p>
+<p>由于任何数都能唯一表示为一个二进制数，故从区间左端点向右和右端点向左，一定存在m,n使得$[a,a+2^m-1],[b-2^n+1,b]$覆盖$[a,b]$，从而只需求$\max f(a,m),f(b-2^n+1,n)$. 从而引出定义f(a,m)为$[a,a+2^m-1]$上的区间最值.</p>
+<p>初始化使用类似归并的DP. [i,j]拆分成$[i,i+2^{j-1}-1],[i+2^{j-1},j-1]$. 查询则找到对应的$k=\log_2{r-l+1}$使其能覆盖
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>st.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void init(){
+	//从[i,i]的最值为自身
+	for(int i=1;i&lt;=n;i&#43;&#43;)	f[i][0]=a[i];
+	int k = log2(n); //防止越界
+	for(int j=1;j&lt;=k;j&#43;&#43;)
+		for(int i=1;i&lt;=n-(1&lt;&lt;j)&#43;1;i&#43;&#43;)
+			f[i][j] = max(f[i][j-1],f[i&#43;(1&lt;&lt;(j-1))][j-1]);
+}
+int query(int l,int r){
+	int k = log2(r-l&#43;1);
+	return max(f[l][k],f[r-(1&lt;&lt;k)&#43;1][k]);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>借鉴倍增算法，对查询LCA（静态），先构建ST表，定义**$f(i,j)$：i为起点，向上跳$2^j$层的结点**. 故先做dfs构建st表，同理递推构建. 然后再用ST求LCA.
+1.先让u,v跳到<strong>相同高度</strong>. 由于两点深度差可作二进制拆分，其中<strong>含1的个数为跳跃次数</strong>，一定能跳到同一层.
+2. 位于同一层，故<strong>同步向上</strong>即可
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>st.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int dep[N], f[N][20]; //20表示深度最大2^20
+void dfs(int u, int fa){
+	dep[u]=dep[fa]&#43;1;
+	//倍增拆分：跳2^i等于跳2次2^i-1
+	for(int i=1;i&lt;=19;i&#43;&#43;)
+		f[u][i]=f[f[u][i-1]][i-1];
+	
+	for(int v:e[u])	
+		if(v!=fa)	dfs(v,u);
+}
+
+int lca(int u, int v){
+	if(dep[u]&lt;dep[v])	swap(u,v);
+	for(int i=19;i&gt;=0;i--)	//反向遍历
+		if(dep[f[u][i]]&gt;=dep[v])	u=f[u][i];
+	if(u==v)	return v; //恰好共线
+	for(int i=19;i&gt;=0;i--)
+		if(f[u][i]!=f[v][i])	u=f[u][i],v=f[v][i];
+	return f[u][0];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="82-tarjan方案">8.2 Tarjan方案</h4>
+<p>Tarjan用<strong>并查集离线</strong>解决LCA. 其核心思想为<strong>一次性输入完成查询</strong>. 首先遍历打vis标记，往没打的走，然后反向建边（fa[]数组），离开u时处理掉所有以u为起点的询问，若另一个v已访问，则其必然在最近的一个子树. 从而有：
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>tarjan</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int fa[N],vis[N],ans[M];
+int find(int u){return fa[u]==u? u: fa[u]=find(fa[u]);}
+
+void tarjan(int u){
+	vis[u]=true;
+	for(auto v:neighbor[u])
+		if(!vis[v]){tarjan(v);fa[v]=u;}
+	for(auto q:query[u]{ //q:&lt;visit,number&gt;
+		if(vis[q.first])	
+			ans[q.second]=find(q.first);	
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h4 id="83-树链剖分">8.3 树链剖分</h4>
+<p>先用第一次做轻重儿子标记，完成son[],depth[],size[],father[]的统计,第二次完成<strong>链头top[]<strong>的统计，其中</strong>先搜重儿子，这与树上启发式合并相反</strong>. 然后调用lca.</p>
+<p><strong>Note</strong> 也可不用轻重链剖分，只要是形成单链的树链剖分均可.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>lca</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void dfs2(int u,int t){
+	top[u] = t; //链头
+	if(!son[u])	return; //无重儿子返回
+	dfs(son[u],t); //传导链头，让同个重链的重儿子指向同个
+	for(int v:neighbor[u]){
+		if(v==fa[u]||v==son[u])	continue;
+		dfs2(v,v); //轻儿子以自己为链头
+	}
+}
+int lca(int u,int v){
+	while(top[u]!=top[v]){
+		//u在v下方，使低的一方上升直至二者位于同一条链
+		if(dep[top[u]]&lt;dep[top[v]])	swap(u,v);
+		u = fa[top[u]]; 
+	}
+	return dep[u]&lt;dep[v]? u:v;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>三种方法中倍增为O((n+m)logn)、Tarjan为O(n+m)、树链剖分为O(n+mlogn). 总结为倍增深搜打表、跳跃查询；Tarjan为入回离（深搜建反边、最近子树做路径压缩）；树链剖分两次深搜打表，按链头跳跃至同链再查询.</p>
               
 
 

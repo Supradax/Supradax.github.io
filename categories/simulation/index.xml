@@ -6,7 +6,16 @@
     <description>Recent content in Simulation on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/simulation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/categories/simulation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm|Number Theory II]Prime Number</title>
+      <link>https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/</link>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[Algorithm]Catalan and Stiring Numbers with Generating Functions</title>
       <link>https://Supradax.github.io/2023/04/algorithmcatalan-and-stiring-numbers-with-generating-functions/</link>
@@ -26,11 +35,11 @@
     </item>
     
     <item>
-      <title>[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function</title>
-      <link>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</link>
+      <title>[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function</title>
+      <link>https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/</link>
       <pubDate>Mon, 20 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/</guid>
+      <guid>https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/</guid>
       <description></description>
     </item>
     

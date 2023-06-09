@@ -617,27 +617,9 @@ public:
 </figure>
 </p>
 <p><strong>Notice.</strong> In many cases we can shift a new requirement into those we&rsquo;ve already known. For instance, <strong>what about this time that we want to query the square error?</strong>
-
-  
-  
-  <div class="figure center" >
-    
-      <img class="fig-img" src="https://Supradax.github.io/img/treedp/08.jpg" >
-    
-    
-  </div>
-
+$$\frac{\sum(a_i-\bar{a})^2}{n}=\bar{a}^2+\frac{\sum{a_i^2}}{n}$$
 We expand the formula and discover that we only need to save the <strong>mean value</strong> which is identical to the sum and <strong>the sum of square value</strong> which can be expanded once again into an expression only to do with the mean value. It means we can simply use the original overall sum to achieve the pushdown and update function despite this time it has two values to maintain.
-
- 
- 
- <div class="figure center" >
-   
-     <img class="fig-img" src="https://Supradax.github.io/img/treedp/09.jpg" >
-   
-   
- </div>
-</p>
+$$\sum(a_i+x)^2=\sum a_i^2+2x\sum a_i +x^2$$</p>
 <p>With the segment tree, we can realize the data structure as below:</p>
 <h4 id="maximum-tree">Maximum Tree:</h4>
 <ul>
@@ -921,9 +903,6 @@ void update(Node* rt, int x, int y, int val){
 </figure>
 </li>
 </ul>
-<h2 id="3-weighted-segment-tree">3. Weighted Segment Tree</h2>
-<h2 id="4-sustainable-segment-tree">4. Sustainable Segment Tree</h2>
-<h2 id="5-treap--rank-tree">5. Treap / Rank Tree</h2>
               
 
 

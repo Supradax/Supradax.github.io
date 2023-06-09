@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[ML]Genetic Algorithm",
+  "headline": "[Algorithm|Number Theory II]Prime Number",
   
-  "image": "https://Supradax.github.io/img/info.jpg",
+  "image": "https://Supradax.github.io/img/Prime.jpg",
   
-  "datePublished": "2023-06-02T00:00:00Z",
-  "dateModified": "2023-06-02T00:00:00Z",
+  "datePublished": "2023-06-07T00:00:00Z",
+  "dateModified": "2023-06-07T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/06\/mlgenetic-algorithm\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/06\/algorithmnumber-theory-iiprime-number\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,32 +59,34 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[ML]Genetic Algorithm">
-<meta name="twitter:title" content="[ML]Genetic Algorithm">
-<meta property="og:url" content="https://Supradax.github.io/2023/06/mlgenetic-algorithm/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/06/mlgenetic-algorithm/">
+<meta property="og:title" content="[Algorithm|Number Theory II]Prime Number">
+<meta name="twitter:title" content="[Algorithm|Number Theory II]Prime Number">
+<meta property="og:url" content="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-06-02T00:00:00">
+    <meta property="article:published_time" content="2023-06-07T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-06-02T00:00:00">
+    <meta property="article:modified_time" content="2023-06-07T00:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="ML">
-    
   
   
     
-      <meta property="article:tag" content="ML">
+      <meta property="article:section" content="Algorithm">
     
-      <meta property="article:tag" content="Optimaztion">
+      <meta property="article:section" content="Simulation">
+    
+  
+  
+    
+      <meta property="article:tag" content="Algorithm">
+    
+      <meta property="article:tag" content="Number Theory">
     
   
 
@@ -104,18 +106,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/info.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/info.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/Prime.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/Prime.jpg">
 
 
-    <title>[ML]Genetic Algorithm</title>
+    <title>[Algorithm|Number Theory II]Prime Number</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/06/mlgenetic-algorithm/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -275,15 +277,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [ML]Genetic Algorithm
+      [Algorithm|Number Theory II]Prime Number
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-06-02T00:00:00Z">
+      <time datetime="2023-06-07T00:00:00Z">
         
-  June 2, 2023
+  June 7, 2023
 
       </time>
     
@@ -292,7 +294,9 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
     
   
 
@@ -302,75 +306,16 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p>The genetic algorithm(GA), a <strong>random adapative global search algorithm</strong> gains insight from the natural process of gene inheritance.</p>
-<p>In the GA, each <strong>feasible solution</strong> is a <strong>chromosome</strong> consisting of a <strong>code string</strong> of which <strong>the unit</strong> is called <strong>gene</strong>. The spirit of GA is to contrast different chromosome according to the <strong>evaluation function</strong> and <strong>have a tendency to retain the more adaptive ones and have others mutate via population crossover.</strong></p>
-<p>It is worth noting that we cannot ensure GA to get hands on the global minima. Despite the drawback, it is still possible to find local minima well enough.</p>
-<p>To get closer to GA, standing there are problems below urging to solve.</p>
-<ol>
-<li>How to code the chromosome and initialize the gene group?</li>
-<li>How to design the fitness-assessment function to pick out the most outstanding ones?</li>
-<li>How to define the rule of population crossover and mutation?</li>
-</ol>
-<p>Later on, we compare the fitness value of new-born with that of the previous generation. If the new one achieves better perfomance, then it will take the place, or otherwise be cast away.</p>
-<h3 id="1-to-encode-the-chromosome">1. To Encode the Chromosome.</h3>
-<p>The specific form of chromosome is up to the problem to solve.</p>
-<p>For example, in the 0-1 knapsack problem with 4 problems in total, we mark one object 1 if taken and 0 on the contrary. Therefore, <strong>Binary Encoding</strong> fits such scenario as <strong>Combinaton Optimization Problems in discrete field.</strong> and to solve problems to do with something like rotation where <strong>a slight variance can make a great difference</strong>, it is smarter to turn to <strong>Grey Encoding</strong>, a opitmized binary encoding which changes one gene at a time.(For instance, the mutation from 0000 to 0001 is valid while 0000 shifting to 1001 is not)</p>
-<p>As to look for the global minima of a continous function, more commonly,  we opt for <strong>Floating-Point Encoding</strong> where a chromosome is simply a real value or vector; and to deal with problems like classification(where a chorosome stands for a label and the gene unit implies the relationship between different catagories) and text-generation, <strong>Alphabet Encoding</strong> comes into sight by nature.</p>
-<p>Generally speaing, floating-point encoding outweights binary encoding where a <strong>high accuracy</strong> is required and a <strong>larger space</strong> waits to search etc.</p>
-<p>In most cases, we create the chromosome population following the encoding rules and the problem restrictions above, but the value of their unit is mostly <strong>randomized</strong>. But if we can shrink the feasible range or to know the approximate range of the best solution, it is of a higher possiblity to get the answer.</p>
-<h3 id="2-to-pick-out-the-competitive-chromosomes">2. To Pick Out the Competitive Chromosomes</h3>
-<p>Supposing that we have already figured out the fitness value of each chromosome, say 1,2,3,4 for example, and apply the widely-used <strong>selection opeators</strong> below to pick out <strong>N candidates</strong> for the new group which means you need to <strong>execute N selections</strong>:</p>
+              <p>在同余类中有许多性质，其中很多可以化简已有问题.</p>
+<h3 id="i-乘法逆元与中国剩余定理">I 乘法逆元与中国剩余定理</h3>
+<h4 id="11-乘法逆元">1.1 乘法逆元</h4>
+<p>若$ab \equiv 1 \mathrm{mod}p$，则称a是b的乘法逆元inv(b). 同理有inv(a)=b. 利用乘法逆元可保证在模p意义下<strong>除法有意义</strong>. 其中有以下性质：</p>
 <ul>
-<li>
-<p><strong>Roulette Wheel Selection</strong>. is a <strong>resampling with replacement</strong> method. The possibility of each chorosome is worked out by the <strong>fitness value account in all</strong> (1/10,2/10,3/10,4/10 respectively). Then generate a random value to pick out one according to the possibility distribution above. (Such method is a similar to the Roulette Wheel where the higher fitness value is, the larger the zone is)</p>
-</li>
-<li>
-<p><strong>Stochastic Tournament</strong> It is Based on the distribution from Roulette Wheel Selection but this time we pick out two with the distribution and choose the higher one.</p>
-</li>
-<li>
-<p><strong>Elitism</strong>. Pick out the best one directly and apply Roulette Wheel Selection to get the rest N-1 chorosome.</p>
-</li>
-<li>
-<p><strong>Expected Value Selection</strong> Still we get the possibility distribution and work out the expected value of survivors. For instance, (N=4), 4×1/10=0.4,4×2/10=0.4,4×3/10=0.9, 4×4/10=1.6. <strong>If an individual is picked out to crossover</strong>, then the amount -0.5; or otherwise -1. If the survivor amount becomes negative, then it has lost the chances to be seleceted.</p>
-</li>
-<li>
-<p><strong>Deterministic Selection</strong> Calculate the <strong>expected survivor amount</strong> and <strong>sort them up</strong>. Say, 1.6,0.9,0.4,0.4, then we take 1,0,0,0 into the next generation. But that is not enough, then we range them up according to the <strong>decimal part</strong>(fraction part), say 0.9,0.6,0.4,0.4 and take the first three away.</p>
-</li>
-<li>
-<p><strong>Best Preservation Strategy</strong> The best won&rsquo;t engage in the crossover or mutation process but instead replace the worst generated gene.</p>
-</li>
-<li></li>
+<li><strong>不定方程$ax\equiv 1 \mod p$当且仅当(a,p)=1时有解</strong>必要性. 即ax+yp=1, 由Bezout定理，(a,p)=1. 充分性也显然.</li>
+<li><strong>乘法逆元唯一</strong>. 设有$ab\equiv 1, bc\equiv 1$，同乘a有$abc=c\equiv a$，从而a=c.</li>
+<li><strong>p为质数时$inv(a)=a^{p-2}$</strong> 由Fermat小定理，$a^{p-1}\equiv 1$.</li>
 </ul>
-<h3 id="3-crossover-ahnd-mutation">3. Crossover ahnd Mutation</h3>
-<p>A pair of genes crossovers with the possibility p. And way of crossover differs as well.</p>
-<ul>
-<li>
-<p><strong>One-point Crossover</strong> Randomly choose a crossover point, say the random number is 2, then swap the second part of gene 100 and gene 111, thus getting 110,101. Likewise, we have <strong>Two-Point Crossover</strong> and <strong>Multipoint Crossover</strong> .</p>
-</li>
-<li>
-<p><strong>Uniform Crossover</strong> The crossover occurs on every gene unit with a determined possibility p.</p>
-</li>
-<li>
-<p><strong>Arithmetic Crossover</strong> The new gene comes out of the linear combination of two old genes, say $C=\lambda A+\mu B (-2\leq\lambda+\mu\leq2)$.</p>
-</li>
-</ul>
-<p>As for mutation, there are several options for binary/floating encoding chromosomes.</p>
-<ul>
-<li>
-<p><strong>Simple Mutation</strong>. Each individual has a determined possibility to mutate on several randomized units.</p>
-</li>
-<li>
-<p><strong>Uniform Mutation.</strong> The chorosome will be totally and randomly replaced(this fits only in the primer stage).</p>
-</li>
-<li>
-<p><strong>Nonuniform Mutation</strong> A noise is added to the value, while <strong>Gaussian Mutation</strong> generate a value to replace on Gaussian distribution.</p>
-</li>
-<li>
-<p><strong>Boundary Mutation</strong> It offers a change giantly only in one dimension. For instance, the second gene locus of (1,2,9) can be shifted to the boundary value 0 or 9. This works well when the optimized solution is close to the boundary.</p>
-</li>
-</ul>
-<h3 id="4-gene-algorithm-on-0-1-knapsack-problem">4. Gene Algorithm on 0-1 Knapsack Problem</h3>
-<p>The evaluation function: $f(x)=\sum v_ix_i, x_i\in${0,1}. The chorosome can be binary encoded to stand for a policy with n units.
+<p>性质1、3说明可从<strong>exGCD、Fermat快速幂</strong>两个方法求解乘法逆元.</p>
 
   
     
@@ -382,95 +327,125 @@
   
 
 
-<figure class="highlight python language-python">
+<figure class="highlight cpp language-cpp">
   <figcaption>
     
-      <span>GA</span>
+      <span>quick pow.cpp</span>
     
   </figcaption>
   <table>
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
         </td>
         <td class="code">
-          <pre class="code-highlight language-python python"><code class="python">import random
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int quick_pow(int a,int p){
+	int cur=a, ans=0;
+	while(a!=0){
+		cur = (cur*cur)%p;
+		if(a&amp;1)	ans=(ans&#43;cur)%p;
+		a&gt;&gt;=1;
+	}	
+	return ans;
+}
+quick_pow(a,p-2); //所求逆元</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
 
-# Knapsack Problem Constants
-weights = [2, 3, 4, 5]  # item weights
-values = [3, 4, 5, 6]  # item values
-max_weight = 8  # maximum weight the knapsack can hold
+<p>在exGCD中，求解同余式$ax+by=1$，此时等价于求解y=0时的a.
 
-# GA Parameters
-population_size = 50  # number of individuals in each generation
-max_generations = 100  # maximum number of generations
-mutation_rate = 0.1  # probability of mutation
+  
+    
+  
+  
+    
+  
+  
+  
 
-def create_individual():
-    return [random.choice([0, 1]) for _ in range(len(weights))]
 
-def fitness(individual):
-    total_weight = sum(w * i for w, i in zip(weights, individual))
-    total_value = sum(v * i for v, i in zip(values, individual))
-    if total_weight &gt; max_weight:
-        return 0  # individual is not feasible
-    return total_value
-
-def crossover(parent1, parent2):
-    &#34;&#34;&#34;Perform crossover between two parents to create two children.&#34;&#34;&#34;
-    point = random.randint(1, len(parent1) - 1)
-    child1 = parent1[:point] &#43; parent2[point:]
-    child2 = parent2[:point] &#43; parent1[point:]
-    return child1, child2
-
-def mutate(individual):
-    &#34;&#34;&#34;Mutate an individual by flipping a randomly chosen bit.&#34;&#34;&#34;
-    mutated_index = random.randint(0, len(individual) - 1)
-    individual[mutated_index] = 1 - individual[mutated_index]
-
-def select_parents(population):
-    &#34;&#34;&#34;Select two parents using tournament selection.&#34;&#34;&#34;
-    tournament_size = 5
-    tournament = random.sample(population, tournament_size)
-    tournament.sort(reverse=True, key=lambda x: fitness(x))
-    return tournament[0], tournament[1]
-
-def generate_population():
-    &#34;&#34;&#34;Generate an initial population.&#34;&#34;&#34;
-    return [create_individual() for _ in range(population_size)]
-
-def evolve_population(population):
-    &#34;&#34;&#34;Evolve the population for one generation.&#34;&#34;&#34;
-    new_population = []
-    while len(new_population) &lt; population_size:
-        parent1, parent2 = select_parents(population)
-        child1, child2 = crossover(parent1, parent2)
-        if random.random() &lt; mutation_rate:
-            mutate(child1)
-        if random.random() &lt; mutation_rate:
-            mutate(child2)
-        new_population.extend([child1, child2])
-    return new_population
-
-# Main GA loop
-population = generate_population()
-for generation in range(max_generations):
-    population = evolve_population(population)
-
-# Find the best individual in the final population
-best_individual = max(population, key=lambda x: fitness(x))
-
-print(&#34;Best Solution:&#34;)
-print(&#34;Items:&#34;, best_individual)
-print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int exGCD(int a,int b, int&amp; x,int &amp;y){
+	if(!b){x=1,y=0;return;}
+	int x0,y0,d;
+	d = exGCD(b,a%b,x0,y0);
+	x=y0, y=x0-a/b*y0;
+	return d;
+}
+exGCD(a,0);
+ans = abs(a%p); //所求逆元(p可非质数)</code></pre>
         </td>
       </tr>
     </tbody>
   </table>
 </figure>
 </p>
-<h3 id="5-gene-algorithm-on-tsp">5. Gene Algorithm on TSP</h3>
+<h4 id="12-中国剩余定理">1.2 中国剩余定理</h4>
+<p>线性同余方程组$x\equiv r_i mod m_i$且满足$m_i$两两互质，求x的最小非负整数解.</p>
+<p><strong>中国剩余定理</strong> 设去掉第i个模数的积为$c_i$，所有模数之积为M，则$x=\sum r_ic_ic_i^{-1} \mathrm{mod} M$</p>
+<p>  <strong>pf.</strong> 对某个方程$x\equiv r_i mod m_i$，若$i\neq j$，则这些项含有因子$m_i$而余零，若相等，则由乘法逆元知$x\equiv r_ic_ic_i^{-1} \equiv r_i$. 根据公式计算即可.</p>
+<p><strong>拓展中国剩余定理</strong></p>
+<h3 id="13-非负数解不定方程问题">1.3 非负数解不定方程问题</h3>
+<p><strong>Problem A</strong> 给定正整数x,y. 问何时会有穷个正整数无法被凑出.
+ &amp;emsp<strong>Theo. ** 当(x,y)互质时足够大的数均可凑出，且最大不能凑出的是$xy-x-y$.
+ &amp;emsp</strong>pf. **</p>
+<ul>
+<li>必要性. 当x,y不互质，即gcd(x,y)=d&gt;1时，假定能凑出mx+ny=d+1. 由Bezout定理，存在ax+by=d. 从而(m-a)x+(n-b)y=1. 由Bezout定理，gcd(x,y)=1. 矛盾！</li>
+<li>充分性. 先证明不能凑出.再证明大于的可凑</li>
+</ul>
+<ol>
+<li>假设可凑，mx+ny=xy-x-y. 则(m+1)x+(n+1)y=xy. 故x|n+1, y|m+1. 故x≤n+1, y≤m+1.
+则(m+1)x+(n+1)y=xy≤(n+1)y，从而x=0. 由对称性，y=0. 矛盾！</li>
+<li>由于mx+ny=1. 从而对于任意r&lt;min(x,y)=k. 存在ax+by=r. 而且a,b有一个为正，设a&gt;0&gt;b. 那么不断恒等变换(a-y)x+(b+x)y=r，直至|A|&lt;y, 那么xy&gt;xy-r≥|r-Ax|(总存在A使得Ax与r异号)=|B|y，而|B|&lt;x, 则|B|≤x-1. 所以所有大于xy-x-y的数均可写成xy-x-y+mk+r. 其中k可被表示，故只看xy-x-y+r=xy-x-y+Ax+By (设A&gt;0)，则=(A-1)x+(x-B-1)y，其中A&gt;1, x-B-1≥x-(x-1)-1=0.</li>
+</ol>
+<p><strong>Notes.</strong> 1. 当候选大于2个时，同理有当所有候选互质时无法凑出的值有上界. 但此时只能用DP和<strong>记忆化搜索</strong>.
+2. 求n个数的最大公约数. 一种是做n次(三个数的gcd需比较$C_3^1$次，即把另外两个打包；实际实现可以将一个数组不断排序，最大的两个做辗转相除，直至整个数组全都一样)，则凑不出的最大值为INF.</p>
+<h3 id="iii-lucas定理">III. Lucas定理</h3>
+<h3 id="iv-杂题">IV. 杂题</h3>
+<h4 id="41-josephs-ring">4.1 Joseph&rsquo;s Ring</h4>
+<p><strong>Problem</strong> 给定k、n，n个人围成一圈逆时针顺次报数，杀掉报到第k个数的并从1开始. 求最终幸存者.</p>
+<p> &amp;emsp<strong>Sol.</strong> 模拟方法则用<strong>环形链表</strong>，每走k步删掉一个. 直至size=1. 若$k=2,n=2^m$,则第1个人一定是幸存者(归纳，m=1显然，m+1时显然第一轮杀一圈后剩一半，从而剩下m且此时恰从第1个人开始报数). 而当$n=2^m+p(p&lt;2^{m+1})$时，可先杀掉p个人，开始报1的那个人为幸存者. 但当k&gt;2时没有这种性质，只能用DP，即$f\left(1\right)=1$ 多一个人则先把这个人杀掉，转换为n-1的情形，从而$f\left(n\right)=f\left(n-1\right)+k-1 mod n$.</p>
+<h4 id="42-记忆化搜索">4.2 记忆化搜索</h4>
+<p><strong>Problem</strong>  定义数列$a_n=3a_{n-1}+1$(a是奇数)，否则$a_n=\frac{1}{2}a_{n-1}$. 有限步骤后必进入循环1,4,2.</p>
+<p> &amp;emsp<strong>Sol.</strong> 若直接求，可能NP-hard. 但可记忆化回溯搜索，由于若经历中间数k，则max[k]也可顺便更新. 从而维护一个vis[]表示已迭代，每次dfs进去，传入当前值和目前最大值，当前值vis已有时，更新max[]目前最大值和max中的大的一个，并将其返回；否则继续迭代，比较迭代后的返回值与目前最大的最值.</p>
+<h4 id="43-质因子分解">4.3 质因子分解</h4>
+<p><strong>Problem</strong> 一个n×m的硬币矩阵，对每个(x,y)上的硬币进行Q操作（将第i<em>x行与 j</em>y列的硬币翻转）. 每个硬币都执行一遍后所有硬币正面朝上，求：一开始的反面状态.</p>
+<p>  <strong>Sol.</strong></p>
+<ol>
+<li><strong>对称模拟</strong>. 对所有硬币模拟一遍Q操作. O(mn(m+n))</li>
+<li><strong>DP优化</strong> 一个硬币的状态取决于其x,y有多少个因子（除自身外），若能真质因子分解，则为各个质因子(幂次+1)之积-1. 优化：所有质数为1. 对最大的开始做DFS质因子分解，每次去掉一个(除干净，假设除了k次)，进入其约数，处理完后获取其因子数，然后乘(k+1). (可取0,…,k个)</li>
+<li><strong>一个数是完全平方数当且仅当有奇数个约数</strong>. 因为做质因子分解，其约数为指数＋1之积为奇，这表明全部都是奇数，等价于指数全偶，等价于完全平方数. 从而关心x,y是不是完全平方数. 如果x,y都是或都不是，则被翻次偶数次，去掉这部分为所求.</li>
+</ol>
+<p><strong>Problem</strong>  最大公因数的平方和. 求和：$gcd{\left(x,y\right)}(0\le x,y\le n)$的平方.
+一般涉及gcd与欧拉函数有关，在求和时，可转换求和视角. (如Riemann积分与Lebesgue积分、点与边的转换、数对对应的gcd与gcd对应的数对数量)</p>
+<p>  <strong>Sol.</strong> ①用Euclid算法暴力，O(n²logn)；②转换视角，数同一个d=gcd(x,y)其中数对x,y的个数，可知x,y一定是$d,2d,\ldots,\ \left[\frac{n}{d}\right]d$中的一个，其系数互质（否则非最大公约数）. 从而转化为$\sum\ \varphi\left(\left[\frac{n}{d}\right]\right)d^2$，O(n).</p>
+<h4 id="44-计算贡献">4.4 计算贡献</h4>
+<p><strong>ProblemA k倍区间</strong> 给定一列数，问有多少个区间使得区间和为k的倍数.</p>
+<p>  <strong>Sol.</strong> ①前缀和，O(n²)；②利用同余性质，若前缀和中有n个和当前同余的，意味着有n-1个新区间（容易验证无交），从先确定区间再求模k下的和 转换为先求模k，再求和.</p>
+<p><strong>ProblemB 波动数列</strong>  给定a,b&gt;0，整数列每一项都是前一项基础上+a或-b. 若共有n项且总和为s，求这样的整数列可能.</p>
+<p>  <strong>Sol.</strong> 首项未知，推出上下界，极限情况为等差数列，满足$a_1+\frac{n(n-1)}{2}a=s与a_1-\frac{n(n-1)}{2}b$，从而解出$a_1$.
+然后不去看各个项等于什么，而是看+a、-b对和的贡献. 在每个地方i，我们可以选择+a或-b两种操作，如选择+a，则对后面产生(n-i)a的贡献，否则-(n-i)b. 从而转换为0-1背包问题，对给定初值a_1，目标价值为$s-na_1$，重量为1，求解凑够目标价值的方法数. 目标价值的范围为两个临界，跑一遍即可.</p>
+<h4 id="45-砝码问题">4.5 砝码问题</h4>
+<p><strong>ProblemA</strong> 给定n个砝码，可以放在两边，问：可以秤出的重量.</p>
+<p>  <strong>Sol.</strong> 类比背包问题，但相比0-1背包，此时有3种状态，即不选、放右边（+a）、放左边（-a）. 从而定义重量=价值，f(i,j)为前i个物品中凑出j的方法数，$f\left(i,j\right)=f\left(i-1,j-w_i\right)+f\left(i-1,j+w_i\right)+f(i-1,j)$. 最后跑一遍$f\left(n,k\right),1\le k\le\sum w_i$</p>
+<p><strong>ProblemB</strong> 最少需要多少个砝码可称出N以内的重量（左右可放）</p>
+<p>  <strong>Sol.</strong> 与进制相关，易知用任何进制可表达出任何数，但用二进制的话每一个砝码都需准备，即需$\log_2{N+1}$向上取整（等比求和），但是没用上可以放左边的性质. 而三进制则能用上，因为若物品k位在三进制下被表为2，则可在右侧放一个$3^k$使得此位在左边为0，若k+1位为2，以此类推. 故$\log_3{N+1}$也可完成且更优. 四进制则至少每套需两个. 易证$\log_3{N}+1\le\frac{n}{2}\log_n{N}+1(n\geq3)$.</p>
               
 
 
@@ -484,9 +459,9 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimaztion/">Optimaztion</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/number-theory/">Number Theory</a>
 
                   </div>
                 
@@ -499,7 +474,7 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" data-tooltip="[Algorithm|Number Theory II]Prime Number" aria-label="NEXT: [Algorithm|Number Theory II]Prime Number">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/data-structureadvanced-tree/" data-tooltip="[Data Structure]Advanced Tree" aria-label="NEXT: [Data Structure]Advanced Tree">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -507,7 +482,7 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" data-tooltip="[Abstract Algebra]Group Theory in Algo(I)" aria-label="PREVIOUS: [Abstract Algebra]Group Theory in Algo(I)">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlgenetic-algorithm/" data-tooltip="[ML]Genetic Algorithm" aria-label="PREVIOUS: [ML]Genetic Algorithm">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -525,19 +500,19 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -568,9 +543,9 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/mlgenetic-algorithm\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/algorithmnumber-theory-iiprime-number\/';
         
-          this.page.identifier = '\/2023\/06\/mlgenetic-algorithm\/'
+          this.page.identifier = '\/2023\/06\/algorithmnumber-theory-iiprime-number\/'
         
       };
       (function() {
@@ -606,7 +581,7 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" data-tooltip="[Algorithm|Number Theory II]Prime Number" aria-label="NEXT: [Algorithm|Number Theory II]Prime Number">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/data-structureadvanced-tree/" data-tooltip="[Data Structure]Advanced Tree" aria-label="NEXT: [Data Structure]Advanced Tree">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -614,7 +589,7 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/abstract-algebragroup-theory-in-algoi/" data-tooltip="[Abstract Algebra]Group Theory in Algo(I)" aria-label="PREVIOUS: [Abstract Algebra]Group Theory in Algo(I)">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlgenetic-algorithm/" data-tooltip="[ML]Genetic Algorithm" aria-label="PREVIOUS: [ML]Genetic Algorithm">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -632,19 +607,19 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlgenetic-algorithm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -675,19 +650,19 @@ print(&#34;Total Value:&#34;, fitness(best_individual))</code></pre>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlgenetic-algorithm%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Falgorithmnumber-theory-iiprime-number%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlgenetic-algorithm%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Falgorithmnumber-theory-iiprime-number%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlgenetic-algorithm%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Falgorithmnumber-theory-iiprime-number%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

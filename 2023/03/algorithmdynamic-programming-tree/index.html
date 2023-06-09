@@ -309,7 +309,6 @@
               <p><strong>Tree Dynamic Programming</strong>, which is a basic series of DP problems based on binary trees(or with more branches).</p>
 <p>In DP problems, we always need to figure out how to transfrom one with large scale into a smaller and still <strong>maintain a complete structure</strong> . In segment DP problems, we transfrom a long one into a shorter one. This also rings true in tree &ndash; always look for a proper subtree and establish the state equation.</p>
 <p>In segment problems, we have 2 orders to traverse the dp array(sequential and inverse); in tree problems, we can traverse <strong>from top to the bottom or from bottom to the top</strong> and use a dp array with an adjacent chart to store the result. In most cases, we have to combine backtracing with dp.</p>
-<h2 id="section-one-1d-from-top-to-the-bottom">Section One. (1D) From top to the bottom</h2>
 <h3 id="problem-a--the-diagram-of-a-tree-the-longest-path-in-the-tree">Problem A  The Diagram of a Tree: The Longest Path in the Tree</h3>
 <p><strong>Problem</strong> The distance between two nodes is defined as the edges one has to walk through to another.</p>
 <p><strong>Analysis</strong> We can lay emphasis on a node. The longest path will <strong>either pass the node or not</strong> which enlighst us to set 2 state in our dp array. dp[u][] means <strong>the diameter of the subtree rooted on u</strong>  while dp[u][0] implies u is not on the diameter and dp[u][1] does. In a binary tree, we have</p>
@@ -562,12 +561,105 @@ int main(void){
 [Necessity]</p>
 <h3 id="problem-c-knapsack-on-the-tree">Problem C Knapsack on the Tree</h3>
 <p>Likewise, we can move trhe knapsack theory here but with an extra limitation: <strong>Each time you take a node, you have take its parent as well</strong>
-Take the 0-1 knapsack on <strong>a binary tree</strong> as example, the weight and value of each node is <code>w[i],v[i]</code> , to maximize the value, we have:</p>
-<p>And for a tree with more than two branches, we don&rsquo;t need to enumerate all of its sons but <strong>take one out and make the rest a group</strong>.</p>
+Take the 0-1 knapsack on <strong>a binary tree</strong> as example, the weight and value of each node is <code>w[i],v[i]</code> , to maximize the value, we have:<code>f(i,j)=max{f(i,j),f(i-1,j),f(i-1,j-w[i])}</code>. Likewise, in a binary tree, it first goes down and then determine the distribution among two sons.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>knapsack on trees.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void dfs(int rt){
+	if(!rt)	return;	
+	dfs(ls[rt],rt), dfs(rs[rt],rt);
+	for(int i=m;i&gt;=1;i--)	//the amount of items
+		for(int j=0;j&lt;=i-1;j&#43;&#43;) //distribution between two sons
+			f[rt][i] = max(f[rt][i],f[ls[rt]][j]&#43;f[rs[rt]][i-j]&#43;val[rt]);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>And for a tree with more than two branches, we don&rsquo;t need to enumerate all of its sons but <strong>take one out and make the rest a group</strong>. But there is a concern that the updating rule as <code>f[rt][j]=f[rt][j-k]+f[son][k]</code> is possible to contain an element both in a subtree rooted at <code>son:v</code>. Actually, such formula is a simplication from <code>f(u,i,m)=max f(u,i-1,m-k)+f(v,the amount of k's sons,k)+val of u</code> where <code>f(u,i,m)</code>indicates that choose m items from the <strong>first i subtrees of u</strong> and it won&rsquo;t bring about the duplicate nodes. Now let&rsquo;s take a look whether the diemension of i can be left out.</p>
+<p>Thanks to the fact that before getting back to the recursion of u, the para <code>i</code> has been updated to match up <code>the amount of k's sons</code>; and this rings true when it comes to the bottom nodes-the leaves:one is all. And therefore we obtain: <code>f(u,m)=max f(u,m-k)+f(v,k)+val</code>.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>knapsack on trees.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void dfs(int rt,int father){
+	if(!rt)	return;	
+	for(int i = head[rt];~i;i=nxt[i]){
+		int son = edge[i].to;
+		if(son==father)	continue;
+		dfs(son,rt);
+		for(int j=m;j&gt;=1;j--)
+			for(int k=0;k&lt;=j-1;k&#43;&#43;)
+				//
+				f[rt][j] = max(f[rt][j],f[son][k]&#43;f[rt][j-k]&#43;val);
+	}
+	
+	for(int i=m;i&gt;=1;i--)	
+		for(int j=0;j&lt;=i-1;j&#43;&#43;) //the distribution between two sons
+			f[rt][i] = max(f[rt][i],f[ls[rt]][j]&#43;f[rs[rt]][i-j]&#43;val[rt]);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>Problems on edge weight can be transformed into those on vertex weight. For instance, to delete k edges(k is given) and maximize the usm of edges still there. <strong>Allocating the edge to its son</strong> works. And to maximize is identical to minimize, to delete is the same as to pick out.</p>
 <h3 id="problem-d-a-party-without-the-superiors">Problem D A Party Without the Superiors</h3>
-<h2 id="section-one-2d-from-top-to-the-bottom-and-from-bottom-to-the-top">Section One. (2D) From top to the bottom and From bottom to the top</h2>
-<h3 id="problem-a--the-farthest">Problem A  The Farthest</h3>
-<h3 id="problem-b-the-maximum-flow-on-a-tree">Problem B The Maximum Flow on a Tree</h3>
+<p><strong>Problem(The Independent Set with Maximum Weight)</strong> On the condition that you can&rsquo;t choose any pair of adjacent nodes in a tree, maximize the sum of node weights as possible.</p>
+<p>   <strong>Sol.</strong>  Each time we <strong>consider taking the current node or not</strong>, thus defining f(u,0/1) as the <strong>maximum value in a tree rooted at u by taking(1) or not(0)</strong>. For any node u, if taken, then its sons <code>v</code> are bound not to be chosen, say, $f(u,1)=1+\sum f(v,0)$; if not, then there are no restrictions, say, $f(u,0)=1+\sum \max f(v,0),f(v,1)$</p>
+<p>Lots of problems duplicate the idea as Problem D shows as below: All the edges are supposed to link at least a colored node, figure out its possible least scale.</p>
+<ol>
+<li>(<strong>The Smallest Vertex Cover(edges)</strong>)</li>
+</ol>
+<p>   <strong>Sol.</strong>  Likewise, a node has two states: to be dyed or not. Therefore, we have f(u,0/1). With u undyed, all of its sons has to stand out, making it <code>f[u][0]+=f[v][1]</code>; otherwise <code>f[u][1]=min(f[v][0],f[v][1])</code>.</p>
+<ol start="2">
+<li>(<strong>The Smallest Dominant Set</strong>) Each node in a tree has at least a neighbor colored node, figure out the least amount of dyed nodes.</li>
+</ol>
+<p>   <strong>Sol.</strong> In this situation, the updating fomula has to do with <strong>both of its parent and sons</strong>, however, its parent remaining unknown yet. But fortunately, a node has only a parent and there comes the third state, say, 0,1,2 stands for the node dyed, the node undyed but the parent uncolored/colored respectively. Then <code>f(u,0)=1+sum of min(f(v,0),f(v,1))</code>(choosing f(v,2) leads to contradiction);<code>f(u,2)+=min(f(v,0),f(v,1))</code>; f(u,1)indicates that <strong>at least one of the sons is dyed</strong> and therefore we first pick out the minimum f(v,0). If there is a v s.t. <code>f(v,1)≥f(v,0)</code> then whatever the process is, we will always accept <code>f(v,0)</code> then <code>f(u,1)+=min(f(v,0),f(v,1))</code>. Otherwise we pick out a v minizing |f(v,1)-f(v,0)| as the result.</p>
               
 
 
@@ -604,7 +696,7 @@ Take the 0-1 knapsack on <strong>a binary tree</strong> as example, the weight a
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="PREVIOUS: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" data-tooltip="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function" aria-label="PREVIOUS: [Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -711,7 +803,7 @@ Take the 0-1 knapsack on <strong>a binary tree</strong> as example, the weight a
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="PREVIOUS: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" data-tooltip="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function" aria-label="PREVIOUS: [Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>

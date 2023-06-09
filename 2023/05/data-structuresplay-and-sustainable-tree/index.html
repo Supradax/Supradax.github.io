@@ -799,9 +799,398 @@ void reverse(int l, int r){
 
 <h2 id="iii-可持久化线段树">III. 可持久化线段树</h2>
 <h3 id="31-可持续化线段树">3.1 可持续化线段树</h3>
+<p>在一些场景下，我们需在维护一个线段树的同时，保存其历史信息. 由于每次维护线段树只需修改一部分，这些修改部分<strong>新增节点</strong>存储，而未修改的分支则指向<strong>上一个版本的树的结点</strong> 由于未知空间大小且新增结点位置不是简单的2倍或2倍+1的关系，故需<strong>动态开点</strong>. 其中<strong>每开一个版本对应一个根节点</strong></p>
+<p>下面是一棵维护<strong>值域内数的个数的线段树</strong>，每次update为插入一个数. 查询要求为<strong>查找特定时间戳下的区间[l,r]上的第k小</strong></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>build.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#define ls(x) tr[x].son[0]
+#define rs(x) tr[x].son[1]
+
+struct Node{
+	int son[2], int s;
+}tr[N*22]; //常数22取决于新增次数的多寡
+int root[N], idx; 
+//和普通线段树相同
+void build(int &amp;x, int l, int r){ //传引用修改
+	x = &#43;&#43;idx;	
+	if(l==r)	return;
+	int m = l&#43;r&gt;&gt;1;
+	build(ls(x),l,m), build(rs(x),m&#43;1,r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>接下来递归建立各个版本的线段树，x、y为前一、当前版本的节点指针，其中<strong>要修改的y为传引用</strong>，因为每个++idx是在新建节点，而<strong>传统静态线段树</strong>不会在更新新开节点.</p>
+<p>在更新时，<strong>先拷贝原有节点</strong>，这样就获得原有的关系，再将需要更新的结点自己开结点接过去.</p>
+<p>
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>insert.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void insert(int x, int &amp;y, int l,int r, int v){
+	//新建节点并拷贝上一个节点，再更新
+	y=&#43;&#43;idx; tr[y]=tr[x]; tr[y].s&#43;&#43;; 
+	int m = l&#43;r&gt;&gt;1;
+	//在ls(y)的空间中会自己开个新结点给ls(y)
+	if(v&lt;=m)	insert(ls(x),ls(y),l,m,v);
+	else insert(rs(x),rs(y),m&#43;1,r,v);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/17.jpg" >
+   
+   
+ </div>
+</p>
+<p>若要查询版本[1,r]上的第k小，则找到插入r对应的历史版本二分即可(即BST上的排名查询)，而要查询[l,r]一系列版本中的第k小(<strong>相当于区间内的第k小，一次插入对应一个元素</strong>)，则类比前缀和，即<strong>两个版本左子树的大小之差(x、y为第l-1、r个版本)</strong></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>query.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int query(int x,int y, int l, int r, int k){
+	if(l==r)	return l;
+	int m = l&#43;r&gt;&gt;1;
+	int size = tr[ls(y)].s-tr[rs].s;
+	if(k&lt;=size)	return query(ls(x),ls(y),l,m,k);
+	else return query(rs(x),rs(y),m&#43;1,r,k);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>一般可持续化线段树只支持<strong>单点查询+单点修改</strong>，故而<strong>pushdown的优化是不必要的</strong>，因为每次修改至多消耗O(logn)</p>
+<p>对于浮点数或较大的数，则<strong>离散化处理</strong>，最简单的为用vector排序. 然后利用其下标0,1,&hellip;作为大小，查询到第k小为i只需访问nums[i]. 或者也可以<strong>动态开点</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">vector&lt;double&gt; nums;
+sort(nums.begin(),nums.end());</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
 <h3 id="32-可持久化数组">3.2 可持久化数组</h3>
+<p>要求支持<strong>修改和访问某个版本某个位置的值</strong>，得到新的版本. 则可利用可持久化线段树，<strong>只有叶子结点存储数据值</strong>，内部结点不存信息，每次操作消耗O(logn).
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/18.jpg" >
+  
+  
+</div>
+
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sustainable array.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#define ls(x) tr[x].son[0]
+#define rs(x) tr[x].son[1]
+typedef struct Node(){
+	int l, r, val, son[2];
+}tr[N*22];
+int idx=0, rt[N];
+//建空树
+void build(int&amp; x,int l, int r){
+	x = &#43;&#43;idx;
+	if(l==r)	return;
+	int m = l&#43;r&gt;&gt;1;
+	build(ls(x),l,m);build(rs(x),m&#43;1,r);
+}
+//单点修改: x是上个版本，即rt[n];y是当前rt[n&#43;1]
+void update(int x, int &amp;y, int pos, int v){
+	y=&#43;&#43;idx; tr[y]=tr[x]; 
+	if(tr[y].l==tr[y].r){tr[y].val = v; return;}
+	int m = tr[y].l&#43;tr[y].r&gt;&gt;1;
+	if(pos&lt;=m)	update(ls(x),ls(y),pos,v);
+	else update(rs(x),rs(y),pos,v);
+}
+//x是要查询的对应版本
+int query(int x,int pos){
+	if(tr[x].l==tr[x].r)	return tr[x].val;
+	int m = tr[x].l&#43;tr[x].y&gt;&gt;1;
+	return pos&lt;=m ? query(ls[x],pos) : query(rs[x],pos);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
 <h3 id="33-可持久化并查集">3.3 可持久化并查集</h3>
+<p>建立在可持久线段树与并查集的<strong>按秩合并</strong>（<strong>不能用路径压缩</strong>）的基础上. 需要开<strong>两个可持久化数组记录父节点和深度，即一个tr[]内存池、两个root数组</strong>. 故先构建该结构(只需新增初始化这一步)，再按秩合并.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sustainable dsu.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typdef struct Node{
+	int l, r, father, depth=0;
+} tr[N*22]; //memory pool
+int fa[N], dep[N], cnt=0;
+
+void build(int &amp;x, int l, int r){
+	x=&#43;&#43;cnt; 
+	//初始化
+	if(l==r) {tr[x].father = l;return;} 
+	int m = l&#43;r&gt;&gt;1;
+	build(ls(x),l,m); build(rs(x),m&#43;1,r);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>接下来构造find函数（递归查找）与查询同类（按秩合并）的函数.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sustainable dsu.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int find(int ver,int x){ //version, target
+	int fx = query(father[ver],x);
+	return fx==x ? x:find(father[ver],fx);
+}
+
+void merge(int ver, int x){	
+	//注意ver是新版本，得用旧版本先找
+	int x = find(ver-1,x), y=find(ver-1,y);
+	//已经在同一集合，只生成完全一致的版本
+	if(x==y)	
+		father[ver]=father[ver-1],depth[ver]=depth[ver-1];
+	else{
+		int dx = query(depth[ver-1],x),dy=query(depth[ver-1],y);
+		if(dx&lt;dy){ //小的往大的里塞，深度不变
+			update(father[ver-1],father[ver],x,y);
+			depth[ver]=depth[ver];
+		}else if(dx&gt;dy){
+			update(father[ver-1],father[ver],y,x);
+			depth[ver]=depth[ver];
+		}else{//深度相等，但是深度会变，有一个会增加1
+			update(father[ver-1],father[ver],x,y);
+			update(father[ver-1],father[ver],y,dy&#43;1);
+		}
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
 <h3 id="34-可持久化0-1trie">3.4 可持久化0-1Trie</h3>
+<p>可持久化0-1trie在解决异或相关问题时有用. 此时<strong>每个数则新开一个从根到叶的路径</strong>，把另一侧接到上个版本去. 由于本身不研究一个范围，只是离散的值，故可以不用build(). 下面以插入32bits的int为例.</p>
+<p>
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/treedp/19.jpg" >
+  
+  
+</div>
+
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sustainable dsu.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">typdef struct Node{
+	int son[2]={0},val;
+}tr[N*22];
+int cnt=0;
+
+//x,y为上个、当前版本，cur为当前深度，s为对应二进制字符串
+void insert(int x, int &amp;y, int cur,string s){
+	if(cur&lt;0)	return;
+	y=&#43;&#43;cnt; tr[y]=tr[x];
+	//【例题】tr[y].val = latest_version;
+	if(s[cur]-&#39;0&#39;==0)	insert(ls(x),ls(y),cur&#43;1,s);
+	else insert(rs(x),rs(y),cur&#43;1,s);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>例题</strong> 给定非负整数列，要求实现2个操作，在序列末尾添加数x和在给定[l,r]中找到一个位置p使得从p开始到末尾所有数的与给定的x的异或和最大.</p>
+<p><strong>分析</strong> 把区间异或换为前缀和异或，即处理出一个前缀和放入数组中. 先将$S_n$与x异或得到y. 然后将结点值val设置为被加入的<strong>最后时刻</strong>，则比对y的各位，从版本r进入去访问，如y第k位为1，则若左孩子存在且最后时刻大于l时可走.</p>
 <h2 id="iv-可持久化平衡树">IV. 可持久化平衡树</h2>
               
 

@@ -440,7 +440,7 @@ void merge(int x,int y) {set[find(x)] = find(y);}</code></pre>
   </table>
 </figure>
 </p>
-<p>Another method to optimize is through recording the ranks. The lower rank a subset has, the lower position it will stay. In this way, despite we don&rsquo;t compress the height of the tree into two, we strive to make the tree balanced.
+<p>Another method to optimize is through recording the ranks. The lower rank a subset has, the lower position it will stay. In this way, despite we don&rsquo;t compress the height of the tree into two, we strive to make the tree balanced. And each time we plug a smaller one into a larger one, making the depth no greater than $\log_2 n$
 
   
     
@@ -858,6 +858,152 @@ return true;</code></pre>
   </table>
 </figure>
 </p>
+<h2 id="part-five-dsu-on-tree">Part Five: DSU on Tree</h2>
+<p>Actually, DSU on Tree has nothing to do with DSU but simply gains inspirations from it.</p>
+<p>DSU on Tree adopts the method <strong>merging according to the rank</strong>, thus defining <strong>heavy son and light son</strong> which indicates their sizes. And each time to merge, likewise, transplanting the lighter to the heaiver. And it can ensure the complexity O(nlogn).</p>
+<p>The algo requires <strong>separation</strong> the tree into <strong>heavy and light links</strong> where the heavy link passes <strong>the heavy sons</strong>. (If there are more than 2 sons, then only the largest is called heavy). Therefore, it is nature to DFS for the first time to mark the heavy sons and it takes the second to merge.</p>
+<p>And each time, there might be a tedious situation where we need to compute the same subtree many time to get the reuslt on the whole, which means we can pick out the heaviest subtree to compute at last and the workload diminishes this way.</p>
+<p><strong>Example.1</strong> N dyed nodes consists of a tree, what is the sum of the number of colors appearing most in each subtree?</p>
+<p>  <strong>Sol.</strong> dfs(cur, father, keep)</p>
+<ul>
+<li>compute the <strong>contributions</strong> from all of the lightsons, dfs(lightsons, cur, false)</li>
+<li>if heavyson exists, then dfs(heavyson, u, true)</li>
+<li>count up all of its light sons</li>
+<li>if it is light(not to keep), then offset its contribution</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//record the info of depth, size and the heavy son
+void dfs1(int u, int f){ //current, father node
+	fa[u]=f, dep[u]=dep[f]&#43;1, size[u]=1;
+	int maxsize = -1;
+	for(int i=head[u];~i;i=edge[i].nxt){
+		int v = edge[i].to;
+		if(v==f)	continue;
+		dfs1(v,u);
+		size[u] &#43;= size[v];
+		if(size[v]&gt; maxsize)
+			maxsize = size[v], son[u]=v;
+	}
+}
+
+void dfs2(int u, int f, bool keep){
+	//S1
+	for(int i=head[u];~i;i=edge[i].nxt){
+		int to = edge[i].to;
+		if(v==f||v==son[u])	continue;
+		dfs(v,u,false);
+	}
+	//S2
+	if(son[u]){
+		dfs(son[u],u,true);
+		heavy = son[u];
+	}
+	//S3: contribution: 1 for add and -1 for minus
+	count(u,f,1);heavy=0;ans[u]=sum;
+	//S4
+	if(!keep)	count(f,u,-1), sum=maxcolor=0;
+}
+
+void count(int u, int f,int val){
+	//global array color[] stores the color in the subtree
+	//and therefore it needs clearing up
+	cnt[color[u]]&#43;=val; 
+	if(cnt[color[u]]&gt;maxcolor)
+		maxcolor=cnt[color[u]], sum=color[u];
+	else if(cnt[color[u]]==maxcolor)
+		sum&#43;=color[u];
+	for(int i=head[u];~i;i=edge[i].nxt){
+		int v = edge[i].to;
+		if(v==f||v==heavy)	continue;
+		count(v,u,val);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>Example.2</strong> N dyed nodes consists of a tree and a subtree with an average distribution of different colors is called color-balanced and so is its root. How many color-balanced nodes are there in the whole tree?</p>
+<p>  <strong>Sol.</strong> Simply to modify the counting function.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">/*dfs2:S4*/
+if(!keep){
+	balanced=false;
+	count(u,f,-1);
+}
+
+void count(int u,int f,int val){
+	cnt[color[u]]&#43;=val;
+	for(int i=head[u];~i;i=edge[i].nxt){
+		int v=edge[i].to;
+		if(v==f||v==heavy)	continue;
+		count(v,u,val);
+	}
+	
+	for(int i=0;i&lt;N;i&#43;&#43;)
+		if(cnt[i]&gt;0&amp;&amp;cnt[i]!=color[u]){
+			balanced=false; break;
+		}
+	sum&#43;=balanced;
+	balanced=true;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Updating Record.</strong></p>
+<ul>
+<li>7,Jun,2023: DSU on Tree</li>
+</ul>
               
 
 

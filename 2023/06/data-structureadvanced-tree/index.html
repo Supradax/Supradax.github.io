@@ -1,0 +1,1292 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Data Structure]Advanced Tree",
+  
+  "image": "https://Supradax.github.io/img/tree.jpg",
+  
+  "datePublished": "2023-06-08T00:00:00Z",
+  "dateModified": "2023-06-08T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/06\/data-structureadvanced-tree\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Data Structure]Advanced Tree">
+<meta name="twitter:title" content="[Data Structure]Advanced Tree">
+<meta property="og:url" content="https://Supradax.github.io/2023/06/data-structureadvanced-tree/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/06/data-structureadvanced-tree/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-06-08T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-06-08T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Data Structure">
+    
+  
+  
+    
+      <meta property="article:tag" content="Data Structure">
+    
+      <meta property="article:tag" content="Tree">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/tree.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/tree.jpg">
+
+
+    <title>[Data Structure]Advanced Tree</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/06/data-structureadvanced-tree/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Data Structure]Advanced Tree
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-06-08T00:00:00Z">
+        
+  June 8, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/data-structure">Data Structure</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-虚树-virtual-tree">1 虚树 Virtual Tree</h2>
+<p><strong>Problem</strong> 给一些较小的点集，要求<strong>树上的某个点u不能与任何其中的点相连</strong>，求割掉的边的代价最小.(<strong>一般点集的规模m较小</strong>)</p>
+<p>使用dfs暴力，对点集中的每个点dfs找到其位置，递归回去删除权值最短的边并用set维护避免重复删边，则O(mn).</p>
+<p>虚树的核心在于<strong>去除冗杂的边</strong>，由于树的向上单向性特点，不妨设点u为根，则连通到<strong>关键点</strong>的路径有且只有一条且点集中的两个点其LCA在递推中有决定性作用. 那么我们问：能否只保留根、点集及其一些LCA，余下的点都删除？</p>
+<p>答案是肯定的. 设两个点s,t的LCA为l，则路径(rt,l)中的边<strong>只需保留权值最短的边，因为要切断与l的关联且要从(rt,l)入手，只能切这条边</strong>. 但是(s,l)则不能只取(s,l)的最小边权，因为<strong>也可从路径(rt,l)入手删边，故为(root,s)的最小边权</strong>. 经过化简而只保留<strong>关键点、根、LCA</strong>的树称为<strong>虚树</strong>.</p>
+<p>建立虚树的过程可用栈模拟，先把所有LCA求出，再在虚树上跑dfs，由于点集规模小，从而虚树规模小达到O(n²). 其中求LCA可<strong>按dfs序排序(首次遍历)</strong>，可将O(n²)优化至线性(LCA在一次DFS中能全部确定出来). 而在构建栈模拟时，需<strong>进栈建边</strong>，然后判断<strong>下一个结点是否在栈顶为根的子树内，若不然，则弹栈</strong></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int cnt = 0, in[N],out[N];
+void dfs(int rt){ //获得dfs序以及找到对应的虚边
+	in[rt]=cnt&#43;&#43;;
+	for(auto v:adj[rt]){//v[]={to, weight}
+		m[v[0]] = min(m[v[0]],m[rt]);
+		dfs(v[0]); 
+	}
+	out[rt]=cnt&#43;&#43;;
+}
+
+bool cmp(int u,int v){return in[u]&lt;in[v];}
+bool is_son(int u,int v){return in[u]&lt;=in[v]&amp;&amp;out[v]&lt;=out[u];}
+void build(vector&lt;int&gt; &amp;node){
+	set&lt;int&gt; nodelist;
+	//按dfs序排序降低复杂度
+	sort(node.begin(),node.end(),cmp);
+	for(auto x:node) nodelist.insert(x);
+	for(int i=0;i&lt;node.size()-1;i&#43;&#43;)	nodelist.insert(getlca(node[i],node[i&#43;1]));
+	
+	stack&lt;int&gt; st;
+	for(int v:node){
+		while(!st.empty()&amp;&amp;!is_son(st.top(),v))	st.pop();
+		if(!st.empty())	virtual_tree[st.top()].push_back({v,m[v]});
+		st.push(v);
+	}
+}
+//在虚树上跑dfs
+void sol(int u){
+	dp[u]=0; //表示切断u到任何关键点的最小花费，dp[0]为最终答案
+	for(auto edge:virtual_tree[u]){
+		int v=edge.to, w=edge.w;
+		dfs(v);
+		//若v是关键点，则必须断开(从根到前面都没断)
+		if(key[v])	dp[u]&#43;=w; 
+		//否则可断可不断
+		else dp[u] &#43;= min(dp[v],w);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h2 id="2-树分治">2 树分治</h2>
+<h3 id="21-点分治">2.1 点分治</h3>
+<p>点分治主要解决<strong>统计树上路径问题</strong>，所有路径(u,v)可分为<strong>经过根和未经过的</strong>，对于前者，则将其拆分成两段<code>d(u,v)=d(rt,u)+d(v,rt)</code>，在两个子树中各自计算；对于后者，则递归到其所在子树. <strong>为降低深度，每次递归到子树，先找到重心，并以其为根节点</strong>. 这样保证对于每一条路径，最多只需递归logn层，每一层进行一次dfs，从而复杂度在O(mnlogn).</p>
+<p>主要步骤如下：</p>
+<ul>
+<li>找到树的重心</li>
+<li>求出子树中各点到根的距离</li>
+<li>对当前树统计答案，统计不到的转到子树递归</li>
+</ul>
+<p><strong>Template</strong> 求出树上长度等于k的路径数.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void getroot(int u, int fa){
+	size[u]=1; int s=0;
+	for(int i=h[u];~i;i=e[i].nxt){
+		int v = e[i].v;
+		//del表示其为被删的点，即先前作为根节点的
+		if(v==fa||del[v])	continue;
+		getroot(v,u);
+		size[u]&#43;=size[v];
+		s=max(s,size[v]); //找到最大子树
+	}
+	s=max(s,sum-size[u]); //比较除了儿子的另一半
+	if(s&lt;maxsize) maxsize=s,rt=u; //更新最大儿子，使之最小为重心
+}
+
+void getdis(int u,int fa){ //dis为缓存池，d[u]为每次求的临时变量
+	dis[&#43;&#43;cnt]=d[u];
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(v==fa||del[v])	continue;
+		d[v]=d[u]&#43;e[i].w;
+		getdis(v,u);
+	}
+}
+
+void calc(int u, int w, int sgn){
+	cnt=0, d[u]=w; //初始化
+	getdis(u,0); //求距离
+	sort(dis&#43;1,dis&#43;cnt&#43;1); //排序优化
+	int l=1,r=cnt;
+	//若为统计大于k的路径，则对每个l二分一个r，对区间求和
+	while(l&lt;r) 
+		if(dis[l]&#43;dis[r]&lt;=k){
+			if(dis[l]&#43;dis[r]==k)	
+				ans&#43;=sgn,l&#43;&#43;;	
+		}else r--;		
+}
+
+void div(int u){
+	del[u]=true;
+	//先求答案，但是可能存在有来自同一棵子树的路径，从而等会递归进去删掉
+	calc(u,0,1); 
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(del[v])	continue;
+		calc(v,e[i].w,-1); //e[i].w为刚刚的根（容斥原理）
+		maxsize = sum = size[v]; //更新子树信息
+		getroot(v,u);
+		div(rt);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="22-边分治">2.2 边分治</h3>
+<h2 id="3-基环树">3 基环树</h2>
+<p>对于有N条边的N阶图，即树上多一个环的图，称<strong>基环树</strong>. 由于只存在一个环，故可在环上考虑各个子树间的关系，并仍用树的相关算法. 基环树按有向性可分为<strong>无向树、外向树(每个点仅1条入边)、内向树(每个点仅1条出边)</strong>. 基本思路为<strong>DFS找环，再开环成树</strong></p>
+<p><strong>例1</strong> 基环树森林上有点权，选取一个独立集，最大化该独立集的点权之和.</p>
+<p>   <strong>Sol.</strong> 对每棵基环树，找到环的位置，<strong>任意删除环上一条边(u,v)</strong>，分别对以u、v为根的树进行树形dp. 在对u进行dp时，不能同时选中u,v，故dp状态需再传入一个维度标注是否选中v. 对u同理.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//找环只需找两个根，但是需对每个点都执行getcycle
+//因为不是所有结点都在环上
+void getcycle(int u, int rt){
+	vis[u]=true;
+	for(int i=h[u];i=e[i].nxt){
+		int v = e[i].v;
+		if(v==rt){r1=u,r2=v;return;}
+		if(vis[v])	continue; //避免倒退
+		getcycle(v,rt);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>例2</strong>  带边权的基环树上要求找到一个点使得与最远结点的距离最小.(这个点可以在边上)</p>
+<p>   <strong>Sol.</strong> 到最远的距离最小，即树的直径. 而直径可分为<strong>经过基环和未经过基环</strong>. <strong>若未经过基环</strong>，则把基环上插的树一棵棵拔出来跑两边dfs；若经过基环，则需断开环边，则<strong>可能从一棵子树走顺时针或逆时针在环上跑一段距离再走进去某一棵子树</strong>. 为避免重复搜索，利用<strong>前后缀和思想：分别对应顺逆时针两个方向</strong>，定义前缀长度<code>A[i],B[i]</code>分别维护<strong>前缀中链长+结点树深度的最大值和两棵树深度和节点距离的最大值</strong>. 先断开[1,i]预处理前缀和，同理处理后缀和. 最后断开环上每条边，凑出答案<code>res[i]=max(B[i],D[i+1],A[i]+C[i+1]+w(1,cn))</code>，第一、二项已经是完整的链**(未经过边(1,cn))**，<strong>第三项则将两个半条链拼在一起(经过边(1,cn))</strong>.</p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//调用find找到环并把环上元素打上标记
+bool find(int u){
+	vis[u]=true;
+	for(int i=h[u];i;i=e[i].nxt){
+		int v = e[i].v;
+		if(!vis[v]){ //返回值表示这个点是否在环上 
+			fa[v]=u, w[v]=e[i].w;
+			if(find(v))	return true;
+		}else{ //否则说明v已经到环上
+			int p=u;
+			while(true){
+				incycle[p]=1, cycleVertex[&#43;&#43;cnt]=p;
+				cycleWeight[cnt]=w[p];
+				p=fa[p]; //往上找找过来的路径
+			}
+			return true;
+		}
+	}
+}
+
+//再开始dfs更新
+void dfs(int u,int fa){
+	for(int i=h[u];i;i=e[i].nxt){
+		int v = e[i].v;
+		//只找不在环上的点，避免往回找
+		if(incycle[v]||v==fa)	continue;
+		dfs(v,u);
+		//d[i]表示以i为根的子树的深度
+		//类似树上背包，这种更新由于只会更新到前面的子树
+		//无需担心d[u]和d[v]指向同一棵子树
+		ans1 = max(ans1,d[u]&#43;d[v]&#43;w);
+		d[u]=max(d[u],d[v]&#43;w); //更新深度
+	}
+}
+
+//先更新各个子树的深度，0表示与环切断
+for(int i=1;i&lt;=cnt;i&#43;&#43;)	dfs(cycleVertex[i],0);
+for(int i=1;i&lt;=cnt;i&#43;&#43;){
+	//累加环上边权,一开始无边
+	sum&#43;=cycleWeight[i-1];  //链的前缀和
+	A[i]=max(A[i-1],sum&#43;=d[cycleVertex[i]]);
+	/*B的更新中mx维护的是前半段，即从第i棵子树
+	出来到当前第k棵子树的最大值*/
+	B[i]=max(B[i-1],mx&#43;d[cycleVertex[i]]&#43;sum);
+	mx = max(mx,d[cycleVertex[i]]-sum);
+}
+sum=mx=0;
+//更新后缀，预处理cycleWeight[cn]=0，倒着求回去
+//切断后没有边权.
+double cn_1=cycleWeight[cn];cycleWeight[cn]=0;
+for(int i=cn;i&gt;=1;--i){
+	sum&#43;=cycleWeight[i];
+	C[i]=max(C[i&#43;1],sum&#43;d[cycleVertex[i]]);
+	D[i]=max(D[i&#43;1],mx&#43;sum&#43;d[cycleVertex[i]]);
+	mx = max(mx,d[cycleVertex[i]]-sum);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>例3</strong> 一个图上，从起点开始，每次可走向一个没有去过的结点，或者沿着已访问过的回退，要求：当到达一个新到的结点时，记录该节点，要求使这个记录字典序最小. (E=V或V-1)</p>
+<p>   <strong>Sol.</strong> 由于E=V-1或V，从而图是树或基环树. 若为树，则类比Dijkstra，在已解锁区域选择一个字典序最小的. 若基环树，则找到环并切断边e，对于每个e都进行一遍，求最小值.
+<strong>剪枝：若路径和已有相比变差，则跳过</strong>.(这个算法需要证明最短路径可以不经过整个环)</p>
+<h2 id="4-树链剖分">4 树链剖分</h2>
+<p>树链剖分一般用于修改树上路径或查询路径信息，一般按照<strong>子树规模</strong>标定重儿子，构成<strong>重链剖分</strong>；按照<strong>子树深度</strong>标定重儿子，构成<strong>长链剖分</strong>；而<strong>实链剖分</strong>由于要维护动态树，故需用Splay树维护，不能用普通线段树.</p>
+<h4 id="41-重链剖分">4.1 重链剖分</h4>
+<ul>
+<li>以某个儿子为根的子树规模最大的儿子为<strong>重儿子(有且仅有1个)</strong>，余者为<strong>轻儿子</strong>. 重儿子相连的边构成<strong>重边</strong>，连成<strong>重链</strong>. 同理有<strong>轻边、轻链</strong>，保存<strong>重链上深度最小的结点：链头</strong>.
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/22.jpg"  alt="heavy links and light links">
+   
+    
+     <span class="caption">heavy links and light links</span>
+   
+ </div>
+
+不难看出，重链有以下性质：</li>
+<li>重链互不相交，即每个点属于一个重链(单独一个结点也可认为是链)，重链的顶点是轻儿子(含根)</li>
+<li>所有重链上的结点数和等于结点数(结合性质1，可知重链构成一个<strong>树的划分</strong>)</li>
+<li>一个点到根节点的路径经过的轻边最多有$\log n$条.(每走过一条轻边，意味着子树的规模减少至少一半，这保证了重链剖分的下界)
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>heavy-link-cut.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//标记重儿子
+void dfs1(int u,int fa){
+	size[u]=1;
+	int mx =-1;
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(v==fa)	continue;
+		dep[v]=dep[u]&#43;1,fa[v]=u;
+		dfs(v,u);
+		size[u]&#43;=size[v];
+		if(size[v]&gt;mx)	mx=size[v],heavyson[u]=v;
+	}
+}
+//处理链头top[]
+void dfs2(int u,int tp){
+	top[u]=tp;
+	if(heavyson[u])	dfs2(heavyson[u],tp);
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(v==fa||v==heavyson)	continue;
+		dfs2(v,v);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+重链剖分的一个经典应用为求LCA. 在剖分好的树上，若两个点不在同条链上，则深度大的跳到链头(已在链头则继续往上走过轻边，由轻边最多有$\log n$条，故为O(logn)). 在同条链上则深度小的为LCA. 另一个应用则在<strong>树上启发式合并</strong>，即先计算轻儿子，最后合并计算重儿子.</li>
+</ul>
+<p>重链剖分往往与线段树结合. 从而实现<strong>树上沿路径的修改和查询</strong>. 其中DFS序下<strong>同一条重链的连续</strong>，故<strong>按重儿子优先的DFS序</strong>构建线段树时，<strong>一条重链对应线段树上的一个区间</strong>. 这等价于一条路径待查询值被分割<strong>为线段树上多个区间的和</strong>.</p>
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/23.jpg" >
+   
+   
+ </div>
+
+<p><strong>例1</strong> 支持两个操作：查询路径(u,v)上节点值的和、给路径上的结点值加上k.</p>
+<ol>
+<li>
+<p>处理出重儿子有限的DFS序来构建
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>heavy-link-cut.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">//处理出DFS序，dfs1不变，dfs2则按照DFS重链重构结点
+void dfs1(int u,int fa){
+	siz[u]=1;
+	int mx =-1;
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(v==fa) continue;
+		dep[v]=dep[u]&#43;1, fa[v]=u;
+		dfs(v,u);
+		siz[u]&#43;=siz[v];
+		if(siz[v]&gt;mx)
+			son[u]=v,mx=siz[v];
+	}
+}
+
+void dfs2(int u,int tp){
+	//换成重儿子优先的DFS序，只有一行不同
+	top[u]=tp;nw[&#43;&#43;cnt]=u;nw_w[cnt]=w[u];
+	if(son[u])	dfs(son[u],tp);
+	for(int i=h[u];i;i=e[i].nxt){
+		int v=e[i].v;
+		if(v==fa||v==son[u]) continue;
+		dfs(v,v);
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p>按照新序构建线段树：一个区间加法和查询区间和的线段树
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>heavy-link-cut.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">#define lc(x) t[2*x]
+#define rc(x) t[2*x&#43;1]
+
+struct Node{
+	int l,r,val,tag,sum;
+}t[N*4];
+void push_up(int u){t[u].sum = t[2*u].sum&#43;t[2*u&#43;1].sum&#43;t[u].val;}
+
+//静态数组
+void build(int k,int l,int r){	//只有下行是核心代码，与普通线段树不同，初始化时已有权值
+	if(l==r)	t[k]={l,r,nw_w[k],0,0};
+	int m = l&#43;r&gt;&gt;1;
+	build(2*k,l,m), build(2*k&#43;1,m&#43;1,r);
+	push_up(k);
+}
+void push_down(int k){
+	if(v=t[k].tag){
+		lc(x).tag&#43;=v, rc(x).tag&#43;=v;
+		lc(x).sum&#43;=(lc(x).r-lc(x).l&#43;1)*v;
+		rc(x).sum&#43;=(rc(x).r-rc(x).l&#43;1)*v;
+		t[k].tag=0;
+	}
+}
+
+void update(int k,int x,int y,int v){
+	int l=t[k].l,r=t[k].r;
+	if(x&lt;=l&amp;&amp;y&gt;=r){tag&#43;=v,sum&#43;=(r-l&#43;1)*v;return;}
+	push_down(k);
+	int m = x&#43;y&gt;&gt;1;
+	if(x&lt;=m)	update(2*k,x,y,v);
+	if(y&gt;m)		update(2*k&#43;1,x,y,v);
+	push_up(k);
+}
+
+int query(int k,int x,int y){
+	int l=t[k].l,r=t[k].r;
+	if(x&lt;=l&amp;&amp;y&gt;=r)	return t[k].sum;
+	push_down(k);
+	int res = 0, m=x&#43;y&gt;&gt;1;
+	if(x&lt;=m)	res&#43;=query(2*k,x,y);
+	if(y&gt;m)		res&#43;=query(2*k&#43;1,x,y);
+	return res;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+</li>
+<li>
+<p>进行重链剖分.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>heavy-link-cut.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void update_path(int u,int v,int x){ //在路径(u,v)上加上x
+	//按重链分段更新
+	while(top[u]!=top[v]){
+		if(dep[u]&lt;dep[v])	swap(x,y);
+		update(u,top[u],x);
+		u=fa[top[u]];
+	}
+	dep[u]&lt;dep[v] ? update(1,u,v,x):update(1,v,u,x);
+}
+//与update_path函数几乎一致
+int query_path(int u,int v){
+	int res= 0;
+	while(top[u]!=top[v]){
+		if(dep[u]&lt;dep[v])	swap(x,y);
+		res &#43;= query(1,u,top[u]);
+		u=fa[top[u]];
+	}
+	res &#43;= dep[u]&lt;dep[v] ? query(1,u,v):query(1,v,u);
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<strong>例2</strong> 支持两个操作：将(u,v)的路径染成一个颜色c、询问(u,v)上的颜色段数</p>
+</li>
+</ol>
+<p>  <strong>Sol.</strong>  线段树支持区间修改，标记tag表示是否整段被覆盖，下放标记则为<code>lc(x).tag=rc(x).tag=t[x].tag</code>然后维护区间颜色不同段数，update覆盖则打标记（<strong>只有update的颜色与tag不同时才需pushdown并修改结点的两端颜色</strong>），颜色段数的维护则来自pushup时定义为<code>)</code>.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>heavy-link-cut.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void pushup(int u){ //在路径(u,v)上加上x
+	t[u].leftmost = lc(u).leftmost,
+	t[u].rightmost = rc(u).rightmost;
+	t[k].itvals=lc(k).itvals&#43;rc(k).itvals-(lc(k).rightmost==rc(k).leftmost
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>其他类似，只是将线段树的区间修改查询换成树上的路径修改查询，主体代码类似. 每次线段树改查logn，轻链最多logn条，故为$O(m\log^2n)$</p>
+<h4 id="42-长链剖分">4.2 长链剖分</h4>
+<p>类似重链剖分，定义<strong>深度最大的儿子为重儿子</strong>，维护的信息由深度改为深度. 同理定义<strong>长/短边和长/短链</strong>，也需2次DFS构建(只需将size换成depth). 长链剖分有如下性质：</p>
+<ul>
+<li><strong>任意点的任意祖先所在长链长度一定不小于这个点所在长链长度</strong>(分是否在同一条链上讨论)</li>
+<li>长链长度之和为n</li>
+<li>点到根的路径经过的短边最多$\sqrt n$条.  (劣于重链剖分，故前者更常用；经过第k条短边意味着走到的点至少去掉了k个点，等差求和易知$\sqrt n$)
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/treedp/1.png" >
+   
+   
+ </div>
+</li>
+</ul>
+<p><strong>例</strong> O(1)在线查询单点的k级祖先. 若用ST倍增，则需O(logn)次. 而长链剖分则先<strong>在链头存链长个祖先</strong></p>
+<h4 id="43-实链剖分link-cut-tree">4.3 实链剖分(Link-Cut Tree)</h4>
+<p>一些杂题：</p>
+<ol>
+<li>分块+二分：对数列1,1,2,1,2,3,&hellip;，求[l,r]的区间和. 对{1},{1,2},..分块前缀和求区间块和，然后定位l,r的位置，这样可将1e12降至1e6且不易OOM.</li>
+<li>多种巧克力有单价、数量、剩余保质期天数，只吃没过期的，求要吃x天的最少花费(1天吃1块).
+花的钱越多肯定越可，二分钱的数目，上界为全买. 存在两个优先级，保质期长和便宜，若从最后一天开始遍历，没有过期的就挑最便宜的（这样去掉过期这个限制）. 则按保质期排序后单指针逆向，把没过期的丢进优先队列（按最小根），每次取最小的.</li>
+<li>排列序数. n≤10. trie问题. 简单组合</li>
+<li>有理数的循环节. <strong>模拟</strong>. 若分母只有因子2,5或分母为1，则不是无限循环，当除数和余数为0时输出，否则作字符串匹配.</li>
+<li>迷宫与陷阱. 最少步数. 添加无敌状态的记录. 可用BFS. 开个三维数组记录<input checked="" disabled="" type="checkbox"> [y][无敌持续时间]的最小步数，也可用DFS加剪枝. 然后只允许在无敌状态下走回头路（不是为了拿无敌的回头路没有意义）.</li>
+<li>左移右移. N,M 2e6 用哈希映射，hash[N]，如共5个数，把3左移，则将3的权值改为-1，如再左移2，则将2的权值改为-2，如再右移4，则将4的权值改为6. 用pair维护这个键值对，然后按值排序.</li>
+<li>数列的多少个区间之和等于乘积. 2e6. 在前缀和积的前提下优化，对于正整数只有1会导致和能够等于乘积，例如选定左端点，统计后面1的个数k，若乘积已经大于和超过k则直接下一个.</li>
+<li>最大公约数. 每次选定两个相邻的数将其中一个换成gcd,问：使数列全为1的最少次数. 由于1与任何东西互质都是1，所以转换为怎么最快搞出一个1. 若有相邻的互质，则直接写出答案；若无，则找是否有一个区间满足所有的公约数为1，则求长度-1为所求. 现在要找这个最短互质区间，二分长度滑窗找 nlog²n.</li>
+<li>画廊. 利用贪心：竖直方向上不走回头路，然后dp，这个状态只能来自从右边斜着走过来（最近的，如果左边第j个比右边的远）或从左边走平行线过来. 二者取小. 最后在最左或最右边的走到终点，O(n).</li>
+<li>异或三角. 异或已知2个可推出第三个，从而暴力推出n^2. 最后弄个全排列.</li>
+<li>Peano曲线. 分形实现降阶，先确定这个点在k阶中的9个k-1阶的哪个格子里，然后把范围缩小到这个格子. 不断递归. + 快速幂</li>
+<li></li>
+</ol>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/data-structure/">Data Structure</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/tree/">Tree</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" data-tooltip="[Algorithm|Number Theory II]Prime Number" aria-label="PREVIOUS: [Algorithm|Number Theory II]Prime Number">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/data-structureadvanced-tree\/';
+        
+          this.page.identifier = '\/2023\/06\/data-structureadvanced-tree\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/algorithmnumber-theory-iiprime-number/" data-tooltip="[Algorithm|Number Theory II]Prime Number" aria-label="PREVIOUS: [Algorithm|Number Theory II]Prime Number">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/data-structureadvanced-tree/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fdata-structureadvanced-tree%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fdata-structureadvanced-tree%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fdata-structureadvanced-tree%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

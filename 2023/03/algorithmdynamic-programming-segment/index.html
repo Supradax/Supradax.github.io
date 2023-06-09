@@ -1060,8 +1060,6 @@ return dp[0]; //We are bound to gain more by selling the stock out than keeping 
 <li>
 <p>It is identical to question 3. We enlarge the statespace to 2k-1 where 0,2,&hellip;,2n-2 means purchasing kth stock (initialized as -price[0]) and 1,&hellip;,2n-1 for selling it out (initialized as 0). And compute the equations: dp[i,2k]=max(dp[i-1,2k],dp[i-1,2k-1]-price[i]),  dp[i,2k+1]=max(dp[i-1,2k],dp[i-1,2k]+price[i]). And the outcome will be <strong>max(n,2k-1)</strong></p>
 </li>
-<li></li>
-<li></li>
 </ol>
 <h3 id="2-house-robber-problem">§2 House Robber Problem</h3>
 <p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
@@ -1069,6 +1067,18 @@ return dp[0]; //We are bound to gain more by selling the stock out than keeping 
 <li>Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.</li>
 <li>What if the houses are in the shape of a circle?</li>
 </ol>
+<h3 id="3-more-classical-problems">§3 More Classical Problems.</h3>
+<h4 id="31-the-longest-increasing-and-common-subsequence">3.1 The Longest Increasing and Common Subsequence.</h4>
+<p>Given an array $a_n$, you are required to figure out the longest length of non-decreasing subsequences s.t. $a_{i_1},&hellip;a_{i_k},i_1&lt;&hellip;&lt;i_k, a_{i_1}\leq&hellip;\leq a_{i_k}$.</p>
+<p><strong>Note.</strong> A subinterval is required to be continuous while a subsequence is not.</p>
+<ol>
+<li>Define f(m) as <strong>the length of the longest ended with $a_m$</strong>, making it $f(m)=\max f(j)+1 \forall a_j\leq a_m$ which is $O(n^2)$.</li>
+<li>Instead of using dp, we can construct the target sequence directly.  The principle of updating is <strong>to take the place of the first greater element than $a_i$ and enlarge the sequence when greater than the ending</strong> which means it will be more possible to be linked to more elements.</li>
+<li></li>
+</ol>
+<p>Given two arrays $a_n,b_n$, you are required to figure out the length of the longest common subsequences.</p>
+<p>  <strong>Sol.</strong> Define f(i,j) as the length of two subsequences ending with $a_i,b_j$ respectively. And if $a_i=b_j$, then f(i,j)=f(i-1,j-1)+1; if $a_i\neq b_j$, then we have to delete one of $a_i,b_j$, then we have $f(i,j)=\max f(i-1,j), f(i,j-1)$. And it is manifest that $f(0,0)=\delta_{a_0,b_0}$ If the contionous condition demanded, then $a_i\neq b_j$ implies that f(i,j)=0. And if the exact solution is required, then each time when we dp, we map a corresponding solution to the dp value, say $dp[i,j]→str[i,j]$</p>
+<p><strong>(蓝桥202)</strong></p>
               
 
 
@@ -1097,7 +1107,7 @@ return dp[0]; //We are bound to gain more by selling the stock out than keeping 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="NEXT: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" data-tooltip="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function" aria-label="NEXT: [Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -1204,7 +1214,7 @@ return dp[0]; //We are bound to gain more by selling the stock out than keeping 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-and-euler-function/" data-tooltip="[Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function" aria-label="NEXT: [Algorithm]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler and Euler Function">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" data-tooltip="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function" aria-label="NEXT: [Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

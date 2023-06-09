@@ -1,0 +1,1092 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function",
+  
+  "image": "https://Supradax.github.io/img/Prime.jpg",
+  
+  "datePublished": "2023-03-20T00:00:00Z",
+  "dateModified": "2023-03-20T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/03\/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
+<meta name="twitter:title" content="[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function">
+<meta property="og:url" content="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-03-20T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-03-20T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Algorithm">
+    
+      <meta property="article:section" content="Simulation">
+    
+  
+  
+    
+      <meta property="article:tag" content="Algorithm">
+    
+      <meta property="article:tag" content="Number Theory">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/Prime.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/Prime.jpg">
+
+
+    <title>[Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [Algorithm|Number Theory I]Prime Number:(Extended)Euclid Method, Sieves of Eratosthenes and Euler, Euler and Mobius Function
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-03-20T00:00:00Z">
+        
+  March 20, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/algorithm">Algorithm</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/simulation">Simulation</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p><strong>Euclid Algorithm</strong>, which serves to work out the gcd(greatest common divisor) of a and b. As for <strong>extended eucliod algorithm</strong> ,it helps solve out the congruence equations. The essay will also bring in some algorithms related to divisor, for instance, Sieve of Eratosthenes and Euler in Session 3, Euler function in Session 4.</p>
+<h2 id="ieuclid-algorithm">§I	Euclid Algorithm</h2>
+<p>According to <strong>Euclid Method</strong> , we can deduce the <strong>Bezout Theorem</strong> and its last term is gcd(a,b).
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int gcd(int a, int b){
+	if(b)	return gcd(b,a%b);
+	else return a;
+}
+//concise version
+int gcd(int a,int b){return b? gcd(b,a%b):a;}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="iiextended-euclid-algorithm">§II	Extended Euclid Algorithm</h2>
+<p>According to <strong>Bezout Theorem:</strong>
+$$ax+by=1 \Leftrightarrow (a,b)=1$$
+thus <strong>Equation ax+by=c has a solution iff gcd(a,b)|c</strong></p>
+<p>Our target is to work out the solution of (x0,y0) <strong>ax+by=1</strong> and suppose (a,b)=1.</p>
+<p>During euclid method, we have:$$a=q_1b+r_1, b=q_2r_1+r_2$$
+if there is a solution which satisfies: $$ax_0+by_0=1$$</p>
+<p>plug in and we get: $$1-by_0=q_1bx_0+r_1x_0 \Rightarrow (y_0+q_1x_0)b+x_0r_1=1$$</p>
+<p>Which means the two equations have the same solution. Thus we have:
+$$x=y_0+q_1x_0=y_0+\lfloor{a\over b}\rfloor x_0, y=x_0$$</p>
+<p>In order to work out x0 and y0 from the next step, we trace back and get:
+$$x_0=y,y_0=x-\lfloor{a\over b}\rfloor x_0= x-\lfloor{a\over b}\rfloor y$$</p>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="http://underscorejs.org/#compact" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">void exgcd(int a, int b, int&amp; x0, int&amp; y0){
+    if(!b){
+        x0 = 1,y0 = 0;
+        return;
+    }
+    exgcd(b, a%b, x0,y0);
+    int x = x0, y=y0; //the next step
+    x0 = y;     //the prev  step
+    y0 = x- (a/b)*y;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>When we are asked to solve out a series of equations, say, u,v,x,y satisfy au+bv=3, cx+dy=5 then [u,x] and [v,y] will be the solution. As for the least common multiple lcm(a,b), we can work it out via ab/[a,b].</p>
+<h2 id="iiisieve-for-prime-numbers">§III	Sieve for Prime Numbers</h2>
+<p>In this session, we are wondering how to know whether a number is prime. The direct way is to enumerate all numbers in [2,n-1] to see if it is divisible exactly. But actually <strong>we only need to give numbers between [2,$\sqrt{n}$] the chance</strong>.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="sample.cpp" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
+    for(int i=2; i*i&lt;x;i&#43;&#43;)  //to avoid overflow we use i&lt;x/i despite a little sacrifice on speed
+		if(!x%i)	return false;
+	return true;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>However, when we find a number is not prime, we want to <strong>label the multiple of it</strong> and skip the test when we are going to traverse it.
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="sample.cpp" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
+	vector&lt;bool&gt; prime(x&#43;1,true);
+	prime[2]=false; //initialize
+    for(int i=2;i&lt;x;i&#43;&#43;)
+		if(prime[i])
+			for(int j=i*i;j&lt;=n;j&#43;=i)
+				prime[j]=false;
+	return prime[x];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+The time complexity has been proved O(nloglogn) and this is what is called <strong>Sieve of Eratosthenes</strong>.</p>
+<p>Good enough as it is, but still it exists a shortback: numbers like 60=2×3×5 will be tested for 3 times. <strong>We need to stop the testing</strong> and the Sieve of Eratosthenes will evolve into <strong>Sieve of Euler</strong> . <strong>The spirit of Euler Sieve is any non-prime number is excluded by its least prime divisor(this ensures its linear property)</strong> which means we need to break out when it can be divided by a prime. For instance, 2 gets in and excludes 4, 3 gets in and excludes 6 and 9, 4 gets in and excludes 8 then break, and if not, for 4 has a less divisor, then 12 will be visited twice.</p>
+
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span><a href="sample.cpp" target="_blank" rel="external">sample.cpp</a>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">bool isPrime(int x){
+	vector&lt;bool&gt; isprime(x&#43;1,true);//initialize
+	vector&lt;int&gt; prime; 
+    for(int i=2;i&lt;=x;i&#43;&#43;){
+		if(isprime[i])	prime.push_back(i);	
+			for(int j=0;i*prime[j]&lt;=x;j&#43;&#43;){
+				isprime[i*prime[j]] = false;
+				if(i%prime[j]==0)	break;
+			}
+	}
+	return isprime[x];
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p>It is clear that the composite number will be excluded by its least prime divisor. And the time complexity is O(n).</p>
+<h2 id="iveuler-function">§IV	Euler Function</h2>
+<p><strong>Lemma</strong> <strong>Exclusive-and-Inclusive Principle</strong>, widely applied in the higher-dimension prefix sum algo and many other fields. Another well-renowned appliance lies in the counting of numbers without common divisor. For instance, the number of integers within n which can&rsquo;t be divided by 2 and 3 is $n-(\frac{n}{2}+\frac{n}{3})+\frac{n}{6}$</p>
+<p>Euler Function $\phi(n)$, indicating $\phi(n)=$<strong>card{$x\in N_+|x&lt;n,gcd(x,n)=1$}</strong> And it is trivial to verify that:
+$\phi(1):=1, \phi(p)=p-1, \phi(p^m)=(p-1)p^{m-1}$(p is prime).For the last equation, only the (p-1) multiples in total of p has common divisor with $p^m$.</p>
+<p>With accordance to the exclusive-inclusive principle, there is:
+$$n=\prod{p_i^{\alpha_i}},\phi(n)=n-\sum{n\over{p_i}}+\sum{n\over{p_ip_j}}-&hellip;=n\prod{(1-\frac{1}{p_i})} \tag{4.1}$$</p>
+<p>(4.1) is the expression of $\phi$ and we claim $\phi$ as a <strong>Multiplicative Function</strong></p>
+<ul>
+<li><strong>Arethmetic Function</strong>:functions whose domain is $N_+$</li>
+<li><strong>Multiplicative Function</strong>: if (a,b)=1, then $f(x)f(y)=f(xy)$. If (a,b) is not necessary, then f is claimed to be <strong>Completely Multiplicative Function</strong></li>
+<li><strong>Addictive Function</strong>: if (a,b)=1, then $f(x+y)=f(x)+f(y)$</li>
+</ul>
+<p><strong>Theo.</strong> $\phi(x)$ is productive.</p>
+<p>  <strong>pf.</strong> $\phi(a)\phi(b)=a\prod{(1-\frac{1}{p_i})}b\prod{(1-\frac{1}{q_i})}$, owing to $(a,b)=1$ then $p_i\neq q_j$, thus</p>
+<p>  $\phi(a)\phi(b)=ab\prod{(1-\frac{1}{r_i})}=\phi(ab)$, where a,b,ab can be decomposed into the product of $p_i,q_i,r_i$ respectively. □</p>
+<p><strong>Deduction(Fermat&rsquo;s Little Theorem)</strong> $a^{p-1}\equiv 1\mod{p}$ where p is prime.</p>
+<p>  <strong>Lemma.</strong>  $a^{\phi(n)}\equiv1\mod n$.</p>
+<p>  <strong>pf.</strong> Let $p_i$ be those s.t. $(p_i,n)=1$ and the amount is $\phi(n)$, then the value of $ap_i \mod n$ differs(supposing $a(p_i-p_j)|n$, but still (a,n)=1 and $|p_i-p_j|&lt;n$ making $p_i=p_j$ i.e. $i=j$) and therefore we have $(ap_1)(ap_2)&hellip;(ap_{\phi(n)})\equiv p_1&hellip;p_{\phi(n)} \mod n$<br>
+i.e. $a^{\phi(n)}\equiv 1 \mod n$. Plug in the prime p, we have
+$a^{p-1}\equiv 1 \mod p$. □</p>
+<p>To calculate $\phi(x)$ effectively, we opt to follow the original <strong>Euler sieve</strong> to pick out the primes.</p>
+<p>A crucial idea is that <strong>the non-prime are excluded by its least prime divisor $p$</strong>. Thus supposing $m=p×i$ and $p|i$, i contains all prime divisors of m <strong>(p is prime)</strong> , we have $\phi(m)=p(i\prod{(1-\frac{1}{p_i})})=p\phi(i)$. And if not, (p,i)=1 and $\phi$ is productive, there we have $\phi(m)=\phi(i)\phi(p)$
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>sample.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">/*phi[] is for all numbers
+p[] is to record the discovered primes while the cnt indicates the its amount;
+vis[] is to label the verified non-primes */
+int phi[N], p[N], vis[N], cnt; 
+void get_phi(int n){
+	phi[1]=1;
+	for(int i=2;i&lt;=n;i&#43;&#43;){
+		//the unvisited are prime
+		if(!vis[i])	p[cnt&#43;&#43;]=i, phi[i]=i-1;
+		for(int j=0;i*p[j]&lt;=n;j&#43;&#43;){
+			int m=i*p[j];
+			vis[m] = true;
+			//p[j]|i means i contains all prime divisors of m
+			if(!i%p[j]){
+				phi[m] = p[j]*phi[i];
+				break;
+			}else	phi[m]=(p[j]-1)*phi[i];
+			//i can&#39;t divide p[j] means (i,p[j])=1
+		}
+	}
+
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h2 id="v-mobius-inversion">§V Mobius Inversion</h2>
+<h4 id="51-fraction-floor-sum数论分块">5.1 Fraction Floor Sum(数论分块)</h4>
+<p>In the scenario to compute $\sum_{i=1}^n \left \lfloor \frac{n}{i}  \right \rfloor $ where n is given, there must be a j s.t. $\left \lfloor \frac{n}{i}  \right \rfloor  = \left \lfloor \frac{n}{j}  \right \rfloor $. If able to know the upper bound of j, then we can apply $\left \lfloor \frac{n}{i}  \right \rfloor(j-i)$, which diminishes the complexity from O(n) into O($\sqrt{n}$)</p>
+<p><strong>Theo. 1</strong> The amount of different values among $\left \lfloor \frac{n}{i}  \right \rfloor $ is no more than $2\sqrt{n}$</p>
+<p>  <strong>pf.</strong> For those $i\leq\sqrt n$, thanks to the amount of i is $\sqrt n$ to the most; for those $i&gt;\sqrt n$, $1\leq \left \lfloor \frac{n}{i}  \right \rfloor \leq \left \lfloor \frac{n}{\sqrt[]{n} }  \right \rfloor&lt;\sqrt[]{n}+1$ there are only no more than $\sqrt n$ numbers to choose. Sum them up and $2\sqrt n$ is got.</p>
+<p><strong>Theo. 2</strong>  $j = \left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor }   \right \rfloor $</p>
+<p>  <strong>pf.</strong> $\frac{n}{i} \leq\left \lfloor \frac{n}{i}  \right \rfloor$, $j=\left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor} \ \right \rfloor
+\geq \left \lfloor \frac{n}{\frac{n}{i} }  \right \rfloor=i$ which means j is the upper bound of all possible i. And now verify $\left \lfloor \frac{n}{i}  \right \rfloor =\left \lfloor \frac{n}{j}  \right \rfloor$, plug i,j in we have:</p>
+<p>   $\left \lfloor \frac{n}{j} \right \rfloor \leq \frac{n}{\left \lfloor \frac{n}{\left \lfloor \frac{n}{i}  \right \rfloor} \ \right \rfloor
+}\leq\frac{n}{\frac{n}{\left \lfloor \frac{n}{i} \right \rfloor}}=\left \lfloor \frac{n}{i}  \right \rfloor$ □</p>
+<p>And now to compute the fraction floor sum from 1 to n, we code as below:
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>floor sum.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int get_floor_sum(int n){
+	int i=1, res=0;
+	while(i&lt;=n){
+		int j = n/(n/i);
+		res&#43;=(j-i&#43;1)*(n/i);
+		i = j&#43;1;
+	}
+	return res;
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p><strong>Theo 3(Fair Distribution)</strong>  For $a,b,c\in Z$,$\left \lfloor \frac{a}{bc}  \right \rfloor =\left \lfloor \frac{\left \lfloor \frac{a}{b}  \right \rfloor }{c}  \right \rfloor $</p>
+<p><strong>pf.</strong> It is apparent that the right side is less equal to the left. Now $\left \lfloor \frac{\left \lfloor \frac{b}{a}  \right \rfloor }{c}  \right \rfloor &lt;
+\left \lfloor \frac{\frac{b}{a}+1}{c} \right \rfloor\leq\left \lfloor \frac{b}{ac}\right \rfloor+1$ i.e. $\left \lfloor \frac{\left \lfloor \frac{b}{a}  \right \rfloor }{c}  \right \rfloor \leq\left \lfloor \frac{b}{ac}\right \rfloor$ □</p>
+<h4 id="52-dirichlet-convultion">5.2 Dirichlet Convultion</h4>
+<p>There are some common productive functions as below:</p>
+<ul>
+<li>unit $\epsilon(x)=\delta_{ix}$</li>
+<li>identity $id_k(x)=x^k$</li>
+<li>constant $1(x)=1$</li>
+<li>euler $\phi(x)=\sum{\delta_{1,gcd(i,n)}}$</li>
+</ul>
+<p>Dirichlet convultion is the discrete version and the D-convultion of productive function f and gis defined as:
+$$h=f*g, h(n)=\sum_{d|n}f(\frac{n}{d})g(d)=\sum_{ab=n}f(a)g(b)\tag{5.1}$$</p>
+<p>And D-convultion has some properties.</p>
+<ul>
+<li>Communicative Law. $f*g=g*f$ (obvious in 2nd definition in (5.1))</li>
+<li>Associative Law. $f*(g*h)=(f*g)*h$ (Expand two sums)</li>
+<li>Distribution Law. $f*(g+h)=f*g+f*h$</li>
+<li>Unique. $f=g$ i.e. $f<em>h=g</em>h$</li>
+<li>Productive. $h=f*g$, $h(ab)=h(a)h(b),(a,b)=1$</li>
+<li>Reverse. If $f(1)\neq 0, f*g=\epsilon$, then g is reversable.</li>
+</ul>
+<p><strong>Notes.</strong> The productive property holds water thanks to (a,b)=1, making there is no redundant items when expanding the product of two sums.</p>
+<p><strong>Mobius Function $\mu(x)$</strong>, which is defined as $\mu(1)=1, \mu(n)=0$ if n has duplicated prime divisors and $\mu(n)=(-1)^k$ where k is the amount of different prime divisors n has.</p>
+<p><strong>Theo 1.</strong> $\sum_{d|n}\mu(d)=\epsilon(n)$</p>
+<p>  <strong>pf.</strong> $\sum_{d|n}\mu(d)=\sum_{d|n&rsquo;}\mu(d)$, where $n&rsquo;$ leaves only one different divisor in n. When choosing more than one $p_i$, $\mu(x)=0$, that is to say, such a selection contributes nothing to the result and so the equation makes sense.</p>
+<p>   It is obvious that $\mu(d)=\sum_0^k C_k^i(-1)^i=0^k$ i.e. $\mu(d)=\delta_{0,k}$. And when k=0, n=1, matching the definition of $\epsilon$.</p>
+<p><strong>Notes.</strong> The n in Theo 1 is commonly turned out to be <strong>gcd(i,j)</strong></p>
+<p><strong>Theo. 2</strong> $\mu(x)$ is productive.</p>
+<p><strong>Theo. 3</strong> $\phi*1=id$</p>
+<p>  <strong>pf.</strong> Because D-convultion is productive, we might not consider $n=p^k$ as well. Therefore, $\phi*1=\sum_{d|n}\phi(\frac{n}{d})=\sum_0^k\phi(p^i)=1+(p-1)(p^0+&hellip;p^{n-1})=p^k=n$ and then apply the unique decomposition theo. □</p>
+<p><strong>Theo. 4(Mobius Inversion)</strong> If $f(n)=\sum_{d|n}g(d)=(1* g)(n)$, then $g(n)=(f*\mu)(n)$</p>
+<p>  <strong>pf.</strong> $g=g*\epsilon=g*(1*\mu)=(g*1)*\mu=f*\mu$</p>
+<p><strong>Notes.</strong> It is still correct to swap d and n to enumate the multiples. $f=id* g$, then $g=\mu * f$</p>
+<p>Similar to $\phi$, $\mu$ can be figured out via the linear sieve. Since each number$m$ is filtered by the minimum prime divisor$p$, say $m=pi$</p>
+<ul>
+<li>if $p|i$, then i contains p as well, making $\mu(m)=0$</li>
+<li>if not, then i doesn&rsquo;t contain p and therefore m has one more different prime divisor than i. No matter $\mu(i)=-1,0,1$, $\mu(m)=-\mu(i)$</li>
+</ul>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight cpp language-cpp">
+  <figcaption>
+    
+      <span>floor sum.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-cpp cpp"><code class="cpp">int mu[N], p[N], vis[N], cnt=0;
+void get_mu(int n){
+	for(int i=2;i&lt;=n;i&#43;&#43;){
+		if(!vis[i])	mu[i]=-1,p[&#43;&#43;cnt]=i;
+		for(int j=1;i*j&lt;=n;j&#43;&#43;){
+			int m = i*p[j];
+			vis[m]=true;
+			if(!i%p[j]){
+				mu[m]=0;
+				break;	
+				//break timely to avoid redundant calculation
+			}
+			else mu[m]=-mu[i];
+		}
+	}
+}</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<p><strong>Summary.</strong>  Important equations.</p>
+<ul>
+<li>$1*\mu=\epsilon$, $1*\phi=id$, $id*\mu=\phi$</li>
+</ul>
+<h4 id="53-problem-set">5.3 Problem Set</h4>
+<p><strong>Problem. A</strong> Given n coins, with only the first intially heads-up, how many minimum flips are required to make all the coins show heads-up? At each turn, you can choose a postiive integer i to flip all the coins at positions j where $i|j$.</p>
+<p>  <strong>Analysis</strong> The state of coins is irrelavant to the flipping order but the times. A simplier problem is that you are allowed to flip two neighbor coin each turn(if the solution exists), then apply greedy algo: you can&rsquo;t flip the same pair of coins more than once. Arriving each coin, we only need to decide whether to flip the current coin and keep going.</p>
+<p>   Likewise, it is clear that we must flip the first so that coins at position 2-n show tails-up. The times of flips should all be <strong>odd</strong>. And it is still clear to see <strong>all the coins at prime numbers $p_i$</strong> should be flipped; there are also some coins might be flipped many times, for instance, 6 is flipped when it comes to 2 and 3; but for numbers like 12,24 etc which have identical prime divisors, they are already corrected as it comes to 6(the number contains all the prime divisor without repeating). Therefore, <strong>only the prime number and those have even prime different factors required flipping</strong> i.e. it is enough to count up the amount of prime numbers and those $\mu(n)=1$.</p>
+<p><strong>Problem. B</strong> For $x\in[a,b],y\in[c,d]$ where a,b,c,d are given. How many pairs (x,y) are there s.t. gcd(x,y)=k?</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/algorithm/">Algorithm</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/number-theory/">Number Theory</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="NEXT: [Algorithm]Dynamic Programming: Tree">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" data-tooltip="[Algorithm]Dynamic Programming: Segment" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Segment">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/03\/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function\/';
+        
+          this.page.identifier = '\/2023\/03\/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-tree/" data-tooltip="[Algorithm]Dynamic Programming: Tree" aria-label="NEXT: [Algorithm]Dynamic Programming: Tree">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/03/algorithmdynamic-programming-segment/" data-tooltip="[Algorithm]Dynamic Programming: Segment" aria-label="PREVIOUS: [Algorithm]Dynamic Programming: Segment">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/03/algorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F03%2Falgorithmnumber-theory-iprime-numberextendedeuclid-method-sieves-of-eratosthenes-and-euler-euler-and-mobius-function%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

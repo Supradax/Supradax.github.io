@@ -309,12 +309,12 @@
 <p>为便于处理，规定一个m阶B树有以下性质：</p>
 <ul>
 <li><strong>（重要）内部结点至多有m个儿子，至少有$m\over2$个儿子.</strong>(前者是树的定义，后者为避免效率低)</li>
-<li>若根是内部结点，则至少有2个子节点(阶数至少为2,)</li>
-<li>具有k个子节点的内部一定有k-1个键(如n阶搜索树需要n-1个比较对象)</li>
+<li>若根是内部结点，则至少有2个子结点(阶数至少为2,)</li>
+<li>具有k个子结点的内部一定有k-1个键(如n阶搜索树需要n-1个比较对象)</li>
 <li><strong>（重要）外部结点层数相同</strong></li>
 </ul>
-<p><strong>结点插入：</strong> 先利用搜索性质，找到相应位置. 若已存在，则返回；若不存在，<strong>若插入后该节点键不超过m，则直接插入；否则将插入前的结点中间元素向上合并到父节点，分裂成两个结点，再插入；而被上提的结点若造成父节点溢出，则父节点再分裂，直到根节点；当根节点也溢出时，树高增加1</strong></p>
-<p>B树插入的核心在于，<strong>从下面开始插入，逐层分裂上提插入，直至根节点</strong></p>
+<p><strong>结点插入：</strong> 先利用搜索性质，找到相应位置. 若已存在，则返回；若不存在，<strong>若插入后该结点键不超过m，则直接插入；否则将插入前的结点中间元素向上合并到父结点，分裂成两个结点，再插入；而被上提的结点若造成父结点溢出，则父结点再分裂，直到根结点；当根结点也溢出时，树高增加1</strong></p>
+<p>B树插入的核心在于，<strong>从下面开始插入，逐层分裂上提插入，直至根结点</strong></p>
 
 
 
@@ -330,7 +330,7 @@
 <p>对于删除操作，沿用BST的方法，利用前驱或后继将其转换到叶子上，即：</p>
 <ul>
 <li>
-<p>删除叶子：删后个数不少于$m\over2$，则直接删；否则<strong>和左或右兄弟借(不能和跨兄弟借，如右兄弟的右兄弟)</strong>，若兄弟有得借(至少有${m\over2}+1$个，称<strong>富余</strong>)，则<strong>利用父节点</strong>为中介，如左兄弟富余，则<strong>绕父节点(当前结点和左兄弟中间的键)右旋</strong>，把父节点转到删除位置，左兄弟中的值转到父节点的位置(维护有序性)；反之右兄弟富余，则绕父节点左旋.
+<p>删除叶子：删后个数不少于$m\over2$，则直接删；否则<strong>和左或右兄弟借(不能和跨兄弟借，如右兄弟的右兄弟)</strong>，若兄弟有得借(至少有${m\over2}+1$个，称<strong>富余</strong>)，则<strong>利用父结点</strong>为中介，如左兄弟富余，则<strong>绕父结点(当前结点和左兄弟中间的键)右旋</strong>，把父结点转到删除位置，左兄弟中的值转到父结点的位置(维护有序性)；反之右兄弟富余，则绕父结点左旋.
 
   
   
@@ -345,7 +345,7 @@
 </p>
 </li>
 <li>
-<p>若兄弟都贫穷，则<strong>由于两个兄弟都贫穷，元素之和最多不超过m；而即将删掉一个元素，故可将两兄弟间的父节点对应的键拉下来凑一个结点</strong>
+<p>若兄弟都贫穷，则<strong>由于两个兄弟都贫穷，元素之和最多不超过m；而即将删掉一个元素，故可将两兄弟间的父结点对应的键拉下来凑一个结点</strong>
 
   
   
@@ -446,7 +446,7 @@ Node* query(int v){
 具体可分为：</p>
 <ol>
 <li>插在2结点：直接合并</li>
-<li>插在3结点：分为6种，左右对称后有3类. <strong>第三类无需维护</strong>，第一类(均以靠左的为例)则需<strong>绕黑色右旋、调换祖父10和父5节点的颜色</strong>，这样才能与234树中的4结点对应；第二类则<strong>需先绕父节点5左旋化为第一类的情况</strong>，再<strong>按照第一类绕黑色右旋、调换祖父10和父7的颜色</strong>.
+<li>插在3结点：分为6种，左右对称后有3类. <strong>第三类无需维护</strong>，第一类(均以靠左的为例)则需<strong>绕黑色右旋、调换祖父10和父5结点的颜色</strong>，这样才能与234树中的4结点对应；第二类则<strong>需先绕父结点5左旋化为第一类的情况</strong>，再<strong>按照第一类绕黑色右旋、调换祖父10和父7的颜色</strong>.
 
 
 
@@ -459,7 +459,7 @@ Node* query(int v){
   
 </div>
 </li>
-<li>插在4结点：需要分裂，同样分为4种，左右对称后有2类. 其中LR、RL型可通过一次左旋、右旋变为LL、RR型. 而对LL型(左一)，则只需调换<strong>父节点及其兄弟节点5、10(保证从7下来黑色结点数目相同)，再把祖父节点7改为红色</strong>. 但将祖父节点改为红有风险，因为可能有红色结点与之相连，故需<strong>向上维护祖父节点的颜色</strong>
+<li>插在4结点：需要分裂，同样分为4种，左右对称后有2类. 其中LR、RL型可通过一次左旋、右旋变为LL、RR型. 而对LL型(左一)，则只需调换<strong>父结点及其兄弟结点5、10(保证从7下来黑色结点数目相同)，再把祖父结点7改为红色</strong>. 但将祖父结点改为红有风险，因为可能有红色结点与之相连，故需<strong>向上维护祖父结点的颜色</strong>
 
 
 
@@ -523,17 +523,17 @@ void insert(int v){
 }
 
 void fixColor(Node* p){
-	while(p-&gt;parent-&gt;color==RED){	//排除2、3节点各两种
-		//由于p的父节点为红，故p一定存在祖父节点
+	while(p-&gt;parent-&gt;color==RED){	//排除2、3结点各两种
+		//由于p的父结点为红，故p一定存在祖父结点
 		Node* grand= p-&gt;parent-&gt;parent, *dad=p-&gt;parent;
 		if(dad==grand-&gt;ls){	//只讨论左偏，右偏只需左右互换
 			//先左旋化为直线型
 			if(p==dad-&gt;rs)	leftRotate(dad);
-			//若插在3节点
+			//若插在3结点
 			if(!grand-&gt;rs){//换色与右旋
 				grand-&gt;color=RED, dad-&gt;color=BLACK;
 				rightRotate(grand);
-			//若插在4节点，无需再旋转
+			//若插在4结点，无需再旋转
 			}else{
 				grand-&gt;ls-&gt;color=grand-&gt;rs-&gt;color=BLACK;
 				grand-&gt;color = RED;
@@ -553,7 +553,7 @@ void fixColor(Node* p){
 			}
 		}
 	}
-	if(p==rt)	p-&gt;color = BLACK;	//若为根节点，则修复为黑色
+	if(p==rt)	p-&gt;color = BLACK;	//若为根结点，则修复为黑色
 
 }</code></pre>
         </td>
@@ -563,13 +563,13 @@ void fixColor(Node* p){
 </figure>
 
 <h4 id="22-删除操作">2.2 删除操作</h4>
-<p>在删除时，类比B树，同样需要分为对<strong>富余节点和贫穷节点</strong>进行删除、<strong>兄弟是否富余</strong>进行讨论，必要时涉及合并.</p>
-<p>同理，在删除时，需先找到其前驱/后继(下文以后继为例，<strong>为防止找不到后继，预先放入正负INF哨兵</strong>). 然后将被删结点用后继代替 <strong>(不变色)</strong>，从而转换为删除叶结点. 在234树中删除只可能删到叶节点，同理在红黑树中，删除只可能删除 <strong>叶结点及其父结点</strong>. 下面需讨论12种情况.</p>
+<p>在删除时，类比B树，同样需要分为对<strong>富余结点和贫穷结点</strong>进行删除、<strong>兄弟是否富余</strong>进行讨论，必要时涉及合并.</p>
+<p>同理，在删除时，需先找到其前驱/后继(下文以后继为例，<strong>为防止找不到后继，预先放入正负INF哨兵</strong>). 然后将被删结点用后继代替 <strong>(不变色)</strong>，从而转换为删除叶结点. 在234树中删除只可能删到叶结点，同理在红黑树中，删除只可能删除 <strong>叶结点及其父结点</strong>. 下面需讨论12种情况.</p>
 <p><strong>支持直接删的合法操作：</strong>(红色可直接删，黑色需调整)</p>
 <ul>
-<li>3节点中删除一个元素</li>
-<li>4节点中删除两个元素
-对于2节点，若删除，则需<strong>向兄弟节点借</strong>，若借不到，则“同生共死”(<strong>对应B树中当前、兄弟节点与父节点三者合并的情况</strong>)</li>
+<li>3结点中删除一个元素</li>
+<li>4结点中删除两个元素
+对于2结点，若删除，则需<strong>向兄弟结点借</strong>，若借不到，则“同生共死”(<strong>对应B树中当前、兄弟结点与父结点三者合并的情况</strong>)</li>
 </ul>
 <p>从而可分为以下三类：<strong>自己可删、需向兄弟借、借不到</strong>.</p>
 <p>下面看情况1：
@@ -592,10 +592,10 @@ void fixColor(Node* p){
 <p>上述两类讨论涵盖2+2+3=7种情况.</p>
 <p>下面看情况2：对7而言为2结点，需考虑向兄弟借，有得借时，需以父结点为中介，讨论<strong>左、右兄弟可借</strong>和<strong>兄弟为3、4结点</strong>的4种情况. 不妨只考虑向右兄弟借，则：</p>
 <ol>
-<li>若右兄弟是3结点(如图12,9)，则绕8左旋，再删去7，最后将原父节点8和原子节点9染黑，12染红(对调颜色，维护一个4结点)</li>
-<li>若右兄弟是4结点(假定15不存在)，若删除14，如果要求<strong>通过一次旋转完成</strong>，则绕25左旋，此时把269绕到父节点，25-27两个子节点一起到左子树(<strong>一次借两个</strong>)，最后依次将269染红，25染黑即可. （也可以通过<strong>两次旋转</strong>，例如不想把27给左子树，则先对269右旋，再对25右旋）</li>
+<li>若右兄弟是3结点(如图12,9)，则绕8左旋，再删去7，最后将原父结点8和原子结点9染黑，12染红(对调颜色，维护一个4结点)</li>
+<li>若右兄弟是4结点(假定15不存在)，若删除14，如果要求<strong>通过一次旋转完成</strong>，则绕25左旋，此时把269绕到父结点，25-27两个子结点一起到左子树(<strong>一次借两个</strong>)，最后依次将269染红，25染黑即可. （也可以通过<strong>两次旋转</strong>，例如不想把27给左子树，则先对269右旋，再对25右旋）</li>
 </ol>
-<p>最后看情况3：两个兄弟均为2节点(唯一一种). 这种对应234树中的父子合并，考虑三个黑、中间红两边黑两种可能，无论哪一种，都将中间改为黑，另一儿子染红(对应父子合并)，但存在问题：<strong>若原本中间为黑色，会导致另一儿子这一路少了一个黑色节点(对父节点平衡，但对祖父节点不平衡)，破坏平衡</strong> 为解决这个问题，可以将祖父节点的另一个儿子(不在修改的子树上)改红. 不断往上递归.(唯一存在巨大消耗的一步)
+<p>最后看情况3：两个兄弟均为2结点(唯一一种). 这种对应234树中的父子合并，考虑三个黑、中间红两边黑两种可能，无论哪一种，都将中间改为黑，另一儿子染红(对应父子合并)，但存在问题：<strong>若原本中间为黑色，会导致另一儿子这一路少了一个黑色结点(对父结点平衡，但对祖父结点不平衡)，破坏平衡</strong> 为解决这个问题，可以将祖父结点的另一个儿子(不在修改的子树上)改红. 不断往上递归.(唯一存在巨大消耗的一步)
 
   
     
@@ -673,6 +673,12 @@ void fixColorAfterRemove(Node* p){
   </table>
 </figure>
 </p>
+<h3 id="iii-b-tree--b-tree">III. B+ Tree &amp; B* Tree</h3>
+<p>实际中B树只是一个抽象的逻辑结构，具体实现仍依赖二叉树等基础物理结构.</p>
+<ul>
+<li><strong>B+树</strong>，让<strong>B树的分支结点不存储任何信息，即所有信息存储在叶结点</strong>，这使得分支数增多，进一步降低树高. B树和B+树在分裂时均复制原结点的1/2到新结点，再让父结点指到这两个结点，即<strong>只影响父结点和原结点</strong></li>
+<li><strong>$B^\star$树则增加指向下一个兄弟结点的指针</strong>，在即将分裂时，将部分数据转移到兄弟结点，再在父结点中修改兄弟结点的范围. 若兄弟也满，则在两兄弟间增加一个新结点，各复制1/3数据过去，最后让父结点指向该结点.</li>
+</ul>
               
 
 
@@ -701,7 +707,7 @@ void fixColorAfterRemove(Node* p){
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" data-tooltip="[Modeling II] Linear Programming and Integer Programming" aria-label="NEXT: [Modeling II] Linear Programming and Integer Programming">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programminginteger-programming-and-game-theory-ii/" data-tooltip="[Modeling II] Linear Programming,Integer Programming and Game Theory II" aria-label="NEXT: [Modeling II] Linear Programming,Integer Programming and Game Theory II">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -808,7 +814,7 @@ void fixColorAfterRemove(Node* p){
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programming-and-integer-programming/" data-tooltip="[Modeling II] Linear Programming and Integer Programming" aria-label="NEXT: [Modeling II] Linear Programming and Integer Programming">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/05/modeling-ii-linear-programminginteger-programming-and-game-theory-ii/" data-tooltip="[Modeling II] Linear Programming,Integer Programming and Game Theory II" aria-label="NEXT: [Modeling II] Linear Programming,Integer Programming and Game Theory II">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

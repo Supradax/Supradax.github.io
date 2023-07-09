@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cluster</title>
+      <link>https://Supradax.github.io/tags/cluster/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>https://Supradax.github.io/tags/ml/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stastics</title>
+      <link>https://Supradax.github.io/tags/stastics/</link>
+      <pubDate>Tue, 13 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/stastics/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Data Structure</title>
       <link>https://Supradax.github.io/tags/data-structure/</link>
@@ -44,15 +71,6 @@
     </item>
     
     <item>
-      <title>ML</title>
-      <link>https://Supradax.github.io/tags/ml/</link>
-      <pubDate>Fri, 02 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/ml/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Optimaztion</title>
       <link>https://Supradax.github.io/tags/optimaztion/</link>
       <pubDate>Fri, 02 Jun 2023 00:00:00 +0000</pubDate>
@@ -85,15 +103,6 @@
       <pubDate>Tue, 30 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/real-analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cluster</title>
-      <link>https://Supradax.github.io/tags/cluster/</link>
-      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/cluster/</guid>
       <description></description>
     </item>
     

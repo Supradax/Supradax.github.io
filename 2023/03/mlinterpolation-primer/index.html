@@ -307,7 +307,7 @@
           <div class="post-content markdown">
             <div class="main-content-wrap">
               <p>Update: 2023-04-13 二维插值方法</p>
-<p>在本篇blog中，我们将围绕<strong>插值和拟合方法</strong>展开讨论。插值是指将离散数据连续化处理后进行预测的数学方法，常见的插值法有<strong>n次样条、多项式插值、牛顿插值、Hermite插值等</strong>，在数据处理方面应用广泛. 拟合则是找到一条最佳曲线使得所有点到该曲线的距离最短. 二者的核心区别在于<strong>前者必须经过数据点，后者可以不穿过，但追求距离最小化；前者一般在数据量不足时使用进行扩大数据集，后者则主要进行预测模拟</strong></p>
+<p>在本篇blog中，我们将围绕<strong>插值和拟合方法</strong>展开讨论。插值是指将离散数据连续化处理后进行预测的数学方法，常见的插值法有<strong>n次样条、多项式插值、牛顿插值、Hermite插值等</strong>，在数据处理方面应用广泛. 拟合则是找到一条最佳曲线使得所有点到该曲线的距离最短. 二者的核心区别在于<strong>前者必须经过数据点，后者可以不穿过，但追求距离最小化；前者一般在数据量不足时使用进行扩大数据集，后者则主要进行预测模拟</strong> 而<strong>函数逼近</strong>为连续函数逼近<strong>连续函数</strong>，拟合逼近的是<strong>离散数据</strong>.</p>
 <p><strong>Key Words</strong>  数值分析 多项式插值 样条插值 牛顿插值 拉格朗日多项式</p>
 <h3 id="1-一维插值">1 一维插值</h3>
 <p>对给定的由一系列点<code>(x,y)</code>构成的数据集D，要求借助已有数据预测其中某个不存在于该数据集中的x对应的y值. 由于变量只有一个，从而是一个典型的一维插值问题. 显然，通过有限多个点的<strong>连续曲线</strong>有无数多条，从而也有不同的插值方法，下面依次介绍<strong>线性插值、Lagrange多项式、样条插值、牛顿插值</strong></p>
@@ -386,6 +386,51 @@ $$R_2 \leq \frac{M}{6}|(x-x_0)(x-x_1)(x-x_2)|$$</li>
 </ol>
 <p><strong>Theorem 2 三次样条误差</strong></p>
 <p><strong>Theorem 3 Hermite插值性质证明</strong></p>
+<p><strong>代码示例：</strong>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight python language-python">
+  <figcaption>
+    
+      <span>Codes</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-python python"><code class="python">import numpy as np
+from scipy.interpolate import interp1d
+
+# 创建一些离散的数据点
+x = np.array([0, 1, 2, 3, 4, 5])
+y = np.array([0, 2, 1, 3, 4, 7])
+
+# 创建线性插值函数
+interp_func = interp1d(x, y, kind=&#39;linear&#39;)
+##kind有nearest(最近邻),zero(分段常函数),slinear,quadratic,cubic(1,2,3阶样条)
+
+# 在两个数据点之间进行插值
+x_new = np.linspace(0, 5, num=11)  # 创建插值点
+y_new = interp_func(x_new)  # 进行线性插值</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
 <h3 id="2-二维插值">2 二维插值</h3>
 <p>在一维插值中，我们通过一系列离散的点补充一条曲线，即一维插值；现在，我们要通过分布在空间中散落的点补充一个曲面(如通过各点高度复原山体)，即为二维插值.</p>
 <h4 id="21-不考虑导数的插值">2.1 不考虑导数的插值</h4>
@@ -429,15 +474,45 @@ $$f(x,y)=\sum_{cyc}w_if(x_i,y_i), w_i=\frac{d_i}{\sum_{cyc}d_i}$$
 <p><strong>Spline and B-spline</strong>  样条与B样条插值</p>
 </li>
 </ul>
-<h3 id="3-函数逼近方法">3 函数逼近方法</h3>
-<p>在数学分析中，我们学习过Taylor公式(一点的多项式插值)、Fourier级数(正弦波的叠加拟合)，还曾学习过Weierstrass多项式和Bernstein多项式，为实分析的理论分析奠定重要基础. 在数值分析中，我们不仅要求<strong>能够逼近</strong>，还要<strong>收敛速度快</strong>. 因此<strong>Legendre, Chebyshev多项式</strong>等一系列不同函数系中的函数应运而生.</p>
-<h4 id="31-bernstein多项式">3.1 Bernstein多项式</h4>
-<h4 id="32-legendre多项式">3.2 Legendre多项式</h4>
-<h4 id="33-chebyshev多项式">3.3 Chebyshev多项式</h4>
-<h4 id="34-最小二乘法拟合">3.4 最小二乘法拟合</h4>
-<h3 id="4">4</h3>
-<p>9种常见的插值方法：
-<a href="https://blog.csdn.net/yanfeng1022/article/details/114528323">https://blog.csdn.net/yanfeng1022/article/details/114528323</a></p>
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight python language-python">
+  <figcaption>
+    
+      <span>Codes</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-python python"><code class="python">import numpy as np
+from scipy.interpolate import interp2d
+
+# 创建离散的二维数据点
+x = np.array([0, 1, 2])
+y = np.array([0, 1, 2])
+z = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+
+# 创建二维样条插值函数
+interp_func = interp2d(x, y, z, kind=&#39;linear&#39;)</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
               
 
 

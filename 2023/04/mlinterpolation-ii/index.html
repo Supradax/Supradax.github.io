@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Interpolation II",
+  
+  "image": "https://Supradax.github.io/img/calc.jpg",
+  
+  "datePublished": "2023-04-11T00:00:00Z",
+  "dateModified": "2023-04-11T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/04\/mlinterpolation-ii\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Interpolation II">
+<meta name="twitter:title" content="[ML]Interpolation II">
+<meta property="og:url" content="https://Supradax.github.io/2023/04/mlinterpolation-ii/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/04/mlinterpolation-ii/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-04-11T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-04-11T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="Calculus">
+    
+      <meta property="article:tag" content="Interpolation">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/calc.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/calc.jpg">
+
+
+    <title>[ML]Interpolation II</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/04/mlinterpolation-ii/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Interpolation II
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-04-11T00:00:00Z">
+        
+  April 11, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>在数学分析中，我们学习过Taylor公式(一点的多项式插值)、Fourier级数(正弦波的叠加拟合)，还曾学习过Weierstrass多项式和Bernstein多项式，为实分析的理论分析奠定重要基础. 在数值分析中，我们不仅要求<strong>能够逼近</strong>，还要<strong>收敛速度快</strong>. 因此<strong>Legendre, Chebyshev多项式</strong>等一系列不同函数系中的函数应运而生.</p>
+<p>若用$g_n(x)$逼近$f(x)$，需用函数间的距离度量逼近的好坏，如<strong>一致逼近的上界</strong>$\max|f(x)-g_n(x)|$、<strong>差值的累积量</strong>$\int_a^b|f(x)-g_n(x)|^2dx$</p>
+<h2 id="1-uniform-approximation">1 Uniform Approximation</h2>
+<ul>
+<li><strong>Weierstrass一致逼近定理</strong>：在$[0,1]$中的任意连续函数f(x)可被一个多项式函数一致逼近 i.e. $\forall f(x)\in C[0,1], \exists P_n(x), |f(x)-P_n(x)|&lt;\epsilon $</li>
+</ul>
+<p>Note. 也可用函数列表述为存在一个函数列$f_n(x)→f(x)$</p>
+<p><strong>Lemma 1</strong> 任意闭区间可积函数f(x)，可被阶梯函数S(x)一致逼近.</p>
+<p><strong>Pf.</strong></p>
+<ol>
+<li>若f(x)连续，则$\exists\delta_0, |f(x)-f(x_0)|&lt;\epsilon$，从而取$N_\epsilon(x_0)$构成开覆盖，由紧集开覆盖定理，存在有限开覆盖，取$\delta=min(\delta),T(x)=x_i,x_i\leq x\leq x_{i+1}$</li>
+<li>连续可放宽到可积，由可积第二定义，$\Sigma w_i(x)\Delta x_i&lt;\epsilon$，仍取$T(x)=x_i,x_i\leq x\leq x_{i+1}$，则在该分划下，用振幅放缩，即$\Sigma |f(x)-T(x)|\leq \Sigma w_i(x)\Delta x_i&lt;\epsilon$ QED.</li>
+</ol>
+<p><strong>Lemma 2</strong> 任意阶梯函数S(x)可与连续折线函数g(x)相互一致逼近.</p>
+<p><strong>Pf.</strong> 将折线函数n等分并取$(x_i,f(x_i))$并连接相邻节点(一阶样条)，由于S(x)只有可列个间断点，故为零测，而存在误差处只在间断点，从而当$n\rightarrow \infty, |S(x)-g(x)|\rightarrow 0$ 由引理1，折线函数属于连续函数，故可被阶梯函数一致逼近. QED.</p>
+<p><strong>Lemma 3</strong> 任意连续函数f(x)可被连续折线函数g(x)一致逼近.</p>
+<p><strong>Pf.</strong>
+同理构造一阶样条函数$g_n(x)$，由于$f(x)$在闭区间D上连续，由<strong>Cantor定理</strong>，$f(x)$在D上一致连续. <strong>三分法</strong>得$|f(x)-g(x)|\leq|f(x)-f(x_i)|+|f(x_i)-g_n(x_i)|+|g_n(x_i)-g(x_i)|&lt;\epsilon+0+M\epsilon$，三项分别由于f(x)一致连续、一阶样条性质和线性函数误差估计. QED.</p>
+<p>结合引理1、2、3，可知三类函数一致逼近满足：折线函数→阶梯函数→连续函数. 由<strong>三角不等式</strong>知该关系存在<strong>传递性</strong>. 从而折线函数可一致逼近连续函数. 而折线函数与多项式函数<strong>由Lagrange中值定理</strong>，能够相互一致逼近. 故有多项式←→折线←→阶梯→连续函数. QED.</p>
+<p>另一种证法则是通过证明$|x|$、$\sqrt{x^2+\epsilon^2}$的泰勒级数、ReLu函数、折线函数、连续函数来证明.</p>
+<p>除了多项式外，周期函数通过延拓也可用三角级数一致逼近且无需连续. 容易证明在$(R,sin^n(x+k\frac{\pi}{2}))(k=0,1)$测度下构成一个基，即sinx与cosx的正交性. 下面介绍如Bernstein、Chebyshef、Hermite有特殊性质的多项式，他们也能满足一致逼近且在特定测度下具备正交性，在插值上有重要应用.</p>
+<h2 id="2-bernstein-polynomial">2 Bernstein Polynomial</h2>
+<p><strong>Bernstein多项式 B_n(x)</strong> 在拟合时具有较好的性质，但收敛速度较慢，其意义更多在理论上作为对任意闭区间连续函数都能找到一个可行方法.
+$$B_n(x)=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}f(\frac{k}{n}),f(x)\in C[0,1]$$</p>
+<p>重要性质：</p>
+<ol>
+<li>函数列$B_n(x)$一致收敛于f(x)</li>
+<li>f(x)和$B_n(x)$有相同的单调性和凸性</li>
+</ol>
+<p>下面探讨该多项式的来源：由二项式定理启发，该函数$\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}$恒为1，从而考虑使用<strong>加权</strong>思想构造多项式.</p>
+<p><strong>Pf.1</strong> 由构造思想立即得到：$|f(x)-B_n(x)|=\Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k}|f(x)-f(\frac{k}{n})|\leq \Sigma_{k=0}^n C_n^k x^k (1-x)^{n-k} \epsilon = \epsilon$，其中不等号由于紧集连续函数一致收敛且存在有限开覆盖得到.</p>
+<p><strong>Pf.2</strong> 不妨设f(x)单调递增，则$B_n&rsquo;(x)=\Sigma_{k=0}^n kC_n^k x^{k-1} (1-x)^{n-k}f(\frac{k}{n})-\Sigma_{k=0}^n (n-k)C_n^k x^{k-1} (1-x)^{n-k-1}f(\frac{k}{n})$，由于前者k=0时为0，故可令<strong>k=k+1</strong>，则求和上界为n-1；且后者k=n时为零，故可令求和上界为n-1进行统一. 不难验证，两项经变换后系数相等，从而有$$B_n&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!} x^{k-1} (1-x)^{n-k}(f(\frac{k+1}{n})-f(\frac{k}{n}))$$，由f(x)单调递增可证.</p>
+<p><strong>Pf.3</strong> 运用同样的变换技巧统一表达式. 对$B_n&rsquo;(x)$求导且记$\Delta_1=f(\frac{k+1}{n})-f(\frac{k}{n}),\Delta_2=f(\frac{k+2}{n})-f(\frac{k+1}{n})$，不妨设f为下凸函数，则由凸函数性质，有$\Delta_2-\Delta_1\geq 0$.</p>
+<p>求导得$B_n&rsquo;&rsquo;(x)=\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}k x^{k-1} (1-x)^{n-k-1}\Delta_1-\Sigma_{k=0}^{n-1} \frac{n!}{k!(n-k-1)!}(n-k-1) x^{k} (1-x)^{n-k-2}\Delta_1$，同理对第一项变换k=k+1，第二项减少求和上限，则系数相等，从而有$B_n&rsquo;&rsquo;(x)=\Sigma\frac{n!}{k!(n-k-2)!}x^k(1-x)^{n-k-2}(\Delta_2-\Delta_1)\geq 0$ QED.</p>
+<h2 id="3-chebyshef-polynomial">3 Chebyshef Polynomial</h2>
+<p>Chebyshef多项式(切比雪夫)的出发点是以余弦函数为起点，通过研究cosnx的性质来构建多项式. 下面给出一些初等命题：</p>
+<ol>
+<li>$\binom{0}{n}+\binom{2}{n}+&hellip;\binom{n}{n}=2^{n-1}$</li>
+<li>$f(cosnx)=g(cosx)$，其中$g(x)$是多项式函数</li>
+<li>g(x)满足首项为$2^{n-1}$且各项系数正负交错</li>
+</ol>
+<p><strong>Lemma 1</strong> 对$(1+1)^n,(1-1)^n$二项展开再相加可得</p>
+<p><strong>Lemma 2</strong> 由归纳法和$sin^2x+cos^2x=1$，n为偶数时，用$cos(k+k)x$展开易证；当n为奇数时，由于n=1时成立，有$cos(nx)+cos((n-2)x)=2cos(n-1)xcosx$，从而右侧是cosx多项式且cos(n-2)x由归纳假设也是cosx的多项式，故n为奇数也成立.</p>
+<p><strong>Lemma 3</strong> 引入欧拉公式. $cosnx+isinnx=e^{inx}=(e^{ix})^n=(cosx+isinx)^n$，只看实部，有$cosnx=cos^nx-C_n^2cos^{n-2}xsin^2x+&hellip;=cos^nx-C_n^2cos^{n-2}x(1-cos^2x)+&hellip;$，注意到$cos^nx$每一项都有贡献$C_n^2k$，从而为$2^{n-1}$且$deg g(x)=n$ QED</p>
+<p>从而令$x=cosx$，定义为$g(x)=cos(n arccosx)$，但<strong>本质还是多项式函数</strong>. 考察$[0,\pi]$上$g(\frac{k}{n}\pi)=(-1)^k$，即特殊点处正负交错. 故而<strong>插值时误差随角度等差分布，故而出现中间疏、两边密的分布，不会出现Runge现象</strong></p>
+<p><strong>(Chebyshev不等式)</strong> 对任何首一n次多项式f(x)，一定存在一点使得有$$|f(x)|\geq \frac{1}{2^{n-1}}$$</p>
+<p><strong>Pf.</strong> 用反证法. 则对所有x，$2^{n-1}|f(x)|&lt;1$恒成立，从而取相应的n阶g(x)，构造$h(x)=f(x)-g(x)$，由于g(x)首项为$2^{n-1}$，从而取定$\frac{k\pi}{n}$时h(x)正负交替，由<strong>零点存在性定理</strong>，f(x)有n个零点，由<strong>多项式零点定理</strong>，f(x)具有存在唯一性，而注意到$f(x_i)=g(x_i)$，从而$f~g$且只相差系数$2^{n-1}$，任取$|g(\frac{k\pi}{n})|=2^{n-1}|f(\frac{k\pi}{n})|=1&lt;1$，矛盾!</p>
+<p><strong>Chebyshev点</strong>，即第一类Chebyshev多项式中的$\frac{k\pi}{n}$，若以这些点产生的<strong>零点</strong>为插值点，则<strong>Chebyshef多项式是无穷范数下时的最佳逼近</strong>（最小化余项的最大值）</p>
+<p><strong>pf.</strong> 由Lagrange插值误差估计，有$|f(x)-p(x)|\leq\frac{1}{(n+1)!} ||f^{n+1}||_\infty$，从而$|f(x)-p(x)|\leq \frac{2}{2^n(n+1)!}$ 且由Chebyshef不等式知，当且仅当p(x)为Chebyshev多项式时取等，即Chebyshef多项式是使得所有函数值的绝对值最大值最小的多项式，即$L^\infty$范数下的最佳逼近.</p>
+<p>同样地，Chebyshef也有<strong>带权正交性</strong>，
+Notes.</p>
+<ol>
+<li>第一类Chebyshev多项式为$T_0(x)=1,T_1(x)=x,T_{n+1}(x)+T_{n-1}(x)=2T_n(x)$(本质是cos的和差化积公式)，第二类为$T_1{x}=2x$，其余相同</li>
+<li>两类多项式对应的Chebyshev方程为$(1-x^2)y&rsquo;&rsquo;-xy&rsquo;+n^2y=0, (1-x^2)y&rsquo;&rsquo;-3xy&rsquo;+n(n+2)y=0$</li>
+</ol>
+<h2 id="4-hermite-polynomial">4 Hermite Polynomial</h2>
+<h2 id="5-b-spline-smoothing-function">5 B-Spline Smoothing Function</h2>
+<p>若要求插值函数有一定光滑性且有相同凹凸性，则通过积分构造的函数列会增强光滑度且能较好保存凹凸性. 若$f(x)$可积，则h&gt;0，称$f_1(x)=\frac{1}{h}\int_{x-{h\over2}}^{x+{h\over2}}f(t)dt$为<strong>一次磨光函数</strong>，h为<strong>磨光宽度</strong>. 递推有$$f_k(x)=\frac{1}{h}\int_{x-{h\over2}}^{x+{h\over2}}f_{k-1}(t)dt$$</p>
+<p>对任意f(x)，定义步长$\delta$的中心差分算子为$\delta f(x)=f(x+\frac{1}{2})-f(x-{1\over2})$. 对$f(x)=x_+^0$(在0处从-1到1的阶跃函数)，可知$\Omega_0(x)=\delta x_+^0$是一个方波，而$\Omega_1$是折线函数，$\Omega_n(x)=\sum_{j=0}^{k+1}(-1)^j \frac{C_{k+1}^j}{k!}(x+\frac{k+1}{2}-j)^k_+$是分段k次多项式且有k-1阶连续导数，k阶导数有k+2个等距间端点，故而该函数称<strong>k次等距B样条函数</strong>. 利用这个函数，对任意可积函数，可将其作为<strong>核函数</strong>得到$$f_k(x)=\frac{1}{h}\int_{-\infty}^\infty \Omega_{k-1}(\frac{x-t}{h})f(t)dt$$</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/calculus/">Calculus</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/interpolation/">Interpolation</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="NEXT: [Complex Analysis]Math Basis for Complex Analysis I">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/04\/mlinterpolation-ii\/';
+        
+          this.page.identifier = '\/2023\/04\/mlinterpolation-ii\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/complex-analysismath-basis-for-complex-analysis-i/" data-tooltip="[Complex Analysis]Math Basis for Complex Analysis I" aria-label="NEXT: [Complex Analysis]Math Basis for Complex Analysis I">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/04/algorithmcomputational-geometry-i-basic-vector-operations-and-convex-hull/" data-tooltip="[Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull" aria-label="PREVIOUS: [Algorithm]Computational Geometry I: Basic Vector Operations and Convex Hull">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/04/mlinterpolation-ii/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinterpolation-ii%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinterpolation-ii%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F04%2Fmlinterpolation-ii%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

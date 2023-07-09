@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Stastics Analysis Primer II: Queue Theory ",
+  
+  "image": "https://Supradax.github.io/img/interpolation.jpg",
+  
+  "datePublished": "2023-06-13T00:00:00Z",
+  "dateModified": "2023-06-13T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/06\/mlstastics-analysis-primer-ii-queue-theory\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Stastics Analysis Primer II: Queue Theory ">
+<meta name="twitter:title" content="[ML]Stastics Analysis Primer II: Queue Theory ">
+<meta property="og:url" content="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-06-13T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-06-13T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Stastics">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/interpolation.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/interpolation.jpg">
+
+
+    <title>[ML]Stastics Analysis Primer II: Queue Theory </title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Stastics Analysis Primer II: Queue Theory 
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-06-13T00:00:00Z">
+        
+  June 13, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-随机变量与分布">1. 随机变量与分布</h2>
+<h3 id="11-离散型随机变量">1.1 离散型随机变量</h3>
+<p>由n个独立同分布的0-1分布的加和，构成二项分布；而当n基数较大时且p概率较小时，可用泊松分布近似；若p概率较大，则只能用正态分布. 由中心极限定理，所有独立同分布的随机变量当样本足够多时，均服从正态分布.</p>
+<ul>
+<li><strong>0-1分布</strong> X~$0-1\left(p\right),\ \ P\left(X=0\right)=1-p,P\left(X=1\right)=p$. 故$EX=p,\ DX=p(1-p)$</li>
+<li><strong>二项分布</strong> X~$B\left(n,p\right),\ P\left(X=k\right)=C_n^kp^k\left(1-p\right)^{n-k}$，故EX=np,DX=np(1-p)</li>
+<li><strong>Poisson分布</strong> X~$P\left(\lambda\right),\ P\left(X=k\right)=e^{-\lambda}\frac{\lambda^k}{k!}\ $，由Taylor级数知$\sum_{i=0}^{\infty}{P(X=i)}=1$，交换幂级数求导积分次序，得$EX=\lambda,\ DX=\lambda$. 其中参数$\lambda=np$.</li>
+</ul>
+<p>由泊松定理，$\lambda&gt;0$且$np=\lambda$，对任意固定正常数k，有$\lim_{n\rightarrow\infty}{C_n^kp^k\left(1-p\right)^{n-k}}=\frac{\lambda^ke^{-\lambda}}{k!}$，即当np接近定值且单个事件发生概率很小，试验次数很大时(如一本书中错字的分布)，二项分布可近似为Poisson分布.</p>
+<p>   <strong>pf.</strong> 代入$p=\frac{\lambda}{n}$，第一个等号可用等价无穷小$(n\gg\ k)$，第二个只有有限个1，故极限为1.$$\lim_{n\rightarrow\infty}{\frac{n!}{k!\left(n-k\right)!}\frac{\lambda^k}{n^k}\left(1-\frac{\lambda}{n}\right)^{n-k}}=\lim_{n\rightarrow\infty}{\frac{n!}{n^k\left(n-k\right)!}}\frac{\lambda^ke^{-\lambda}}{k!}$$$$=\frac{\lambda^ke^{-\lambda}}{k!}lim_{n→∞}nn-1..(n-k+1)n·n…n=λke-λk!$$</p>
+<ul>
+<li>
+<p><strong>几何分布</strong> X~G(p)，独立试验直到成功1次为止的实验次数，故有$P\left(X=k\right)=\left(1-p\right)^kp$，由等比级数可知总概率为1. 其中$EX={1\over p},DX={1-p \over p^2}$</p>
+</li>
+<li>
+<p><strong>超几何分布</strong> X~H(N,M,n)，在N个含有M个次品中选n个的次品数. $P\left(X=k\right)=\frac{C_M^kC_{N-M}^{n-k}}{C_N^n}$，由二项式定理可知总概率为1，其中$EX={nM\over N},DX=n\frac{M}{N}\frac{N-M}{N}\frac{N-n}{N-1}$</p>
+</li>
+</ul>
+<h3 id="12-连续型随机变量">1.2 连续型随机变量</h3>
+<p>将分布律连续化，得到概率密度函数(PDF:Probability Density Function)$\int_{-\infty}^{+\infty}f(x)dx=1$，对离散随机变量，尽管PDF在Riemann意义下不可积(在离散点上是脉冲函数)，可用CDF分段表达. 在连续意义下，任何一点的概率均为零，但不是不可能事件.</p>
+<ul>
+<li>
+<p><strong>均匀分布</strong> $U\left(a,b\right): f\left(x\right)=\frac{1}{b-a}\left(a\le x\le b\right),0\left(x\notin\left[a,b\right]\right),F\left(x\right)=0\left(x&lt;a\right),\frac{x-a}{b-a}\left(a\le x\le b\right),1(x&gt;b)$</p>
+</li>
+<li>
+<p><strong>正态分布</strong> $N(\mu,\sigma^2)：f\left(x\right)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\left(x-\mu\right)^2}{2\sigma}}$，可用重积分证明归一化系数$\frac{1}{\sqrt{2\pi}\sigma}$</p>
+</li>
+<li>
+<p><strong>指数分布</strong>$\exp{(\theta)}：f\left(x\right)=\frac{1}{\theta}e^{-\frac{x}{\theta}}\left(x&gt;0\right),0(x\le0)$，故$F\left(x\right)=1-e^{-\frac{x}{\theta}}$
+<strong>性质.</strong> <strong>无记忆性</strong>. 若事件满足指数分布，则$P\left(X&gt;s+t\middle|\ X&gt;s\right)=P(X&gt;t)$，即先前发生的事件(P&gt;s与否)与当前X增量大于t的概率无关. 则有$P\left(X&gt;s+t\middle|\ X&gt;s\right)=\frac{1-F(s+t)}{1-F(s)}=1-F(t)$. 如等待时间满足指数分布，超过10min则离开，一个月到5次，则若Y为未等到服务离开的次数，求Y的分布律. 可知在第一次等不到的前提下，第二次等不到p_2和第一次等不到的概率p_1相同，故有$p_2=C_5^2p_1^2\left(1-p_1\right)^3$</p>
+</li>
+</ul>
+<p>在计算形如Y=g(X)的分布时，用分布律则注意合并，用函数则为复合求导与分类讨论，先将PDF化为CDF，写成概率定义进行换元，再换为PDF.</p>
+<p><strong>Theo.</strong> 若Y=g(X)中g(x)是单调可导的，则Y=g(X)是连续型随机变量，$f_Y\left(y\right)=f_X\left(g^{-1}\left(y\right)\right)\left|{g^{-1}}^\prime\left(y\right)\right|$</p>
+<p>  <strong>pf.</strong> 不妨设g(x)单调递增，则$F_Y\left(y\right)=P\left(Y\le y\right)=P\left(g\left(X\right)\le y\right)=P\left(X\le g^{-1}\left(y\right)\right)=F_X(g^{-1}\left(y\right))$，两边求导，有$f_Y\left(y\right)=f_X\left(g^{-1}\left(y\right)\right)\left|{g^{-1}}^\prime\left(y\right)\right|$</p>
+<h3 id="13-多维随机变量">1.3 多维随机变量</h3>
+<p><strong>【二维随机变量】<strong>随机样本试验空间S=e，设$X=X\left(e\right),Y=Y(e)$，则构成的向量为二维随机变量(X,Y). 对多维情况为 $\vec x$ . 故研究其整体相互关系，如联合分布律、联合概率密度函数、联合分布函数；再研究其个体情况，如各自的</strong>边缘分布、条件分布、独立性</strong>.</p>
+<h3 id="131-总体性质联合分布">1.3.1 总体性质：联合分布</h3>
+<p><strong>联合分布律</strong>每一项为一种情况，共有ij种，其中i,j为X,Y的可能取值，而最边缘一列为同一行各列之和，故称Y的<strong>边缘分布律</strong>；同理最边缘一行为X的边缘分布律. 实际上边缘分布就是<strong>只看X或Y的分布律</strong>.</p>
+<p><strong>联合分布函数</strong> $F(x,y)=\int_{-\infty}^{x}\int_{-\infty}^{y}f\left(x,y\right)dydx$. 利用容斥原理计算区域概率.</p>
+<ul>
+<li>一般F有连续偏导，其混合二阶偏导为密度函数
+单调性(包含关系)，即对X、Y方向上均单调.</li>
+<li>有界性. $f\left(x,y\right)\in\left[0,1\right],\ \iint{f(x,y)}dxdy=1$</li>
+<li>无穷处极限. $\lim_{x\rightarrow-\infty}{F\left(x,y\right)}=\lim_{y\rightarrow-\infty}{F\left(x,y\right)}=\lim_{x,y\rightarrow-\infty}{F\left(x,y\right)}=0$. $\lim_{x,y\rightarrow+\infty}{F\left(x,y\right)}=1$，但limx或y→+∞Fx,y无法确定.</li>
+</ul>
+<p><strong>边缘分布函数</strong> 如Y的分布是包含了X的所有可能取值，故$F_Y(y)=\int_{-\infty}^{y}{\int_{-\infty}^{+\infty}{f(x,y)dy}dx}=\lim_{x\rightarrow+\infty}{F\left(x,y\right)}$. 联合分布真包含了边缘分布的信息.</p>
+<p><strong>条件分布函数</strong> 对形如$P(X\le\ x_i|Y=y_i)$，对离散型则有$\frac{p_{ij}}{P_{Y_i}}$，即事件概率/Y的边缘分布. 而推广到连续，需加上小区间取极限，即有$H\left(x,y\right)=\lim_{\varepsilon\rightarrow0}\frac{\int_{-\infty}^{x}{\int_{y}^{y+\varepsilon}{f(x,y)dy}dx}}{\int_{-\infty}^{+\infty}{\int_{y}^{y+\varepsilon}{f(x,y)dy}dx}}=\frac{\int_{-\infty}^{x}{f(x,y)dx}}{F_Y(y)}$.</p>
+<h3 id="132-多维正态分布">1.3.2 多维正态分布</h3>
+<p>对n个相互独立的标准正态分布$N_1,\ldots\ N_n，有f\left(\vec{X}\right)=f\left(x_1\right)\ldots\ f\left(x_n\right)=\frac{1}{\left(\sqrt{2\pi}\right)^k}\exp{-\frac{x_1^2+\ldots+x_n^2}{2}}$,协方差矩阵为$diag(\sigma_1^2\ldots\sigma_n^2)$，均值为$\vec \mu=(\mu_i)$，则为$\frac{1}{\left(\sqrt{2\pi}\right)^k}\exp{-\frac{x^Tx}{2}}$，对X作线性变换，则有</p>
+<p><strong>Lemma</strong>若令Y=f(X)且存在反函数，则变换后有$f\left(Y\right)=|\frac{\partial\left(X\right)}{\partial\left(Y\right)}|f(X)$，即二元函数的变量换元.</p>
+<p>   <strong>pf.</strong> 对X作仿射变换，AX+b，则逆变换为$X=A^{-1}(Y-b)$服从标准正态，故有$f\left(A^{-1}\left(Y-b\right)\right)=\frac{1}{|A|\left(\sqrt{2\pi}\right)^k}\exp{-\frac{\left(A^{-1}\left(Y-b\right)\right)^T\left(A^{-1}\left(Y-b\right)\right)}{2}}$，其中$\left(A^{-1}\left(Y-b\right)\right)^T\left(A^{-1}\left(Y-b\right)\right)=-\left(Y-b\right)^T\left({A^{-1}}^TA^{-1}\right)\left(Y-b\right)=-\left(Y-b\right)^T\Sigma(Y-b)$. 从而n个独立的正态分布在随机变量进行线性变换的意义下构成一个线性空间. 从而当且仅当任意线性组合都是正态时所有分布都是正态. 从概率的意义（体积）上理解，当两个正态正交时，其满足$p\left(xy\right)=p(x)p(y)$，故相互独立；若不正交，则发生仿射，从而不独立. 表现在对协方差矩阵作线性变换.</p>
+<p><strong>Notes.</strong> 利用高斯分布，可求得n维超球的体积和表面积的公式.由n维正态，有$\pi^\frac{n}{2}=\int_{-\infty}^{+\infty}\exp{-(x_1^2+\ldots+x_n^2)}=\int_{0}^{+\infty}{S(r)}\exp{-r^2}dr$，容易知道$V\left(r\right)=V\left(1\right)r^n,$$S\left(r\right)=V^\prime\left(r\right)$. 代入并换元对比伽马函数，有$V_n\left(r\right)=\frac{\pi^\frac{n}{2}}{\Gamma\ \left(\frac{\pi}{2}+1\right)}r^n,$$S_n\left(r\right)=\frac{2\pi^\frac{n}{2}}{\Gamma\ (\frac{n}{2})}r^{n-1}$</p>
+<h3 id="133-事件运算的概率分布">1.3.3 事件运算的概率分布</h3>
+<p><strong>Theo.</strong> 若$\left(X,Y\right)~f\left(X,Y\right)，Z=g\left(X,Y\right)$，若在平面上有$z=g\left(x,y\right)$且可反解出$y=h\left(x,z\right)，则：F_Z\left(z\right)=\int_{-\infty}^{+\infty}\int_{-\infty}^{h\left(x,z\right)}f\left(x,y\right)dydx$，复合函数求导$f_Z\left(z\right)=\int_{-\infty}^{+\infty}f\left(x,y\right)dx\ \left|h_{z^\prime}\right|$. 据此可推导各种分布.</p>
+<ul>
+<li><strong>和的分布</strong> （本质是无穷线积分x+y=z）若(X,Y)的PDF为f(x,y)，Z=X+Y，则$f_Z\left(z\right)=\int_{-\infty}^{+\infty}vf\left(z-y,y\right)dy=\int_{-\infty}^{+\infty}vf\left(x,z-x\right)dx$. 若XY独立，则有$f_Z\left(z\right)=\int_{-\infty}^{+\infty}f\left(x\right)f\left(z-x\right)dx$<strong>(卷积公式)</strong></li>
+</ul>
+<p>  <strong>pf.</strong> 先看CDF进行二重积分，积分域为x+y=z以下区域，然后再对参数z求导.同理可证明任何两个独立的正态分布随机变量的线性组合仍服从正态分布.</p>
+<ul>
+<li><strong>商的分布</strong> Z=Y/X则有y=zx，从而$f_Z\left(z\right)=\int_{-\infty}^{+\infty}\left|x\right|f\left(x,zx\right)dx$</li>
+<li><strong>积的分布</strong> Z=XY，则有$y=\frac{z}{x}$，从而$f_Z\left(z\right)=\int_{-\infty}^{+\infty}\left|\frac{1}{x}\right|f\left(x,\frac{z}{x}\right)dx$</li>
+<li><strong>最值的分布</strong> $Z=\max{X,Y}$，则有$F_Z\left(z\right)=P\left(X,Y\le z\right)$，假定X,Y独立同分布，则$F_Z\left(z\right)=P\left(X\le z\right)P\left(Y\le z\right)=F^2\left(x\right)$，推广到n个独立同分布的最大值，则有$F_Z\left(z\right)=F^n\left(x\right),f_Z\left(z\right)=nf^{n-1}(x)$；同理对2个独立同分布的最小值，则有$F_Z\left(z\right)=P\left(X,Y\geq z\right)=1-\left(1-P\left(X\le z\right)\right)^2=1-\left(1-F_X\left(x\right)\right)^2$，同理$F_Z\left(z\right)=1-\left(1-F_X\left(x\right)\right)^n$，故有$f\left(z\right)=n\left(1-f\left(x\right)\right)^{n-1}$</li>
+</ul>
+<h3 id="14-大数定律与中心极限定理">1.4 大数定律与中心极限定理</h3>
+<p>设$X_1,\ldots,X_n,..$为事件序列，若满足$\lim_{n\rightarrow\infty}{P\left(|X_n-a|\le\varepsilon\right)=1}$，则称依概率收敛到a.</p>
+<ul>
+<li><strong>Chebyshev不等式</strong>对任意小正数，有$P\left(\left|X-\mu\right|\geq\varepsilon\right)\le\frac{\sigma^2}{\varepsilon^2}$.  当允许误差越小，分布在两边的概率自然越小；当离散程度越小，则集中在\mu附近的概率自然越高. 当给定EX、DX后可对分布偏差概率进行估计.</li>
+</ul>
+<p>  <strong>pf.</strong> 假设X是连续的.(离散完全相同) 则$\int_{\left|X-\mu\right|\geq\varepsilon}{f(x)}dx\le\int_{\left|X-\mu\right|\geq\varepsilon}{\left(\frac{\left|X-\mu\right|}{\varepsilon}\right)^2f\left(x\right)}dx$$\le\frac{1}{\varepsilon^2}\int{\left(x-\mu\right)^2f\left(x\right)dx}=\frac{\sigma^2}{\varepsilon^2}$</p>
+<ul>
+<li><strong>弱大数定理（辛钦定理）</strong> 可列个独立同分布，则取前n个的算术平均，则该算术平均依概率收敛于期望.</li>
+</ul>
+<p>  <strong>pf.</strong> 假设方差可求且为$\sigma^2. 则有E\left(\frac{1}{n}\sigma{\ X}_i\right)=EX_i=\mu,\ D\left(\frac{1}{n}{\rm sigmaX}_i\right)=\frac{nDX}{n^2}=\frac{\sigma^2}{n}$，故$P\left(\left|\frac{1}{n}\Sigma X_i-\mu\right|\geq\varepsilon\right)\le\frac{\sigma^2}{n\varepsilon^2}$，当n→∞时，右侧趋于0，故依概率收敛于\mu=EX. (这只能保证离开期望的点是小概率事件但仍可能是无穷多个的，而强大数定理保证这是至多有限的)</p>
+<p>  <strong>Deduction.(Bernoulli大数定律)</strong>  f_A是n次独立重复试验中A的发生次数，p是成功概率，则$\frac{f_A}{n}$依概率收敛于p.	pf. 由于$X_i=\frac{f_A}{n}$独立同分布，从而$\frac{f_A}{n}$收敛到期望，即p.</p>
+<ul>
+<li><strong>中心极限定理</strong> 对独立同分布的n个变量X之和Y(满足$Y_n=\frac{\sum X_k-n\mu}{\sqrt n\sigma}$)的分布函数F_n(x)满足当n无穷大时，$P(Y\le\ x)$依概率收敛于$\Phi(x)$. 其中可对Y变形，同除n有$\frac{\bar{X_k}-\mu}{\frac{\sigma}{\sqrt n}}~N(0,1)$，服从正态的重要统计量.
+  <strong>Deduction.(De Mourive, Laplace Theorem)</strong> 对二项分布$\eta_n$~$(n,p)$，则$P\left(\frac{\eta_n-np}{\sqrt{np\left(1-p\right)}}\le x\right)\rightarrow\Phi(x)\ $</li>
+</ul>
+<p><strong>Notes.</strong></p>
+<ol>
+<li>标准化变量.$ \frac{X-EX}{\sqrt{DX}}$称X的标准化变量，满足方差为1，期望为0.</li>
+<li>上/下$α$分点. 表现为面积最左、右α部分对应的坐标.(注意定义域 $\chi^2$与F分布从0开始)</li>
+<li>经验分布函数. 遇到一个就<code>cnt++</code>的模拟累积分布函数，定义为$\frac{cnt}{n}$，其中cnt为不大于x的个数</li>
+</ol>
+<h3 id="2-排队理论">2. 排队理论</h3>
+<p>排队模型由<strong>顾客流</strong>、<strong>服务台</strong>和<strong>队列</strong>构成，可分输入过程、排队规则和服务过程三个部分.</p>
+<ul>
+<li>输入过程：输入是否有限、到达的独立性和平稳性(分布只与时间相关)、逐个或成批</li>
+<li>排队规则：损失制(无空闲服务台时离去)、等待制、混合制(等一段时间再离开)</li>
+<li>队列分类：单列、多列、循环队列</li>
+<li>服务方式：单服务台、多服务台串并联</li>
+<li>服务队列：FCFS、LCFS(如情报系统)、按优先级服务、随机服务</li>
+</ul>
+<p>整个排队模型用6个参量表示：<strong>到达流的时间分布/服务时间分布/服务台数目/系统容量上限/顾客源数目/服务规则</strong>，一般后三项默认为∞/∞/FCFS.</p>
+<p>常见的到达流有<strong>指数分布M(Marcov)</strong>、定长服务时间D、k阶Erlang分布、一般服务时间(满足正态)G、一般服务且独立时间GI.</p>
+<p>为刻画排队系统的效能，需定义如下指标：</p>
+<ul>
+<li>队长. 队列内顾客数的期望<strong>平均排队长</strong>$L_q$，加上正在接受服务的为<strong>平均队长$L_s$</strong></li>
+<li>等待时间和逗留时间. 排队平均历时为<strong>等待时间$W_q$</strong>，加上接受服务时间为<strong>逗留时间$W_s$</strong></li>
+<li>平均忙期. 队列从开始有人到服务完最后一个人且没有新顾客到达的事件$T_b$</li>
+</ul>
+<h3 id="21-poisson-flow">2.1 Poisson Flow</h3>
+<p>定义N(t)为[0,t]内到达的顾客数，$P_n(t_1,t_2)$为$[t_1,t_2]$内有n个顾客到达的概率. 对满足Poisson流的顾客流，应有如下条件：</p>
+<ul>
+<li>无后效性. 到达概率只与时长有关.</li>
+<li>时间间隔$[t,t+\Delta t]$任意小，有一个顾客到达的概率与t无关，而与$\Delta t$成正比，且不可能到达两个顾客.
+$$P_1(t,t+\Delta t)=\lambda \Delta t+o(\Delta t)$$ $$ P_0(t,t+\Delta t)=1-P_1(t,t+\Delta t)=1-\lambda \Delta t+o(\Delta t)\tag{2.1}$
+$$
+$$\sum_{n=2}^\infty P_n(t,t+\Delta t)=o(\Delta t) \tag{2.2}$$</li>
+</ul>
+<p>记从零时刻到t到达n个顾客的概率为$P_n(t)$，则有$P_n(t+\Delta t)=\sum_{k=0}^nP_k(t)P_{n-k}(\Delta t)$(无后效性保证)，从而有
+$$\frac{P_0(t+\Delta t)-P_0(t)}{\Delta t}=-\lambda P_0(t)+\frac{o(\Delta t)}{\Delta t}  \tag{2.3}$$
+由于只有$P_0(\Delta t),P_1(\Delta t)$不是高阶无穷小，从而
+$$\frac{P_n(t+\Delta t)-P_n(t)}{\Delta t}=-\lambda P_n(t)+\lambda P_{n-1}(t)+\frac{o(\Delta t)}{\Delta t}   \tag{2.4}$$
+令$\Delta t\to0$，取$P_0(0)=1,P_n(0)=0$(零时刻到达顾客数一定为零)，由常数变易法，可得泊松流的概率分布为泊松分布：
+$$P_n(t)=\frac{(\lambda t)^n}{n!}e^{-\lambda t} \tag{2.5}$$
+当到达的顾客数概率分布为<strong>泊松分布</strong>时，则1个顾客到达的时间间隔分布为<strong>指数分布$exp(\lambda)$</strong>，$P(T&gt;t)$=P([0,t]内到达数为零)$=P_0(t)=e^{-\lambda t}$.</p>
+<p>可知服务强度$\lambda$实际对应单位时间内到达顾客的数目，$1\over\lambda$为两个顾客到达的平均间隔.同理，离开的顾客流也为Poisson流，其中$\mu$为单位时间内服务的顾客数目.</p>
+<h3 id="22-生灭过程">2.2 生灭过程</h3>
+<p>生灭对应顾客的到达与离开. 设N(t)为t时刻系统内的人数，从t时刻开始，下一个顾客到达和离开的时间服从$exp(\lambda_{N(t)}),exp(\mu_{N(t)})$的分布(这里$\lambda,\mu$与系统内人数有关，说明到达和服务速率受系统人数影响). 对于给定的生灭过程，我们希望研究其稳定状态，<strong>即队伍在确定的进入和离开的人数下，是否会保持稳定的长度和等待时间</strong>.</p>
+<p>在稳态下，可近似认为<strong>流入量=流出量</strong>，即有一个人来必有一个人走. 但由于在泊松流的约定下，来去不可能同时发生. 故从t时刻往后看，则去的人要么比来的人多1，要么相等. 从而有状态平衡方程：
+$\mu_1p_1=\lambda_0p_0$   (从队中0个人来1个的时间间隔与队中1个人去1个的相等)；$\mu_2p_2-\mu_1p_1=\lambda_1p_1-\lambda_0p_0$ (队中从1个人到2个人的时间间隔与队中从2个人到剩1个的相等，这里相减才能得到时间差).从而有
+$$\lambda_np_n-\lambda_{n-1}p_{n-1}=\mu_{n+1}p_{n+1}-\mu_np_n \tag{2.6}$$</p>
+<p>代入消元，有$$p_{n+1}=\frac{\lambda_n&hellip;\lambda_0}{\mu_n&hellip;\mu_0}p_0=c_np_0 \tag{2.7}$$
+而由$\sum p_i=(1+\sum c_n)p_0=1$，故$p_0=\frac{1}{1+\sum c_n}$，可知当分布确定时，队中有n个人的概率分布被唯一确定.</p>
+<h3 id="23-mms等待制模型">2.3 M/M/s等待制模型</h3>
+<h4 id="231-单服务台-mm1">2.3.1 单服务台: M/M/1</h4>
+<p>假设服务速率和到达速率与队内人数无关，即$\lambda_1=&hellip;=\lambda_n=\lambda,\mu_1=&hellip;=\mu_n=\mu$，则$c_n=({\lambda\over\mu})^n=\rho^n$，显然只有$\lambda&lt;\mu$时才收敛(可达稳态). 可得$p_0=1-\rho,p_n=\rho^n(1-\rho)$</p>
+<ul>
+<li>队长分布：由全概率公式，总队长$L_s=\sum np_n=\frac{\lambda}{\mu-\lambda}$；排队队长则减去前面一个正在被服务的，故为$L_s=\sum (n-1)p_n=\frac{\lambda^2}{\mu(\mu-\lambda)}$</li>
+<li>等待时长：可证明逗留时长服从exp($\lambda-\mu$)，从而$W_s=\frac{1}{\mu-\lambda}$，故逗留时长为服务时长加等待时长，即$W_q=W_s-\frac{1}{\mu}=\frac{\lambda}{\mu(\mu-\lambda)}$ 可发现，平均排队长和等待时长、平均队长和逗留时长均差$\lambda$倍(这个公式为<strong>Little公式</strong>).</li>
+<li>忙期与闲期：设到达和离开独立，平均忙期和闲期的比例应和到达和离开强度成正比. 在最开始，队列中没有人，而到达的时间间隔为$\frac{1}{\lambda}$应为平均闲期，故平均忙期$\bar B=\frac{\rho}{1-\rho}\frac{1}{\lambda}=\frac{1}{\mu-\lambda}$</li>
+</ul>
+<h4 id="232-多服务台mms">2.3.2 多服务台：M/M/s</h4>
+<p>假设有s个服务台，则当队内人数n少于服务台个数s时，服务强度与人数成正比$\mu_n=n\mu$，超过时则饱和$\mu_n=s\mu$，而无论队中多少人，到达的人数是稳定的，即$\lambda_n=\lambda$. 更正$\rho_n$，再代入平衡态公式，解出比例系数$c_n$(2.8)，再累加求和，利用概率和为1反解出$p_0$(2.9)，最终利用全概率公式推出平均队长(2.10)；由于可以证明Little依旧成立，故得到平均逗留和等待时间.
+$$c_{n}=\begin{array}{l}\frac{(\lambda / \mu)^{n}}{n !}, \quad n=1,2, \cdots, s \\\frac{(\lambda / \mu)^{s}}{s !}\left(\frac{\lambda}{s \mu}\right)^{n}=\frac{(\lambda / \mu)^{n}}{s ! s^{n-s}}, \quad n \geq s\end{array} \tag{2.8}$$</p>
+<p>$$p_{n}=\begin{array}{l}
+\frac{\rho^{n}}{n!} p_{0}, \quad n=1,2, \cdots, s \\
+\frac{\rho^{n}}{s!s^{n-s}} p_{0}, \quad n \geq s
+\end{array} p_0=(\sum_{n=0}^{s-1}{\rho^n\over n!}+\frac{\rho^s}{s!(1-\rho_s)})^{-1} \tag{2.9}$$</p>
+<p>当$n\geq s$时，新来的顾客必须等待，故有Erlang等待公式$c(s,\rho)=\sum_{n\geq s}^\infty p_n=\frac{\rho^s}{s!(1-\rho_s)}p_0$表征到达时需等待的概率.</p>
+<p>$$L_q=\sum_{n=s+1}^\infty (n-s)p_n=\frac{p_0\rho^s\rho_s}{s!(1-\rho_s)^2} \tag{2.10}$$
+接受服务的人按全概率有$\bar s=\sum_{0}^{s}np_n+s\sum_s^\infty = \rho$，即<strong>多个服务台在忙和一个服务台在忙的概率相同</strong></p>
+<p>由Little公式，仍有$\lambda W_s=L_s,\lambda W_q=L_q=W_s-\frac{1}{\mu}$</p>
+<h4 id="24-mmsk模型">2.4 M/M/s/k模型</h4>
+<p>容量上限为k，当k=S时为损失制，k&gt;S时为混合制，k&lt;S无需排队.  此时排队概率为$p_i=\frac{(s\rho)^i}{i!}p_0(1\leq i\leq s), \frac{s^s\rho^i}{s!}p_0(j&gt;s)$.</p>
+<p>当s=k时(损失制)，满足$\lambda_n=n\lambda(n\leq s),\mu_n=n\mu(n\leq s)$，但平衡方程则需相应修改为$\lambda_n 0-\lambda_{n-1}p_{n-1}=\mu_{n+1}p_{n+1}-\mu_np_n(n=k)$. 从而在损失制模型中，定义<strong>顾客损失率$P_l$</strong>、相对通过能力$Q=1-P_l$、单位时间内进入的顾客数$\lambda_e=(1-P_l)\lambda$、服务效率$\eta=\frac{L_s}{s}$，其中等待时间$W_q$为零.</p>
+<p>在其他情况下，$L_s=\sum_0^k ip_i, L_q=\sum_0^{k-s} ip_{s+i}$. 接下来证明上述结论.</p>
+<p>下面先讨论只有一个服务台(s=1)的情况.
+由于最多只能容纳k人(等待位置只有k-1个)，故$\lambda_n=\lambda(n&lt;k),0(n\geq k)$，$\mu_n=\mu$，代入修改系数$c_n=(\frac{\lambda}{\mu})^n(n\leq K),0(n&gt;k)$. 代入得：</p>
+<ul>
+<li>稳态概率$p_0=\frac{1}{1+\sum_1^k\rho^n}$</li>
+<li>平均队长$L_s=\sum np_n=\frac{\rho}{1-\rho}-\frac{(k+1)\rho^{k+1}}{1-\rho^{k+1}}$, 平均排队长$L_q=\sum(n-1)p_n=\frac{\rho}{1-\rho}-\frac{\rho(1+k\rho^k)}{1-\rho^{k+1}}$</li>
+<li>顾客损失率为$p_k$. 这是由于该概率表达系统内人数达到k的概率，而由于$p_n=0(n&gt;k)$，从而这个概率的反面为允许进入的概率，即$\lambda_e=\lambda(1-p_k)$，从而$p_l=p_k$.</li>
+<li>由Little公式，平均逗留时间$W_s={L_s\over\lambda_e}$</li>
+</ul>
+<p>再看有多个服务台的情况，此时</p>
+<h4 id="25-mmsmm有限客户模型">2.5 M/M/s/m/m有限客户模型</h4>
+<h4 id="26-有限资源模型">2.6 有限资源模型</h4>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/stastics/">Stastics</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" data-tooltip="[ML]Stastics Analysis Primer I: Hypotheosis Test" aria-label="NEXT: [ML]Stastics Analysis Primer I: Hypotheosis Test">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/data-structureadvanced-tree/" data-tooltip="[Data Structure]Advanced Tree" aria-label="PREVIOUS: [Data Structure]Advanced Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/mlstastics-analysis-primer-ii-queue-theory\/';
+        
+          this.page.identifier = '\/2023\/06\/mlstastics-analysis-primer-ii-queue-theory\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" data-tooltip="[ML]Stastics Analysis Primer I: Hypotheosis Test" aria-label="NEXT: [ML]Stastics Analysis Primer I: Hypotheosis Test">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/data-structureadvanced-tree/" data-tooltip="[Data Structure]Advanced Tree" aria-label="PREVIOUS: [Data Structure]Advanced Tree">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-ii-queue-theory%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-ii-queue-theory%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-ii-queue-theory%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

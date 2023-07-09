@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Stastics Analysis Primer I: Hypotheosis Test",
+  
+  "image": "https://Supradax.github.io/img/interpolation.jpg",
+  
+  "datePublished": "2023-06-13T00:00:00Z",
+  "dateModified": "2023-06-13T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/06\/mlstastics-analysis-primer-i-hypotheosis-test\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Stastics Analysis Primer I: Hypotheosis Test">
+<meta name="twitter:title" content="[ML]Stastics Analysis Primer I: Hypotheosis Test">
+<meta property="og:url" content="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-06-13T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-06-13T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Stastics">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/interpolation.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/interpolation.jpg">
+
+
+    <title>[ML]Stastics Analysis Primer I: Hypotheosis Test</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Stastics Analysis Primer I: Hypotheosis Test
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-06-13T00:00:00Z">
+        
+  June 13, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-常见统计量">1. 常见统计量</h2>
+<p><strong>【统计量】</strong> 只含样本，不含其他未知参数的量</p>
+<h4 id="11-期望与矩">1.1 期望与矩</h4>
+<p>期望即一阶原点矩，反映一次项平均. $EX= \int_{-\infty}^{+\infty}{xf(x)}dx$, <strong>k阶原点矩</strong>$EX^k=\int_{-\infty}^{+\infty}{x^kf(x)}dx$，类似地，<strong>k阶中心矩</strong>为$E(X-EX)^k=\int_{-\infty}^{+\infty}{x^kf(x)}dx$.</p>
+<p>期望有如下性质：</p>
+<ol>
+<li><strong>线性性</strong>. 由积分是线性算子可知.</li>
+<li>X,Y独立时有$EXY=EXEY$. $\iint_{-\infty}^{+\infty}{xyf(xy)dxdy}=\iint_{-\infty}^{+\infty}{(xf(x))(yf(y))dxdy}$</li>
+<li>由(2)，二项分布由于各次实验独立同分布，故$EX=E\left(\sum X_i\right)=nEX=np$；同理可计算几何分布，EX=p+2p\left(1-p\right)+3p\left(1-p\right)^2，令q=1-p，积分再求导得$EX=p\left(\frac{q}{1-q}\right)_q^\prime=\frac{1}{p}$</li>
+</ol>
+<h3 id="12-方差">1.2 方差</h3>
+<p>$VarX$或$DX$反映离散程度，方差也是<strong>2阶中心矩</strong>和<strong>同一变量的协方差</strong>，标准差$\sigma=\sqrt{DX}$</p>
+<ol>
+<li>
+<p>偏离程度 $DX=E\left(X-EX\right)^2=\left(\int_{-\infty}^{+\infty}{(x-\mu)f\left(x\right)}dx\right)^2$,展开有$E\left(X^2-2XEX+E^2X\right)=EX^2-2EXEX+E^2X=EX^2-E^2X$. 故可通过1、2阶矩计算方差(二阶中心矩).</p>
+</li>
+<li>
+<p>$D\left(aX+b\right)=a^2DX$</p>
+</li>
+<li>
+<p>若X,Y独立，则$D\left(X+Y\right)=DX+DY$，这个性质可进一步推广到$D\left(aX+bY+cZ\right)=a^2DX+b^2DY+c^2DZ$ 证明如下：
+$D\left(X+Y\right)=E\left(X+Y\right)^2-E^2\left(X+Y\right)$$=EX^2+EY^2+2EXY-E^2X-E^2Y-2EXEY$$=DX+DY+2(EXY-EXEY))$</p>
+</li>
+</ol>
+<h3 id="13-协方差">1.3 协方差</h3>
+<p>研究多个变量之间的相关性，定义<strong>协方差</strong>$Cov\left(X,Y\right)≔E((X-EX)(Y-EY))$. 其中Cov(X,X)=DX</p>
+<p>协方差显然是<strong>可交换的双线性函数</strong> $Cov\left(aX+cZ,bY\right)=abCov(X,Y)=cbCov(Z,Y)$</p>
+<p>对n个随机变量，构造协方差矩阵C使得$c_{ij}=Cov\left(X_i,X_j\right)$，显然C是<strong>对称矩阵</strong>，矩阵形式为：</p>
+<p>$$C=\frac{1}{n-1}E((X-EX)^T(X-EX))\tag{1}$$
+且由于$x^TCx=x^TE(A^TA)x=E((Ax)^TAx)\geq0$，故C是<strong>半正定的</strong>.</p>
+<p>尽管协方差衡量总体之间的相关性，但是直接使用Cov(X,Y)存在量纲差异，故除去标准差，得到无量纲数. 故定义<strong>Pearson相关系数</strong>$\rho=\frac{Cov(X,Y)}{\sqrt{DX}\sqrt{DY}}$. 具有以下性质：
+$|\rho_{XY}|\leq1$ 当且仅当 $Y=aX+b$时取等. <strong>独立一定不相关，不相关不一定独立；若均满足正态分布，则可等价</strong></p>
+<p>   <strong>pf.</strong> 由于应当线性相关，故构造$D\left(Y-aX-b\right)\geq0$，从而有$D\left(Y-aX-b\right)=D\left(Y-aX\right)=DY+a^2DX-2aCov\left(X,Y\right)$，由二次判别式，有 $4Cov^2\left(X,Y\right)\le4DXDY$，从而$\left|\frac{Cov(X,Y)}{\sigma_X\sigma_Y}\right|\leq 1$. 且取等条件为Y=aX+b.</p>
+<p><strong>Notes.</strong> 该相关系数是线性相关系数，<strong>为零可能独立，也可能不是线性相关</strong>. 且<strong>对离群值敏感</strong>；为1也不一定就是线性相关，必须先画散点图看出大致线性，该值才有意义. 如果满足Y=f(X)，则将X替换成f(X)再检验.</p>
+<p>对于<strong>连续数据、正态分布、线性关系</strong>这些数据，使用Pearson系数最佳，<strong>否则使用Spearman系数</strong>(如两个<strong>定序数据</strong>，指仅反映序关系，没有具体量的数据).</p>
+<p>判断两组给出的定序数据之间的关系，定义一个数的<strong>等级k</strong>为第k小，若有数值相同，则取<strong>算术平均</strong>. 原假设为$r_s=0$，Spearsman系数为(d为$X_i,Y_i$等级差)：$$r_s=1-\frac{6\sum d_i^2}{n(n^2-1)}$$  小样本(n≤30)时直接查表，大样本则统计量$r_s\sqrt{n-1}$服从标准正态.</p>
+<h3 id="14-协方差矩阵的白化">1.4 协方差矩阵的白化</h3>
+<p>由于协方差矩阵C是对称矩阵，故一定可相似对角化，设$C=P^T\Lambda P$，其中$PP^T=I$. 则令Y=AX，则$Y^TCY=X^TA^TCAX=X^T(A^TP^T\Lambda PA)X=X^T(\sqrt\Lambda PA)^T(\sqrt\Lambda PA)X$，令$A=P^T\Lambda^{-\frac{1}{2}}$(假定无零特征值)，则得到以下命题：</p>
+<ul>
+<li><strong>若C可逆，则可分解为$C=A^TA$，其中A可逆. 且$A^{-1}X$的协方差矩阵是对角阵</strong>(这意味着满秩的协方差可通过线性组合<strong>去除相关性</strong>)</li>
+</ul>
+<h3 id="2-正态分布与三大分布">2. 正态分布与三大分布</h3>
+<h4 id="21-正态分布">2.1 正态分布</h4>
+<ul>
+<li>
+<p><strong>偏度</strong>标准化三阶矩. $E(\frac{X-\mu}{\sigma})^3$. 当偏度为正(负)时称正(负)偏态，为零则正态. 偏度刻画一个单峰分布的对称程度，正态分布的偏度为零.</p>
+</li>
+<li>
+<p><strong>峰度</strong>标准化四阶矩. $E(\frac{X-\mu}{\sigma})^4$. 大于3(小于3)时为高尖(矮胖)，正态分布的偏度为3.</p>
+</li>
+</ul>
+<p>在涉及正态分布的相关统计时，需利用<strong>通过正态分布构造出的三大分布及其相关统计量</strong></p>
+<h4 id="22-三大分布">2.2 三大分布</h4>
+<ul>
+<li><strong>$\chi^2$分布</strong>. 对<strong>n个独立标准正态变量</strong>，$Y=X_1^2+\ldots+X_n^2$为服从<strong>自由度为n</strong>的卡方分布，即$Y~\chi^2(n)$，概率密度$f\left(y\right)=\frac{1}{2^\frac{n}{2}\Gamma(\frac{n}{2})}y^{\frac{n}{2}-1}e^{-\frac{y}{2}}$. 具有以下性质：</li>
+</ul>
+<ol>
+<li>可加性. 若X,Y独立，则$X+Y~\chi^2(n_1+n_2)$</li>
+<li>单峰曲线(<strong>只在&gt;0部分有且非对称</strong>)，极大值在<strong>n-2</strong>；<strong>n=2时恰为指数分布</strong></li>
+<li>$E\chi^2\left(n\right)=nE\chi^2\left(1\right)=nEX^2,D\chi^2\left(n\right)=nDX^2$</li>
+</ol>
+<p><strong>Notes.</strong> 要求是平方项相互独立，不是数有多少个独立变量 如$X_1^2+\frac{1}{2}\left(X_2+X_3\right)^2$，把$\frac{1}{2}$拿进去，可以发现刚好凑出个标准正态分布.</p>
+<ul>
+<li>
+<p><strong>t分布(学生分布)</strong>.当X~N(0,1)，$Y~\chi^2\left(n\right)$定义$t=\frac{X}{\sqrt{Y/n}}$服从t(n)分布. 可见<strong>t分布是由标准正态和卡方分布构造的</strong>. 概率密度$f\left(t\right)=\frac{\Gamma\left(\frac{n+1}{2}\right)}{\sqrt{n\pi}\Gamma\ \left(\frac{n}{2}\right)}\left(1+\frac{t^2}{n}\right)^{-\frac{n+1}{2}}$，为单峰<strong>对称</strong>曲线(类正态).</p>
+</li>
+<li>
+<p><strong>F分布</strong>. 由两个$\chi^2$分布构造，设U,V分别服从n1,n2的卡方分布，则$F(n_1,n_2)=\frac{U/n_1}{V/n_2}$. 其密度函数也为<strong>非对称单峰且定义域为正半轴</strong>，满足$\frac{1}{F}~F\left(n_2,n_1\right)$.</p>
+</li>
+</ul>
+<p><strong>Notes.</strong> 当n无穷大时，任何分布都趋向正态分布.</p>
+<p>根据三大分布，有以下结论并构造如下统计量：</p>
+<ul>
+<li>对n个来自正态总体的样本，有$\bar{X}$~$N(\mu,\frac{\sigma^2}{n})$; $\bar{X}$与$S^2$这两个统计量相互独立</li>
+<li>$ \frac{\left(n-1\right)S^2-0}{\sigma^2}$~$\chi^2(n-1)$, 分子是变量平方和且满足相互独立的正态，底下是标准差</li>
+<li>$\frac{\bar{X}-\mu}{\frac{S}{\sqrt n}}$~$t(n-1)$. 配凑有$\frac{\bar{X}-\mu}{\frac{S}{\sqrt n}}=\frac{\bar{X}-\mu}{\frac{\sigma}{\sqrt n}}\frac{\frac{\sigma}{\sqrt n}}{\frac{S}{\sqrt n}}=\frac{\bar{X}-\mu}{\frac{\sigma}{\sqrt n}}\frac{1}{\sqrt{\frac{(n-1)S^2}{\frac{\sigma^2}{n-1}}}}$~$t\left(n-1\right)$</li>
+<li>若X,Y分别是来自两个正态分布的m,n个样本，则$\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}$~$F(m-1,n-1)$.(乘m-1,n-1除m-1,n-1，得到分子分母各服从$\chi^2\left(m-1\right),\chi^2(n-1))$ 若方差相同，则$\frac{\left(\bar{X}-\bar{Y}\right)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}~t\left(n_1+n_2-2\right),S_w=\sqrt{\frac{1}{n_1+n_2-2}[(n-1^2)S_1^2)+(n_2-1)S_2^2]}$</li>
+</ul>
+<h4 id="23-估计量的评选标准">2.3 估计量的评选标准</h4>
+<p>已知X服从某个分布且有一些样本，若根据这些样本计算的统计量进行估计的期望与理论期望相同，则称<strong>估计量是无偏的</strong>. 对于均无偏的统计量X,Y，则若$D(X)&lt;D(Y)$，则称<strong>X比Y有效</strong>.</p>
+<p><strong>期望方差的估计量</strong> 设总体$\mu,\sigma^2$，其样本为$X_1,\ldots\ X_n$，则有$E\bar{X}=\mu,D\bar{X}=\frac{\sigma^2}{n},ES^2=\sigma^2$.</p>
+<p>   <strong>pf.</strong> 证其无偏性. ①利用线性；②利用独立的可拆性；③利用样本方差 $S^2=\frac{1}{n-1}\sum\left(\bar{X}-X_i\right)^2=\frac{1}{n-1}(\sum X_i^2-nX2)$，代入有$E\frac{1}{n-1}\sum X_i^2-\left(\sum X_i\right)^2=\frac{1}{n-1}\left(nEX^2-nE{\bar{X}}^2\right)$$=\frac{1}{n-1}\left(n\left(\mu^2+\sigma^2\right)-n\left(\mu^2+\frac{\sigma^2}{n}\right)\right)=\frac{1}{n-1}\left(\left(n-1\right)\sigma^2\right)=\sigma^2$,而$EX^2=E^2X+DX=\mu^2+\sigma^2$, $E{\bar{X}}^2=E^2\bar{X}+D\bar{X}=\mu^2+\frac{\sigma^2}{n}$</p>
+<p><strong>比较有效性</strong> 若$X~exp(k)$，证明：$\bar X, Z=\min X_i$当n&gt;1时，$\bar X$更有效.</p>
+<p>  <strong>pf.</strong> 先证无偏性. $E\bar X=\frac{1}{n}E\sum X_i=EX$，故前者无偏；再看$Z=\min X_i$等价于恰不大于n个X，对应CDF为$F(Z)=1-(1-F(z))^n$，代入指数分布可知<strong>Z~exp$\theta\over k$</strong> 从而$EZ={\theta\over k}=EX$. 二者均无偏. 而$D\bar X=\frac{k^2}{n}$,$D(nZ)=n^2D(Z)=\frac{\theta^2}{n^2}n^2=\theta^2$□.</p>
+<h3 id="3-估计方法频率派">3. 估计方法(频率派)</h3>
+<h4 id="31-点与矩估计">3.1 点与矩估计</h4>
+<p>一般已知一个未知参数的模型$f(X;\theta)$, 通过样本点确定$\theta$. 比较直观的如指数分布可直接求均值解出$\lambda(EX=\lambda)$. 而其他不明确的可通过无偏估计原点矩构造方程式 （矩估计是无偏估计）故有n个参数，则计算n阶矩的估计，分别与模型的n阶矩相同. 即$\frac{1}{n}\sum E_i^k=A_k=EX^k$.</p>
+<h4 id="32-mle极大似然估计">3.2 MLE极大似然估计</h4>
+<p>核心为存在即合理，已经发生的事件概率是最大的，利用样本将该概率极大化.</p>
+<p>设事件模型f，已知发生的事件为$X_1,\ldots\ X_n$，则按照模型有$P\left(X_1\right)\ldots\ P(X_n)$这个值极大，从而取对数对各个参数求偏导令为零，使得该值极大，从而求解.</p>
+<p>对无法直接求出极值的，形如设X~U[a,b]，已知n个样本值，求a,b上的MLE.则易知p=0(min&lt;a或max&gt;b)，否则$p=\frac{1}{\left(b-a\right)^n}$，对b,a求偏导，但是单调，故取b为最大的一个，a为最小的一个（否则会出现0）</p>
+<h3 id="4-假设检验与区间估计">4. 假设检验与区间估计</h3>
+<p>假设检验的步骤如下（拒绝一定不可信，接受不代表正确）：</p>
+<ol>
+<li>写出原假设$H_0$、备择假设$H_1$(二者一般相反，如双边检验为$H_0:x=\mu,H_1:x\neq\mu$,单侧检验为$H_0:x\leq\mu,H_1:x&gt;\mu$)</li>
+<li>在 <strong>$H_0$成立的条件</strong> 下<strong>构造</strong>一个<strong>有特定分布的统计量</strong>t</li>
+<li>在给定<strong>置信水平</strong>（分单双侧检验）求出接受域$P\left(a\leq t\leq b\right)=\beta(0.9, 0.95, 0.99)$</li>
+<li>计算相应<strong>p值</strong>(概率分布中比其当前样本的统计量概率还小的事件概率总和)确定拒绝域，若<strong>显著性和p值均表征当前样本为小概率事件的程度</strong>，当显著性很高时，说明<strong>这个样本是小概率的</strong>，故拒绝原假设.</li>
+</ol>
+<p><strong>Notes.</strong></p>
+<ol>
+<li>相同置信水平下，p值是双侧的一半（p值表示概率与之相同或比其更小的部分），但是拒绝域大小是双侧的2倍</li>
+<li>[显著性标记] 0.5$\star\star$ 0.5$\star\star\star$一般来说当p值&lt;0.05标1个，&lt;0.01标2个，&lt;0.001标3个.</li>
+</ol>
+<h4 id="41-相关系数的检验">4.1 相关系数的检验</h4>
+<p>一般为确定相关性，故设原假设$H_0\ r=0$不相关，备择假设相关H_1:$r\neq0$. 构造构造统计量$t=r\sqrt{\frac{n-2}{1-r^2}}$~t(n-2). 最后查表并检验假设(一般这么假设是想证明相关，故应显著异于)</p>
+<h4 id="42-正态分布假设检验">4.2 正态分布假设检验</h4>
+<p>对于<strong>大样本(n&gt;30)</strong>，可选用<strong>JB检验法</strong>. 分别使用算三、四阶中心距的无偏估计$g_1=\frac{n}{\left(n-1\right)\left(n-2\right)s^3}\sum\left(x_i-\bar{x}\right)^3$,$g_2=\frac{n\left(n+1\right)}{\left(n-1\right)\left(n-2\right)\left(n-3\right)s^3}\sum\left(x_i-\bar{x}\right)^4$，计算样本的<strong>峰度和偏度</strong>(s为标准差).</p>
+<p>再构造构造统计量$JB=\frac{n}{6}\left(S^2+\frac{\left(K-3\right)^2}{4}\right)$~$\chi^2(2)$. 如置信0.95下可求JB与$\chi^2(2)$分布临界比较.</p>
+<p>对<strong>3≤n≤50小样本</strong>，可用<strong>Shaprio-wilk检验</strong>. 先将$X_i$<strong>排序</strong>得到$Y_i$，检验统计量为$W=\frac{\left(\sum a_iy_i\right)^2}{\sum\left(y_i-\bar{y}\right)^2}=\frac{\left(\sum^{\frac{n}{2}}{a_i\left(y_{n+1-i}-y_i\right)}\right)^2}{\sum\left(y_i-\bar{y}\right)^2}$,其中$\left(a_1,\ldots,a_n\right)=\frac{m^TV^{-1}}{||V^{-1}m\ ||}$，其中m是大量独立同分布试验下的期望值，V是这些满足正态统计数据的协方差，总之可以直接查到.同理再对照p值表(两个表达式等价，但是现有的表用的是第二个)</p>
+<p>此外，在检查某个样本是否符合一个分布时，可使用 <strong>Q-Q图(分位数图)</strong> 直观判断.选取分位数的对应概率区间集合，点(x,y)为第一个分布的分位数x和第二个分布在这一分位数y的分布. 若近似一条直线，则说明两个分布很相近，从而可以把其中一个变成正态分布.</p>
+<h4 id="43-正态分布参数估计检验">4.3 正态分布参数估计检验</h4>
+<ul>
+<li><strong>Ztest（已知方差，检验均值）</strong>. $\frac{\bar{X}-\mu}{\frac{S}{\sqrt n}}$~$t(n-1)$</li>
+<li><strong>单个正态的方差</strong> $\frac{\left(n-1\right)S^2}{\sigma^2}$~$\chi^2(n-1)$</li>
+<li><strong>两个的均值之差</strong>$\frac{\left(\bar{X}-\bar{Y}\right)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}$~$t\left(n_1+n_2-2\right)$</li>
+<li><strong>两个的方差大小</strong>转换为比值的大小，然后利用统计量$\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}$~$F(m-1,n-1)$</li>
+</ul>
+<h4 id="44-独立性假设检验">4.4 独立性假设检验</h4>
+<p>对于两个随机变量X,Y，得到不同取值组合下的频数分布，现判断其是否相关. 则<strong>原假设为二者不相关</strong>，构造卡方统计量$X=\sum\frac{(e_i-o_i)^2}{e_i}$服从$\chi^2(n-1)$. 下面证明其服从这个分布.</p>
+<p>  <strong>pf.</strong> 设X、Y分别有m、n种互斥的选择且概率分别为$q_{i1},q_{i2}$，则检验时设其独立，则有$p_{ij}=p(X=X_i,Y=Y_j)=q_{i1}q_{j2}$，当抽样量N足够大时，二项分布近似正态分布. 每种情况的均值为$p_{ij}N$.</p>
+<p>  根据假设，各个变量相互独立，则<strong>理论上各种情况发生的次数也应独立</strong>，而通过<strong>矩阵白化</strong>将协方差矩阵化为对角矩阵，则可化成<strong>卡方分布的形式(只有平方项，没有交叉项)</strong>. 注意到这mn个变量的概率和为1，故丢弃一个变量再计算.
+设各组合的随机变量为$Z=[Z_1,..Z_{mn-1}]$,均值$\mu=[\mu_1,&hellip;,\mu_{mn-1}]$，计算协方差矩阵，当i=j时，$c_{ij}=\frac{1}{N-1}(EX^2-(EX)^2)$，其中$X^2$和X本质上是同一事件，故为$Np_i-Np_i^2$;而当i≠j时，$c_{ij}=\frac{1}{N-1}(EXY-XEY-YEX$$+EXEY)$，其中XY是不可能事件(互斥)，整理有$c_{ij}=-Np_ip_j$.</p>
+<p>  而通过线性变换，一定存在一个矩阵A使得$A^{-1}(Z-u)$各个变量独立且正态，这样构造的统计量$K_1=(Z-\mu)C^{-1}(Z-\mu)$，真正统计量$K_2=\sum_{i=1}^{mn-1}=\frac{(Z_i-\mu_i)^2}{\mu_i}+\frac{(Z_{mn}-\mu_{mn})^2}{\mu_{mn}}$=$(Z-\mu)^TD(Z-\mu)+(Z-\mu)^T(1,1&hellip;1)^T(1,1..,1)(Z-\mu)\mu_{mn}$，从而$(D+\mu_{mn}J)C^{-1}=I$，故$C^{-1}$的逆矩阵恰对应mn-1个独立的正态随机变量，从而统计量$x^TCx$服从t(mn-1).</p>
+<h3 id="5-其他统计方法">5. 其他统计方法</h3>
+<h4 id="51">5.1</h4>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/stastics/">Stastics</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mllinear-classification/" data-tooltip="[ML]Linear Classification" aria-label="NEXT: [ML]Linear Classification">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" data-tooltip="[ML]Stastics Analysis Primer II: Queue Theory " aria-label="PREVIOUS: [ML]Stastics Analysis Primer II: Queue Theory ">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/06\/mlstastics-analysis-primer-i-hypotheosis-test\/';
+        
+          this.page.identifier = '\/2023\/06\/mlstastics-analysis-primer-i-hypotheosis-test\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mllinear-classification/" data-tooltip="[ML]Linear Classification" aria-label="NEXT: [ML]Linear Classification">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-ii-queue-theory/" data-tooltip="[ML]Stastics Analysis Primer II: Queue Theory " aria-label="PREVIOUS: [ML]Stastics Analysis Primer II: Queue Theory ">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-i-hypotheosis-test%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-i-hypotheosis-test%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F06%2Fmlstastics-analysis-primer-i-hypotheosis-test%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

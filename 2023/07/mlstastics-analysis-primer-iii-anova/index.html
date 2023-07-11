@@ -16,12 +16,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "[ML]Linear Classification",
+  "headline": "[ML]Stastics Analysis Primer III: ANOVA",
   
-  "image": "https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg",
+  "image": "https://Supradax.github.io/img/interpolation.jpg",
   
-  "datePublished": "2023-07-05T00:00:00Z",
-  "dateModified": "2023-07-05T00:00:00Z",
+  "datePublished": "2023-07-11T00:00:00Z",
+  "dateModified": "2023-07-11T00:00:00Z",
   "author": {
     "@type": "Person",
     "name": "Supradax",
@@ -31,7 +31,7 @@
   },
   "mainEntityOfPage": { 
     "@type": "WebPage",
-    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mllinear-classification\/" 
+    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mlstastics-analysis-primer-iii-anova\/" 
   },
   "publisher": {
     "@type": "Organization",
@@ -59,34 +59,34 @@
 
 <meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[ML]Linear Classification">
-<meta name="twitter:title" content="[ML]Linear Classification">
-<meta property="og:url" content="https://Supradax.github.io/2023/07/mllinear-classification/">
-<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mllinear-classification/">
+<meta property="og:title" content="[ML]Stastics Analysis Primer III: ANOVA">
+<meta name="twitter:title" content="[ML]Stastics Analysis Primer III: ANOVA">
+<meta property="og:url" content="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/">
 <meta property="og:site_name" content="Supradax&#39;s Blog">
 <meta property="og:description" content="">
 <meta name="twitter:description" content="">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2023-07-05T00:00:00">
+    <meta property="article:published_time" content="2023-07-11T00:00:00">
   
   
-    <meta property="article:modified_time" content="2023-07-05T00:00:00">
+    <meta property="article:modified_time" content="2023-07-11T00:00:00">
   
   
   
     
       <meta property="article:section" content="ML">
     
-      <meta property="article:section" content="Cluster">
+      <meta property="article:section" content="Math">
     
   
   
     
       <meta property="article:tag" content="ML">
     
-      <meta property="article:tag" content="Cluster">
+      <meta property="article:tag" content="Stastics">
     
   
 
@@ -106,18 +106,18 @@
 
 
 
-  <meta property="og:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
-  <meta property="twitter:image" content="https://Supradax.github.io/img/K-means%20and%20DSCAN.jpg">
+  <meta property="og:image" content="https://Supradax.github.io/img/interpolation.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/interpolation.jpg">
 
 
-    <title>[ML]Linear Classification</title>
+    <title>[ML]Stastics Analysis Primer III: ANOVA</title>
 
     <link rel="icon" href="https://Supradax.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://Supradax.github.io/2023/07/mllinear-classification/">
+    <link rel="canonical" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -277,15 +277,15 @@
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title">
-      [ML]Linear Classification
+      [ML]Stastics Analysis Primer III: ANOVA
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time datetime="2023-07-05T00:00:00Z">
+      <time datetime="2023-07-11T00:00:00Z">
         
-  July 5, 2023
+  July 11, 2023
 
       </time>
     
@@ -296,7 +296,7 @@
     
       <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
     
-      <a class="category-link" href="https://Supradax.github.io/categories/cluster">Cluster</a>
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
     
   
 
@@ -306,93 +306,240 @@
           
           <div class="post-content markdown">
             <div class="main-content-wrap">
-              <p>对<strong>线性二分类问题</strong>，分<strong>硬分类</strong>(hard classfication)和<strong>软分类</strong>(soft classfication). 硬分类的输出值为0,1两种可能，软分类则输出概率分布，按轮盘赌或选取概率最高者.  在硬分类中，经典模型有<strong>感知机算法</strong>(Perceptron)和<strong>线性判别算法</strong>(Fisher)；软分类中，则有<strong>Logisitc判别模型</strong>和<strong>高斯判别分析生成模型(GDA：Gaussian Discrimant Analysis)</strong></p>
-<p>其中，<strong>判别模型</strong>与<strong>生成模型</strong>的本质差别在于前者使用<strong>有限样本</strong>确定一个输入与输出间的函数，对任何输入只需依据该函数输出；而<strong>生成模型</strong>则基于Bayes公式，每次输入都会相应改变模型参数 <strong>(即生成模型的过程)</strong>，可通过 <strong>增量学习</strong>得到.</p>
-<h3 id="1-硬分类感知机算法">1 硬分类：感知机算法</h3>
-<p>定义数据集为{特征向量$x_i$,类别$y_i(y_i=0,1)$}、示性函数I(x)、判别函数$y=sgn(W^TX)$，从而当$y_iW^TX_i=y_i\tilde{y_i}\geq0$时分类正确，反之错误. 从而定义损失函数$L(x)=\sum I(y_iW^TX_i&lt;0)$，但该损失函数不可导，故定义分类错误的特征向量为D，则有：
-$$L(x)=\sum_{X\in D} y_iW^TX_i \tag{1}$$</p>
-<p>感知机由<strong>错误驱动</strong>，不断迭代直至$W$收敛(全部分类正确). 对于与接近线性可分但不完全的，对应有<strong>Pocket Algo.</strong>，该算法仍以原示性损失函数L(x)，当$|D|$不增大时进行更新，迭代速度较慢且不一定收敛到最优解.</p>
-<p><strong>注·梯度下降(GD)</strong></p>
+              <h2 id="1-单因素方差分析">1. 单因素方差分析</h2>
+<p><strong>引例</strong> 科代表想知道在星期几发数学周练是否与各个同学的正确率有相关性. 假设给第ij个同学在星期i发周练，并统计其正确率作为样本$x_{ij}$. 约定在周i发周练这一水平(level)为$A_i$，<strong>总体$x_{ij}\sim  N(\mu,\sigma^2)$，各个水平内部$x_i\sim N(\mu_i,\sigma^2)$</strong>，即假设统计范围内所有人的正确率服从正态分布，星期i发到周练的人的正确率也相应服从一个正态分布，这些正态分布均值不一定相等，但方差相同 <strong>(方差齐性假设)</strong>. 由于均值不同，定义水平$A_i$的效应(差异)为$\alpha_i=\mu_i-\mu$，水平数$r$(如引例中r=7).总之，得到下列<strong>单因素试验数据表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">水平</th>
+<th style="text-align:center">样本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$A_1$</td>
+<td style="text-align:center">$x_{11},&hellip;x_{1n_i}$</td>
+</tr>
+<tr>
+<td style="text-align:center">&hellip;</td>
+<td style="text-align:center">&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">$A_r$</td>
+<td style="text-align:center">$x_{1r},&hellip;x_{1n_r}$</td>
+</tr>
+</tbody>
+</table>
+<p>下面通过假设检验检验相关性. 设$H_0:\mu_1=&hellip;=\mu_7=\mu$，即发周练时间与正确率无关；$H_1:\exists i,j \mu_i\neq\mu_j$. 约定记号：第i组样本数$n_i$(总样本数$n$)，其正确率均值$x_{i:}=\frac{1}{n_i}\sum_j x_{ij}$，总体样本均值$\bar x$和方差$S_{T}$(total)，组间方差$S_A$(average)和组内方差$S_E$(error). 根据定义有(第3个等号先对j求和，则$\sum_j x_{ij}-x_{i:}=0$)：
+$$\begin{align}
+S_T&amp;=\frac{1}{n}\sum_{i,j}(x_{ij}-\bar{x})^2= \frac{1}{n}\sum_{i,j}(x_{ij}-x_{i:}+x_{i:}-\bar{x})^2\\
+&amp;=\frac{1}{n} \sum_{i,j}(x_{ij}-x_{i:})^2+(x_{i:}-\bar{x})^2+2(x_{ij}-x_{i:})(x_{i:}-\bar{x})\\
+&amp;=\frac{1}{n} \sum_{i,j}(x_{ij}-x_{i:})^2+(x_{i:}-\bar{x})^2\\
+&amp;=\sum_{i}n_i(x_{i:}-\bar{x})^2+\frac{1}{n}\sum_{i,j}(x_{ij}-x_{i:})^2\\
+&amp;:=S_A+S_E  \tag{1}
+\end{align}$$</p>
+<p>由于中心化后各个i中$(x_{ij}-x_{i:})\sim N(0,\sigma^2)$，从而$\frac{S_{E_i}}{\sigma^2}\sim \chi^2(n_i-1)$，由$\chi^2$分布的可加性，$S_E\sim\chi^2(n-r),ES_E=(n-r)\sigma^2$. 尽管有存在多个不同的正态分布，数学上仍可证明一个样本与总体均值的期望$ES_T$可被拆分为样本与组内均值差异平方、组内均值与组间均值差异平方两部分，即$ES_T=(n-1)\sigma^2+\sum_i n_i\alpha_i^2$，故$ES_A=ES_T-ES_E=(r-1)\sigma^2+\sum_i n_i\alpha_i^2$</p>
+<p>若$H_0$成立，则$\alpha_i=0$，所有样本独立同分布. 故有$S_E\sim\chi^2(n-r),S_A\sim\chi^2(r-1)$$S_T\sim\chi^2(n-1)$，故可<strong>构造F统计量</strong>(故ANOVA又称<strong>F检验</strong>)：
+$$F=\frac{S_A/(r-1)}{S_E/(n-r)}\sim F(r-1,n-r) \tag{2}$$</p>
+<p>可知若$H_0$成立，则F接近1. 给定显著性水平$\alpha$，进一步检验即可.据此，有<strong>单因素方差分析表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方差来源</th>
+<th style="text-align:center">平方和</th>
+<th style="text-align:center">自由度</th>
+<th style="text-align:center">均方</th>
+<th style="text-align:center">$1-p_r$分位数</th>
+<th style="text-align:center">概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">因素A</td>
+<td style="text-align:center">$S_A$</td>
+<td style="text-align:center">r-1</td>
+<td style="text-align:center">$\frac{S_A}{r-1}$</td>
+<td style="text-align:center">$F_{1-p_r}(r-1,n-r)$</td>
+<td style="text-align:center">$p_r$</td>
+</tr>
+<tr>
+<td style="text-align:center">误差</td>
+<td style="text-align:center">$S_E$</td>
+<td style="text-align:center">n-r</td>
+<td style="text-align:center">$\frac{S_E}{n-r}$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">总和</td>
+<td style="text-align:center">$S_T$</td>
+<td style="text-align:center">n-1</td>
+<td style="text-align:center"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-双因素方差分析">2. 双因素方差分析</h2>
+<p><strong>引例</strong> 假设现在科代表想知道星期几发数学周练(水平$A_i$)与发语文套卷(水平$B_j$)这两个因素与数学周练正确率的相关性. 设样本$x_{ijk}$为在水平$(A_i,B_j)$下第(i,j,k)个同学的正确率，得到如下<strong>双因素试验数据表</strong>：(此例中r=s=7)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">水平</th>
+<th style="text-align:center">$B_1$</th>
+<th style="text-align:center">&hellip;</th>
+<th style="text-align:center">$B_r$</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$A_1$</td>
+<td style="text-align:center">$x_{1,1,1}&hellip;x_{1,1,n_{11}}$</td>
+<td style="text-align:center">&hellip;</td>
+<td style="text-align:center">$x_{1,r,1}&hellip;x_{1,r,n_{1r}}$</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">&hellip;</td>
+<td style="text-align:center">&hellip;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">$A_s$</td>
+<td style="text-align:center">$x_{s,1,1}&hellip;x_{s,1,n_{s1}}$</td>
+<td style="text-align:center">&hellip;</td>
+<td style="text-align:center">$x_{s,r,1}&hellip;x_{s,r,n_{sr}}$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>符号约定</strong>：仍设所有正态分布方差相同，水平A、B的组内样本服从$N(\mu_{ij},\sigma^2)$，其组内均值$x_{i:},x_{:j}$和组内样本方差$S_A,S_B$，水平A和B对应的均值为$\mu_{i:},\mu_{:j}$同理有$x_{ijk}=\mu_{ij}+\epsilon_{ijk},\epsilon_{ijk}\sim N(0,\sigma^2)$(iid)，并记A和B对总体均值的效应为$\alpha_i=\mu_{i:}-\mu,\beta_j=\mu_{:j}-\mu$. 但由于现在有两个因素，可能两个因素之间存在交互效应(即相互影响)，故而设$A_i$对$B_j$的交互效应为$\gamma_{ij}.$</p>
+<p>从而建立三个原假设：$H_0:\alpha_i=0,H_1:\beta_j=0,H_2:\gamma_{ij}=0$且每个样本可分解为$x_{ijk}=\mu+\alpha_i+\mu_j+\epsilon_{ijk}$</p>
+<h4 id="21-无交互效应的情形">2.1 无交互效应的情形</h4>
+<p>若根据已知或经验可得$\gamma_{ij}=0$，即发语文套卷和数学周练的时间相互独立，那么不必对$(A_i,B_j)$的情形下做多次试验，即$n_{ij}=1$，有：(其中第3个等号对应展开的3个交叉项中，(1,2交叉和1,3交叉分别对j,i求和可得0,2,3交叉对i,j任意一个求和即得0)
+$$\begin{align}
+S_T&amp;=\frac{1}{n}\sum_{i,j}(\bar{x}-x_{ij})^2= \frac{1}{n}\sum_{i,j}(x_{ij}-x_{i:}-x_{j:}+\bar{x}+x_{i:}-x_{ij}+x_{:j}-x_{ij})^2\\
+&amp;=\frac{1}{n}\sum_{i,j}(x_{ij}-x_{i:}-x_{j:}+\bar{x})^2+(x_{i:}-x_{ij})^2+(x_{:j}-x_{ij})^2\\
+&amp;=\frac{1}{n} \sum_{i,j}(x_{ij}-x_{i:})^2+s\sum_i(x_{i:}-x_{ij})^2+r\sum_j(x_{:j}-x_{ij})^2\\
+&amp;:=S_E+S_A+S_B  \tag3
+\end{align}$$</p>
+<p>其中$S_A,S_B$分别表示A,B下观测值的平均，故分别称为因素A和B的平方和. 而$S_E$为噪声平方和(随机误差). 同理可推出若原假设$H_1,H_2$成立，则分别由服从卡方分布，有：
+$$F_A=\frac{S_A/(r-1)}{S_E/(r-1)(s-1)}\sim F(r-1,(r-1)(s-1))\\F_B=\frac{S_B/(s-1)}{S_E/(r-1)(s-1)}\sim F(s-1,(r-1)(s-1)) \tag4$$
+故只需对两个F统计量进行检验，有<strong>无交互效应双因素方差分析表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方差来源</th>
+<th style="text-align:center">平方和</th>
+<th style="text-align:center">自由度</th>
+<th style="text-align:center">均方</th>
+<th style="text-align:center">F比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">因素A</td>
+<td style="text-align:center">$S_A$</td>
+<td style="text-align:center">r-1</td>
+<td style="text-align:center">$\frac{S_A}{r-1}$</td>
+<td style="text-align:center">$S_A/S_E$</td>
+</tr>
+<tr>
+<td style="text-align:center">因素B</td>
+<td style="text-align:center">$S_B$</td>
+<td style="text-align:center">s-1</td>
+<td style="text-align:center">$\frac{S_B}{s-1}$</td>
+<td style="text-align:center">$S_B/S_E$</td>
+</tr>
+<tr>
+<td style="text-align:center">误差</td>
+<td style="text-align:center">$S_E$</td>
+<td style="text-align:center">(r-1)(s-1)</td>
+<td style="text-align:center">$\frac{S_E}{(r-1)(s-1)}$</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">总和</td>
+<td style="text-align:center">$S_T$</td>
+<td style="text-align:center">rs-1</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="22-有交互效应的情形">2.2 有交互效应的情形</h4>
+<p>即假设两个科代表间存在交涉，发语文套卷和数学周练的时间的两个随机变量并不独立，从而$\gamma_{ij}\neq0$ (此时有$S_T=S_A+S_B+S_{AB}+S_E$，设每个因素组合$(A_i,B_j)$均有t个采样，则：
+$$S_E=\sum_{ijk}(x_{ijk}-\bar x)^2,S_A=st\sum_i(x_{i::}-\bar x)^2,S_B=rt\sum_j(x_{:j:}-\bar x)^2 \\
+S_{AB}=t\sum_{i,j}(x_{ij:}-x_{i::}-x_{:j:}+\bar x)^2 \tag5$$其中$S_A,S_B,S_{AB},S_E$各称为因素A、B的平方和(行、列间平方和)、交互作用平方和(格间平方和)和随机误差平方和. 同理可证明$H_2$成立时，
+$$F_{AB}=\frac{S_{AB}/(r-1)(s-1)}{S_E/rs(t-1)}\sim F((r-1)(s-1),rs(t-1)) \tag6$$
+从而有<strong>有交互效应双因素方差分析表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方差来源</th>
+<th style="text-align:center">平方和</th>
+<th style="text-align:center">自由度</th>
+<th style="text-align:center">均方</th>
+<th style="text-align:center">F比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">因素A</td>
+<td style="text-align:center">$S_A$</td>
+<td style="text-align:center">r-1</td>
+<td style="text-align:center">$\frac{S_A}{r-1}$</td>
+<td style="text-align:center">$S_A/S_E$</td>
+</tr>
+<tr>
+<td style="text-align:center">因素B</td>
+<td style="text-align:center">$S_B$</td>
+<td style="text-align:center">s-1</td>
+<td style="text-align:center">$\frac{S_B}{s-1}$</td>
+<td style="text-align:center">$S_B/S_E$</td>
+</tr>
+<tr>
+<td style="text-align:center">交互效应</td>
+<td style="text-align:center">$S_{AB}$</td>
+<td style="text-align:center">(r-1)(s-1)</td>
+<td style="text-align:center">$\frac{S_{AB}}{(r-1)(s-1)}$</td>
+<td style="text-align:center">$S_{AB}/S_E$</td>
+</tr>
+<tr>
+<td style="text-align:center">误差</td>
+<td style="text-align:center">$S_E$</td>
+<td style="text-align:center">rs(t-1)</td>
+<td style="text-align:center">$\frac{S_E}{rs(t-1)}$</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">总和</td>
+<td style="text-align:center">$S_T$</td>
+<td style="text-align:center">rst-1</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="23-附注">2.3 附注</h4>
+<ol>
+<li>在实际操作中，每个因素组合的样本数相同(即<strong>均衡检验</strong>)和不同时(<strong>非均衡检验</strong>)对应api可能不同，但上述分析表仍适用.</li>
+<li>对于有很多因素或某一因素的可能取值很多时，不可能将每种因素组合都取到足够的样本(<strong>全面试验</strong>)，此时可用<strong>正交表</strong>的方法. 比如有3个因素A,B,C，每个因素有3种可能取值，则可只做9次实验使得<strong>9次实验中若只看A，则A的3种可能取值都被取了3次</strong>，以此类推可用9次实验替代至少$3^3$次实验.</li>
+<li><strong>关系强度</strong> 在单因素ANOVA中，定义因素A与总体的关系强度$R_A=\sqrt{\frac{S_A}{S_T}}$，双因素的情形同理.</li>
+<li>卡方分布也可检验两个因素之间的相关性，但是处理的数据局限在两个因素不同组合情况的频数，当给出的数据从离散的频数到连续取值时，需使用ANOVA验证相关性.</li>
+</ol>
+<h4 id="24-多重比较">2.4 多重比较</h4>
+<p>若ANOVA拒绝了$H_0$，即因素A出现强相关性，那么需要进行<strong>多重比较</strong>，即进一步研究因素A哪些总体均值存在明显差异，可采用<strong>q检验(全面比较)、t检验(有显著差异均值间比较)等</strong>方法.下面以t检验的变形LSD方法为例说明：</p>
 <ul>
-<li>Stochastic GD. 随机梯度下降. GD使用全部样本，即$\nabla W=-\alpha\sum_if(x_i)$，而SGD每次只用一个或几个样本，即$\nabla W=-\alpha f&rsquo;(x_i)$</li>
-<li>GD with momentum. 动量梯度下降. $\nabla x = -\alpha v, v^{t+1}=\beta v^t+(1-\beta)\nabla f(x^t)$，其中$\alpha,\beta$为学习率和遗忘率(摩擦阻力)</li>
+<li>提出假设$H_0:\mu_1=\mu_k$(若因素A有r种可能取值，则需做$C_n^2$次检验来找出有显著差异的)</li>
+<li>计算$\mu_i-\mu_j$, Fisher证明了$t=\frac{\mu_i-\mu_j}{\sqrt{S_E({1\over n_i}+{1\over n_j})}}\sim t(n-r)$($S_E$为组内误差方差, n,r含义同第一节)，故求解统计量t</li>
 </ul>
-<h3 id="2-硬分类线性判别分析fisher算法">2 硬分类：线性判别分析Fisher算法</h3>
-<p>Fisher算法的核心是<strong>降维</strong>，在原特征空间中找到一条直线，将所有样本点投影到该直线上使得存在一个分割点 <strong>(阈值Threshold)</strong> 将两类点完全分开.</p>
-<p>设超平面为$Y=W^TX$(X的最后一维为常数1，这使得该超平面是线性流形)，则其法向量为$W^T$，由于同个超平面有无穷多个$W$，故令$||W||=1$. 由内积的几何意义，样本点$X$在该法向量上的坐标为$W^TX=|W^T||X||\cos&lt;W,X&gt;|=|X||\cos&lt;W,X&gt;|$.</p>
-<p>若要该投影直线的位置足够好，则需使<strong>类内尽可能接近，类间尽可能远离</strong>. 对所有投影点Z和被分类为第j类的样本投影点$Z_j$有均值和有偏方差估计：$$Z_i=W_i^TX_i, \bar Z ={1\over N}\sum_i^N W_i^TX_i,S_Z={1\over N}\sum_i^N (Z-\bar Z)(Z-\bar Z)^T \tag{2}$$
-$$Z_j = W_i^TX_j, \bar Z_j ={1\over N_j}\sum_i^{N_j} W_i^TX_i,S_j={1\over N_j}\sum_i^{N_j} (Z_j-\bar Z_j)(Z_j-\bar Z_j)^T (j=0,1)\tag{3}$$</p>
-<p>由于要求$\max {\bar Z_0-\bar Z_1}, \min{S_0+S_1}$，故合并转化为优化问题$$\max J(W)=\frac{(\bar Z_0-\bar Z_1)^2}{S_0+S_1} \tag{4}$$</p>
-<p>设$S_{Cj}$为第j类的类间有偏方差，进一步对分子分母化简有：
-$$\begin{align}
-(\bar Z_0-\bar Z_1)^2&amp;= (\sum_{X_i\in C_1}\frac{W^TX_i}{N_1}-\sum_{X_i\in C_2}\frac{W^TX_i}{N_2}   )^2\\
-&amp;=(W^T(\bar X_1-\bar X_2))^T(W^T(\bar X_1-\bar X_2)) \\
-&amp;=(W^T(\bar X_1-\bar X_2))(W^T(\bar X_1-\bar X_2))^T \\
-&amp;= W^T(\bar X_1-\bar X_2)(\bar X_1-\bar X_2)^TW \\
-&amp;= W^TS_{between}W
-\end{align}
-\tag5
-$$
-$$\begin{align}
-S_0 &amp;= \frac{1}{N_0}\sum_i^{N_0}(W^TX_i-\frac{1}{N_0}\sum_j^{N_0}W^TX_j)(W^TX_i-\frac{1}{N_0}\sum_j^{N_0}W^TX_j)^T
-\\&amp;=  \frac{1}{N_0}\sum_i^{N_0}(W^TX_i-W^T\bar X_0)(W^TX_i-W^T\bar X_0)^T
-\\&amp;= W^T(\frac{1}{N_0}\sum(X_i-\bar{X_0})(X_i-\bar{X_0})^T)W = W^TS_{C0}W\end{align}\tag6$$
-记$S_{within}=S_w=S_{C0}+S_{C1}$，整理得：
-$$J(W)=\frac{W^TS_bW}{W^TS_wW}=W^TS_bW(W^TS_wW)^{-1} \tag7$$</p>
-<p>再对W求导$\frac{\partial }{\partial W}(W^TS_bW(W^TS_wW)^{-1}) =0$，有：
-$$
-\begin{align}
-\Rightarrow  &amp; (S_b+S_b^T)W(W^TS_wW)^{-1}-W^TS_bW(W^TS_wW)^{-2}(S_W+S_W^T)W=0 \\
-\Rightarrow  &amp; (S_b+S_b^T)W=W^TS_bW(W^TS_wW)^{-2}(S_W+S_W^T)W(W^TS_wW) \tag8
-\end{align}$$
-注意到存在公因式W，而只要求出其中一个W即可，故可令W的系数相等，可化为一个Sylvester方程，其中A、B为常矩阵(当W确定时). 而Sylvster的数值解可由Bartels-Stewart Algo求得，复杂度O(n³).
-$$
-\begin{align}
-\Rightarrow  &amp; (S_b+S_b^T)W(W^TS_wW)=(S_w+S_w^T)W(W^TS_bW)\\
-\Rightarrow  &amp;  (S_b+S_b^T)(W^TS_wW)=(S_w+S_w^T)(W^TS_bW)\\
-\Rightarrow  &amp; AW^TS_w=BW^TS_b,A=S_b+S_b^T,B=S_w+S_w^T \\
-\Rightarrow  &amp;W^TS_wS_b^{-1}-A^{-1}BW^T=0 \tag9
-\end{align}$$</p>
-<h3 id="3-软分类概率判别模型logistics回归">3 软分类：(概率判别模型)Logistics回归</h3>
-<p>设激活函数$\sigma(z)=\frac{1}{1+e^{-z}}$，定义$p_1=P(y=1|X)=\sigma(W^TX)=\frac{1}{1+e^{-z}}$$p_0=P(y=0|X)=1-\sigma(W^TX)=\frac{e^{-z}}{1+e^{-z}}$，可将二者用一个式子合并表达：
-$$P(y|X)=p_0^yp_1^{1-y}\tag{10}$$</p>
-<p>作极大似然估计MLE，解出W：</p>
-<p>$$\begin{align}
-W = &amp; \arg\max_w\log P(Y|X) \\
-= &amp; \arg\max_w \log\prod_i^NP(Y_i|X_i)= \arg\max_w \sum_i^N\log P(Y_i|X_i)\\
-= &amp; \arg\max_w \sum_i^N(y_i\log p_0(W)+(1-y_i)\log(1-p_0(W))\tag{11}
-\end{align}$$</p>
-<h3 id="4-软分类概率生成模型gaussian-discriminant-analysis">4 软分类：(概率生成模型)Gaussian Discriminant Analysis</h3>
-<p>根据Bayes公式，$P(Y|X)\alpha P(X|Y)P(Y)$，一般后验很难求得，故转化为求似然P(X|Y)和先验P(Y). 高斯判别分析基于分类概率服从两个标准差相同的正态分布的假设：
-$$P(X|y=0)\sim N(\mu_0,\sigma^2),P(X|y=1)\sim N(\mu_1,\sigma^2)\tag{12}$$</p>
-<p>将后验分布转化为似然和先验的两项乘积，利用对数将其拆开：
-$$y = \arg\max P(y|X)=\arg\max_yP(y)P(X|y) \tag{13}$$</p>
-<p>再对其求极大似然，其中参数$\theta=(\mu_0,\mu_1,\sigma,p)$，p为y服从的二项分布参数，有：
-$$\begin{align}
-l(\theta) &amp;= \log \prod_i^NP(x_i,y_i) = \sum _i^N\log(x_i|y_i)+\log P(y_i) \\
-&amp;= \sum_i^N\log N(\mu_0,\sigma^2)^{y_i} +\log  N(\mu_1,\sigma^2)^{1-y_i}+\log p^{y_i}(1-p)^{1-y_i}
-\tag{14}
-\end{align}$$
-接下来对四个参数分别求偏导且令为零，解得相应的值.
-$$\begin{align}
-\frac{\partial l(\theta )}{\partial p} &amp;= \sum\frac{\partial }{\partial p}(y_i\log p+(1-y_i)\log(1-p))
-\\&amp;= \sum \frac{y_i}{p}-\frac{1-y_i}{1-p}=0<br>
-\\&amp;\Rightarrow \sum(1-p)y_i+(y_i-1)p=\sum y_i-p=0
-\\&amp;\Rightarrow p=\frac{\sum_i^N y_i}{N}  \tag{15}
-\end{align}$$</p>
-<p>$$\begin{align}
-\frac{\partial l(\theta )}{\partial \mu_0} &amp;= \sum\frac{\partial }{\partial  \mu_0}\log(\frac{1}{(2\pi)^\frac{p}{2} \sqrt[]{ |\Sigma|}}\exp{-\frac{1}{2}(X-\mu_0)\Sigma^{-1}(X-\mu_0)^T } )
-\\&amp;\Rightarrow \sum\frac{\partial }{\partial  \mu_0}-\frac{1}{2}(X-\mu_0)\Sigma^{-1}(X-\mu_0)^T\\
-&amp;=\sum\frac{\partial }{\partial  \mu_0}-\frac{1}{2}(X\Sigma^{-1}X^T-\mu_0\Sigma^{-1}X^T-X\Sigma^{-1}\mu_0^T+\mu_0\Sigma^{-1}\mu_0)
-\\&amp;\Rightarrow \sum -2\Sigma^{-1}\mu_0x_i+(\Sigma^{-1}+(\Sigma^{-1})^T)\mu_0=0<br>
-\\&amp;\Rightarrow \sum y_i\Sigma^{-1}(\mu_0-x_i)=0\Rightarrow\sum y_i(\mu_0-x_i)=0
-\\&amp;\Rightarrow  \mu_0=\frac{\sum y_ix_i}{\sum y_i}=\frac{\sum y_ix_i}{N_0} \tag{16}
-\end{align}
-$$
-同理有：
-$$\mu_1=\frac{\sum y_ix_i}{\sum y_i}=\frac{\sum y_ix_i}{N_1} \tag{17}
-$$
-由矩阵求导公式$$$$</p>
+<p><strong>Notes.</strong> LSD只适用于<strong>单因素</strong>的<strong>取值不超过3</strong>时<strong>原假设被拒绝</strong>的情况. 任何多重比较的核心都是控制一型错误，如LSD的显著性水平$\alpha=0.05$，当有3个因素时，需做3次比较，则犯错率为$1-(1-\alpha)^3=0.143$，而做4次时为$1-(1-\alpha)^6=0.265$，显著性过高.</p>
+<h2 id="3-t检验">3. T检验</h2>
+<h2 id="4-多重高斯分布">4. 多重高斯分布</h2>
               
 
 
@@ -408,7 +555,7 @@ $$
                     
   <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
 
-  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/cluster/">Cluster</a>
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/stastics/">Stastics</a>
 
                   </div>
                 
@@ -421,7 +568,7 @@ $$
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" data-tooltip="[ML]Stastics Analysis Primer III: ANOVA" aria-label="NEXT: [ML]Stastics Analysis Primer III: ANOVA">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -429,7 +576,7 @@ $$
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" data-tooltip="[ML]Stastics Analysis Primer I: Hypotheosis Test" aria-label="PREVIOUS: [ML]Stastics Analysis Primer I: Hypotheosis Test">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mllinear-classification/" data-tooltip="[ML]Linear Classification" aria-label="PREVIOUS: [ML]Linear Classification">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -447,19 +594,19 @@ $$
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -490,9 +637,9 @@ $$
     </div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mllinear-classification\/';
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mlstastics-analysis-primer-iii-anova\/';
         
-          this.page.identifier = '\/2023\/07\/mllinear-classification\/'
+          this.page.identifier = '\/2023\/07\/mlstastics-analysis-primer-iii-anova\/'
         
       };
       (function() {
@@ -528,7 +675,7 @@ $$
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" data-tooltip="[ML]Stastics Analysis Primer III: ANOVA" aria-label="NEXT: [ML]Stastics Analysis Primer III: ANOVA">
+            <a class="post-action-btn btn btn--disabled">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -536,7 +683,7 @@ $$
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/" data-tooltip="[ML]Stastics Analysis Primer I: Hypotheosis Test" aria-label="PREVIOUS: [ML]Stastics Analysis Primer I: Hypotheosis Test">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mllinear-classification/" data-tooltip="[ML]Linear Classification" aria-label="PREVIOUS: [ML]Linear Classification">
           
               <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
               <i class="fa fa-angle-right"></i>
@@ -554,19 +701,19 @@ $$
     </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Facebook" aria-label="Share on Facebook">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Facebook" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Twitter" aria-label="Share on Twitter">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Twitter" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
     
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mllinear-classification/" title="Share on Linkedin" aria-label="Share on Linkedin">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" title="Share on Linkedin" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
       </li>
@@ -597,19 +744,19 @@ $$
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmllinear-classification%2F" aria-label="Share on Facebook">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iii-anova%2F" aria-label="Share on Facebook">
           <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmllinear-classification%2F" aria-label="Share on Twitter">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iii-anova%2F" aria-label="Share on Twitter">
           <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmllinear-classification%2F" aria-label="Share on Linkedin">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iii-anova%2F" aria-label="Share on Linkedin">
           <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
         </a>
       </li>

@@ -6,20 +6,11 @@
     <description>Recent content in Tags on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Cluster</title>
-      <link>https://Supradax.github.io/tags/cluster/</link>
-      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/cluster/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Tue, 11 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ML</title>
       <link>https://Supradax.github.io/tags/ml/</link>
-      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/ml/</guid>
       <description></description>
@@ -28,9 +19,18 @@
     <item>
       <title>Stastics</title>
       <link>https://Supradax.github.io/tags/stastics/</link>
-      <pubDate>Tue, 13 Jun 2023 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/stastics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cluster</title>
+      <link>https://Supradax.github.io/tags/cluster/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/cluster/</guid>
       <description></description>
     </item>
     

@@ -690,8 +690,51 @@ $$P\left(o_{1:t+1},i_{t+1}=q_j\middle|\theta\right)=\sum_{k=1}^{N}{P\left(o_{1:t
 <p>对状态转移方程，由于只指定$i_{t-1}$，没有指定$i_t$，由于Markov假设，只需对$i_t$作全概率：
 $$P\left(o_{t:T}\middle| i_{t-1}=q_i,\theta\right)=\sum_{j=1}^{N}{P(o_{t+1:T}|i_t=q_j,\theta)P(i_t=q_j|i_{t-1}=q_i)P(o_t|i_t=q_j)} \tag{24}$$</p>
 <p>这等价于：$\beta_{t-1}\left(i\right)=\sum_{j=1}^{N}{\beta_t\left(i\right)a_{ij}b_{j,o_t}} \tag{25}$
-初始状态：从迭代过程出发，令\beta_T\left(i\right)=1而非零，否则整个\beta数组全为零.</p>
+初始状态：从迭代过程出发，令$\beta_T\left(i\right)=1$而非零，否则整个\beta数组全为零.</p>
 <h3 id="423-学习问题baum-welch算法">4.2.3 学习问题：Baum-Welch算法</h3>
+<p>利用EM算法，在给定先验$P(Z|X,θ^t)$下求MLE：$\theta^{t+1}=\arg{\max_\theta{\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{P\left(X,Z\middle|\theta\right)}}}}$
+HMM学习问题，给出的样本X是观测序列O，对应的Z是隐状态序列I，从而为
+$\theta^{t+1}=\arg{\max_\theta{\sum_{I}{P(O|I,\theta^t)\log{P(O,I|\theta)}}}}  \tag{26}$
+接下来代入Q函数，$Q\left(\theta,\theta^t\right)=\sum_{I}{P(O|I,\theta^t)}\log{P(O,I|\theta)}$，再代入两项概率的值$P(O,I|\theta)$，得(27)并最大化之.
+$$Q\left(\theta,\theta^t\right)=\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)}\log{\left(\pi\left(i_0\right)\prod_{t=1}^{T}{a_{t-1,t}b_{i_t,o_t}}\right)}\\=\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)\left(\log{\pi\left(i_0\right)}+\sum_{t=1}^{T}\log{a_{t-1,t}}+\sum_{t=1}^{T}\log{b_{i_t,o_t}}\right)} \tag{27}$$</p>
+<p>首先求$\pi(i)$，记$\pi_i:=\pi(i)$,存在约束$\sum_{i=1}^{N}{\pi\left(i\right)=1}$，从而有：
+$$0=\frac{d}{d\pi_i}\left(\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)\log{\pi_i}}-\lambda\left(\sum_{i=1}^{N}{\pi_i-1}\right)\right)\\
+0=\frac{1}{\pi_i}\sum_{i_{1:T}}{P\left(O\middle| I,\theta^t\right)}-\lambda
+\tag{28}$$
+从而$\lambda\pi_i=\sum_{i_{1:T}}{P\left(O\middle| i_0=v_i,\theta^t\right)}$,对所有的$\pi_i$两边求和，得：$\lambda=\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)}$，因此：$$\pi_i=\frac{\sum_{i_{1:T}}{P\left(O\middle| i_0=v_i,\theta^t\right)}}{\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)}} \tag{29}$$</p>
+<p>而$P\left(O\middle| I,\theta^t\right)$由独立性假设，可直接写为. $\pi^t\left(i_0\right)\prod_{t=1}^{T}{a_{t-1,t}b_{i_t,o_t}}$($\pi^t$和a,b都是上一轮求出的参数). 利用前向后向迭代量，有：
+$$P\left(O\middle| i_0=v_i,\theta^t\right)=\frac{P(i_0=v_i,O|\theta^t)}{P(i_0=v_i|\theta^t)}=\frac{\pi^t\left(i\right)\sum_{j=1}^{N}{\alpha_T(j)}\ }{\pi^t(i)} \tag{30}$$
+这里$\alpha_T(j)$由于指定首个隐状态，从而需要从第一项开始迭代，而不是第零项. 从而初始值需改为$\alpha_1\left(j\right)=a_{i,j}$.</p>
+<p>再求$a_{ij}$：满足行和为1的约束，故有：
+$$0=\frac{d}{da_{ij}}\left(\sum_{i_{0:T}}{P\left(O\middle| I,\theta^t\right)\sum_{t=1}^{T}\log{a_{t-1,t}}}-\lambda\left(\sum_{k=1}^{N}{a_{ik}-1}\right)\right) \tag{31}$$</p>
+<p>注意第一个概率是给定的先验，不含变量$a_{ij}$. 若样本里不存在$v_i\rightarrow v_j$的过程，那么整项为零.这里只需统计出现这一过程的有多少个，即：
+$$\frac{1}{a_{ij}}\sum_{i_{0:T}}{P\left(O\middle| i_{t-1}=i,i_t=j,\theta^t\right)}-\lambda=0 \tag{32}$$</p>
+<p>从而有$\lambda a_{ij}=\sum_{i_{0:T}}{P\left(O\middle| i_{t-1}=i,i_t=j,\theta^t\right)}$(此处$\theta^t$和$i_t$的t不是同个含义). 再<strong>两边对j求和</strong>，得：$\lambda=\sum_{i_{0:T}}{P\left(O\middle| i_t=i,\theta^t\right)}$</p>
+<p>可以看到前向算法，实质在求$\sum_{i_{0:T}}{P(O|i_0,\theta^t)}$. 现将求$\pi$的时候确定初值的情况再推广，即先用最开始的$\alpha$先求出$P(O,i_t|\theta^t)$对$i_t$的概率分布，然后以这个概率为初始值，变成在求$\pi$的情况.也就是$\alpha_t\left(i_t\right)\beta_t(i_t)$，这里只有$\alpha_t$对当前时刻观测值有要求，所以是合法的.</p>
+<p>再看如何求$\sum_{i_{0:T}}{P\left(O\middle| i_{t-1}=i,i_t=j,\theta^t\right)}$ 即使同一个序列出现多次从i\rightarrow  j，也可以重复计数，因为原式中$\log{a_{ij}}$的i和j本身有区分时间的. 利用前后向加上中间的条件概率，将其连接为完整序列(先跑一遍前向算法到t，再跑一遍后向算法到t+1，即$\alpha_t\left(i\right)\beta_{t+1}\left(j\right)a_{ij}b_{j,o_{t+1}}$，此处$\alpha$对t时刻观测值有要求，β是没有的，从而需要状态转移的同时再观测一次)，即：$$a_{ij}=\frac{\sum_{i_{0:T}}{P\left(O\middle| i_{t-1}=i,i_t=j,\theta^t\right)}}{\sum_{i_{0:T}}{P\left(O\middle| i_t=i,\theta^t\right)}}=\frac{\sum_{t=0}^{T-1}{\alpha_t\left(i\right)\beta_{t+1}\left(j\right)a_{ij}b_{j,o_{t+1}}}\ }{\sum_{i_{0:T}}{\alpha_t\left(i_t\right)\beta_t(i_t)}} \tag{34}$$</p>
+<p>同理$b_{ij}$的行和也为1，但是必须o_t=j这个j一定要和O相同，从而：
+$$b_{ij}=\frac{\sum_{i_{0:T}}{P\left(O\middle| i_t=i,o_t=j,\theta^t\right)I(O_t=j)}}{\sum_{i_{0:T}}{P\left(O\middle| i_t=i,\theta^t\right)}}\tag{35}$$</p>
+<p>分母求解和$a_{ij}$相同，分子求解这里因此要求在过i_t=i的基础上，再加上原有参数 b_{ij}^t\ 实现过渡，故为：
+$$\sum_{t=0}^{T}{\alpha_t\left(i\right)\beta_t\left(i\right)b_{ij}^t} \tag{36}$$</p>
+<p>由于此处会导致一些值因为没有而概率变成零，一种是<strong>Laplace平滑化</strong>，另一种是把所有序列学习然后求均值（<strong>加数据</strong>）.</p>
+<p>若是<strong>有监督</strong>的，即同时有观测序列和隐序列，可用MLE，即用<strong>频数</strong>反映. 即计数结构￥$v_i\rightarrow v_j,v_i\rightarrow o_i$和各个初值出现次数，归一化得到$A,B,\pi$</p>
+<h3 id="424-decoding问题viterbi算法">4.2.4 Decoding问题(Viterbi算法)</h3>
+<p>给出观测序列和模型参数，问：最有可能的隐状态序列是谁？</p>
+<p>实质是DP问题，可以维护一个t时刻，隐状态为i的最大可能能的概率值：
+$$\delta_t\left(i\right)=\max{P(o_{1:t},i_{1:t-1},i_t=i|\theta)} \tag{37}$$
+状态转移方程：枚举前一个状态j，找一个转移过来概率最大的. 每次转移，记录对应的j，从而保留路径，便于找到该隐状态序列.
+$$\delta_t\left(i\right)=\max_j{P\left(o_{1:t-1},i_{1:t-2},i_{t=1}=j\middle|\theta\right)a_{ji}b_{i,o_t}}=\max_j{\delta_{t-1}\left(j\right)a_{ji}b_{i,o_t}} \tag{38}$$</p>
+<p>此外，计算别的最有可能的状态也可用类似方法.
+1.滤波$p(i_t|o_{1:t},\theta)$：online，跑一遍$\alpha$，求$i_t=\arg{\max_j{\alpha_t(j)}}$</p>
+<ol start="2">
+<li>
+<p>预测$p(i_{t+1}|o_{1:t},\theta)$：online，跑一遍$\alpha$，求$i_{t+1}=k,k=\arg{\max_{j,k}{\alpha_t\left(j\right)a_{jk}}}$(无需考虑b的状态，因为无观测结果，而若预测最有可能的观测值，那么为$i_{t+1}=k,o_{t+1}=l$;$k,l=\arg{\max_{j,k,l}{\alpha_t\left(j\right)a_{jk}b_{kl}}})$</p>
+</li>
+<li>
+<p>平滑化$p(i_t|o_{1:T},\theta)$: offline，跑一遍$\alpha,\beta$，求$i_t=\arg{\max_j{\alpha_t\left(j\right)\beta_t(j)}}$</p>
+</li>
+</ol>
+<p><strong>Notes.</strong> 此处平滑化和滤波不是求最有可能的序列，而是当前状态最有可能的值.各个状态概率乘积是最有可能序列的概率上界.</p>
 <h3 id="43-线性动态系统linear-dynamic-system-kalman-filtering">4.3 线性动态系统(Linear Dynamic System: Kalman Filtering)</h3>
 <h3 id="431-高斯分布的性质">4.3.1 高斯分布的性质</h3>
 <p><div class="alert no-icon ">
@@ -736,8 +779,8 @@ $$\left(A\ C\right)\left(\begin{matrix}\Sigma_X&amp;\\&amp;0\end{matrix}\right)\
 <li>若A可逆，则称$\Delta_A:=D-CA^{-1}B$是A关于M的Schur补
 这个概念实际上是在求线性方程组，把所在位置化为单位阵的过程量.容易验证：
 $$\begin{array}{l}
-{\left[\begin{array}{cc}\mathbf{I} &amp; 0 \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{ll}\mathbf{A} &amp; \mathbf{B} \\ \mathbf{C} &amp; \mathbf{D}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\ \mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]} \\{\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]} \end{array} \tag{26}$$
-利用该性质，若Schur补也可逆，则有该求逆方法：$${\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]^{-1}=\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A}^{-1} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}^{-1}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]}  \tag{27}$$
+{\left[\begin{array}{cc}\mathbf{I} &amp; 0 \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{ll}\mathbf{A} &amp; \mathbf{B} \\ \mathbf{C} &amp; \mathbf{D}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\ \mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]} \\{\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]} \end{array} \tag{39}$$
+利用该性质，若Schur补也可逆，则有该求逆方法：$${\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]^{-1}=\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A}^{-1} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}^{-1}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]}  \tag{40}$$
 这是因为$\begin{array}{l}{\left[\begin{array}{cc}\mathbf{I} &amp;-\mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]=\mathbf{I}}\end{array}$.</li>
 </ul>
 <p>为证明命题16、17，先通过Schur补定义高斯分布的一些量：
@@ -745,13 +788,13 @@ $$C:=\left(-\Sigma_{ba}\Sigma_{aa}^{-1}\ \ I\right)，\Sigma:=
 \begin{bmatrix}\Sigma_{ba}  &amp; \\ \Sigma_{bb}\end{bmatrix} \\
 x_{b·a}:=C\left( \begin{matrix}x_a\\ x_b\end{matrix} \right)
 μ_{b·a}:=C\left( \begin{matrix}\mu_a\\ \mu_b\end{matrix} \right)
-Σ_{bb·a}:= C\left( \begin{matrix}\Sigma_{aa}\\ \Sigma_{bb}\end{matrix} \right) \tag{27}$$</p>
+Σ_{bb·a}:= C\left( \begin{matrix}\Sigma_{aa}\\ \Sigma_{bb}\end{matrix} \right) \tag{41}$$</p>
 <p>舒尔补的条件期望：
 $E(x_{b·a}|x_a)=E(x_b|x_a)-E(\Sigma_{ba}\Sigma_{aa}^{-1}x_a|x_a)=E(x_b)-E(\Sigma_{ba}|x_a)\Sigma_{aa}^{-1}x_a$
 第二个等号是由于$x_b,x_a$iid，后者由于为条件，故为常量，可直接提出去
 $$E\left(\Sigma_{ba}\middle| x_a\right)=E\left(\left(x_b-\mu_b\right)^T\left(x_a-\mu_a\right)\middle| x_a\right)=E\left(\left(x_b-\mu_b\right)^T\middle| x_a\right)\left(x_a-\mu_a\right)\\=E\left(x_b-\mu_b\right)\left(x_a-\mu_a\right)=E(\Sigma_{ba})$$，从而：
-$$E\left(x_b\middle| x_a\right)=\mu_{b·a}+\Sigma_{ba}\Sigma_{aa}^{-1}x_a \tag{28}$$</p>
-<p>同理，对$D[x_b|x_a]$作相同计算，得：$$\ D\left(x_b\middle| x_a\right)=C\Sigma^{-1}C^T=Σbb·a \tag{29}$$</p>
+$$E\left(x_b\middle| x_a\right)=\mu_{b·a}+\Sigma_{ba}\Sigma_{aa}^{-1}x_a \tag{42}$$</p>
+<p>同理，对$D[x_b|x_a]$作相同计算，得：$$\ D\left(x_b\middle| x_a\right)=C\Sigma^{-1}C^T=Σbb·a \tag{43}$$</p>
 <p><div class="alert no-icon ">
   <p><strong>命题16</strong> 若$p\left(X\right),p(Y|X)$服从正态分布，若Y和X的关系是可逆仿射的，则$p\left(X,Y\right),p\left(Y\right),p(X|Y)$也服从正态分布</p>
 </div>
@@ -768,7 +811,7 @@ p\left(X\middle| Y\right)=$$N(\mu+\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\r
 <strong>pf.</strong> 由命题16，可逆仿射后仍为正态，两个正态求和仍为正态，因此知$p\left(X\middle| Y\right),p(Y)$都是正态分布，故只需求出两个充分统计量
 由$p\left(x,y\right)=p\left(x\right)p\left(y\middle| x\right)$，知实质上$y=Ax+b+\epsilon$，其方差$L^{-1}$由噪声贡献. 因此
 $EY=AEX+b+0=A\mu+b\\
-DY=D\left(AX\right)+D\epsilon=A\Lambda^{-1}A^T+L^{-1} \tag{30}$</p>
+DY=D\left(AX\right)+D\epsilon=A\Lambda^{-1}A^T+L^{-1} \tag{44}$</p>
 <p>记$Z=\left(X\ Y\right)^T$，从而$$\begin{align}Cov\left(X,Y\right)&amp;=E\left(X-EX\right)\left(Y-EY\right)^T\\&amp;=E\left(X-\mu\right)\left(AX-A\mu+\epsilon\right)^T\\&amp;=E\left(X-\mu\right)\left(X-\mu\right)^TA^T+E\left(X-\mu\right)E\epsilon\\&amp;=\Lambda^{-1}A^T+0=\Lambda^{-1}A^T
 \end{align}$$
 注意到：$$p(Z)=N\left ( \begin{pmatrix}
@@ -777,40 +820,40 @@ DY=D\left(AX\right)+D\epsilon=A\Lambda^{-1}A^T+L^{-1} \tag{30}$</p>
 \Lambda^{-1} &amp;\Lambda^{-1}A^T \\
 \Lambda^{-1}A^T&amp; A\Lambda^{-1}A^T+L^{-1}
 \end{pmatrix} \right ) $$</p>
-<p>由Schur补，对应矩阵$$C=\left(-\Lambda^{-1}A^T\left(A\Lambda^{-1}A^T+L^{-1}\right)^{-1}\ \ I\right) \tag{31}$$ 由关于Schur补的推理，得：
+<p>由Schur补，对应矩阵$$C=\left(-\Lambda^{-1}A^T\left(A\Lambda^{-1}A^T+L^{-1}\right)^{-1}\ \ I\right) \tag{45}$$ 由关于Schur补的推理，得：
 $$E\left(X\middle| Y\right)C\begin{pmatrix}
 A\mu+b \\ \mu
 \end{pmatrix}
 =\mu+\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}\left(Y-A\mu-b\right)\\ D\left(X\middle| Y\right)=C\begin{pmatrix}
 A\Lambda^{-1}A^T+L^{-1}\\\Lambda^{-1}
-\end{pmatrix}=\Lambda^{-1}-\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}A\Lambda^{-1} \tag{32}$$</p>
+\end{pmatrix}=\Lambda^{-1}-\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}A\Lambda^{-1} \tag{46}$$</p>
 <p><strong>Notes</strong> 一般把$\Lambda:=\Sigma^{-1}$，称为<strong>精度矩阵</strong></p>
 <h3 id="432-kalmon滤波">4.3.2 Kalmon滤波</h3>
-<p>在原有概率图的基础上，假定条件概率满足：$$\epsilon\sim N\left(0,Q\right),\delta\sim N(0,R) \\ z_t=Az_{t-1}+B+\epsilon,\ x_t=Cz_t+D+\delta \tag{33}$$
+<p>在原有概率图的基础上，假定条件概率满足：$$\epsilon\sim N\left(0,Q\right),\delta\sim N(0,R) \\ z_t=Az_{t-1}+B+\epsilon,\ x_t=Cz_t+D+\delta \tag{47}$$
 其初值条件为$z_1\sim N(\mu_1,\Sigma_1)$，可知该模型参数为$\theta:=(A,B,C,D,Q,R,\mu_1,\Sigma_1)$.</p>
 <p>接下来研究滤波和预测问题.这里$P(x_{1:t})$是可求常量，然后沿概率图递推，第四个等号运用Markov条件：
 $P\left(z_t\middle| x_{1:t}\right)=\frac{P(z_t,x_{1:t})}{P(x_{1:t})}=\frac{1}{C}P\left(z_t,x_{1:t}\right)
-\\=\frac{1}{C}P\left(x_t\middle| z_t,x_{1:t-1}\right)P\left(z_t,x_{1:t-1}\right)=\frac{1}{C}P(x_t|z_t)P(z_t|x_{1:t-1})P(x_{1:t-1}) \tag{34}$</p>
+\\=\frac{1}{C}P\left(x_t\middle| z_t,x_{1:t-1}\right)P\left(z_t,x_{1:t-1}\right)=\frac{1}{C}P(x_t|z_t)P(z_t|x_{1:t-1})P(x_{1:t-1}) \tag{48}$</p>
 <p>可以发现<strong>第二个概率实质上是在做预测</strong>，进一步做递推：
 $$=\frac{1}{C}P\left(x_t\middle| z_t\right)P(x_{1:t-1})\int_{Z_{t-1}}{P(z_{t-1},x_{1:t-1})P(z_t|z_{t-1})}$$
 而$P(x_{1:t-1})$也是可算的常量，记作D，从而有：
 $$=\frac{D}{C}P\left(x_t\middle| z_t\right)\int_{Z_{t-1}}{P(z_{t-1},x_{1:t-1})P(z_t|z_{t-1})}$$</p>
 <p>因此对给定序列，<strong>可依次进行update、prediction的迭代</strong>——即先计算$P(z_1|x_1)$，再预测$P(z_2|x_1)$；计算$P(z_2|x_{1:2})$，再预测$P(z_3|x_{1:2})$. 但无论如何，由4.3.1的证明，高斯分布在条件概率的运算下封闭，从而只需确定出每一轮服从分布的均值和方差.</p>
 <p><strong>Update.</strong>
-$$p\left(z_t\middle| x_{1:t-1}\right)=\int_{z_{t-1}}{p(z_t|z_{t-1})p(z_{t-1}|x_{1:t-1})}=\int_{z_{t-1}}{N(z_t|Az_{t-1}+B,Q)N(\mu_{t-1},\Sigma_{t-1}\ )} \tag{35}$$
-由条件概率的定义，易得：$ \widetilde{\mu_t}=A\mu_{t-1}+B,\ \widetilde{\Sigma_t}=A\Sigma_tA^T+Q \tag{36}$</p>
+$$p\left(z_t\middle| x_{1:t-1}\right)=\int_{z_{t-1}}{p(z_t|z_{t-1})p(z_{t-1}|x_{1:t-1})}=\int_{z_{t-1}}{N(z_t|Az_{t-1}+B,Q)N(\mu_{t-1},\Sigma_{t-1}\ )} \tag{49}$$
+由条件概率的定义，易得：$ \widetilde{\mu_t}=A\mu_{t-1}+B,\ \widetilde{\Sigma_t}=A\Sigma_tA^T+Q \tag{50}$</p>
 <p><strong>Prediction.</strong>
-$p\left(z_t\middle| x_{1:t}\right)=p\left(x_t\middle| z_t\right)p\left(z_t\middle| x_{1:t-1}\right)=N\left(x_t\right|Cz_t+D,R)N(\widetilde{\mu_t},\ \widetilde{\Sigma_t}) \tag{37}$</p>
+$p\left(z_t\middle| x_{1:t}\right)=p\left(x_t\middle| z_t\right)p\left(z_t\middle| x_{1:t-1}\right)=N\left(x_t\right|Cz_t+D,R)N(\widetilde{\mu_t},\ \widetilde{\Sigma_t}) \tag{51}$</p>
 <p>由命题17，代入有：$$\mu_t=\tilde{\mu_t}+{\tilde{\Sigma_t}}^{-1}C^T\left(R^{-1}+C{\tilde{\Sigma_t}}^{-1}C^T\right)^{-1}\left(Y-C\tilde{\mu_t}-D\right) \\
 \Sigma_t={\tilde{\Sigma_t}}^{-1}-{\tilde{\Sigma_t}}^{-1}C^T\left(R^{-1}+C{\tilde{\Sigma_t}}^{-1}C^T\right)^{-1}C{\tilde{\Sigma_t}}^{-1}
-\tag{38}$$</p>
+\tag{52}$$</p>
 <h3 id="44-粒子滤波particle-filtering">4.4 粒子滤波(Particle Filtering)</h3>
 <p>在线性滤波的条件下进一步推广至任意函数，噪声也不一定是高斯噪声：
-$$z_t=g\left(z_{t-1},u,\epsilon\right),x_t=h(z_t,u,\delta) \tag{39}$$</p>
+$$z_t=g\left(z_{t-1},u,\epsilon\right),x_t=h(z_t,u,\delta) \tag{53}$$</p>
 <p>这种情形下<strong>很难得到解析解，因此只能用采样方法求得期望</strong>. 考虑在$P(Z|X)$下的期望，$f(z)$是任意函数，则：
-$$\mathbb{E}_{Z|X}\left(f\left(z\right)\right)=\int f\left(z\right)p\left(z\right)dz=\int f(z)q(z)\frac{p(z)}{q(z)}dz:=\int f(z)q(z)w(z)dz \tag{40}$$</p>
+$$\mathbb{E}_{Z|X}\left(f\left(z\right)\right)=\int f\left(z\right)p\left(z\right)dz=\int f(z)q(z)\frac{p(z)}{q(z)}dz:=\int f(z)q(z)w(z)dz \tag{54}$$</p>
 <p>这里$q(z)$是提议分布(proposal distribution)，目的在于简化权重项$w$的同时分布较简单.<strong>注意变换后需对w归一化</strong>，即找到常数C使$C\int_{Z} w=1$，这里假设C=1.</p>
-<p>在粒子滤波问题中，p和q实际上需考虑已经给的观测样本X，p和q都是基于样本的一个序列概率，即有：$$W=\frac{p(z_{1:t}|x_{1:t})}{q(z_{1:t}|x_{1:t})} \tag{41}$$</p>
+<p>在粒子滤波问题中，p和q实际上需考虑已经给的观测样本X，p和q都是基于样本的一个序列概率，即有：$$W=\frac{p(z_{1:t}|x_{1:t})}{q(z_{1:t}|x_{1:t})} \tag{55}$$</p>
 <p>但是我们希望W能动态反映不同长度序列对应的状态，从而提出对W的逐步迭代更新. 对于第t轮采样(样本数为N)，相应期望为$$E_q[f\left(z\right)w^t\left(z\right)]=\frac{1}{N}\sum_{i=1}^{N}{f(z_i)w^t(Z_i)}$$</p>
 <p>$$\begin{align}
 p\left(z_{1:t}\middle| x_{1:t}\right)&amp;=\frac{p\left(z_{1:t},x_{1:t}\right)}{p\left(x_{1:t}\right)}=\frac{1}{C}p\left(z_{1:t},x_{1:t}\right)
@@ -819,48 +862,48 @@ p\left(z_{1:t}\middle| x_{1:t}\right)&amp;=\frac{p\left(z_{1:t},x_{1:t}\right)}{
 \\&amp;=\frac{1}{C}p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)p\left(x_{1:t-1}\right)
 \\&amp;=\frac{D}{C}p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)
 \\&amp;=\frac{D}{C}h(x_t)g(z_{t-1})p\left(z_{1:t-1}|x_{1:t-1}\right)
-\end{align} \tag{42}$$
+\end{align} \tag{56}$$
 而q对应的$p\left(x_t\middle| z_t\right),p\left(z_t\middle| z_{t-1}\right)$也已知，从而W可采样求出.</p>
 <p>综上，我们有：
 $$z_t\sim q\left(z_t\middle| z_{t-1},x_{1:t}\right) \\
-\ W_t=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)q\left(z_{t-1}\middle| x_{1:t}\right)}=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)}W_{t-1} \tag{43}$$</p>
+\ W_t=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)q\left(z_{t-1}\middle| x_{1:t}\right)}=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)}W_{t-1} \tag{57}$$</p>
 <p>如果选择$q\left(z_t\middle| z_{t-1},x_{1:t}\right)=p\left(z_t\middle| z_{t-1}\right)$，则采样过程可简化成$W_t=k_t{p\left(x_t\middle| z_t\right)W}_{t-1}$
 这个采样过程是随t从0开始按W不断加权采样，故称<strong>SIS（Sequential Importance Sampling）</strong></p>
 <p>SIS中易发生权值退化（只有绝大部分PDF趋于零），一般可通过重采样或选取合适的q解决。工程上的方法是先用SIS得到概率分布，再将其作为CDF重新采样.</p>
 <p>在本节，我们遵循如下思路：IS→SIS→SISR.</p>
 <h3 id="5-变分推断">5. 变分推断</h3>
 <p>给出(X,Z)的完全数据集，要求极大似然$\arg{\max{\log{P(X)}}}$. 这一次我们引入的模型参数是一个<strong>概率分布q(z)</strong>，一般该分布是<strong>指数族分布</strong>. 要求用 <strong>调整该分布(即变分，但通过调参实现)</strong> 去逼近不好求的$P(X)$，即：
-$$\log{P\left(X\right)=}\log{\frac{P(X,Z)}{P(Z|X)}}=\log{\frac{P(X,Z)}{q(Z)}}-\log{\frac{P(Z|X)}{q(Z)}}\tag{44}$$
-这样再作用上模型，即对Z作全概率，有： $$\log{P\left(X\right)=\int_{Z}{q(Z)}}\log{\frac{P(X,Z)}{q(Z)}}-\int_{Z} q\left(Z\right)\log{\frac{P\left(Z\middle| X\right)}{q\left(Z\right)}}=ELBO+KL(q(Z)||p(Z|X)) \tag{45}$$</p>
+$$\log{P\left(X\right)=}\log{\frac{P(X,Z)}{P(Z|X)}}=\log{\frac{P(X,Z)}{q(Z)}}-\log{\frac{P(Z|X)}{q(Z)}}\tag{58}$$
+这样再作用上模型，即对Z作全概率，有： $$\log{P\left(X\right)=\int_{Z}{q(Z)}}\log{\frac{P(X,Z)}{q(Z)}}-\int_{Z} q\left(Z\right)\log{\frac{P\left(Z\middle| X\right)}{q\left(Z\right)}}=ELBO+KL(q(Z)||p(Z|X)) \tag{59}$$</p>
 <p>这样得到的就是EM算法的Q和H函数. 当算法收敛时，$KL\rightarrow0$，即对q(Z)的变分趋零，q收敛到X的先验上.</p>
 <p>回顾E-step和M-step，在VI中，我们更关心q而不是参数$\theta$
-$$q^{t+1}=\arg{\max_q{L\left(q,\theta^t\right)}}\\\theta^{t+1}=\arg{\max_\theta{L(q^{t+1},\theta)}}\tag{46}$$</p>
+$$q^{t+1}=\arg{\max_q{L\left(q,\theta^t\right)}}\\\theta^{t+1}=\arg{\max_\theta{L(q^{t+1},\theta)}}\tag{60}$$</p>
 <h3 id="51-基于平均场理论的启发假设">5.1 基于平均场理论的启发假设</h3>
-<p>假定q(Z)可被分解为一些乘积，如(47). 但这个假设有些强，相当于将一个连通概率图划分成几个连通分支，当去掉的割集关键或过大时效果较差，如Boltzmann机等
-$$q\left(Z\right):=\prod_{i=1}^{M}{q_i(Z_i)}\tag{47}$$</p>
-<p>$$ELBO=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}-\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\sum_{i=1}^{M}\log{q_i(Z_i)}} \tag{48}$$
-对(48)两项进一步计算，对第一项有：
-$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{49}$$</p>
+<p>假定q(Z)可被分解为一些乘积，如(61). 但这个假设有些强，相当于将一个连通概率图划分成几个连通分支，当去掉的割集关键或过大时效果较差，如Boltzmann机等
+$$q\left(Z\right):=\prod_{i=1}^{M}{q_i(Z_i)}\tag{61}$$</p>
+<p>$$ELBO=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}-\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\sum_{i=1}^{M}\log{q_i(Z_i)}} \tag{62}$$
+对(62)两项进一步计算，对第一项有：
+$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{63}$$</p>
 <p>把这个期望值给写成$\log{\widetilde{P}\left(X,Z\right)}$，这里的$z_1$可以被替换为任何一个z_j，然后对第二项计算（第四个等号由全概率可知为1：</p>
-<p>$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{50}$$</p>
-<p>结合(48)(49)，得：$$\int_{z_j}{q_j\left(z_j\right)\log{\frac{\widetilde{P}(x,z_j)}{q_j(z_j)}}}=-KL(q_j||\widetilde{P}(x,z_j)) \tag{51}$$</p>
-<p>故目标是优化上式，我们能保证对数里面的比较好算，现问题为q的求解方式. 在最小化的过程中，可认为如(51). 本质还是在求多个积分，所以有可能还是无法求解. 在具体迭代过程，可用<strong>坐标上升法</strong>，即每次更新一个$z_j$，循环迭代 $$q_j=E_{\prod_{i\neq j}^{M}{q_i(Z_i)}}[\log{P(x,z_j)}]=\int_{z_{-j}}{q_i(z_i)}\log{P(x,z_j)} \tag{52}$$</p>
+<p>$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{64}$$</p>
+<p>结合(48)(49)，得：$$\int_{z_j}{q_j\left(z_j\right)\log{\frac{\widetilde{P}(x,z_j)}{q_j(z_j)}}}=-KL(q_j||\widetilde{P}(x,z_j)) \tag{65}$$</p>
+<p>故目标是优化上式，我们能保证对数里面的比较好算，现问题为q的求解方式. 在最小化的过程中，可认为如(51). 本质还是在求多个积分，所以有可能还是无法求解. 在具体迭代过程，可用<strong>坐标上升法</strong>，即每次更新一个$z_j$，循环迭代 $$q_j=E_{\prod_{i\neq j}^{M}{q_i(Z_i)}}[\log{P(x,z_j)}]=\int_{z_{-j}}{q_i(z_i)}\log{P(x,z_j)} \tag{66}$$</p>
 <h3 id="52-stochastic-gradient-variational-interferencesgvi">5.2 Stochastic Gradient Variational Interference:SGVI</h3>
 <p>设指数族分布q(z)的参数为$\phi$，则$\nabla_\phi q\left(z\right)$一般是好求. 第二个等号交换求导和积分次序，至少对指数族分布可交换.
-$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}=\int_{Z}{\left(\nabla_\phi q\right)\log{P}-\left(\nabla_\phi q\right)\log{q}}-\nabla_\phi q \tag{53}$$</p>
+$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}=\int_{Z}{\left(\nabla_\phi q\right)\log{P}-\left(\nabla_\phi q\right)\log{q}}-\nabla_\phi q \tag{67}$$</p>
 <p>对最后一项有：$\int_{Z}{\nabla_\phi q}=\nabla_\phi\int_{Z} q=\nabla_\phi1=0$</p>
-<p>从而$\int_{Z}{\left(\nabla_\phi q\right)\log{\frac{P}{q}}}=\int_{Z}{q\nabla_\phi\log{q}\log{\frac{P}{q}}}=E <em>{q\left(z\right)}\left(\nabla</em>\phi\log{q}\log{\frac{P}{q}}\right) \tag{54}$</p>
+<p>从而$$\int_{Z}{\left(\nabla_\phi q\right)\log{\frac{P}{q}}}=\int_{Z}{q{\nabla_\phi}\log{q}\log{\frac{P}{q}}}=E_{q(z)}({\nabla_{\phi}} \log{q}\log{\frac{P}{q}}) \tag{68}$$</p>
 <p>接下来只需按照这个已知的分布$q\left(z\right)$进行Monto-Carlo采样求解梯度期望.</p>
 <h3 id="521-重参化技巧reparameterization-trick">5.2.1 重参化技巧(Reparameterization Trick)</h3>
-<p>然而\log{q}的分布方差太大，这里利用重参化技巧
+<p>然而$\log{q}$的分布方差太大，这里利用重参化技巧
 ，即<strong>不直接用q的分布采样，而是引入$z=g(\epsilon,X|\phi)$，其中$\epsilon\sim p(\epsilon)$使得p的方差比q的小得多，通过对p采样来实现对q采样.</strong></p>
-<p><strong>Ex.</strong> 取$\epsilon~N(0,1)，z=g\left(\epsilon\right)=\mu+\sigma·ϵ$. 此时再求解则可化为：</p>
-<p>$$\begin{align} E_{p\left(z\right)}[f\left(z\right)]&amp;=\int_{Z}{p(z)f(z)}dz\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}\sigma}\exp{-\frac{(\mu+\sigma· \epsilon-\mu)^2}{2\sigma^2}f(g(\epsilon))}\sigma d\epsilon\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}}\exp{-\frac{\epsilon^2}{2}}f\left(g\left(\epsilon\right)\right)d\epsilon\\&amp;=\mathbb{E}_{p\left(\epsilon\right)}[(f·g)ϵ]\end{align}\tag{55}$$</p>
+<p><strong>Ex.</strong> 取$\epsilon\sim N(0,1)，z=g\left(\epsilon\right)=\mu+\sigma·ϵ$. 此时再求解则可化为：</p>
+<p>$$\begin{align} E_{p\left(z\right)}[f\left(z\right)]&amp;=\int_{Z}{p(z)f(z)}dz\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}\sigma}\exp{-\frac{(\mu+\sigma· \epsilon-\mu)^2}{2\sigma^2}f(g(\epsilon))}\sigma d\epsilon\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}}\exp{-\frac{\epsilon^2}{2}}f\left(g\left(\epsilon\right)\right)d\epsilon\\&amp;=\mathbb{E}_{p\left(\epsilon\right)}[(f·g)ϵ]\end{align}\tag{69}$$</p>
 <p>对(54)，设$\epsilon~p\left(\epsilon\right),z=g(\epsilon,X|\phi)$
 则$\int_{Z}{q\left(z\middle|\phi\right)dz}=\int_{\epsilon}{p(\epsilon)d\epsilon}=1$，假设q和p连续，则一定存在q和p的分拆使得$q\left(z\middle|\phi\right)dz=\ p(\epsilon)d\epsilon$. 从而：
-$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}dz=\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z} p\left(\epsilon\right)\left(\log{P}-\log{q}\right)d\epsilon=E_{p(\epsilon)}\nabla_\phi\log{\frac{P}{q}} \tag{56}$$</p>
+$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}dz=\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z} p\left(\epsilon\right)\left(\log{P}-\log{q}\right)d\epsilon=E_{p(\epsilon)}\nabla_\phi\log{\frac{P}{q}} \tag{70}$$</p>
 <p>再引入Z，因为$p,q$与Z直接相关，易求梯度. 从而有：
-$$E_{p\left(\epsilon\right)}[\nabla_\phi g\left(\epsilon,X\middle|\phi\right)·∇_Z\log \frac{p}{q} ] \tag{57}$$</p>
+$$E_{p\left(\epsilon\right)}[\nabla_\phi g\left(\epsilon,X\middle|\phi\right)·∇_Z\log \frac{p}{q} ] \tag{71}$$</p>
 <p>Updates.
 3-27 <em>K-means</em>
 3-28 <em>DBSCAN</em>

@@ -2,40 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
+    <loc>https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/cluster/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/cluster/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/em/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/em/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/hmm/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/linear-dynamic-system/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/ml/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/categories/ml/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/posts/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/tags/vi/</loc>
+    <lastmod>2023-07-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/</loc>
     <lastmod>2023-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/categories/math/</loc>
     <lastmod>2023-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/tags/ml/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/ml/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/posts/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/tags/stastics/</loc>
     <lastmod>2023-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Supradax.github.io/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/</loc>
-    <lastmod>2023-07-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://Supradax.github.io/2023/07/mllinear-classification/</loc>
-    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/tags/cluster/</loc>
-    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/categories/cluster/</loc>
     <lastmod>2023-07-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/06/mlstastics-analysis-primer-i-hypotheosis-test/</loc>
@@ -196,9 +214,6 @@
   </url><url>
     <loc>https://Supradax.github.io/2023/03/mlregression-problem-primer/</loc>
     <lastmod>2023-03-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://Supradax.github.io/2023/03/mlk-means-and-density-cluster/</loc>
-    <lastmod>2023-03-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://Supradax.github.io/2023/03/mlsimulated-annealing/</loc>
     <lastmod>2023-03-27T00:00:00+00:00</lastmod>

@@ -1,0 +1,1213 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Clustering Algo, EM algo and HMM",
+  
+  "image": "https://Supradax.github.io/img/genshin/1.jpg",
+  
+  "datePublished": "2023-07-17T00:00:00Z",
+  "dateModified": "2023-07-17T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mlclustering-algo-em-algo-and-hmm\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Clustering Algo, EM algo and HMM">
+<meta name="twitter:title" content="[ML]Clustering Algo, EM algo and HMM">
+<meta property="og:url" content="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-07-17T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-07-17T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Cluster">
+    
+      <meta property="article:section" content="EM">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Cluster">
+    
+      <meta property="article:tag" content="HMM">
+    
+      <meta property="article:tag" content="EM">
+    
+      <meta property="article:tag" content="VI">
+    
+      <meta property="article:tag" content="Linear Dynamic System">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/genshin/1.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/genshin/1.jpg">
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/genshin/1.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/genshin/1.jpg">
+
+
+    <title>[ML]Clustering Algo, EM algo and HMM</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('/img/genshin/1.jpg')"
+       data-behavior="4">
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Clustering Algo, EM algo and HMM
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-07-17T00:00:00Z">
+        
+  July 17, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/cluster">Cluster</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/em">EM</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="catalog">Catalog.</h2>
+<ol>
+<li><strong>k-means与DBSCAN聚类算法及其改进方法</strong></li>
+<li><strong>谱聚类算法</strong>
+<ul>
+<li>高代矩阵分解理论回顾</li>
+<li>Laplace矩阵与图上两种聚类</li>
+<li>Laplace矩阵的均一化</li>
+</ul>
+</li>
+<li><strong>EM算法的原理与证明</strong></li>
+<li><strong>EM算法在Markov模型中的应用</strong>
+<ul>
+<li>Markov链</li>
+<li>隐Markov模型的前向后向算法</li>
+<li>隐Markov模型的三类问题</li>
+<li>高斯分布的数学证明</li>
+<li>线性动态系统：Kalmon滤波问题</li>
+<li>粒子滤波问题</li>
+</ul>
+</li>
+<li><strong>EM算法在变分推断模型VI中的应用</strong>
+<ul>
+<li>坐标上升法</li>
+<li>随机梯度法(SGVI)与重参化技巧</li>
+</ul>
+</li>
+</ol>
+<h2 id="1k-means聚类与dbscan聚类">1.k-means聚类与DBSCAN聚类</h2>
+<p>在有监督的分类问题中，SVM配合降维特征提取能达到较好效果；而对于无监督问题，一般有k-means和DBSCAN两种基于频率统计的方法.</p>
+<h3 id="11-k-means聚类">1.1 k-means聚类</h3>
+<ul>
+<li>符号约定：特征向量x、第i个聚类质心(means)$x_i$</li>
+<li>参数定义：分类簇数k、距离定义L(Minkowski距离、余弦相似度:两个特征向量的夹角等)</li>
+<li>优化目标：$\min L ( x , y ) = \min\sum _ { i , j = 1 } ^ { k , v } d ^ { 2 } ( c _ { i j } x _ { i j } ) , y = ( c _ { 1 } , \cdots c _ { N } ) ^ { T }$</li>
+</ul>
+<p>算法运行过程如下：</p>
+<ol>
+<li>随机找k个初始点，作为k个聚类中心</li>
+<li>计算未被标记的样本点，归入最近的聚类</li>
+<li>重新计算质心</li>
+<li>返回S2，直至达迭代上限或算法收敛</li>
+</ol>
+<p>针对上述步骤，存在如下问题：</p>
+<ol>
+<li>对于第一步，	若初始点恰为噪声或过于接近，则效果不佳，如何减少这种可能？k值作为超参数，如何确定一个合理的k值？</li>
+<li>对于第二步 “最近”与度量空间的度量直接相关，如两个同心环和两个相离的圆对应的距离定义是否不同？</li>
+<li>对于计算过程，这是NP-hard问题，是否能加速运算？</li>
+</ol>
+<p>基此，可知k-means有如下缺点：<strong>对初值或离群值敏感、对k值依赖性强、识别形状严重依赖度量</strong></p>
+<h3 id="112-针对初始中心选取的改进算法">1.1.2 针对初始中心选取的改进算法</h3>
+<h4 id="1bi-k-means">(1)Bi-k-means</h4>
+<p>将整个样本空间先作一次二分类$S=(S_A,\ S_B)$，对SSE最小（误差平方和，即$\min{L\left(S,y\right)-L\left(S_A,y_A\right),}L\left(S,y\right)-L\left(S_B,y_B\right)$）或MSE最大的再次二分类. 即<strong>每次都对当前划分好的n个聚类中误差最大的再次二分</strong>.</p>
+<h4 id="2k-means">(2)k-means++</h4>
+<p>随机选取第一个点，选取第(n+1)个点时计算余下所有点到当前n个样本中心的距离$d_i$，以分类分布选择，第j个样本点对应权值为$\frac{d_j}{\sum d_i}$ 此法<strong>以概率分布降低选中离群点的可能</strong></p>
+<h4 id="3k-means">(3)k-means||</h4>
+<p>通过多次选择避开噪声. 任取$k\log{N}$个进行k-means，其聚类中心作为初始值</p>
+<h3 id="113-针对k值选取的改进算法">1.1.3 针对k值选取的改进算法</h3>
+<p>理想聚类效果应为<strong>类内紧密、类间远离</strong>，引入指标衡量聚类效果：</p>
+<ol>
+<li><strong>惯性</strong>(inertia). 定义惯性为类内MSE($I=\sum_{i=1}^{k}{L(x_i,y_i)}$)，可知$k\rightarrow\infty,I\rightarrow0$.</li>
+<li><strong>轮廓系数.</strong> 对第i个样本，分别定义$a_i,b_i$为<strong>类内不相似度</strong>(到内部其他点的距离均值)和<strong>类间不相似度</strong>(到其他簇内点距离均值最小的一个，即刻画到最近一个簇的平均距离)，优化统计量$\max{\sum_{i=1}^{N}{\ s_i}}=\max{\sum_{i=1}^{N}{\ \frac{b_i-a_i}{\max{a_i,b_i}}}}$，可知$s_i\in[-1,1]且理想状态s_i\rightarrow1.$ 可知$k\rightarrow\infty,s_i\rightarrow1$.</li>
+</ol>
+<p>不论是I-k图或S-k图，均使用<strong>elbow-method(肘方法)</strong>，选择差分率变化最大处作为k值. 实际中多用轮廓系数衡量性能.</p>
+<p>另一种是动态选取k值的<strong>ISODATA算法</strong>. <strong>不直接给出肘方法的k值，而给出范围</strong>$[\frac{k_0}{2},2k_0]$. 当聚类数少于阈值或标准差过大时分裂；大于阈值则合并. 具体实现时<strong>先分裂后合</strong>,分裂一般在第偶次迭代进行.</p>
+<h3 id="114-针对计算优化的改进算法">1.1.4 针对计算优化的改进算法</h3>
+<ol>
+<li>三角不等式. 对两个聚类中心$j_1,j_2$，当$2d\left(x_i,j_1\right)&lt;d\left(j_1,j_2\right)$时，可知一定有$d\left(x_i,j_1\right)&lt;d(x_i,j_2)$，从而可减少约一半计算.</li>
+<li>其他方法有降维[1]、稀疏化[2]</li>
+</ol>
+<h3 id="12-dbscan聚类">1.2 DBSCAN聚类</h3>
+<p>DBSCAN基于密度聚类，对形状不敏感，但<strong>对密度分布均匀程度敏感</strong>，尽管可能可用动态调整参数的方法减轻</p>
+<ul>
+<li>概念：考察样本点$x_i$的$\epsilon$邻域，若内部样本点个数达$n_0$，则为<strong>核心点</strong>；若其不是核心点但邻域内存在核心点$x_j$，则称<strong>边界点</strong>且i,j<strong>间接密度可达</strong>，而若i,j均为核心点，则称i,j<strong>直接密度可达</strong>，其中$\epsilon,n_0$为超参.</li>
+<li>算法流程：</li>
+</ul>
+<ol>
+<li>判断核心点(先找一个)，入队q</li>
+<li>出队，在邻域内遍历所有样本点x：</li>
+<li>若x是核心点，则将x入队，否则只打上访问和分类标记</li>
+<li>回到S2直至队空</li>
+<li>回到S1直至所有点被分类</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pros.</strong></td>
+<td>无需指定聚类个数，能识别噪声、受形状影响小</td>
+</tr>
+<tr>
+<td><strong>Cons.</strong></td>
+<td>需多次尝试两个超参、维度诅咒（需配合降维）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="121-数据结构kd树优化">1.2.1 数据结构KD树优化</h3>
+<p>在找最近邻点时，可用KD-树优化.
+设样本空间维数为K，则依次<strong>取第i维的中位数将样本二分</strong>构建二叉树，叶子为样本点位矢.
+在搜索某个点的最近邻时，采用<strong>DFS+剪枝</strong>，即<strong>维护一个目前最近邻距离d，当孩子结点对应的距离不小于d时，则整棵子树均无需搜索</strong>.</p>
+<h2 id="2-谱聚类方法spectual-clustering">2. 谱聚类方法(Spectual Clustering)</h2>
+<h3 id="21-高等代数回顾与命题证明">2.1 高等代数回顾与命题证明</h3>
+<h4 id="211-对称矩阵与hermite矩阵">2.1.1 对称矩阵与Hermite矩阵</h4>
+<div class="alert no-icon ">
+  <p><p><strong>命题1</strong> 若$A\in M_n\left(R\right),\ \ A=A^T$，则一定可相似对角化且能正交对角化.</p>
+<ul>
+<li><strong>引理1</strong> A可对角化$\Longleftrightarrow A$极小多项式(次数最低首一多项式)可分解为一些互异一次式乘积</li>
+<li><strong>引理2</strong> A只有实特征值</li>
+<li><strong>引理3</strong> A的极小多项式无平方因子q，使得p=q^2r</li>
+<li><strong>引理4</strong> A的零化多项式有唯一一个极小多项式</li>
+<li><strong>同理</strong> Hermite矩阵A一定酉相似于实对角阵.</li>
+</ul>
+</p>
+</div>
+<p><strong>pf.</strong> 由引理2、3知引理1成立，从而A可对角化.$\Lambda$特征子空间的直和为全空间，由于$A\sim\Lambda$，从而A特征子空间直和也为全空间，因此由Schmit正交化，可在各个子空间中构造一个标准正交基$T=(ε_{{1,1:n_1}}$,$ε_{2,2:n_2},\ldots ,ε_{K:n_k})$使得$AT=\Lambda T$，故$A=T^{-1}\Lambda T$.</p>
+<p><strong>pf.Lemma 1</strong></p>
+<ul>
+<li>必要性：若可对角化，设A的不同特征值$\lambda_1,\ldots,\lambda_r$，令$q=\prod_{i=1}^{r}{(x-\lambda_i)}$，对任何特征向量$\alpha$，有$q\left(A\right)\alpha=q\left(\lambda_iI\right)\alpha=0$. 故q是零化且为一次项乘积，而p|q，故成立.(实际上代入所有特征值，由Vandermode行列式知p=q)</li>
+<li>充分性：由引理2且极小多项式p整除A的特征多项式，设$p=\prod_{i=1}^{r}{(x-\lambda_i)}$，构造$p_j=\frac{p\left(x\right)}{x-\lambda_j}$，从而$p_j\left(\lambda_i\right)=0(i\neq j)$. 考虑<strong>将向量分拆到各个特征子空间的多项式</strong>$R\left(x\right)=\sum_{i=1}^{r}\frac{p(x)}{p_i(x)}$，可知有r个零点$R\left(\lambda_i\right)=1$，而$\deg{R}\le r-1$，故$R\equiv1$. <strong>再将一个任意向量进行分解</strong>：$\alpha=R\left(A\right)\alpha=\sum_{i=1}^{r}\frac{p(x)}{p_i(x)}\alpha=\sum_{1}^{r}\alpha_i$，由于$\frac{p(A)}{p_i(A)}\alpha=\left(A-\lambda_i\right)\alpha=0$，<strong>故对于任意向量$\alpha$，都能被特征向量线性表出</strong>，从而特征子空间的直和是全空间，由相似性质，可知A可对角化.</li>
+</ul>
+<p><strong>pf.Lemma 2</strong>   $A\alpha=\lambda\alpha,\ \ A^H\alpha^H=A\alpha=\lambda^H\alpha=\lambda\alpha$，故$\lambda^H=\lambda\in R$. 同理Hermite矩阵只有实特征值.</p>
+<p><strong>pf.Lemma 3</strong> 若存在则$p\left(A\right)=q^2\left(A\right)r\left(A\right)=O$，故$r\left(A\right)·q^2(A)r(A)$$=((r·q)A)^T(r·q)A=O$，从而$r·q$是一个比p次数低的零化多项式，这与p极小矛盾.</p>
+<p><strong>pf.Lemma 4</strong> 定义A的所有零化多项式的多项式集合为f(A)，由于$\forall a,b\in f\left(x\right),g\in F(x)$(F(A)为多项式环)，有$\left(a+gb\right)·A=0$. 从而f(A)是多项式环上的一个理想.
+由Hamilton-Cayley定理，A的特征多项式h一定是f(A)的一个元素，从而f(A)是非零理想. 由于是主理想整环F[x]的一个子理想，一定存在单生成元，其首一即为极小多项式p且$p|h$，故$\deg{p}\le n$.</p>
+<h4 id="212-矩阵分解ur分解qr分解与schur分解">2.1.2 矩阵分解：UR分解、QR分解与Schur分解</h4>
+<div class="alert no-icon ">
+  <p><strong>命题2 （UR分解）</strong> 对可逆阵$A\in C^{n\times n}$，则一定存在一个主对角线元素均为正的上三角矩阵R和酉矩阵$U\in C^{n\times n}$，使得：A=UR.</p>
+</div>
+<p><strong>pf.</strong> 设$A=\left(\alpha_1,\ldots,\alpha_n\right),U=(u_1,\ldots,u_n)$. A可逆，从A的列空间为全空间，因此取$\alpha_1$正交化为$u_1$，同理取$\alpha_2$正交化得$u_2$(A满秩保证$\left(a_2,u_2\right)\neq0)$，当$\left(a_2,u_2\right)&lt;0$时，将$u_2$换为$-u_2$即可.</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题3 （QR分解）</strong> 对列满秩阵$A\in C^{m\times n}$，则一定存在一个主对角线元素均为正的上三角矩阵R和酉矩阵$U\in C^{m\times m}$，使得：A=UR.</p>
+</div>
+<strong>pf.</strong> 命题3是对命题2的放松，考虑将非方阵化为方阵，套用命题1.
+构造分块可逆阵B=(A|C)，从而有$B=\left(A\middle| C\right)=\left[U_1\ U_2\right]\left[\begin{matrix}R_1&amp;R_2\\&amp;R_3\end{matrix}\right]$，$A=U_1R_1$
+由三秩相等，$U_1$是酉矩阵.</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题4 （Schur分解）</strong> 对$A\in C^{n\times n}$，一定存在酉矩阵U和上三角矩阵T使得：
+$U^HAU=T=\begin{bmatrix}
+\lambda_1 &amp; t_{12} &amp; \ldots &amp;t_{1n} \\
+&amp; \lambda_2 &amp; \ddots &amp; \vdots \\
+&amp;  &amp; \ddots  &amp; \vdots\\
+&amp;  &amp;  &amp;\lambda_n
+\end{bmatrix}$</p>
+</div>
+<strong>pf.</strong> 由Jordan定理，存在酉矩阵P使$A=P^{-1}JP=QJQ^{-1}$，其中J是Jordan标准型，对Q作UR分解，有$A=URJR^{-1}U$，由上三角矩阵对乘法封闭，$RJR^{-1}$仍为上三角且对角线元素为Hadamard积，从而$a_{ii}=r_{ii}\lambda_i\frac{1}{r_{ii}}=\lambda_i$.</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题5 （奇异值分解:SVD）</strong> 对$A\in R^{m\times n}$，必存在正交矩阵$U\in R^{m\times m},V\in R^{n\times n}$使得：$A=U\Sigma V^T$，其中$\Sigma\in C^{m\times n}$为$A^TA$的非零特征值的平方根构成的对角阵.</p>
+</div>
+<strong>pf.</strong> 可知$A^TA\in R^{n\times n}$
+实对称，故正交相似对角化有：$A^TA=P^T\Lambda P=\left[\alpha_1\ldots\alpha_r\ldots\alpha_m\right]\left[\begin{matrix}\Sigma^2&amp;\\&amp;0\end{matrix}\right]\left[\beta_1\ldots\beta_r\ldots\beta_n\right]$，取$\alpha_{1:r},\beta_{1:r}$的缩短组构造对应U,V. 由三秩相等定理，易知U,V仍是正交矩阵. 构造$A=U\Sigma V^T$，代入验证有$A^TA=V\Sigma U^TU\Sigma V^T=V\Sigma^2V^T$，命题成立.</p>
+<h3 id="22--laplace矩阵在聚类中的应用">2.2  Laplace矩阵在聚类中的应用</h3>
+<h3 id="221-将聚类问题转化到图上">2.2.1 将聚类问题转化到图上</h3>
+<p>谱聚类核心思想借鉴图上的分类问题，将两个样本构建一条边. 得到邻接矩阵(相似度矩阵)W一般有三种方式：<strong>全连接法(用高斯核)</strong>、<strong>k-近邻法(最近的k个权值才非零，为转换成无向图，可取均值$W=\frac{1}{2}(A+A^T)$</strong>、当二者<strong>互为</strong>近邻时非零、当二者<strong>有一个</strong>非零时非零)、<strong>$\epsilon$-近邻法</strong>(只有在邻域内的权值才非零). 权值$w=Ker(x_i,x_j)$，Ker常用高斯核$\exp{-\frac{\left|x_i-x_j\right|^2}{2\sigma^2}}$.</p>
+<p>对带权无向图G={V,E}，定义相似度矩阵$W=[w_{ij}]$. 以二分类为例，若存在割集使得$V=A\sqcup  B$，则代价$W\left(A,B\right)=\sum_{i\in A,j\in B} w_{ij}$. 若为K分类，即$V=\sqcup_1^kA_i$，则代价为$\sum_{i=1}^{n}\sum_{i\in A_i,j\in\bar{A_i}}$  $w_{ij}=\sum_{i=1}^{n}{W\left(A_i,V\right)-W(A_i,A_i)}$. 理论上需要求$\min{\sum_{i=1}^{k}{W(A_i,\bar{A_i})}}$.</p>
+<h3 id="222-示性向量与示性矩阵">2.2.2 示性向量与示性矩阵</h3>
+<p>为用矩阵运算具化目标函数，引入<strong>示性向量(Indicator Vector)</strong>(类似one-hot向量)，一种定义为当样本点f属于聚类$A_i$时$f_i=1,f_{-i}=0$，但这是理想化的(硬分类)，在实际计算中往往要将$f_i$的取值放宽到[0,1]使得$\sum w_i=1$，作为概率分布优化.</p>
+<p>现在用示性向量改写目标函数(二聚类为例)：
+$$\min{Cut(A,\bar{A})}=\min{\sum_{i,j}{w_{ij}\left(f_i-f_j\right)^2}\ }=\min{\sum_{i,j} w_{ij}(f_i^2+f_j^2-2f_if_j)\ } \tag1$$</p>
+<p>为进一步简化，定义度矩阵$D=diag{d_i}$，其中$d_i=\sum w_{i,1:n}$，从而$D=diag{W\alpha}$，其中$\alpha=\left(1\ldots1\right)^T$. 由于展开式为二次多项式，考虑改写成二次型：
+(第一个等号的第一项因为$W=W^T$，第二个的第一项对j求和得到D).
+$$\sum_{i,j} w_{ij}\left(f_i^2+f_j^2-2f_if_j\right)=2\sum_{ij} f_iw_{ij}f_i-2\sum_{ij} f_iw_{ij}f_j=\ 2f^TDf-2f^TWf \tag2$$
+因此记Laplace矩阵$L:=D-W$，则目标函数简化为$\min{f^TLf}$.</p>
+<p>再看<strong>多聚类</strong>的目标函数，将多个示性向量组合成示性矩阵$H_{N\times k}=\left[f_1,\ldots,f_N\right]^T$，$f_i$只有一项非零且为1，表征其属于类别.</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题6 （指示矩阵的性质）</strong> 在指示向量空间中，$H$的列向量两两正交. $H^TH$是对角阵且对角线的值表示属于第k类的元素个数.</p>
+</div>
+<strong>pf.</strong> 先看正交性. 取$\alpha_i,\alpha_j$，则$\alpha_i^T\alpha_j=\sum_{k}{f_{ki}f_{kj}}$，由于对同一个样本点$f_k$不可能同时属于i和j两类，进而$f_{ki}f_{kj}=0$，故$\alpha_i^T\alpha_j=0$.</p>
+<p>再看$H^TH$.$H^TH$的非对角元$h_{ij}=\sum_{k=1}^{N}{f_{ki}f_{kj}}$ ，显然对于一个样本，不可能同属两类，故$i\neq j$时$h_{ij}=0$. 而$i=j$时，$h_{ii}=\sum_{k=1}^{N}f_{ki}^2$，对属于第i类的样本，遍历全部进行累加，从而$h_{ii}=n_i$.</p>
+<p>进而目标函数化为$\min{tr(H^TLH)}$ s.t. $tr\left(H^TH\right)=n$. 由于L只与图本身有关，故无需改动，而从$f^TLf$到$H^TLH$只是将指示向量f拓展到指示矩阵H.</p>
+<h3 id="223-目标函数的改进">2.2.3 目标函数的改进</h3>
+<p>2.2.2中的目标函数存在明显缺陷，最小割算法易把孤立点（噪声）当聚类（行和$\sum w_{ij}$较小），为让最小割一视同仁，需对每个聚类的权值进行归一化(<strong>聚类内点的个数不重要，其权值均值才重要</strong>).</p>
+<p>对一个样本点进行归一化，一种关注<strong>顶点</strong>——<strong>除以邻域内点的个数(Ratio Cut:RC)</strong>；另一种关注<strong>边</strong>——<strong>除以各个顶点的度(N Cut:NC)</strong>. 后者由于考虑更多内部结构，效果一般更佳.</p>
+<p>对RC，记聚类$A_i$的子图的顶点数(势)为$|A_i|$，则：
+$$RC:=\min{\sum_{i}\frac{W(A_i,\bar{A_i})}{|A_i|}} \tag3$$
+对NC，记聚类$A_i$的体积$vol\left(A_i\right)≔x∈Aideg(x)$
+$$NC:=\min{\sum_{i}\frac{W(A_i,\bar{A_i})}{vol(A_i)}}\tag4$$</p>
+<h3 id="23-ratio-cut">2.3 Ratio Cut</h3>
+<h3 id="231-二聚类的ratio-cut">2.3.1 二聚类的Ratio Cut</h3>
+<p>仍考虑二聚类问题，将示性改写为$$f_i=\sqrt{\frac{|\bar{A}|}{|A|}}(v_{i} \in A),f_i=-\sqrt{\frac{|A|}{|\bar{A}|}}(v_{i} \notin A) \tag5$$再代回$f^TLf$有：
+$$\begin{align}
+f^TLf&amp;=\frac{1}{2}\sum_{i,j}w_{ij}(f_i-f_j)^2\\
+&amp;=\frac{1}{2}\sum_{v_i\in A,v_j\notin A}w_{ij}(\sqrt{\frac{|\bar A|}{|A|}}+ \sqrt{\frac{|A|}{|\bar A|}})^2+\sum_{v_i,v_j\in A}w_{ij}(-\sqrt{\frac{|\bar A|}{|A|}}-\sqrt{\frac{|A|}{|\bar A|}})^2\\
+&amp;=cut(A,\bar{A})(\frac{|\bar A|}{|A|}+\frac{|A|}{|\bar A|}+2)\\
+&amp;=cut(A,\bar{A})(\frac{|A|+|\bar A|}{|A|}+\frac{|A|+|\bar A|}{|\bar A|})\\
+&amp;=|V|cut(A,\bar{A})(\frac{1}{|A|}+\frac{1}{|\bar A|})\\
+&amp;=|V|RC(A,\bar A)
+\end{align}\tag6$$</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题7 （示性向量的性质）</strong> $f^T\mathbf{1}=0, f^Tf=|V|$</p>
+</div>
+<strong>pf.</strong> 对性质1，$f^T\mathbf{1}=\sum_{v_i\in A}\sqrt{\frac{|\bar{A}|}{|A|}}-\sum_{v_i\notin A}\sqrt{\frac{\left|A\right|}{\left|\bar{A}\right|}}=\left|A\right|\sqrt{\frac{\left|\bar{A}\right|}{\left|A\right|}}-\left|\bar{A}\right|\sqrt{\frac{\left|A\right|}{\left|\bar{A}\right|}}=0$;对性质2,$f^Tf=\sum{f_i^2=\sum_{v_i\in A}\frac{|\bar{A}|}{|A|}+\sum_{v_i\notin A}\frac{\left|\bar{A}\right|}{\left|A\right|}=\left|\bar{A}\right|+\left|A\right|=|V|}$</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题8 （Laplace矩阵的性质）</strong> L作为f上的度量矩阵，保持对称且半正定，从而特征值非负. L的行和为0，从而有平凡的特征值0，对应的特征向量$\mathbf{1}$</p>
+</div>
+<strong>pf.</strong> 特征值非负由定义$\sum_{i,j}{w_{ij}\left(f_i-f_j\right)^2}$可知；对于0特征值，则只需证行和为0.由L=W-D，D的对角元即W的行和，故为零.</p>
+<p>由此，<strong>将这两个性质保留为f连续化后的约束(用二次型作为约束的合理性在于保证可行域为有界曲面，不会发散到无穷远处)</strong>，构造Lagrange乘子：
+$$L\left(f,\lambda\right)=f^TLf-\lambda_0\left(f^T1\right)-\lambda\left(f^Tf-n\right)=f^TLf-\lambda\left(f^Tf-n\right)\tag7$$
+求导得$dL=\left(L+L^T\right)fdf-2\lambda fdf=2\left(Lf-\lambda f\right)=0$.从而$L\widetilde{f}\ =\lambda\widetilde{f}$，即示性的连续解为L的特征向量. 回代有$\min{f^TLf=\min{f^T\lambda f}=\min{\lambda|V|}}$.</p>
+<p>但是， <strong>L一定存在特征值0，对应的特征向量为$\mathbf{1}$，表明所有样本属于同一类</strong>，该平凡解是无意义的. 又由于L的特征值非负，故选<strong>L的次小特征值</strong>为解.</p>
+<p>最后，将软示性向量化为硬示性向量，一种方法即若$f_i\geq0\Rightarrow v_i\in A$，反之亦然.</p>
+<h3 id="232-多聚类的ratio-cut">2.3.2 多聚类的Ratio Cut</h3>
+<p><div class="alert no-icon ">
+  <p><strong>命题9 （Laplace矩阵的性质）</strong> 当G是仅有非负边权的无向图时，L的0特征值的个数等于其连通分量数k.</p>
+</div>
+<strong>pf.</strong> 变换图结点编号不改变图的拓扑结构，从而可变换得$D=diag\left(D_1,\ldots,D_k\right)$$W=diag(W_1,\ldots,W_k)$，从而$L=diag(L_1,\ldots,L_k)$，只需再证对一个连通图L的0谱对应代数重数为1.  由于L实对称，故可对角化，可等价证明几何重数为1. 考察(L-I)，其n-1阶子式均非零，从而解空间维数为1. □</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题10 （最大最小特征值定理）</strong> 定义Rayleigh商$R\left(M,x\right)≔xHMxxHx∈[λm,λM]$，其中$\lambda_m,\lambda_M$是Hermite矩阵M的最小和最大特征值.</p>
+</div>
+<strong>pf.</strong> Hermite矩阵可酉对角化，故$R=\frac{x^HU^H\Lambda U x}{x^HU^HUx}=\frac{y^H\Lambda y}{y^Hy}$，不妨令$y^Hy=1$，则有$y^H\Lambda y-k(y^Hy-1)$，对y求导得$2\Lambda y=2kIy$，即y是$\Lambda$的特征向量，k是特征值. 回代有$R=y^Hky=k$. □</p>
+<p>借助Rayleigh商，重定义示性向量，$h_{ik}=1|Ak|(vi∈Ak);0(vi∉Ak)$，显然对$H\in R^{N\times k}$，有$H^TH=I$.</p>
+<p><strong>pf.</strong> 对非对角元，每个乘积项均为零，故和为零；对对角元，各乘积项恰为$\frac{1}{|A_i|}$且共$|A_i|$个非零项.</p>
+<p>对多聚类问题，由二聚类推广出：（注意trace可交换的前提是矩阵乘法仍满足结合律）$$RC=\sum_{i=1}^{k}{h_i^TLh_i}=\sum_{i=1}^{k}\left(H^TLH\right)_{ii}=tr(H^TLH) s.t.H^TH=I. \tag8$$</p>
+<p>同理Lagrange乘数法得：$\min{tr\left(H^TLH\right)-\lambda(H^TH-I)}$，求导仍有$LH=\lambda H$. 再<strong>解出前k小非零特征值对应的特征向量</strong>.</p>
+<h3 id="24-n-cut">2.4 N-cut</h3>
+<p>只需将RC中二聚类和多聚类的集合的势换成Vol(A_i)，其余完全相 这是基于$Vol\left(G\right)=\sum{Vol(G_i)}$，其中子图$G_i$顶点集的无交并是图G的顶点集.</p>
+<h3 id="25-不同的laplace矩阵">2.5 不同的Laplace矩阵</h3>
+<p>一般需要对Laplace矩阵进行归一化，因为聚类算法期望类内相似度高、类间相似度低. 而2.3,2.4的方法，只能实现类间相似度低，但若对L归一化，以NC为例，有：W\left(A,A\right)=Vol\left(A\right)-Cut(A,\bar{A})，此时Vol(A)为定值1，这使得当Cut(A,\bar{A})最小时，W(A,A)最大. 即<strong>两个目标同步完成</strong>.
+归一化方法一般有以下两种(对称型symmetric与随机游走型random walk)：
+$$L_{sym}:=D^{-\frac{1}{2}}LD^{-\frac{1}{2}}=I-D^{-\frac{1}{2}}WD^{-\frac{1}{2}}\\L_{rw}=D^{-1}L:=I-D^{-1}W \tag8$$
+<div class="alert no-icon ">
+  <p><strong>命题11 （两个Laplace矩阵的关系）</strong> $L_s$的特征向量$\alpha$对应$L_r$的特征向量$D^{-\frac{1}{2}}\alpha$. 0谱个数仍对应连通分支数</p>
+</div>
+<strong>pf.</strong>  $L_r(D^{-\frac{1}{2}}\alpha)=D^{-1}L\left(D^{-\frac{1}{2}}\alpha\right)=D^{-\frac{1}{2}}L_s\alpha=\lambda\left(D^{-\frac{1}{2}}\alpha\right)$</p>
+<p>以L_s为例，由于保持对称性，从而只需将示性改写为$\sum_{i,j}{w_{ij}\left(\frac{f_i}{\sqrt{d_i}}-\frac{f_j}{\sqrt{d_j}}\right)^2}$，其余与之前完全一致，解出L_s的前k小非零特征值.若要用随机游走策略，则利用两类Laplace矩阵特征向量的双射，令$H=D^{-\frac{1}{2}}T$，化成$L_s$，解出前k小非零特征值.</p>
+<h2 id="3-em算法">3 EM算法</h2>
+<p><strong>最大期望算法</strong>(Expectation Maximum)的核心目标为<strong>最大化后验概率</strong>，利用Bayes公式，<strong>引入模型Z</strong>，使得概率分布最大（其中<strong>先验参数为上一轮迭代结果</strong>），逐步调整模型参数$\theta$：
+$$\begin{align}
+\theta_{MLE}&amp;=\arg{\max_\theta{\log{P(X|\theta)}}}=\arg{\max_\theta{\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{P\left(X,Z\middle|\theta\right)}}}}\\
+&amp;=\arg\max_\theta \mathbb{E}_{Z|X,\theta^t}[logP(X,Z|\theta)]
+\end{align}  \tag{10}$$</p>
+<p>对上式利用Bayes公式展开，得$\log{P\left(X\middle|\theta\right)}=\log{P\left(X,Z\middle|\theta\right)}-\log{P(Z|X,\theta)}$，从而有：
+$$\theta_{MLE}=\arg\max_\theta\mathbb{E}_{Z|\theta^t}[logP(X,Z|\theta )-logP(Z|X,\theta )] \tag{11}$$</p>
+<p>记$Q\left(\theta,\theta^t\right)=\int_{Z}{P\left(Z\middle|\theta^t\right)\log{P\left(X,Z\middle|\theta\right)}},\ H\left(\theta,\theta^t\right)=\int_{Z}{P\left(Z\middle|\theta^t\right)\log{P(Z|X,\theta)}}$，从而只需证明该迭代过程（$\arg{\max_\theta\ {Q\left(\theta,\theta^t\right)}}$）能保证$\mathbb{E}_{Z|X,\theta}$单调递增从而收敛.</p>
+<h3 id="31-收敛性证明">3.1 收敛性证明</h3>
+<p>由于$\theta^{t+1}=\arg{\max_\theta\ {Q\left(\theta,\theta^t\right)}}$，故$Q\left(\theta^{t+1},\theta^t\right)\geq Q\left(\theta,\theta^t\right)$，从而$Q\left(\theta^{t+1},\theta^t\right)\geq Q\left(\theta^t,\theta^t\right)$，只需再证$H\left(\theta^{t+1},\theta^t\right)\le H\left(\theta^t,\theta^t\right)$</p>
+<p><strong>pf.</strong> $$\begin{align}
+H\left(\theta^{t+1},\theta^t\right)-H\left(\theta^t,\theta^t\right)&amp;=\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{P\left(Z\middle| X,\theta^{t+1}\right)}}-\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{P(Z|X,\theta^t)}}
+\\&amp;=\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{\frac{P\left(Z\middle| X,\theta^{t+1}\right)}{P(Z|X,\theta^t)}}}\\&amp;=-KL(P(Z|X,\theta^t)||P\left(Z\middle| X,\theta^{t+1}\right))\le0\end{align}$$</p>
+<h3 id="32-e-step和m-step的推导">3.2 E-step和M-step的推导</h3>
+<ul>
+<li>
+<p>E-Step(estimation) 利用$\theta^t$先写出Q函数，即表达出期望. 但有时E-step无法做到精确推理出先验，则只能用近似推理，如MCMC和变分法</p>
+</li>
+<li>
+<p>M-step(maximiztion). 利用E-step先验，求$\theta=\arg{\max_\theta{\mathbb{E}_{P(Z|X,\theta)}(\log{P(X,Z|\theta)})}}$</p>
+</li>
+</ul>
+<p>$$\int_{Z}\log{P\left(X\middle|\theta\right)}=\int_{Z}{P\left(Z\middle| X,\theta^t\right)}\log{P\left(X,Z\middle|\theta\right)}-\int_{Z}{P\left(Z\middle| X,\theta^t\right)\log{P\left(Z\middle| X,\theta\right)}} \tag{12}$$</p>
+<p>再引入分布$q\left(Z\right)=P(Z|X,\theta^t)$进行简化，即：
+$$=\int_{Z}{q(z)}\log{\frac{P\left(X,Z\middle|\theta\right)}{q(z)}\ \ }-\int_{Z}{q\left(z\right)\log{\frac{P\left(Z\middle| X,\theta\right)}{q\left(z\right)}}}:=ELBO-KL(q\left(z\right)||P(Z|X,\theta)) \tag{13}$$</p>
+<p><strong>为实现最大化，需增大ELBO(Estimate Lower Bound)，减少KL散度</strong>. 当收敛时，$KL(q|\left|p\right)\rightarrow0$，从而当前分布$q\left(z\right)\rightarrow P(Z|X,\theta)$.</p>
+<h3 id="33-高斯混合模型gmm">3.3 高斯混合模型(GMM)</h3>
+<p>将一类点划分给k个高斯分布$N(\mu_i,\Sigma_i)$，从几何角度可认为是加权，即$p\left(x\right)=\sum w_if_i\left(x\right),\sum w_i=1$；从概率分布角度看，则视为引入有k个可能取值的隐变量Z，其分布列满足x属于$z=z_k$的概率为$p\left(x\middle| Z_k\right):=p_k$</p>
+<p>综上，GMM模型参数为$\theta:\mu_i,\Sigma_i,p_i$三类.</p>
+<ul>
+<li>运行逻辑：输入x，依据概率找到对应高斯分布，再在这个高斯分布中采样并输出</li>
+<li>模型构建：给出一系列样本点，使得能由k个高斯分布混合拟合.</li>
+</ul>
+<p>尝试用MLE求解析解，引入模型隐变量Z，有：
+$$p ( x ) = \sum _ { i = 1 } p _ { i } \cdot p ( x | Z=z_i ) = \sum _ { i = 1 } p _ { i } \cdot \frac { 1 } { \left(2\pi\right)^\frac{n}{2}\left|\Sigma_i\right| } \exp - ( x - \mu ) ^ { T } \Sigma ^ { - 1 } ( x - \mu )\tag{14}$$</p>
+<p>从而$\theta=\arg{\max{\sum_{i=1}^{N}\log{p(x_i)}\ }}$，对数中含有加法，无法写出解析解.</p>
+<h3 id="331-e-step">3.3.1 E-step:</h3>
+<p>$$Q\left(\theta,\theta^t\right)=\sum_{Z}{p\left(Z\middle| X,\theta^t\right)\log{p(X,Z|\theta)}}\\=\sum_{z_{1:n}}\prod_{j=1}^{N}{p(z=z_i|x=x_j,\theta^t)}·\log \prod_{j=1}^Np(z=z_i,x=x_j|\theta^t)$$
+此处的全概率为对每个样本$x_i$取到每个$z_i$进行累次求和，从而一定能够保证下面成立：
+只取log中的一项，相应地在前面保留一项，
+则有$\sum_{z_1}{p(z_1|x_1,\theta^t)\log{p(z_1,x_1|\theta^t)}}\sum_{z_{2:k}}\prod_{j=2}^{N}{p(z=z_i|x=x_j,\theta^t)}\ $，由全概率知最后一项结果为1，从而$Q\left(\theta,\theta^t\right)=\sum_{i=1}^{N}\sum_{j=1}^{k}{p\left(z_j\middle| x_i,\theta^t\right)\log{p(z_j,x_i|\theta^t)}}$.</p>
+<h3 id="332-m-step">3.3.2 M-step:</h3>
+<p>由模型定义：生成一个点x的边缘概率$p\left(x\right)=\sum_{i=1}^{k}{p_iN(x|\mu_i,\Sigma_i)}$,$p\left(x,z=z_j\right)=p\left(z=z_j\right)p\left(x\middle| z=z_j\right)=p_j·N(x|\mu_j,\Sigma_j)$
+从而$p\left(z=z_j\middle| x\right)=\frac{p(x,z=z_j)}{p(x)}=\frac{p_j·N(x|\mu_j,\Sigma_j)}{\sum_{i=1}^kp_iN(x|\mu_i,\Sigma_i)} $，代入Q函数得：
+$$Q\left(\theta,\theta^t\right)= \sum_{i=1}^N \sum_{j=1}^kp(z_j|x_i,\theta^t)\log(p_j·N(x|\mu_j,\Sigma_j))\tag{15}$$</p>
+<p>使用Lagrange乘子法最大化.</p>
+<p>首先对$p_j$求导.$\sum_{i=1}^{N}\frac{p\left(z_j\middle| x_i,\theta^t\right)}{p_j}-\lambda=0$,从而$\lambda p_j=\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}\ $,<strong>两边对j求和</strong>得：
+$\lambda=\sum_{j=1}^{k}\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}=\sum_{i=1}^{N}\sum_{j=1}^{k}{p\left(z_j\middle| x_i,\theta^t\right)}=N，从而p_j=\frac{\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}}{N}$</p>
+<p>对$\mu_j$求导：
+$$\begin{align}
+&amp;\sum_{i=1}^{N}\sum_{j=1}^{k}{p\left(z_j\middle| x_i,\theta^t\right)\log{\frac{1}{\left(2\pi\right)^\frac{D}{2}|\Sigma_j^{-1}|}\exp{-\left(x_i-\mu_j\right)^T\Sigma^{-1}(x_i-\mu_j)}}}\\
+\Rightarrow&amp;\frac{d}{d\mu_j}\ \sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)\left(x_i-\mu_j\right)^T\Sigma^{-1}\left(x_i-\mu_j\right)}=0\\
+\Rightarrow&amp;\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)(\Sigma^{-1}\mu-\Sigma^{-1}x_i)=0}
+\\\Rightarrow&amp;\Sigma^{-1}(\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)\left(\mu-x_i\right)}=0
+\\\Rightarrow&amp;\sum_{i=1}^{N}\sum_{j=1}^{k}{p\left(z_j\middle| x_i,\theta^t\right)\left(\mu_j-x_i\right)}=0
+\end{align}$$</p>
+<p>故$\mu_j$
+的系数为N，从而$\mu_j=\frac{1}{N}\sum_{i=1}^Nx_i·p(z_j|x_i,\theta^t) $</p>
+<p>对$\Sigma_j$求导：
+$$-N\frac{d}{d\Sigma_j}\log{\left|\Sigma_j^{-1}\right|}-\frac{d}{d\Sigma_j}\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}\left(x_i-\mu_j\right)^T\Sigma_j^{-1}(x_i-\mu_j)\ =0$$
+而$d\log{|X|}=tr\left(d\log |X|\right)=tr\left(\frac{1}{\left|X\right|}d\left|X\right|\right)=tr\left(\frac{1}{\left|X\right|}\left|X\right|tr\left(X^{-1}dX\right)\right)=tr\left(X^{-1}dX\right)$,从而$\frac{d}{d\Sigma_j}\log{\left|\Sigma_j^{-1}\right|}=\left(\left(\Sigma_j^{-1}\right)^{-1}\right)^T=\Sigma_jd\Sigma_j$，而右侧为$-\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}\left(x_i-\mu_j\right)^T\Sigma_jd\Sigma_j^{-1}\Sigma_j(x_i-\mu_j)$，故$$d\Sigma_j=\frac{1}{N}\sum_{i=1}^{N}{p\left(z_j\middle| x_i,\theta^t\right)}\left(x_i-\mu_j\right)^T\Sigma_j^{-1}d\Sigma_j\Sigma_j^{-1}(x_i-\mu_j)$$</p>
+<h2 id="4-em应用markov相关条件随机场概率图模型">4. EM应用：Markov相关条件随机场概率图模型</h2>
+<h3 id="41-markov-chain">4.1 Markov Chain</h3>
+<h3 id="411-高等代数回顾圆盘定理">4.1.1 高等代数回顾：圆盘定理</h3>
+<p><div class="alert no-icon ">
+  <p><p><strong>命题12 （Gerschgorin圆盘定理）</strong> 定义列圆盘和行圆盘，其半径为除对角元外的列或行的$L_1$范数，圆心为对角元，则复特征值一定落在这些圆盘中的某一个.</p>
+<ul>
+<li><strong>推论1</strong> n个圆盘中k个圆盘的并形成一连通区域G且与余下的均无交，则G中恰有k个特征值.</li>
+<li><strong>推论2</strong> 每个特征值在列盖尔圆和行盖尔圆中，故可将范围缩小至2n个圆的交集.</li>
+<li><strong>推论3</strong> 圆两两无交，则有n个不同的特征值，可以相似对角化；若方阵是实方阵，则特征值均为实数（否则以实轴为圆心作圆，一定共轭出现，而这样无交的圆至多只有1个特征值）</li>
+<li><strong>推论4</strong> 对行严格对角占优矩阵，这个圆可以对角元为圆心，与原点连线为半径画出. 若主对角均为正数，则特征值均有正实部(圆与虚轴相切)；若为Hermite矩阵，则特征值均为正数（Hermite特征值无虚部）</li>
+</ul>
+</p>
+</div>
+<strong>pf.</strong> 任取特征值$\lambda$，则$Ax=\lambda\ x$，选取其中绝对值最大的一个分量的等式(如第k行)，则有$a_{k1}x_1+\ldots\ a_{kn}x_n=\lambda\ x_k-a_{kk}x_k$，从而$\left|\lambda-a_{kk}|\ |x_k\right|\le\ R_k|x_k| i.e. \left|\lambda-a_{kk}\right|\le\ R_k$，也即对任意的特征值，一定落在某个圆盘内.</p>
+<p><strong>pf. Deduction 1</strong> 其余推论显然，只证推论1. 拆分出一个对角矩阵D，即A(t)=D+tB，容易验证，在多项式$f(\lambda,t)$中$\lambda$的每个根都是关于t的连续函数，从而有$\lambda_i\left(t\right),t\in\left[0,1\right]$构成一条连续曲线. 由定义知，$\left|R_k\left(t\right)\right|=tR_k\le\ R_k$，从而当t变化时，$\lambda_i$从圆心出发，运动半径在t=1时的盖尔圆内.故不存在某一时刻跑出盖尔圆的情况，即每个盖尔圆内至少有一个特征值. □</p>
+<h3 id="412-markov矩阵的性质">4.1.2 Markov矩阵的性质</h3>
+<p>由构造过程知行和为1，故Markov随机矩阵M一定有特征向量$\left(1,\ldots,1\right)^T$且特征值为1. 再由圆盘定理，以对角元为圆心，余下行和与对角元相加为1，从而M的特征值绝对值一定不超过1.</p>
+<p>据此，由Jordan标准型分解，有$M^n=P^{-1}J^nP$，而J的元素均不超过1，从而$J^n$必然收敛，即Markov矩阵一定存在稳态且该稳态与初值有关.</p>
+<p>在Markov链中运用Markov一阶齐次性进行简化$p\left(x_t\middle| x_{t-1},\ldots,x_1\right)=p(x_t|x_{t-1})$，HMM、线性滤波和粒子滤波均在Markov链的基础上增加隐变量，均使用相同的概率图模型，只是X和Z之间的具体条件关系和X,Z的定义域不同.
+
+
+
+<div class="figure center" >
+  
+    <img class="fig-img" src="https://Supradax.github.io/img/topo/1.png"  alt="概率图模型">
+  
+   
+    <span class="caption">概率图模型</span>
+  
+</div>
+</p>
+<h3 id="42-隐markov模型hmm">4.2 隐Markov模型（HMM）</h3>
+<p><strong>符号约定：</strong></p>
+<ul>
+<li>观察序列(observed){$o_t$}取决于状态变量x，其取值集合为状态集合V，$\left|V\right|=M$</li>
+<li>隐状态序列(inner){$i_t$}取决于隐变量z，其取值集合为隐状态集合Q，$\left|Q\right|=N$</li>
+</ul>
+<p>在HMM中，决定性质的隐变量随时间转移，定义<strong>转移矩阵A</strong>={$a_{ij}:q_i\rightarrow q_j$}；将隐状态显性表出的<strong>发射矩阵B</strong>={$b_{ij}:q_i\rightarrow v_j$}. 记作：
+$$a_{ij}=P\left(i_{t+1}=q_j\middle| i_t=q_i\right),\ b_{ij}=P(o_t=v_j|i_t=q_i) \tag{16}$$</p>
+<p><strong>两个假设：</strong></p>
+<ul>
+<li><strong>Markov一阶齐次性.</strong>$p\left(i_t\middle| i_{t-1},o_{t-1},\ldots,i_1,o_1\right):=p(i_t|i_{t-1}) \tag{17}$</li>
+<li><strong>观测独立性</strong> $p\left(o_t\middle| i_t,o_{t-1},i_{t-1},\ldots,i_1,o_1\right)=p(o_t|i_t) \tag{18}$</li>
+</ul>
+<p><strong>三个问题</strong>：</p>
+<ol>
+<li>Evaluation. 根据参数$\theta$，求解观测到某个序列的概率分布$P(O|\theta)$</li>
+<li>Learning. 已知观测序列和隐状态序列，求解模型参数$\theta$.</li>
+<li>Decoding. 已知观测序列，求最有可能的隐状态序列.[预测$P(i_{t+1}|o_{1:t})$和滤波$P(i_t|o_{1:t})$]</li>
+</ol>
+<h3 id="421-估计问题">4.2.1 估计问题</h3>
+<p>在估计问题中，模型参数$\theta$是定值，故可省略不写或简记作$P_\theta$. 先对目标概率引入隐变量建立关系：
+$$P\left(O\middle|\theta\right)=\sum_{I}{P(I,O|\theta)}=\sum_{I}{P(I|\theta)P(O|I,\theta)} \tag{19}$$
+第一个是全概率，第二个是先走横边，再走竖边（沿概率图方向作条件概率）.
+再对$P(I^t|\theta)$用Markov齐次性(第3个等号)：
+$$P\left(O\middle| I,\theta\right)=P\left(o_{1:t}\middle| i_{1:t},\theta\right)=\prod_{j=1}^{t}{P(o_j|i_j,\theta)}=\prod_{j=1}^{t}b_{i_jo_j} \tag{20}$$
+回代得：
+$$P\left(O\middle|\theta\right)=\sum_{i_{0:t}}{P(I|\theta)P(O|I,\theta)}=\sum_{i_{0:t}}\left(\pi\left(i_0\right)\prod_{j=1}^{t}a_{i_ji_{j+1}}\prod_{j=1}^{t}b_{i_jo_j}\right) \tag{21}$$</p>
+<p>接下来，考虑如何求解上式. 分析复杂度，若直接计算，求和内部复杂度是$\max{N,t}$(N是因为考虑所有$i_0$)，再进行t重求和，故为$O(\max{t^t},N^t)$，显然不可行. 下面使用DP降低运算.</p>
+<h3 id="422--dp前向后向算法">4.2.2  DP:前向后向算法</h3>
+<p>定义迭代量，给定观测序列，当前隐状态为j的概率：$\alpha_{t+1}\left(j\right)=P(o_{1:t+1},i_{t+1}=q_j|\theta)$ 现在考虑状态转移方程. 由于只对第t+1时刻的隐状态作要求，对第t时刻无要求，由Markov假设，只需分类考虑第t时刻，故用全概率公式(分类+条件概率，先转移再表现)
+$$P\left(o_{1:t+1},i_{t+1}=q_j\middle|\theta\right)=\sum_{k=1}^{N}{P\left(o_{1:t},i_t=q_k\middle|\theta\right)}P(i_{t+1}=q_j|i_t=q_k)P(o_{t+1}|i_{t+1}=q_j) \tag{22}$$
+这等价于：$$\alpha_{t+1}\left(j\right)=\sum_{k=1}^{N}{\alpha_t\left(j\right)}a_{kj}b_{j,o_{t+1}} \tag{23}$$
+初始状态：$\alpha_0(i)=\pi\left(i\right)b_{i,o_0} \tag{24}$
+复杂度分析：对每一时刻，需计算N种可能(对j求和)，再计算上一个转移过来的可能(对k求和)，复杂度$O(N^2t)$</p>
+<p>同理可从后向前递推，即<strong>后向算法</strong>.设序列总长度为T，定义迭代量，给定后续的观测序列（不含当前时刻）和当前的隐状态，$\beta_t\left(i\right)=P(o_{t+1:T}|i_t=q_i,\theta)$.</p>
+<p><strong>Notes.</strong> 后向迭代量不包含当前时刻的原因：一方面，如若不然，迭代量包含两个条件概率$z_t\rightarrow z_{t+1},z_t\rightarrow x_t$，迭代量自身的关系会更复杂；而不包含，则表达式只包含$z_t\rightarrow z_{t+1}$的关系. 另一方面，在M-step中，往往需要前向和后向一起用，从而前后向不能同时包含，这样才能构成一个<strong>不重边的概率图</strong>.</p>
+<p>对状态转移方程，由于只指定$i_{t-1}$，没有指定$i_t$，由于Markov假设，只需对$i_t$作全概率：
+$$P\left(o_{t:T}\middle| i_{t-1}=q_i,\theta\right)=\sum_{j=1}^{N}{P(o_{t+1:T}|i_t=q_j,\theta)P(i_t=q_j|i_{t-1}=q_i)P(o_t|i_t=q_j)} \tag{24}$$</p>
+<p>这等价于：$\beta_{t-1}\left(i\right)=\sum_{j=1}^{N}{\beta_t\left(i\right)a_{ij}b_{j,o_t}} \tag{25}$
+初始状态：从迭代过程出发，令\beta_T\left(i\right)=1而非零，否则整个\beta数组全为零.</p>
+<h3 id="423-学习问题baum-welch算法">4.2.3 学习问题：Baum-Welch算法</h3>
+<h3 id="43-线性动态系统linear-dynamic-system-kalman-filtering">4.3 线性动态系统(Linear Dynamic System: Kalman Filtering)</h3>
+<h3 id="431-高斯分布的性质">4.3.1 高斯分布的性质</h3>
+<p><div class="alert no-icon ">
+  <p><strong>命题13</strong> 对独立同分布的n个样本X，$\mu_0=\frac{1}{n}\sum x_i$无偏，$\sigma_0^2=\frac{1}{n}\sum\left(x-\mu_0\right)^2$有偏，$\sigma_0^2=\frac{1}{n-1}\sum\left(x-\mu_0\right)^2$无偏.</p>
+</div>
+<strong>Lemma.</strong> $\sigma^2=DX=EX^2-\left(EX\right)^2$，从而$EX^2=\sigma^2+\mu^2$.</p>
+<p><strong>pf.</strong> $E\sigma_0^2=E\left(x_1-\mu_0\right)^2=E(x_1^2-2\mu_0x_1+\mu_0^2)$
+其中$Ex_1^2=\sigma^2+\mu^2$,
+$$\begin{align}
+E\mu_0x_1&amp;=\frac{1}{n}E\left(x_1^2+\left(n-1\right)x_1x_2\right)=\frac{\mu^2+\sigma^2}{n}+\frac{n-1}{n}Ex_1Ex_2\\
+&amp;=\frac{\mu^2+\sigma^2}{n}+\frac{n-1}{n}\mu^2=\mu^2+\frac{\sigma^2}{n}
+\end{align}$$
+$$E\mu_0^2=E\frac{nx_1^2+n\left(n-1\right)x_1x_2}{n^2}=\frac{\mu^2+\sigma^2}{n}+\frac{n-1}{n}\mu^2=\frac{\sigma^2}{n}+\mu^2$$</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题14</strong> 当马氏矩阵正定时，一定存在一个线性变换U使得多维高斯由D个独立一维高斯构成</p>
+</div>
+<strong>pf.</strong> 多维高斯PDF为$f\left(x\right)=\frac{1}{\left(2\pi\right)^\frac{D}{2}|\Sigma|}\exp{-\frac{1}{2}\left(X-\mu\right)^T\Sigma^{-1}(X-\mu)}$，由于协方差矩阵$\Sigma$实对称，假设$\Sigma$正定，
+则有$\left(X-\mu\right)^T\Sigma^{-1}\left(X-\mu\right)=\left(X-\mu\right)^TU\Lambda U^T\left(X-\mu\right)=\left(U^T\left(X-\mu\right)\right)^T\Lambda\left(U^T\left(X-\mu\right)\right)$</p>
+<p>这表明当$\Sigma$可逆时，总可以找到一个线性变换U使得各个分量相互独立而$\left|\Sigma\right|=\left|U^T\Lambda U\right|=\left|U^TU\right|\left|\Lambda\right|=|\Lambda|$.</p>
+<div class="alert no-icon ">
+  <p><p><strong>命题15</strong> 若$X\sim N(\mu,\Sigma)$，则对可逆变换A，$AX+b\sim N(A\mu+b,A\Sigma A^T)$</p>
+<ul>
+<li><strong>引理1</strong> 若$X\sim N(\mu,\Sigma)$，则$X+\mu\sim N(0,\Sigma)$.</li>
+<li><strong>引理2</strong> 若$X\sim N(0,\Sigma)$，则$AX\sim N(0,A\Sigma A^T)$.</li>
+<li><strong>推论1</strong> 若A列满秩，引理2仍成立.</li>
+<li><strong>推论2</strong> 若随机变量X,Y独立且服从正态分布(可不同)，则aX+bY仍为正态分布.</li>
+<li><strong>推论3</strong>受推论1启发，在正态分布中，由于$\Sigma$分块矩阵中若协方差为0，即相关系数为0，则二者一定独立（对角矩阵性质）</li>
+</ul>
+</p>
+</div>
+<p><strong>Lemma.</strong> 引理1是因为$f\left(X\right)=C\exp{-\frac{1}{2}Y^T\Sigma^{-1}Y}=f(X+\mu)$，引理2是因为$f\left(X\right)=C\exp{-\frac{1}{2}X^T\Sigma^{-1}X}=C\exp{-\frac{1}{2}{(A^{-1}Y)}^T\Sigma^{-1}A^{-1}Y}$$=C\exp{-\frac{1}{2}{Y^T\left(A\Sigma A^T\right)}^{-1}Y}=f(Y)$.</p>
+<p><strong>pf.</strong> 由引理1，$X+\mu\sim N(0,\Sigma)$，从而由引理2，$AX+A\mu=A(X+\mu)\sim N(0,A\Sigma A^T)$，再由引理1，$AX+b\sim N(A\mu+b,A\Sigma A^T)$</p>
+<p><strong>pf. Deduction. 1</strong> 令$Y=(X\ 0)，B=\left(A\ \ C\right)^T$，C是将A扩充的结果，则仍有$AY\sim N(0,B\Sigma B^T)$
+$\Sigma$是分块矩阵，这是因为$Y=(X\ Z)$，其中$Z\equiv0$，进而$Cov\left(X,Z\right)=E\left(X-EX\right)\left(Z-EZ\right)\equiv0$
+记作$\Sigma=diag(\Sigma_X,0)$，因此有：
+$$\left(A\ C\right)\left(\begin{matrix}\Sigma_X&amp;\\&amp;0\end{matrix}\right)\left(\begin{matrix}A^T\\C^T\end{matrix}\right)=\left(A\Sigma_X\ 0\right)\left(\begin{matrix}A^T\\C^T\end{matrix}\right)=A\Sigma_XA^T$$</p>
+<p><strong>pf. Deduction. 2</strong> 记$Z=\left(X\ Y\right),\ A=\left(aI\ \ bI\right)^T$，显然A可逆，由推论1，$AZ=aX+bY$服从正态.</p>
+<p>基此，可<strong>将独立的服从正态分布的随机变量视作基向量</strong>，它们在所有正态分布构成的集合内保持对加法、数乘封闭，定义N(0,0)为零向量，则<strong>这K个独立正态分布在随机变量的加法和数乘下构成了一个K维线性空间</strong>.</p>
+<p>下面引出Schur补的概念，对分块阵$M=\left(\begin{matrix}A&amp;B\\C&amp;D\end{matrix}\right)$：</p>
+<ul>
+<li>若D可逆，则称$\Delta_D:=A-BD^{-1}C$是D关于M的Schur补</li>
+<li>若A可逆，则称$\Delta_A:=D-CA^{-1}B$是A关于M的Schur补
+这个概念实际上是在求线性方程组，把所在位置化为单位阵的过程量.容易验证：
+$$\begin{array}{l}
+{\left[\begin{array}{cc}\mathbf{I} &amp; 0 \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{ll}\mathbf{A} &amp; \mathbf{B} \\ \mathbf{C} &amp; \mathbf{D}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\ \mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]} \\{\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]=\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]} \end{array} \tag{26}$$
+利用该性质，若Schur补也可逆，则有该求逆方法：$${\left[\begin{array}{cc}\mathbf{A} &amp; \mathbf{B} \\\mathbf{C} &amp; \mathbf{D}\end{array}\right]^{-1}=\left[\begin{array}{cc}\mathbf{I} &amp; -\mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{A}^{-1} &amp; \mathbf{0} \\\mathbf{0} &amp; \Delta_{\mathbf{A}}^{-1}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{0} \\-\mathbf{C A}^{-1} &amp; \mathbf{I}\end{array}\right]}  \tag{27}$$
+这是因为$\begin{array}{l}{\left[\begin{array}{cc}\mathbf{I} &amp;-\mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]\left[\begin{array}{cc}\mathbf{I} &amp; \mathbf{A}^{-1} \mathbf{B} \\\mathbf{0} &amp; \mathbf{I}\end{array}\right]=\mathbf{I}}\end{array}$.</li>
+</ul>
+<p>为证明命题16、17，先通过Schur补定义高斯分布的一些量：
+$$C:=\left(-\Sigma_{ba}\Sigma_{aa}^{-1}\ \ I\right)，\Sigma:=
+\begin{bmatrix}\Sigma_{ba}  &amp; \\ \Sigma_{bb}\end{bmatrix} \\
+x_{b·a}:=C\left( \begin{matrix}x_a\\ x_b\end{matrix} \right)
+μ_{b·a}:=C\left( \begin{matrix}\mu_a\\ \mu_b\end{matrix} \right)
+Σ_{bb·a}:= C\left( \begin{matrix}\Sigma_{aa}\\ \Sigma_{bb}\end{matrix} \right) \tag{27}$$</p>
+<p>舒尔补的条件期望：
+$E(x_{b·a}|x_a)=E(x_b|x_a)-E(\Sigma_{ba}\Sigma_{aa}^{-1}x_a|x_a)=E(x_b)-E(\Sigma_{ba}|x_a)\Sigma_{aa}^{-1}x_a$
+第二个等号是由于$x_b,x_a$iid，后者由于为条件，故为常量，可直接提出去
+$$E\left(\Sigma_{ba}\middle| x_a\right)=E\left(\left(x_b-\mu_b\right)^T\left(x_a-\mu_a\right)\middle| x_a\right)=E\left(\left(x_b-\mu_b\right)^T\middle| x_a\right)\left(x_a-\mu_a\right)\\=E\left(x_b-\mu_b\right)\left(x_a-\mu_a\right)=E(\Sigma_{ba})$$，从而：
+$$E\left(x_b\middle| x_a\right)=\mu_{b·a}+\Sigma_{ba}\Sigma_{aa}^{-1}x_a \tag{28}$$</p>
+<p>同理，对$D[x_b|x_a]$作相同计算，得：$$\ D\left(x_b\middle| x_a\right)=C\Sigma^{-1}C^T=Σbb·a \tag{29}$$</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题16</strong> 若$p\left(X\right),p(Y|X)$服从正态分布，若Y和X的关系是可逆仿射的，则$p\left(X,Y\right),p\left(Y\right),p(X|Y)$也服从正态分布</p>
+</div>
+<strong>pf.</strong> 由$p\left(X,Y\right)=p\left(X\right)p\left(Y\middle| X\right)$，不妨设$Y=AX-b$，不妨先对X作平移$\mu$，这不改变正态性. 不妨先作一个特殊的平移，只看指数部分
+$\exp{\left(X-\mu\right)^T\Sigma^{-1}}\left(X-\mu\right)+\left(AX+b\right)^TL^{-1}\left(AX+b\right)\\=\exp{\left(X-\mu\right)^T\Sigma^{-1}}\left(X-\mu\right)+\left(X-A^{-1}b\right)^TA^TL^{-1}A\left(X-A^{-1}b\right)$</p>
+<p>令$A^{-1}b=\mu$，即$b=A\mu$，则有：$\exp{\left(X-\mu\right)^T(\Sigma^{-1}+A^TL^{-1}A)(X-\mu)}$</p>
+<p>从而p(X,Y)是联合正态分布，再对Y作任意平移均不改变正态性
+由命题15知p(Y)正态，由上述讨论p(X,Y)正态，而$p\left(X,Y\right)=p(Y)p(X|Y)$，从而$p(X|Y)$也是正态（PDF相除等价于指数相减，而加减意义相同）</p>
+<p><div class="alert no-icon ">
+  <p><strong>命题17</strong> 若$p\left(X\right)=N\left(\mu,\Lambda^{-1}\right),p\left(Y\middle| X\right)=N(AX+b,L^{-1})$，
+则$p\left(Y\right)=N(A\mu+b,L^{-1}+A\Lambda^{-1}A^T)，
+p\left(X\middle| Y\right)=$$N(\mu+\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}\left(Y-A\mu-b\right),\Lambda^{-1}-\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}A\Lambda^{-1})$</p>
+</div>
+<strong>pf.</strong> 由命题16，可逆仿射后仍为正态，两个正态求和仍为正态，因此知$p\left(X\middle| Y\right),p(Y)$都是正态分布，故只需求出两个充分统计量
+由$p\left(x,y\right)=p\left(x\right)p\left(y\middle| x\right)$，知实质上$y=Ax+b+\epsilon$，其方差$L^{-1}$由噪声贡献. 因此
+$EY=AEX+b+0=A\mu+b\\
+DY=D\left(AX\right)+D\epsilon=A\Lambda^{-1}A^T+L^{-1} \tag{30}$</p>
+<p>记$Z=\left(X\ Y\right)^T$，从而$$\begin{align}Cov\left(X,Y\right)&amp;=E\left(X-EX\right)\left(Y-EY\right)^T\\&amp;=E\left(X-\mu\right)\left(AX-A\mu+\epsilon\right)^T\\&amp;=E\left(X-\mu\right)\left(X-\mu\right)^TA^T+E\left(X-\mu\right)E\epsilon\\&amp;=\Lambda^{-1}A^T+0=\Lambda^{-1}A^T
+\end{align}$$
+注意到：$$p(Z)=N\left ( \begin{pmatrix}
+\mu\\ A\mu+b
+\end{pmatrix},\begin{pmatrix}
+\Lambda^{-1} &amp;\Lambda^{-1}A^T \\
+\Lambda^{-1}A^T&amp; A\Lambda^{-1}A^T+L^{-1}
+\end{pmatrix} \right ) $$</p>
+<p>由Schur补，对应矩阵$$C=\left(-\Lambda^{-1}A^T\left(A\Lambda^{-1}A^T+L^{-1}\right)^{-1}\ \ I\right) \tag{31}$$ 由关于Schur补的推理，得：
+$$E\left(X\middle| Y\right)C\begin{pmatrix}
+A\mu+b \\ \mu
+\end{pmatrix}
+=\mu+\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}\left(Y-A\mu-b\right)\\ D\left(X\middle| Y\right)=C\begin{pmatrix}
+A\Lambda^{-1}A^T+L^{-1}\\\Lambda^{-1}
+\end{pmatrix}=\Lambda^{-1}-\Lambda^{-1}A^T\left(L^{-1}+A\Lambda^{-1}A^T\right)^{-1}A\Lambda^{-1} \tag{32}$$</p>
+<p><strong>Notes</strong> 一般把$\Lambda:=\Sigma^{-1}$，称为<strong>精度矩阵</strong></p>
+<h3 id="432-kalmon滤波">4.3.2 Kalmon滤波</h3>
+<p>在原有概率图的基础上，假定条件概率满足：$$\epsilon\sim N\left(0,Q\right),\delta\sim N(0,R) \\ z_t=Az_{t-1}+B+\epsilon,\ x_t=Cz_t+D+\delta \tag{33}$$
+其初值条件为$z_1\sim N(\mu_1,\Sigma_1)$，可知该模型参数为$\theta:=(A,B,C,D,Q,R,\mu_1,\Sigma_1)$.</p>
+<p>接下来研究滤波和预测问题.这里$P(x_{1:t})$是可求常量，然后沿概率图递推，第四个等号运用Markov条件：
+$P\left(z_t\middle| x_{1:t}\right)=\frac{P(z_t,x_{1:t})}{P(x_{1:t})}=\frac{1}{C}P\left(z_t,x_{1:t}\right)
+\\=\frac{1}{C}P\left(x_t\middle| z_t,x_{1:t-1}\right)P\left(z_t,x_{1:t-1}\right)=\frac{1}{C}P(x_t|z_t)P(z_t|x_{1:t-1})P(x_{1:t-1}) \tag{34}$</p>
+<p>可以发现<strong>第二个概率实质上是在做预测</strong>，进一步做递推：
+$$=\frac{1}{C}P\left(x_t\middle| z_t\right)P(x_{1:t-1})\int_{Z_{t-1}}{P(z_{t-1},x_{1:t-1})P(z_t|z_{t-1})}$$
+而$P(x_{1:t-1})$也是可算的常量，记作D，从而有：
+$$=\frac{D}{C}P\left(x_t\middle| z_t\right)\int_{Z_{t-1}}{P(z_{t-1},x_{1:t-1})P(z_t|z_{t-1})}$$</p>
+<p>因此对给定序列，<strong>可依次进行update、prediction的迭代</strong>——即先计算$P(z_1|x_1)$，再预测$P(z_2|x_1)$；计算$P(z_2|x_{1:2})$，再预测$P(z_3|x_{1:2})$. 但无论如何，由4.3.1的证明，高斯分布在条件概率的运算下封闭，从而只需确定出每一轮服从分布的均值和方差.</p>
+<p><strong>Update.</strong>
+$$p\left(z_t\middle| x_{1:t-1}\right)=\int_{z_{t-1}}{p(z_t|z_{t-1})p(z_{t-1}|x_{1:t-1})}=\int_{z_{t-1}}{N(z_t|Az_{t-1}+B,Q)N(\mu_{t-1},\Sigma_{t-1}\ )} \tag{35}$$
+由条件概率的定义，易得：$ \widetilde{\mu_t}=A\mu_{t-1}+B,\ \widetilde{\Sigma_t}=A\Sigma_tA^T+Q \tag{36}$</p>
+<p><strong>Prediction.</strong>
+$p\left(z_t\middle| x_{1:t}\right)=p\left(x_t\middle| z_t\right)p\left(z_t\middle| x_{1:t-1}\right)=N\left(x_t\right|Cz_t+D,R)N(\widetilde{\mu_t},\ \widetilde{\Sigma_t}) \tag{37}$</p>
+<p>由命题17，代入有：$$\mu_t=\tilde{\mu_t}+{\tilde{\Sigma_t}}^{-1}C^T\left(R^{-1}+C{\tilde{\Sigma_t}}^{-1}C^T\right)^{-1}\left(Y-C\tilde{\mu_t}-D\right) \\
+\Sigma_t={\tilde{\Sigma_t}}^{-1}-{\tilde{\Sigma_t}}^{-1}C^T\left(R^{-1}+C{\tilde{\Sigma_t}}^{-1}C^T\right)^{-1}C{\tilde{\Sigma_t}}^{-1}
+\tag{38}$$</p>
+<h3 id="44-粒子滤波particle-filtering">4.4 粒子滤波(Particle Filtering)</h3>
+<p>在线性滤波的条件下进一步推广至任意函数，噪声也不一定是高斯噪声：
+$$z_t=g\left(z_{t-1},u,\epsilon\right),x_t=h(z_t,u,\delta) \tag{39}$$</p>
+<p>这种情形下<strong>很难得到解析解，因此只能用采样方法求得期望</strong>. 考虑在$P(Z|X)$下的期望，$f(z)$是任意函数，则：
+$$\mathbb{E}_{Z|X}\left(f\left(z\right)\right)=\int f\left(z\right)p\left(z\right)dz=\int f(z)q(z)\frac{p(z)}{q(z)}dz:=\int f(z)q(z)w(z)dz \tag{40}$$</p>
+<p>这里$q(z)$是提议分布(proposal distribution)，目的在于简化权重项$w$的同时分布较简单.<strong>注意变换后需对w归一化</strong>，即找到常数C使$C\int_{Z} w=1$，这里假设C=1.</p>
+<p>在粒子滤波问题中，p和q实际上需考虑已经给的观测样本X，p和q都是基于样本的一个序列概率，即有：$$W=\frac{p(z_{1:t}|x_{1:t})}{q(z_{1:t}|x_{1:t})} \tag{41}$$</p>
+<p>但是我们希望W能动态反映不同长度序列对应的状态，从而提出对W的逐步迭代更新. 对于第t轮采样(样本数为N)，相应期望为$$\mathbb{E}<em>q[f\left(z\right)w^t\left(z\right)]=\frac{1}{N}\sum</em>{i=1}^{N}{f(z_i)w^t(Z_i)}$$</p>
+<p>$$\begin{align}
+p\left(z_{1:t}\middle| x_{1:t}\right)&amp;=\frac{p\left(z_{1:t},x_{1:t}\right)}{p\left(x_{1:t}\right)}=\frac{1}{C}p\left(z_{1:t},x_{1:t}\right)
+\\&amp;=\frac{1}{C}p\left(x_t\middle| z_{1:t},x_{1:t-1}\right)p\left(z_{1:t},x_{1:t-1}\right)
+\\&amp;=\frac{1}{C}p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{1:t-1},x_{1:t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)
+\\&amp;=\frac{1}{C}p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)p\left(x_{1:t-1}\right)
+\\&amp;=\frac{D}{C}p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)
+\\&amp;=\frac{D}{C}h(x_t)g(z_{t-1})p\left(z_{1:t-1}|x_{1:t-1}\right)
+\end{align} \tag{42}$$
+而q对应的$p\left(x_t\middle| z_t\right),p\left(z_t\middle| z_{t-1}\right)$也已知，从而W可采样求出.</p>
+<p>综上，我们有：
+$$z_t\sim q\left(z_t\middle| z_{t-1},x_{1:t}\right) \\
+\ W_t=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)p\left(z_{1:t-1}|x_{1:t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)q\left(z_{t-1}\middle| x_{1:t}\right)}=k_t\frac{p\left(x_t\middle| z_t\right)p\left(z_t\middle| z_{t-1}\right)}{q\left(z_t\middle| z_{t-1},x_{1:t}\right)}W_{t-1} \tag{43}$$</p>
+<p>如果选择$q\left(z_t\middle| z_{t-1},x_{1:t}\right)=p\left(z_t\middle| z_{t-1}\right)$，则采样过程可简化成$W_t=k_t{p\left(x_t\middle| z_t\right)W}_{t-1}$
+这个采样过程是随t从0开始按W不断加权采样，故称<strong>SIS（Sequential Importance Sampling）</strong></p>
+<p>SIS中易发生权值退化（只有绝大部分PDF趋于零），一般可通过重采样或选取合适的q解决。工程上的方法是先用SIS得到概率分布，再将其作为CDF重新采样.</p>
+<p>在本节，我们遵循如下思路：IS→SIS→SISR.</p>
+<h3 id="5-变分推断">5. 变分推断</h3>
+<p>给出(X,Z)的完全数据集，要求极大似然$\arg{\max{\log{P(X)}}}$. 这一次我们引入的模型参数是一个<strong>概率分布q(z)</strong>，一般该分布是<strong>指数族分布</strong>. 要求用**调整该分布(即变分，但通过调参实现)**去逼近不好求的$P(X)$，即：
+$$\log{P\left(X\right)=}\log{\frac{P(X,Z)}{P(Z|X)}}=\log{\frac{P(X,Z)}{q(Z)}}-\log{\frac{P(Z|X)}{q(Z)}}\tag{44}$$
+这样再作用上模型，即对Z作全概率，有： $$\log{P\left(X\right)=\int_{Z}{q(Z)}}\log{\frac{P(X,Z)}{q(Z)}}-\int_{Z} q\left(Z\right)\log{\frac{P\left(Z\middle| X\right)}{q\left(Z\right)}}=ELBO+KL(q(Z)||p(Z|X)) \tag{45}$$</p>
+<p>这样得到的就是EM算法的Q和H函数. 当算法收敛时，$KL\rightarrow0$，即对q(Z)的变分趋零，q收敛到X的先验上.</p>
+<p>回顾E-step和M-step，在VI中，我们更关心q而不是参数$\theta$
+$$q^{t+1}=\arg{\max_q{L\left(q,\theta^t\right)}}\\\theta^{t+1}=\arg{\max_\theta{L(q^{t+1},\theta)}}\tag{46}$$</p>
+<h3 id="51-基于平均场理论的启发假设">5.1 基于平均场理论的启发假设</h3>
+<p>假定q(Z)可被分解为一些乘积，如(47). 但这个假设有些强，相当于将一个连通概率图划分成几个连通分支，当去掉的割集关键或过大时效果较差，如Boltzmann机等
+$$q\left(Z\right):=\prod_{i=1}^{M}{q_i(Z_i)}\tag{47}$$</p>
+<p>$$ELBO=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}-\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\sum_{i=1}^{M}\log{q_i(Z_i)}} \tag{48}$$
+对(48)两项进一步计算，对第一项有：
+$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{49}$$</p>
+<p>把这个期望值给写成$\log{\widetilde{P}\left(X,Z\right)}$，这里的$z_1$可以被替换为任何一个z_j，然后对第二项计算（第四个等号由全概率可知为1：</p>
+<p>$$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1(Z_1)}\int_{z_2:n}{\prod_{i=2}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&amp;=\int_{z_1}{q_1\left(Z_1\right)E_{\prod_{i=2}^{M}{q_i\left(Z_i\right)}}[\log{P(X,Z)}]}\end{align} \tag{50}$$</p>
+<p>结合(48)(49)，得：$$\int_{z_j}{q_j\left(z_j\right)\log{\frac{\widetilde{P}(x,z_j)}{q_j(z_j)}}}=-KL(q_j||\widetilde{P}(x,z_j)) \tag{51}$$</p>
+<p>故目标是优化上式，我们能保证对数里面的比较好算，现问题为q的求解方式. 在最小化的过程中，可认为如(51). 本质还是在求多个积分，所以有可能还是无法求解. 在具体迭代过程，可用<strong>坐标上升法</strong>，即每次更新一个$z_j$，循环迭代 $$q_j=E_{\prod_{i\neq j}^{M}{q_i(Z_i)}}[\log{P(x,z_j)}]=\int_{z_{-j}}{q_i(z_i)}\log{P(x,z_j)} \tag{52}$$</p>
+<h3 id="52-stochastic-gradient-variational-interferencesgvi">5.2 Stochastic Gradient Variational Interference:SGVI</h3>
+<p>设指数族分布q(z)的参数为$\phi$，则$\nabla_\phi q\left(z\right)$一般是好求. 第二个等号交换求导和积分次序，至少对指数族分布可交换.
+$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}=\int_{Z}{\left(\nabla_\phi q\right)\log{P}-\left(\nabla_\phi q\right)\log{q}}-\nabla_\phi q \tag{53}$$</p>
+<p>对最后一项有：$\int_{Z}{\nabla_\phi q}=\nabla_\phi\int_{Z} q=\nabla_\phi1=0$</p>
+<p>从而$\int_{Z}{\left(\nabla_\phi q\right)\log{\frac{P}{q}}}=\int_{Z}{q\nabla_\phi\log{q}\log{\frac{P}{q}}}=\mathbb{E} <em>{q\left(z\right)}\left(\nabla</em>\phi\log{q}\log{\frac{P}{q}}\right) \tag{54}$</p>
+<p>接下来只需按照这个已知的分布$q\left(z\right)$进行Monto-Carlo采样求解梯度期望.</p>
+<h3 id="521-重参化技巧reparameterization-trick">5.2.1 重参化技巧(Reparameterization Trick)</h3>
+<p>然而\log{q}的分布方差太大，这里利用重参化技巧
+，即<strong>不直接用q的分布采样，而是引入$z=g(\epsilon,X|\phi)$，其中$\epsilon\sim p(\epsilon)$使得p的方差比q的小得多，通过对p采样来实现对q采样.</strong></p>
+<p><strong>Ex.</strong> 取$\epsilon~N(0,1)，z=g\left(\epsilon\right)=\mu+\sigma·ϵ$. 此时再求解则可化为：</p>
+<p>$$\begin{align} E_{p\left(z\right)}[f\left(z\right)]&amp;=\int_{Z}{p(z)f(z)}dz\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}\sigma}\exp{-\frac{(\mu+\sigma· \epsilon-\mu)^2}{2\sigma^2}f(g(\epsilon))}\sigma d\epsilon\\&amp;=\int_{z}\frac{1}{\sqrt{2\pi}}\exp{-\frac{\epsilon^2}{2}}f\left(g\left(\epsilon\right)\right)d\epsilon\\&amp;=\mathbb{E}_{p\left(\epsilon\right)}[(f·g)ϵ]\end{align}\tag{55}$$</p>
+<p>对(54)，设$\epsilon~p\left(\epsilon\right),z=g(\epsilon,X|\phi)$
+则$\int_{Z}{q\left(z\middle|\phi\right)dz}=\int_{\epsilon}{p(\epsilon)d\epsilon}=1$，假设q和p连续，则一定存在q和p的分拆使得$q\left(z\middle|\phi\right)dz=\ p(\epsilon)d\epsilon$. 从而：
+$$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}dz=\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z} p\left(\epsilon\right)\left(\log{P}-\log{q}\right)d\epsilon=E_{p(\epsilon)}\nabla_\phi\log{\frac{P}{q}} \tag{56}$$</p>
+<p>再引入Z，因为$p,q$与Z直接相关，易求梯度. 从而有：
+$$E_{p\left(\epsilon\right)}[\nabla_\phi g\left(\epsilon,X\middle|\phi\right)·∇_Z\log \frac{p}{q} ] \tag{57}$$</p>
+<p>Updates.
+3-27 <em>K-means</em>
+3-28 <em>DBSCAN</em>
+7-17 <em>EM Algo</em></p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/cluster/">Cluster</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/hmm/">HMM</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/em/">EM</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/vi/">VI</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/linear-dynamic-system/">Linear Dynamic System</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" data-tooltip="[ML]Stastics Analysis Primer III: ANOVA" aria-label="PREVIOUS: [ML]Stastics Analysis Primer III: ANOVA">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mlclustering-algo-em-algo-and-hmm\/';
+        
+          this.page.identifier = '\/2023\/07\/mlclustering-algo-em-algo-and-hmm\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/" data-tooltip="[ML]Stastics Analysis Primer III: ANOVA" aria-label="PREVIOUS: [ML]Stastics Analysis Primer III: ANOVA">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlclustering-algo-em-algo-and-hmm%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlclustering-algo-em-algo-and-hmm%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlclustering-algo-em-algo-and-hmm%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

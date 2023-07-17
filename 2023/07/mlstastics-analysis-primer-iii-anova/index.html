@@ -539,7 +539,30 @@ $$F_{AB}=\frac{S_{AB}/(r-1)(s-1)}{S_E/rs(t-1)}\sim F((r-1)(s-1),rs(t-1)) \tag6$$
 </ul>
 <p><strong>Notes.</strong> LSD只适用于<strong>单因素</strong>的<strong>取值不超过3</strong>时<strong>原假设被拒绝</strong>的情况. 任何多重比较的核心都是控制一型错误，如LSD的显著性水平$\alpha=0.05$，当有3个因素时，需做3次比较，则犯错率为$1-(1-\alpha)^3=0.143$，而做4次时为$1-(1-\alpha)^6=0.265$，显著性过高.</p>
 <h2 id="3-t检验">3. T检验</h2>
-<h2 id="4-多重高斯分布">4. 多重高斯分布</h2>
+<p>T检验的要求为<strong>两个</strong>样本<strong>统计量服从正态，方差未知</strong>的情形，可对样本进行一些变换直至近似正态，但均需通过正态分布的显著性检验.</p>
+<h4 id="31-单样本均值检验z-testu-test">3.1 单样本均值检验(Z-test/U-test)</h4>
+<ul>
+<li>假设：正态分布的均值为$\mu$</li>
+<li>统计量：由$\bar X\sim N(\mu,{\sigma\over n})$得$\frac{\bar X-\mu}{\sigma /\sqrt{n}}\sim N(0,1)$,而$\frac{(n-1)s^2}{\sigma^2}\sim\chi^2(n-1)$，故$t=\frac{\frac{\bar X-\mu}{\sigma /\sqrt{n}}}{\frac{(n-1)s^2}{\sigma^2\sqrt {n-1}}}$ $=\frac{\sqrt n(\bar X-\mu)}{s}\sim t(n-1)$</li>
+</ul>
+<p><strong>ex.</strong></p>
+<ol>
+<li>双侧检验：两工厂生产同种零件的规格是否相等</li>
+<li>单侧检验：施以新药的血红蛋白增加量是否多于常规药的</li>
+</ol>
+<h4 id="32-两组独立样本">3.2 两组独立样本</h4>
+<ul>
+<li>要求：若<strong>总体方差相同但未知</strong>，<strong>样本方差$s_1,s_2$满足$s_1:s_2\in(\frac{1}{2},2)$</strong></li>
+<li>统计量：设随机变量$X_1,X_2$，易得$\bar X_1-\bar X_2 \sim N(\mu_1-\mu_2,(\frac{1}{n_1}+\frac{1}{n_2})\sigma ^2)$，故$\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt[]{\frac{1}{n_1}+\frac{1}{n_2}}\sigma}\sim N(0,1)$，由卡方分布可加性，有$\frac{(n_1-1)s_1^2}{\sigma^2}+\frac{(n_2-1)s_2^2}{\sigma^2} \sim\chi^2(n_1+n_2-2)$，进而构造t分布，有$t=\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt[]{\frac{1}{n_1}+\frac{1}{n_2}}s_p}\sim t(n_1+n_2-2),s_p=\sqrt[]{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}}  $</li>
+</ul>
+<p>如果总体方差不等且未知，满足$s_1:s_2\notin(\frac{1}{2},2)$，则需引入<strong>Welch&rsquo;s T-test</strong>，对自由度进行修正. 其中统计量更正为$t=\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt[]{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$，自由度$\nu\approx \frac{(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2})^2}{\frac{s_1^4}{n_1^2(n_1-1)}+\frac{s_2^4}{n_2^2(n_2-1)}} $ (一般$n_1,n_2&gt;5$时与t分布近似程度较高)</p>
+<h4 id="33-配对样本均值检验">3.3 配对样本均值检验</h4>
+<p>即两组样本是一一对应的，如将同一对象前后对照(锻炼前后的同一群人)、将一些对象分为两组做对照实验和将同一对象分为两个部分分别处理. 配对样本一般比独立样本t检验效力更强.</p>
+<ul>
+<li>要求：总体方差相等，服从正态分布</li>
+<li>统计量：令3.2的统计量t中的$n_1=n_2$，化简有$t=\frac{\sqrt n(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt{s_d}}\sim t(n-1)$</li>
+</ul>
+<h2 id="4-gaussian-mixture-model高斯混合模型">4. Gaussian Mixture Model(高斯混合模型)</h2>
               
 
 
@@ -568,7 +591,7 @@ $$F_{AB}=\frac{S_{AB}/(r-1)(s-1)}{S_E/rs(t-1)}\sim F((r-1)(s-1),rs(t-1)) \tag6$$
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" data-tooltip="[ML]Clustering Algo, EM algo and HMM" aria-label="NEXT: [ML]Clustering Algo, EM algo and HMM">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -675,7 +698,7 @@ $$F_{AB}=\frac{S_{AB}/(r-1)(s-1)}{S_E/rs(t-1)}\sim F((r-1)(s-1),rs(t-1)) \tag6$$
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" data-tooltip="[ML]Clustering Algo, EM algo and HMM" aria-label="NEXT: [ML]Clustering Algo, EM algo and HMM">
           
               <i class="fa fa-angle-left"></i>
               <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

@@ -550,7 +550,7 @@ $$L\left(f,\lambda\right)=f^TLf-\lambda_0\left(f^T1\right)-\lambda\left(f^Tf-n\r
 <h3 id="24-n-cut">2.4 N-cut</h3>
 <p>只需将RC中二聚类和多聚类的集合的势换成Vol(A_i)，其余完全相 这是基于$Vol\left(G\right)=\sum{Vol(G_i)}$，其中子图$G_i$顶点集的无交并是图G的顶点集.</p>
 <h3 id="25-不同的laplace矩阵">2.5 不同的Laplace矩阵</h3>
-<p>一般需要对Laplace矩阵进行归一化，因为聚类算法期望类内相似度高、类间相似度低. 而2.3,2.4的方法，只能实现类间相似度低，但若对L归一化，以NC为例，有：W\left(A,A\right)=Vol\left(A\right)-Cut(A,\bar{A})，此时Vol(A)为定值1，这使得当Cut(A,\bar{A})最小时，W(A,A)最大. 即<strong>两个目标同步完成</strong>.
+<p>一般需要对Laplace矩阵进行归一化，因为聚类算法期望类内相似度高、类间相似度低. 而2.3,2.4的方法，只能实现类间相似度低，但若对L归一化，以NC为例，有：$W\left(A,A\right)=Vol\left(A\right)-Cut(A,\bar{A})$，此时Vol(A)为定值1，这使得当$Cut(A,\bar{A})$最小时，W(A,A)最大. 即<strong>两个目标同步完成</strong>.
 归一化方法一般有以下两种(对称型symmetric与随机游走型random walk)：
 $$L_{sym}:=D^{-\frac{1}{2}}LD^{-\frac{1}{2}}=I-D^{-\frac{1}{2}}WD^{-\frac{1}{2}}\\L_{rw}=D^{-1}L:=I-D^{-1}W \tag8$$
 <div class="alert no-icon ">
@@ -811,7 +811,7 @@ $$z_t=g\left(z_{t-1},u,\epsilon\right),x_t=h(z_t,u,\delta) \tag{39}$$</p>
 $$\mathbb{E}_{Z|X}\left(f\left(z\right)\right)=\int f\left(z\right)p\left(z\right)dz=\int f(z)q(z)\frac{p(z)}{q(z)}dz:=\int f(z)q(z)w(z)dz \tag{40}$$</p>
 <p>这里$q(z)$是提议分布(proposal distribution)，目的在于简化权重项$w$的同时分布较简单.<strong>注意变换后需对w归一化</strong>，即找到常数C使$C\int_{Z} w=1$，这里假设C=1.</p>
 <p>在粒子滤波问题中，p和q实际上需考虑已经给的观测样本X，p和q都是基于样本的一个序列概率，即有：$$W=\frac{p(z_{1:t}|x_{1:t})}{q(z_{1:t}|x_{1:t})} \tag{41}$$</p>
-<p>但是我们希望W能动态反映不同长度序列对应的状态，从而提出对W的逐步迭代更新. 对于第t轮采样(样本数为N)，相应期望为$$\mathbb{E}<em>q[f\left(z\right)w^t\left(z\right)]=\frac{1}{N}\sum</em>{i=1}^{N}{f(z_i)w^t(Z_i)}$$</p>
+<p>但是我们希望W能动态反映不同长度序列对应的状态，从而提出对W的逐步迭代更新. 对于第t轮采样(样本数为N)，相应期望为$$E_q[f\left(z\right)w^t\left(z\right)]=\frac{1}{N}\sum_{i=1}^{N}{f(z_i)w^t(Z_i)}$$</p>
 <p>$$\begin{align}
 p\left(z_{1:t}\middle| x_{1:t}\right)&amp;=\frac{p\left(z_{1:t},x_{1:t}\right)}{p\left(x_{1:t}\right)}=\frac{1}{C}p\left(z_{1:t},x_{1:t}\right)
 \\&amp;=\frac{1}{C}p\left(x_t\middle| z_{1:t},x_{1:t-1}\right)p\left(z_{1:t},x_{1:t-1}\right)
@@ -829,7 +829,7 @@ $$z_t\sim q\left(z_t\middle| z_{t-1},x_{1:t}\right) \\
 <p>SIS中易发生权值退化（只有绝大部分PDF趋于零），一般可通过重采样或选取合适的q解决。工程上的方法是先用SIS得到概率分布，再将其作为CDF重新采样.</p>
 <p>在本节，我们遵循如下思路：IS→SIS→SISR.</p>
 <h3 id="5-变分推断">5. 变分推断</h3>
-<p>给出(X,Z)的完全数据集，要求极大似然$\arg{\max{\log{P(X)}}}$. 这一次我们引入的模型参数是一个<strong>概率分布q(z)</strong>，一般该分布是<strong>指数族分布</strong>. 要求用**调整该分布(即变分，但通过调参实现)**去逼近不好求的$P(X)$，即：
+<p>给出(X,Z)的完全数据集，要求极大似然$\arg{\max{\log{P(X)}}}$. 这一次我们引入的模型参数是一个<strong>概率分布q(z)</strong>，一般该分布是<strong>指数族分布</strong>. 要求用 <strong>调整该分布(即变分，但通过调参实现)</strong> 去逼近不好求的$P(X)$，即：
 $$\log{P\left(X\right)=}\log{\frac{P(X,Z)}{P(Z|X)}}=\log{\frac{P(X,Z)}{q(Z)}}-\log{\frac{P(Z|X)}{q(Z)}}\tag{44}$$
 这样再作用上模型，即对Z作全概率，有： $$\log{P\left(X\right)=\int_{Z}{q(Z)}}\log{\frac{P(X,Z)}{q(Z)}}-\int_{Z} q\left(Z\right)\log{\frac{P\left(Z\middle| X\right)}{q\left(Z\right)}}=ELBO+KL(q(Z)||p(Z|X)) \tag{45}$$</p>
 <p>这样得到的就是EM算法的Q和H函数. 当算法收敛时，$KL\rightarrow0$，即对q(Z)的变分趋零，q收敛到X的先验上.</p>
@@ -849,7 +849,7 @@ $$\begin{align}LHS&amp;=\int_{z_1:n}{\prod_{i=1}^{M}{q_i(Z_i)}\log{P(X,Z)}}\\&am
 <p>设指数族分布q(z)的参数为$\phi$，则$\nabla_\phi q\left(z\right)$一般是好求. 第二个等号交换求导和积分次序，至少对指数族分布可交换.
 $$\nabla_\phi L\left(\phi\right)=\nabla_\phi\int_{Z}{q\log{P}-q\log{q}}=\int_{Z}{\left(\nabla_\phi q\right)\log{P}-\left(\nabla_\phi q\right)\log{q}}-\nabla_\phi q \tag{53}$$</p>
 <p>对最后一项有：$\int_{Z}{\nabla_\phi q}=\nabla_\phi\int_{Z} q=\nabla_\phi1=0$</p>
-<p>从而$\int_{Z}{\left(\nabla_\phi q\right)\log{\frac{P}{q}}}=\int_{Z}{q\nabla_\phi\log{q}\log{\frac{P}{q}}}=\mathbb{E} <em>{q\left(z\right)}\left(\nabla</em>\phi\log{q}\log{\frac{P}{q}}\right) \tag{54}$</p>
+<p>从而$\int_{Z}{\left(\nabla_\phi q\right)\log{\frac{P}{q}}}=\int_{Z}{q\nabla_\phi\log{q}\log{\frac{P}{q}}}=E <em>{q\left(z\right)}\left(\nabla</em>\phi\log{q}\log{\frac{P}{q}}\right) \tag{54}$</p>
 <p>接下来只需按照这个已知的分布$q\left(z\right)$进行Monto-Carlo采样求解梯度期望.</p>
 <h3 id="521-重参化技巧reparameterization-trick">5.2.1 重参化技巧(Reparameterization Trick)</h3>
 <p>然而\log{q}的分布方差太大，这里利用重参化技巧

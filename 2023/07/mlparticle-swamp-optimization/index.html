@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Particle Swamp Optimization",
+  
+  "image": "https://Supradax.github.io/img/genshin/1.png",
+  
+  "datePublished": "2023-07-20T00:00:00Z",
+  "dateModified": "2023-07-20T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mlparticle-swamp-optimization\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛\n",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛">
+
+
+<meta property="og:description" content="粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Particle Swamp Optimization">
+<meta name="twitter:title" content="[ML]Particle Swamp Optimization">
+<meta property="og:url" content="https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛">
+<meta name="twitter:description" content="粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-07-20T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-07-20T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Optimization">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/genshin/1.png">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/genshin/1.png">
+
+
+    <title>[ML]Particle Swamp Optimization</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Particle Swamp Optimization
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-07-20T00:00:00Z">
+        
+  July 20, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>粒子群类比鸟类觅食，个体找到的最优解（惯性）、群体目前发现的和自身具有一定探索性，共同作用来找到全局最优。相对当前全局最优的位置、自身历史最优的位置的位矢和随机扰动共同构成下一运动方向，最终让大量粒子集中收敛</p>
+<ul>
+<li><strong>符号约定</strong>：N维空间粒子位置$X^d(x_1,\ldots,x_n)$，速度$V^d(v_1,\ldots,v_n)$(上标d表示第d轮迭代)</li>
+<li><strong>核心公式</strong>：$$v_{ij}\left(t+1\right)=wv_{ij}\left(t\right)+c_1r_1\left(t\right)\left(p_{ij}\left(t\right)-x_{ij}\left(t\right)\right)+c_2r_2(t)(p_g\left(t\right)-x_{ij}(t))\ \tag{1}$$</li>
+<li><strong>相关参数</strong>：粒子群数目n、w惯性系数(0.9~1.2)$\quad_{[1]}$、$c_1$固有个体学习率(0.1~2)、$p_{ij}$为第i个粒子在j时刻的历史最优、$p_g$群体当前最优(individual, global)、$c_2$群体学习率(0.1~2). 在后续讨论中令$r_1=r_2=1$最大移动速度$v_m$</li>
+</ul>
+<p><strong>具体步骤：</strong></p>
+<ol>
+<li>随机初始化种群并计算个体适应度</li>
+<li>更新粒子速度</li>
+<li>检查粒子速度是否超过阈值$v_m$，以及下一位置是否在可行域内</li>
+<li>更新粒子位置，相应更新个体历史和群体适应度</li>
+<li>回到2，直至算法收敛或已达迭代上限</li>
+</ol>
+<h3 id="1-sample">1. Sample</h3>
+<p>下面代码演示了寻找一元函数的最大值：$f(x)=-x^2,x\in[-3,3]$. 这里将适应度定义为函数值.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight py language-py">
+  <figcaption>
+    
+      <span>PSO</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-py py"><code class="py">n = 10 #particle amount
+c1, c2 = 2,2 #indivual and social learning factors
+w = 0.9 #inertia
+k = 50 #iterations
+vmax = 1.2 #maximum value to avoid particles moving too fast
+x_lb, x_ub = -3, 3  
+
+#the target function
+f = lambda x: -x**2
+
+#initiate the particles
+particles = [np.random.uniform(low=x_lb,high=x_ub) for i in range(n)]
+v_particles = [np.random.uniform(low=0,high=1) for i in range(n)]
+local_optimal = [i for i in particles]
+
+glo_optimal = -1
+
+for iteration in range(k):
+    #update the local maxmima and global maximum
+    for i in range(n):
+        p,q = particles[i], local_optimal[i]
+        local_optimal[i] = p if f(p) &gt; f(q) else q       
+    for item in local_optimal:
+        glo_optimal = item if f(item) &gt; f(glo_optimal) else glo_optimal
+
+    #update the position and the velocity of each particle
+    for i in range(n):
+        x,v = particles[i],v_particles[i]
+        r1,r2 = local_optimal[i]-x, glo_optimal-x
+        #restrict the particles within the domain
+        if x&#43;v&gt;x_ub or x&#43;v&lt;x_lb:
+            v = 0
+        particles[i] = x&#43;v*(1-iteration*1/k)
+        v_particles[i] = v*w&#43;c1*r1&#43;c2*r2
+    print(iteration,glo_optimal,f(glo_optimal))</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<p>寻找二元函数的最大值：$f(x,y)=21.5+x\sin(4\pi x)+y\sin(20\pi y)$. 将适应度定义为函数值.
+
+  
+    
+  
+  
+    
+  
+  
+  
+
+
+<figure class="highlight py language-py">
+  <figcaption>
+    
+      <span>PSO</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class="code-highlight language-py py"><code class="py">m,n = 2,20 #variable amount and particle amount
+c1, c2 = 2,2 #indivual and social learning factors
+w_start,w_end = 0.9,0.4 #inertia
+k = 100 #iterations
+ #maximum value to avoid particles moving too fast
+lb, ub = [-3,4.1],[12.1,5.8]  
+vmax = [0.1*(ub[i]-lb[i]) for i in range(m)]
+#the target function
+f = lambda x: 21.5&#43;x[0]*np.sin(4*np.pi*x[0])&#43;x[1]*np.sin(20*np.pi*x[1])
+#generate initial pos
+g = lambda:np.array([np.random.uniform(low=lb[i],high=ub[i]) for i in range(m)])
+
+#initiate the particles
+particles = np.array([g() for i in range(n)])
+v_particles = np.array([np.zeros(m) for i in range(n)])
+local_optimal = np.array([i for i in particles])
+
+glo_optimal = [-2,-2]
+
+for iteration in range(k):
+    #update the local maxmima and global maximum
+    for i in range(n):
+        p,q = particles[i], local_optimal[i]
+        local_optimal[i] = p if f(p) &gt; f(q) else q       
+    for item in local_optimal:
+        glo_optimal = item if f(item) &gt; f(glo_optimal) else glo_optimal
+
+    #update the position and the velocity of each particle
+    for i in range(n):
+        x,v = particles[i],v_particles[i]
+        r1,r2 = local_optimal[i]-x, glo_optimal-x
+        #restrict the particles within the domain
+        for j in range(m):
+            if abs(v[j])&gt;vmax[j]:
+                v[j] = vmax[j] if v[j]&gt;0 else -vmax[j]
+            if x[j]&#43;v[j]&gt;ub[j] or x[j]&#43;v[j]&lt;lb[j]:
+                v[j] = 0
+            
+        particles[i] = x&#43;v
+        w = w_start-(w_start-w_end)*iteration/k
+        v_particles[i] = v*w&#43;c1*r1&#43;c2*r2
+    print(iteration,glo_optimal,f(glo_optimal))</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+</p>
+<h3 id="2-improvement">2. Improvement</h3>
+<h4 id="21-网格搜索">2.1 网格搜索</h4>
+<p>对w和$v_m$，由于是超参，一般学习效果会先增后减，可用网格搜索找到较好的小范围</p>
+<h4 id="22-递减惯性权重">2.2 递减惯性权重</h4>
+<p><strong>w较大时注重全局搜索，较小时注意局部搜索</strong>. 和模拟退火类似，均期望前期广撒网，后期注重局部优化. 基此，我们希望惯性权重相对迭代次数逐渐下降，即<strong>线性递减惯性权重（Linear Decreasing Inertia Weight:LDIW）</strong>，一般$w_s=0.9,w_e=0.4$$_{[2]}$. d和K分别是当前迭代轮数和总迭代轮数.
+$w=w_s+(w_s-w_e )  {d\over K} \tag2$
+$v_i^d=wv_i^(d-1)+c_1 x_1+c_2 x_2 \tag3$
+此外还有两种变形，将$\frac{d}{k}$改为$\left(\frac{d}{k}\right)^2,\frac{2d}{k}-\left(\frac{d}{k}\right)^2$. 这两种方法为平方递减，其w-d图像关于(2)对称</p>
+<h4 id="23-自适应惯性权重">2.3 自适应惯性权重</h4>
+<p>利用粒子当前值和该轮总体均值比较，若明显低于总体，则期望偏向全局搜索，即提高$w_i^d$；反之降低. 记给定最大、最小惯性系数W,w，一般取0.9,0.4. 如求解最小值问题，当前轮(第d轮)粒子对应函数均值为$a^d$，最大、小值为$M^d,m^d$则：
+$w_i^d=w+\left(W-w\right)\frac{f\left(x_i^d\right)-m^d}{a^d-m^d},f\left(x_i^d\right)\le a^d \\ w_i^d = W, f\left(x_i^d\right)&gt; a^d\tag4$</p>
+<h4 id="24-随机惯性权重">2.4 随机惯性权重</h4>
+<p>用魔法打败魔法. w是均匀分布在$\left[0,1\right]$间的随机数.为改善前期的局部搜索不足和后期的全局搜索不足，可再作改进.令$k_1\sim U\left(0,1\right),\ k_2\sim N(0,1) \\ w^d=w+\left(W-w\right)·r1+σ·r2 \tag5$
+其中$\sigma$一般取[0.2,0.5], 第三项是为控制取值权重误差，认为实验误差服从正态$_{[3]}$.</p>
+<h4 id="25-压缩因子法">2.5 压缩因子法</h4>
+<p>通过压缩映射使速度必然收敛(具体证明见$_{[4]}$)，从而不必限制最大速度$v_m$.
+$K=\frac{2}{|2-c-\sqrt{c^2-4c}|},c=c_1+c_2&gt;4 \\ v_i^d=K(wv_i^{d-1}+c_1r_1+c_2r_2) \tag6$</p>
+<h4 id="26-非对称学习因子">2.6 非对称学习因子</h4>
+<p>当$c_1=c_2=C$时，表示个体和群体搜索倾向完全相同；$c_1+c_2=C$时，两个倾向互补，为经典PSO思想. 而本文提出非对称的思想，即$c_1\neq c_2$.
+$$c_1=c_{1f}+\left(c_{1f}-c_{1i}\right)\frac{d}{k}\ ,c_2=c_{2f}+\left(c_{2f}-c_{2i}\right)\frac{d}{k} \tag7$$
+其中$c_{ji},c_{jf}$各表示因子c_j的初值和最终值(上一轮迭代的值)</p>
+<h3 id="3-test-cases">3. Test Cases</h3>
+<p>一个优化算法的有效性，可用下列常见案例进行检验$_{[5]}$：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Item</th>
+<th>Formula</th>
+<th style="text-align:center">Dimension</th>
+<th style="text-align:center">Domain</th>
+<th style="text-align:center">Target</th>
+<th style="text-align:center">Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Sphere</td>
+<td>$\sum_{i=1}^nx_i^2$</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">$[-100,100]^n$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1e-2</td>
+</tr>
+<tr>
+<td style="text-align:center">Rosenbrock</td>
+<td>$\sum_{i=1}^{n-1}[100(x_{i+1}-x_i^2)^2+(x_i-1)^2]$</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">$[-30,30]^n$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1e2</td>
+</tr>
+<tr>
+<td style="text-align:center">Rastrigin</td>
+<td>$\sum_{i=1}^n(x_i^2-10\cos(2\pi x_i)+10)$</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">$[-5.12,5.12]^n$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1e2</td>
+</tr>
+<tr>
+<td style="text-align:center">Griewank</td>
+<td>$\frac{1}{4000}\sum_{i=1}^nx_i^2-\prod_{i=1}^n \cos(\frac{x_i}{\sqrt[]{i}})+1$</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">$[-600,600]^n$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1e-1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-applications">4. Applications</h3>
+<p>除求解目标函数的最值外，还可解方程组、求解非线性约束问题等.</p>
+<h4 id="41-求解非线性约束问题">4.1 求解非线性约束问题</h4>
+<ol>
+<li>在目标函数加入越界对应的惩罚项，容易收敛，但坏处在于结果可能仍不满足约束</li>
+<li>每次移动时判断目标位置是否在可行域中，但收敛性难控制</li>
+</ol>
+<h4 id="42-解方程组">4.2 解方程组</h4>
+<p>对$f_i\left(x_1,\ldots x_n\right)=0,i=1,2,\ldots,m$，则目标函数为$\sum_{i=1}^n(f_i^2)\tag8$
+对于给定求解含参曲线、微分方程拟合问题，可用MSE刻画拟合效果，对应目标函数为$$ \sum_{i=1}^n(\hat{y}-y_i)^2 \tag9$$</p>
+<h3 id="references">References.</h3>
+<ol>
+<li>SHI,Y.A Modified Particle Swarm Optimizer[C]//Proc. of lEEE ICEC conference,Anchorage.1998.</li>
+<li>Shi, Y.and Eberhart,R.C.(1999)Empirical Study of Particle Swarm Optimization.Proceedingsof the 1999 Congress on Evolutionary Computation, Washington DC, 6-9 July 1999, 1945-1950.</li>
+<li>Zhang L ,Yu H , Hu S. A New Approach to lmprove Particle Swarm Optimization[l]. lecture notes in computer science, 2003,2723:134-139.</li>
+<li>M.Clerc. The swarm and queen: towards a deterministic and adaptive particle swarm optimization. Proc. Congress on Evolutionary Computation, Washington, D.C. Piscataway, NJ:IEEE Service Center (1999)1951-1957</li>
+<li>毛开富,包广清,徐驰.基于非对称学习因子调节的粒子群优化算法[J].计算机工程,2010(19):188-190.</li>
+<li>张玮,王华奎.粒子群算法稳定性的参数选择策略分析[J.系统仿真学报,2009,21(014):4339-4344.</li>
+</ol>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/optimization/">Optimization</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" data-tooltip="[ML]Clustering Algo, EM algo and HMM" aria-label="PREVIOUS: [ML]Clustering Algo, EM algo and HMM">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mlparticle-swamp-optimization\/';
+        
+          this.page.identifier = '\/2023\/07\/mlparticle-swamp-optimization\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlclustering-algo-em-algo-and-hmm/" data-tooltip="[ML]Clustering Algo, EM algo and HMM" aria-label="PREVIOUS: [ML]Clustering Algo, EM algo and HMM">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlparticle-swamp-optimization%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlparticle-swamp-optimization%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlparticle-swamp-optimization%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

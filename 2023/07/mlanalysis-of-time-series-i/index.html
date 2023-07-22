@@ -1,0 +1,752 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Analysis of Time Series I",
+  
+  "image": "https://Supradax.github.io/img/genshin/1.png",
+  
+  "datePublished": "2023-07-22T00:00:00Z",
+  "dateModified": "2023-07-22T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mlanalysis-of-time-series-i\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Analysis of Time Series I">
+<meta name="twitter:title" content="[ML]Analysis of Time Series I">
+<meta property="og:url" content="https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-07-22T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-07-22T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+  
+  
+    
+      <meta property="article:tag" content="Model">
+    
+      <meta property="article:tag" content="Time Series">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/genshin/1.png">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/genshin/1.png">
+
+
+    <title>[ML]Analysis of Time Series I</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Analysis of Time Series I
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-07-22T00:00:00Z">
+        
+  July 22, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <p>时间序列是以时间$t$和特征$x_t$为自变量和应变量的序列.每个时刻都相应有一个随机变量$X_t$.</p>
+<p>分类标准：</p>
+<ul>
+<li><strong>特征维数</strong>：一元和多元时间序列.</li>
+<li><strong>时间连续性</strong>：连续和离散</li>
+<li><strong>时间序列分布规律</strong>：高斯型和非高斯型</li>
+<li><strong>统计特性</strong>：平稳和非平稳. 若一个序列的概率分布与t无关，则称<strong>严平稳</strong>；若其一二阶矩存在，且<strong>对任意时刻t都有EX为常数、协方差只和时间间隔有关</strong>，则称<strong>宽平稳</strong>.</li>
+<li><strong>时间含义</strong>：时间点序列(如每天12点的山谷气温)和时期序列(如每个月的GDP). 后者进行累加有明确含义，前者没有.</li>
+</ul>
+<p>典型的时序模型含<strong>长期趋势$T_t$、季节性变动$S_t$、循环周期变动$C_t$、不规则变动四部分$R_t$</strong>，可以看到季节性和循环周期变动实际上是一件事，只是有着不同周期的两类周期变动而已. 若在预测时间范围内，<strong>无突然变动且随机变动$E(R_t)=σ$较小</strong>，则有理由认为过去和现在趋势将持续到未来.</p>
+<p>用MSE定义预测误差$S=\sqrt{\frac{\sum_{t=N+1}^{T}\left({\hat{y}}_t-y_t\right)^2}{T-N}}$.</p>
+<p><strong>注</strong>：在经济学中，更多称$x_t$为第t期的数据.</p>
+<h3 id="1-移动平均法">1. 移动平均法</h3>
+<p>设一个时间序列{$y_n$}，其时间间隔为1，长度为T. <strong>当序列数值由于受周期变动和不规则变动的影响，起伏 较大，不易显示出发展趋势时</strong>，可用移动平均法，消除这些因素影响.</p>
+<h4 id="11-简单一次移动平均法">1.1 简单（一次）移动平均法</h4>
+<p><strong>第t期是从t-N+1到t这N期的均值</strong>. 故需选定N的值，一般取5≤N≤200. 实际中可选不同的值分别预测，选出最佳的N.</p>
+<p>$\hat{y_t}=\frac{1}{N}\left(y_{t-N+1}+\ldots+y_t\right) \tag1$
+此处选用t期到t-N+1期是默认t期为已知.否则（如预测问题）则需选用从t-1期到t-N期.</p>
+<p><strong>适用范围：</strong> 短期预测、填充时间序列的一些缺失值和将剧烈波动的时间序列平滑化
+
+ 
+ 
+ <div class="figure center" >
+   
+     <img class="fig-img" src="https://Supradax.github.io/img/ml/1.png"  alt="时间序列平滑化对比">
+   
+    
+     <span class="caption">时间序列平滑化对比</span>
+   
+ </div>
+</p>
+<h4 id="12-加权移动平均">1.2 加权移动平均</h4>
+<p>在简单移动平均的基础上，认为<strong>离当期越近的数据更有价值</strong>，赋予$t_0$期$y_{t_0}$以权重$w_{t_0,t}=f(t-t_0)$，一般f单调递减.</p>
+<p><strong>第t期是从t-N到t-1这N期的加权均值</strong>，其中$w_k$表示第$t-k$期的权重.</p>
+<p>$\hat{y_t}=\frac{1}{\sum_{i=0}^{N-1}w_i\ }\left(w_{N-1}y_{t-N}+\ldots+w_0y_t\right) \tag2$</p>
+<p>若数据无出现明显总体趋势，使用移动平均的误差还能接受。一旦<strong>变化相对剧烈，当N较大时，模型会出现明显的滞后性</strong>. 一种修正方法是作二次移动平均，即趋势移动平均法</p>
+<h4 id="13-趋势移动平均">1.3 趋势移动平均</h4>
+<p>设第i期通过一次移动平均得到$\hat{y_i}$，再将进行一次平均，有：
+$\tilde{y_t}=\frac{1}{N}\left({\hat{y_{t-N+1}}}+\ldots+{\hat y_t}\right)=\widetilde y_{t-1}+\frac{1}{N}\left({\hat{y_t}}-{\hat{y_{t-N}}}\right)\tag3$</p>
+<p>假设序列趋势是线性的：$y=a_tt+b_t$.可以看到，与普通回归分析不同，参数$a_t,b_t$是随时间变化的，这意味着需要不断更新这两个参数得到一个参数时间序列.</p>
+<p>可知能够分离出序列的线性部分和波动部分($c_t=y_t-a_tt-b_t$)，然后再处理波动部分，如使用函数$y=A(t)\sin{\left(wt+\phi\right)}$拟合等.</p>
+<p>易知：
+$y_t=b_t,y_{t-k}=b_t-ka_t \tag4$
+累加求和，代入(1)，得：
+$\widehat{y_t}=\frac{1}{N}\left(Ny_t-\frac{N\left(N-1\right)}{2}a_t\right)=b_t-\frac{N-1}{2}a_t \tag5$</p>
+<p>计算平滑系数$a_t,b_t$：不难看出，两次均值$\widetilde{y}_t$一定有一项仍为$b_t$，现在看$a_t$的系数c：
+$c=\frac{1}{N}\left(\frac{0+1+\ldots+t-1}{N}+\frac{1+\ldots+t}{N}+\ldots+\frac{N-1+t+N-1}{N}\right)$$=\frac{1}{N^2}0·1+1·2+&hellip;+N·N-1+&hellip;+1·(t+N-1)$，其中第N项以前和以后的通项分别为$a_n=\left(n-1\right)n=n^2-n$,$b_n=\left(N+n-1\right)(N-n)$. 首尾相加，得$a_n+b_n=N^2-N$，故$c=\frac{1}{N^2}\left(\left(N^2-N\right)\left(N-1\right)+N\left(N-1\right)\right)=N-1$. 从而$\widehat{y_t}-\widetilde{y_t}=\frac{N-1}{2}a_t$，解出(6)，再回代(4)，得(7)：</p>
+<p>$$a_t=\frac{2}{N-1}\left(\widehat{y_t}-\widetilde{y_t}\right) \tag6$$
+$$b_t=2\widehat{y_t}-\widetilde{y_t} \tag7$$</p>
+<h3 id="2-指数平滑方法">2. 指数平滑方法</h3>
+<h4 id="21-一次指数平滑">2.1 一次指数平滑</h4>
+<p>在计算二次平均$a_t$的系数时，可知始终保持着对称性，即<strong>中间权重高，两头低</strong>. 这不太符合一般系统的动态性，理论上应该像加权平均一样，距离当期近的权值高，这样较合理.</p>
+<p>$\widehat{y_t}=\alpha y_t+\left(1-\alpha\right)\widehat{y}_{t-1},\alpha\in\left(0,1\right) \tag8$</p>
+<p>可知<strong>当$\alpha$较大时，更关注近期信息，反之关注之前的信息</strong>. 一般需多尝试几个选最优的. 经验上0.1~0.3合适，当基本趋势发生大变动时，相应要大些.</p>
+<p>展开(8)，有$\widehat{y_t}=\alpha y_t+\left(1-\alpha\right)\left(\alpha y_{t-1}+\left(1-\alpha\right)\widehat{y_{t-2}}\right)=\ldots=\alpha\sum\left(1-\alpha\right)^iy_{t-i}$. 其中$\alpha\sum\left(1-\alpha\right)^i=\alpha\frac{1}{1-(1-\alpha)}=1$，故$\widehat{y_t}$本质是<strong>对此前所有数据的加权平均，且该权重呈指数衰减</strong>.</p>
+<p>在运用时，<strong>若序列很长(&gt;20)，则模型对初值不敏感（指数衰减）</strong>，一般选<strong>前几个的均值</strong>；较短则需慎重
+与该模型类似的有ARIMA(0,1,1)</p>
+<h4 id="22-指数平滑趋势模型">2.2 指数平滑趋势模型</h4>
+<p>下面计算指数线性平滑模型，同理设$y=a_tt+b_t$，不妨设序列足够长，则所有求和可认为是级数求和，那么：
+$\widehat{y_t}=\alpha\sum_{i=0}^{\infty}\left(1-\alpha\right)^iy_{t-i}=\alpha\sum_{i=0}^{\infty}\left(1-\alpha\right)^i\left(-ia_t+b_t\right)\\=-a_t\left(\alpha\sum_{i=0}^{\infty}{i\left(1-\alpha\right)}^i\right)+b_t\left(\alpha\sum_{i=0}^{\infty}\left(1-\alpha\right)^i\right)=-\frac{1-\alpha}{\alpha}a_t \tag9$</p>
+<p>$E\left[\widetilde{y_t}\right]=\alpha\sum_{i=0}^{\infty}\left(1-\alpha\right)^iE\left[\widehat{y_{t-i}}\right]\\=\alpha\sum_{i=0}^{\infty}\left(1-\alpha\right)^i\left(b_t-a_ti-\frac{1-\alpha}{\alpha}a_t\right)=b_t-\frac{2(1-\alpha)}{\alpha}a_t \tag{10}$</p>
+<p>用期望表示该量，由(9)(10)解得系数：
+$$a_t=\frac{\alpha}{1-\alpha}\left(\widehat{y_t}-\widetilde{y_t}\right),b_t=2\widehat{y_t}-\widetilde{y_t} \tag{11}$$</p>
+<p>同理，若为三次指数平滑，则有$y=a_t+b_tt+c_t t^2$，对应系数为：
+$$a_t=3y_t^1-3y_t^2+y_t^3 \\ b_t=\frac{\alpha}{2\left(1-\alpha\right)^2}\left(\left(6-5\alpha\right)y_t^1-2\left(5-4\alpha\right)y_t^2+(4-3\alpha)y_t^3\right) \\ c_t=\frac{\alpha^2}{2\left(1-\alpha\right)^2}\left(y_t^1-2y_t^2+y_t^3\right) \tag{12}$$</p>
+<h4 id="23-差分与指数平滑的结合">2.3 差分与指数平滑的结合</h4>
+<p>当数据变化趋势较大时，不一定非要为其建立线性模型，而可以通过<strong>对数据进行变换去掉其趋势</strong>. 如$y_t=a+bt,\ y_{t+1}=a+b\left(t+1\right)$，则$\Delta y_t=y_{t+1}-y_t=b$为常值. 故若差分后的时间序列相对平稳，则直接上指数平滑即可. 此时有：$\Delta\widehat{y}_{t+1}=\alpha\Delta y_t+(1-\alpha)\Delta\widehat{y}_t$</p>
+<p>同理，当曲线呈二次函数增长时，引入二阶差分$\Delta^2y_t=\Delta y_{t+1}-\Delta y_t$</p>
+<h3 id="3-自适应滤波">3. 自适应滤波</h3>
+<p>不论是平均法还是指数平滑，其加权参数都是固定的。若我们希望其能实时调整，则先用一组给定的权数 来计算一个预测值，然后计算预测误差，再根据预测误差调整权数以减少误差。由于与工程上过滤噪声相似，故称自适应滤波</p>
+<p>在一次平均的基础上，有：$\widehat{y_t}=w_0y_t+\ldots+w_{N-1}y_{t-(N-1)}$</p>
+<p>每次计算完$\widehat{y_t}$，更新各个w. 其中$e_{j+1}$是预测误差，k是学习常数，$y_{t-j+1}$是原观测值$$w_j^\prime=w_j+2ke_{j+1}y_{t-j+1}\tag{13}$$</p>
+<h3 id="4-常见趋势曲线拟合">4. 常见趋势曲线拟合</h3>
+<h4 id="41-指数曲线">4.1 指数曲线</h4>
+<p>未达饱和时近似指数型增长. 对(14)取对数，用最小二乘估计.
+$$y=ae^{bt} \tag{14}$$</p>
+<p>到发展后期，指数型衰减达到稳态. 需<strong>检验$\frac{y_{t+1}-y_t}{y_t-y_{t-1}}$是否显著异于常数b</strong>
+$y=K+ab^t \tag{15}$</p>
+<p>除优化方法、最小二乘估计参数外，还可用<strong>三和法</strong>估计.即将数据按时间序列三等分，分别求和得$S_1,S_2,S_3$.</p>
+<p>其中$S_1=\sum_{1}^{m}\widehat{y_i}=\sum_{1}^{m}{(K+ab^t)}=mK+ab\left(1+b+\ldots+b^{m-1}\right)=mK+ab\frac{1-b^m}{1-b}$. 同理$S_2=mK+ab^{m+1}\frac{1-b^m}{1-b},\ \ S_3=mK+ab^{2m+1}\frac{1-b^m}{1-b}$. 联立三式解得：
+$b=\left(\frac{S_3-S_2}{S_2-S_1}\right)^\frac{1}{m}，a=\left(S_2-S_1\right)\frac{b-1}{b\left(b^m-1\right)^2},K=\frac{1}{m}\left[S_1-\frac{ab(b^m-1)}{b-1}\right]\tag{16}$</p>
+<h4 id="42-compertz曲线">4.2 Compertz曲线</h4>
+<p>适用于变化率先升后降的曲线. 需<strong>检验$\frac{\ln{y_{t+1}}-\ln{y_t}}{\ln{y_t}-\ln{y_{t-1}}}$是否显著异于常数b</strong>. 求解时对(17)取对数，有$\ln{\widehat{y_t}}=\ln{K}+\left(\ln{a}\right)b^t$，模型转化为指数型衰减，故将(16)的S取对数再求和，a,K分别替换为$\ln{a},\ln{K}$.</p>
+<p>$ \widehat{y_t}=K\ a^{b^t},\ K&gt;0,\ \ \ a,b\in\left(0,1\right)\cup(1,+\infty) \tag{17}$</p>
+<h4 id="43-logistic曲线生长曲线sigmoid函数">4.3 Logistic曲线(生长曲线/Sigmoid函数)</h4>
+<p>该曲线对应的一般微分方程模型为$y^\prime\left(t\right)=ry(1-\frac{y}{L})$，其解为(18). 使用时需<strong>检验$\frac{\frac{1}{y_{t+1}}-\frac{1}{y_t}}{\frac{1}{y_t}-\frac{1}{y_{t-1}}}$是否显著异于常数b</strong>
+$y=\frac{1}{K+ab^t},\ K,a&gt;0,b\in\left(0,1\right)\cup(1,+\infty)\  \tag{18}$</p>
+<h3 id="5-经济学中的线性趋势模型">5. 经济学中的线性趋势模型</h3>
+<h4 id="51-holt线性趋势趋势模型">5.1 Holt线性趋势趋势模型</h4>
+<p>特点为<strong>不含季节波动</strong>，类似的有ARIMA(0,2,2).<strong>本质是指数平滑的延伸，分为一个预测和两个平滑方程，分别用于水平和趋势的预测</strong>.</p>
+<p>${\hat x_{t+h}}=l_t+h\widehat{b_t}\\l_t=\alpha x_t+\left(1-\alpha\right)\left(l_{t-1}+b_{t-1}\right)\\b_t=\beta\left(l_t-l_{t-1}\right)+\left(1-\beta\right)b_{t-1} \tag{19}$
+其中$x_t$为第t期的指标、h为预测步长、$\alpha,\beta$是水平和趋势两个指数平滑的参数、$b_t$是时刻t的预测趋势（斜率）.</p>
+<p>知水平平滑中的后一项结合了上一项的线性预测，这使得水平可以结合上一轮的趋势；趋势平滑的第一项则结合了当期的趋势变化（当期水平减去上期水平）. 二者进行迭代更新.</p>
+<p><strong>注</strong>：Brown线性趋势预测模型中令$\alpha=\beta$，是上述模型的特例.</p>
+<h4 id="52-阻尼趋势模型damped-trend">5.2 阻尼趋势模型(Damped Trend)</h4>
+<p>在(5.1)基础上，阻尼趋势使得线性趋势逐渐减弱，类似的有ARMIA(1,1,2). 通过引入阻尼参数$\phi\in\left(0,1\right)$减缓趋势变化速度. 可以看到$l_t$和$b_t$的更新中都对上一轮作$\phi$的阻尼，而预测步长为h，故预测方程对应阻尼系数为等比求和.</p>
+<p>${\hat x_{t+h}}=l_t+(\phi+\phi^2+\ldots+\phi^h)\widehat{b_t}
+\\l_t=\alpha x_t+\left(1-\alpha\right)\left(l_{t-1}+\phi b_{t-1}\right)
+\\b_t=\beta\left(l_t-l_{t-1}\right)+\left(1-\beta\right)\phi b_{t-1}
+\tag{20}$</p>
+<h4 id="53-季节变动模型">5.3 季节变动模型</h4>
+<p>在一次指数平滑的基础上，加上季节周期变动. 设变动小周期为m，如季节变动为4、年度变动为12（单位：月）. 类似模型为SARIMA(0,1,1)×(0,1,1).</p>
+<p>引入周期内第t期的季度趋势$s_t$（由于周期性，故预测方程的周期量需要找前一期的周期，如以一年为周期，2023年7月的预测需要去找2022年7月的周期量）和季度平滑方程，$\gamma$为季度平滑参数，而水平平滑方程的第一项由于$x_t$中含有季度成分，故要去掉；而季节平滑方程则需要去掉$x_t$中的趋势成分，对季度统计量进行平滑，后一项则需从上一期对应的周期量进行学习：
+$\widehat x_{t+h}=l_t+s_{t+h-m\left\lceil\frac{h-1}{m}\right\rceil}\\l_t=\alpha\left(x_t-s_{t-m}\right)+\left(1-\alpha\right)l_{t-1}\\ s_t=\gamma\left(x_t-l_{t-1}\right)+\left(1-\gamma\right)s_{t-m}\tag{21}$</p>
+<h4 id="54-winter加法模型">5.4 Winter加法模型</h4>
+<p>在(5.3)的基础上，再引入趋势平滑及对应平滑参数$\beta$. 该模型认为预测值由水平量、趋势量和季节量三部分的线性加和构成. 注意计算$l_t,b_t,s_t$时需去除掉原始数据$x_t$中的一些其他线性成分，从而有：
+$\widehat x_{t+h}=l_t+hb_t+s_{t+h-m\left\lceil\frac{h-1}{m}\right\rceil}\\l_t=\alpha\left(x_t-s_{t-m}\right)+\left(1-\alpha\right)\left(l_{t-1}+b_{t-1}\right) \\ b_t=\beta\left(l_t-l_{t-1}\right)+\left(1-\beta\right)b_{t-1}\\ s_t=\gamma\left(x_t-l_{t-1}-b_{t-1}\right)+\left(1-\gamma\right)s_{t-m}\tag{22}$</p>
+<h4 id="55-winter乘法模型">5.5 Winter乘法模型</h4>
+<p>在(5.4)的基础上，若小周期的振幅会随时间发生变化，则可将水平和趋势的和与$s_t$乘起来. 由于$b_t,s_t$是乘积关系，故去除分量时需改用除法，即有：$$\widehat x_{t+h}=\left(l_t+hb_t\right)s_{t+h-m\left\lceil\frac{h-1}{m}\right\rceil}\\l_t=\alpha\frac{x_t}{s_{t-m}}+\left(1-\alpha\right)\left(l_{t-1}+b_{t-1}\right) \\ b_t=\beta\left(l_t-l_{t-1}\right)+\left(1-\beta\right)b_{t-1}\\ s_t=\gamma\frac{x_t}{l_{t-1}+b_{t-1}}+\left(1-\gamma\right)s_{t-m}
+\tag{23}$$</p>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/model/">Model</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/time-series/">Time Series</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" data-tooltip="[ML]Particle Swamp Optimization" aria-label="PREVIOUS: [ML]Particle Swamp Optimization">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mlanalysis-of-time-series-i\/';
+        
+          this.page.identifier = '\/2023\/07\/mlanalysis-of-time-series-i\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2023 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlparticle-swamp-optimization/" data-tooltip="[ML]Particle Swamp Optimization" aria-label="PREVIOUS: [ML]Particle Swamp Optimization">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlanalysis-of-time-series-i%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlanalysis-of-time-series-i%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlanalysis-of-time-series-i%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ML</title>
+      <link>https://Supradax.github.io/tags/ml/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>optimization</title>
+      <link>https://Supradax.github.io/tags/optimization/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/optimization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stastics</title>
+      <link>https://Supradax.github.io/tags/stastics/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/tags/stastics/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Model</title>
       <link>https://Supradax.github.io/tags/model/</link>
@@ -22,24 +49,6 @@
       <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/time-series/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ML</title>
-      <link>https://Supradax.github.io/tags/ml/</link>
-      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/ml/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>optimization</title>
-      <link>https://Supradax.github.io/tags/optimization/</link>
-      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/optimization/</guid>
       <description></description>
     </item>
     
@@ -85,15 +94,6 @@
       <pubDate>Mon, 17 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://Supradax.github.io/tags/vi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Stastics</title>
-      <link>https://Supradax.github.io/tags/stastics/</link>
-      <pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://Supradax.github.io/tags/stastics/</guid>
       <description></description>
     </item>
     

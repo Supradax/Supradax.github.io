@@ -1,0 +1,756 @@
+
+<!DOCTYPE html>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+<html lang="en-us">
+  <head>
+    
+    <script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[ML]Stastics Analysis Primer IV: Feature Function and Gamma Function",
+  
+  "image": "https://Supradax.github.io/img/interpolation.jpg",
+  
+  "datePublished": "2023-07-23T00:00:00Z",
+  "dateModified": "2023-07-23T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Supradax",
+    
+    "image": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    
+  },
+  "mainEntityOfPage": { 
+    "@type": "WebPage",
+    "@id": "https:\/\/Supradax.github.io\/2023\/07\/mlstastics-analysis-primer-iv-feature-function-and-gamma-function\/" 
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Supradax's Blog",
+    
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302"
+    }
+    
+  },
+  "description": "",
+  "keywords": []
+}
+
+</script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.111.3 with theme Tranquilpeak 0.5.3-BETA">
+<meta name="author" content="Supradax">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ML]Stastics Analysis Primer IV: Feature Function and Gamma Function">
+<meta name="twitter:title" content="[ML]Stastics Analysis Primer IV: Feature Function and Gamma Function">
+<meta property="og:url" content="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/">
+<meta property="twitter:url" content="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/">
+<meta property="og:site_name" content="Supradax&#39;s Blog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2023-07-23T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2023-07-23T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="ML">
+    
+      <meta property="article:section" content="Math">
+    
+  
+  
+    
+      <meta property="article:tag" content="ML">
+    
+      <meta property="article:tag" content="Stastics">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=640">
+
+
+
+
+
+  <meta property="og:image" content="https://Supradax.github.io/img/interpolation.jpg">
+  <meta property="twitter:image" content="https://Supradax.github.io/img/interpolation.jpg">
+
+
+    <title>[ML]Stastics Analysis Primer IV: Feature Function and Gamma Function</title>
+
+    <link rel="icon" href="https://Supradax.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    
+    <link rel="stylesheet" href="https://Supradax.github.io/css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://Supradax.github.io/" aria-label="Go to homepage">Supradax&#39;s Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://Supradax.github.io/#about" aria-label="Open the link: /#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://Supradax.github.io/#about" aria-label="Read more about the author">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Supradax</h4>
+        
+          <h5 class="sidebar-profile-bio">An <strong>Onward</strong> Learner</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Home">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-home" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/categories" title="Categories">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-bookmark" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/tags" title="Tags">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-tags" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/archives" title="Archives">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-archive" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/#about" title="About">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-question" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/Supradax" target="_blank" rel="noopener" title="GitHub">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-github" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/" title="Stack Overflow">
+    
+      <i class="sidebar-button-icon fab fa-lg fa-stack-overflow" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://Supradax.github.io/index.xml" title="RSS">
+    
+      <i class="sidebar-button-icon fas fa-lg fa-rss" aria-hidden="true"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaOut
+               ">
+        <article class="post" id="top">
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title">
+      [ML]Stastics Analysis Primer IV: Feature Function and Gamma Function
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time datetime="2023-07-23T00:00:00Z">
+        
+  July 23, 2023
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/ml">ML</a>, 
+    
+      <a class="category-link" href="https://Supradax.github.io/categories/math">Math</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown">
+            <div class="main-content-wrap">
+              <h2 id="1-矩母函数">1. 矩母函数</h2>
+<p>注意到$e^x=\sum\frac{x^n}{n!}$.  两边取期望则有$E[e^{tX}]=\sum{\frac{1}{n!}E\left[t^nX^n\right]}=\sum{\frac{t^n}{n!}E\left[X^n\right]}$.  故对$E\left[e^{tX}\right]$求n次导并令t=0，可立得X的n阶矩而不必进行繁复的多项式展开和代入.</p>
+<p>因此定义函数$M_{X}(t)=E[e^{tX}]$$(t\geq0)$是随机变量X的<strong>矩母函数（Moment Generation Function：MGF）</strong>.根据定义，有$\frac{d^n}{dX}E\left[e^{tX}\right]|_{t=0}=E\left[X^n\right]  M_X\left(0\right)=1$，$M_X(t)$连续. 直接验证有如下结论：
+<div class="alert no-icon ">
+  <p><p><strong>命题1</strong> 若X和Y独立，则$M_{X+Y}=E\left[e^{t(X+Y)}\right]=E\left[e^{tX}\right]E\left[e^{tY}\right]=M_X\left(t\right)M_Y(t)$</p>
+<ul>
+<li>推论：若$X_{1:n}$独立，则$M_{\sum X_i}=\prod{M_{X_i}\left(t\right)}$</li>
+</ul>
+</p>
+</div></p>
+<div class="alert no-icon ">
+  <p><strong>命题2</strong> $M_{aX+b}\left(t\right)=E\left[e^{t\left(aX+b\right)}\right]=e^{bt}E\left[e^{(at)X}\right]=e^{bt}M_X\left(at\right)\ $</p>
+</div>
+<p>此外，还有如下定理：
+<div class="alert no-icon ">
+  <p><strong>命题3（Bernstein定理）</strong> 若$f\left(t\right)(t\geq0)$连续且$f\left(0\right)=1$，则f(t)是一个概率测度的矩母函数 当且仅当 f(t)单调.</p>
+</div></p>
+<p><strong>Notes</strong>. 随机变量X的分布→矩母函数不一定是单射.只有当已知X的分布类型或X取值离散时，M_X(t)才能唯一确定分布（各阶矩提供可列个方程，而某一分布类型的参数是有限的）. 只有特征函数才能唯一确定分布. 一个反例为：.</p>
+<div class="alert no-icon ">
+  <p><p><strong>命题4</strong> 常见分布的矩母函数：</p>
+<ol>
+<li>$X\sim\exp{\left(\lambda\right)},M_X(t)=\frac{\lambda}{\lambda-t}$</li>
+<li>若X~B(n,p)，则$M_X\left(t\right)=\left(pe^X+1-p\right)^n$</li>
+<li>X~U(a,b)，则$M_X(t)=\frac{1}{b-a}\frac{e^{bt}-e^{at}}{t}$</li>
+<li>$X\sim N(\mu,\sigma^2)$，则$M_X\left(t\right)=\exp{\mu t+\frac{1}{2}\sigma^2t^2}$</li>
+<li>$X\sim P\left(\lambda\right)$，则$M_X\left(t\right)=\exp{\lambda\left(e^t-1\right)}$</li>
+<li>$X\sim G(p)$，则$M_X\left(t\right)=\frac{pe^t}{1-\left(1-p\right)e^t}$</li>
+</ol>
+</p>
+</div>
+<p><strong>pf.</strong></p>
+<ol>
+<li>$E\left[e^{tX}\right]=\lambda\int_{0}^{\infty}{e^{-\lambda x}e^{tx}\ }dx=\lambda\int_{0}^{\infty}{e^{x(t-\lambda)}\ }dx=\frac{\lambda}{\lambda-t}$</li>
+<li>考察0-1分布，则$M_X\left(t\right)=pe^X+\left(1-p\right)e^{0X}=pe^X+1-p$.由于B(n,p)中$X=X_1+&hellip;+X_n$，其中$X_i$ i.i.d. 故$M_X\left(t\right)=\left(pe^X+1-p\right)^n$</li>
+<li>$E\left[e^{tX}\right]=\int_{a}^{b}{\frac{1}{b-a}e^{tx}\ }dx=\frac{1}{b-a}\frac{e^{bt}-e^{at}}{t}$</li>
+<li>$E\left[e^{tX}\right]=\int_{-\infty}^{+\infty}{\frac{1}{\sqrt{2\pi}\sigma}e^{tx-\frac{1}{2}\left(x-\mu\right)^2}}dx=e^{-\frac{\mu^2-\left(\mu+\sigma^2t\right)^2}{2\sigma^2}}\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{+\infty}e^{-\frac{1}{2\sigma^2}\left(x-\mu-\sigma t\right)^2}dx$$=\exp{-\frac{\mu^2-\left(\mu+\sigma^2t\right)^2}{2\sigma^2}}=\exp{\mu t+\frac{1}{2}\sigma^2t^2}$</li>
+<li>$E\left[e^{tX}\right]=\sum_{n=0}{\frac{\lambda^n}{n!}\ e^{-\lambda}e^{tn}}=e^{-\lambda}\sum_{n=0}{\frac{{(\lambda e^t)}^n\ }{n!}\ }=\exp{\lambda\left(e^t-1\right)}$</li>
+<li>$E\left[e^{tX}\right]=\sum_{n=1}{pq^{n-1}e^{tn}}=\frac{p}{q}\sum_{n=1}\left(qe^t\right)^n=p·qetq(1-qet)=pet1-1-pet$</li>
+</ol>
+<h2 id="2-特征函数">2. 特征函数</h2>
+<p>将矩母函数推广到复数域，有$f_X\left(t\right)=E\left[e^{iXt}\right]$. 类比矩母函数，有$f_X\left(0\right)=1$，由于$\left|e^{iXt}\right|=1$，从而$\left|f_X\left(t\right)\right|\le1$ .  $f_{aX+b}\left(t\right)=e^{itb}f_X(at)$，在R上一致连续
+容易验证$f_X\left(-t\right)=\bar{f_X\left(t\right)}\ $.</p>
+<div class="alert no-icon ">
+  <p><p><strong>命题5</strong> 特征函数与分布唯一确定.</p>
+<p><strong>引理1·Fubini定理</strong> A,B是σ-有限测度空间，若f(x,y)在A×B的积空间上绝对可积且积分值有上界$(\int_{A\times B}{\left|f\left(x,y\right)\right|d(x,y)}&lt;\infty)$，则可交换累次积分且积分值相等</p>
+<p><strong>引理2·Diriclet积分</strong> $\int_{0}^{+\infty}\frac{\sin{t}}{t}dt=\frac{\pi}{2}$</p>
+<p><strong>引理3</strong> $D\left(k\right)=\frac{1}{\pi}\int_{0}^{+\infty}\frac{\sin{kt}}{t}dt=\frac{1}{2}\ sgn(k)$</p>
+<p><strong>引理4</strong> $x_1&lt;x_2$，$g\left(T,x,x_1,x_2\right)=\frac{1}{\pi}\int_{0}^{T}\left[\frac{\sin{t(x-x_1)}}{t}-\frac{\sin{t(x-x_2)}}{t}\right]dt$，则有$T\rightarrow\infty$时，当$x\in\left(x_1,x_2\right)$时为1，为端点时为$\frac{1}{2}$，否则为0.</p>
+<p><strong>引理5·逆转定理</strong> 设CDF和特征函数分别为$F\left(x\right),f(t)$.有：$I_T=\frac{1}{2\pi}\int_{-T}^{T}\frac{e^{-itx_1}-e^{-itx_2}}{it}f(t)dt=\frac{1}{2\pi}\int_{-T}^{T}{\frac{e^{-itx_1}-e^{-itx_2}}{it}\int_{-\infty}^{+\infty}{e^{itx}dF(x)}}dt$</p>
+<p><strong>引理6·Lesbegue控制收敛定理</strong>  测度空间中$f_n$是实值可测函数列，若$f_n$逐点收敛到函数f，且存在一个Lesbegue可积的g，使得$\left|f_n\right|\le\left|g\right|$恒成立，那么：f也是Lesbegue可积且积分时可交换积分算子与极限算子$n\rightarrow\infty$.</p>
+</p>
+</div>
+<p><strong>pf.</strong> 对引理1和6不加以证明.</p>
+<p><strong>Lemma 2</strong>. 引入积分收敛因子$e^{-th}$进行求解.$\int_{0}^{+\infty}\frac{\sin{t}}{t}dt=\int_{0}^{+\infty}{\int_{0}^{+\infty}{e^{-th}\sin{t}}dtdh}=-\int_{0}^{+\infty}{\frac{1}{1+h^2}\left(h\sin{te^{-th}}+\cos{te^{-th}}\right)\mid_0^\infty}dh=\int_{0}^{+\infty}\frac{1}{1+h^2}dh=\frac{\pi}{2}$. 其中第二个等号t分部积分2次积分再现，可交换性由(第二个等号利用$e^x\geq x^2$)$\int_{0}^{+\infty}\int_{0}^{+\infty}\left|e^{-th}\sin{t}\right|dtdh\le\int_{0}^{+\infty}{\int_{0}^{+\infty}e^{-th}dtdh}\le\int_{0}^{+\infty}{\int_{0}^{+\infty}\frac{1}{t^2h^2}dtdh}$保证.</p>
+<p>另一种方法为积分号下求导.  $I\left(a\right)=\int_{0}^{+\infty}\frac{\sin{t}}{t}e^{-at}dt$，则$I^\prime\left(a\right)=\frac{d}{da}\int_{0}^{+\infty}\frac{\sin{t}}{t}e^{-at}dt=-\int_{0}^{+\infty}\sin{t}e^{-at}dt$，积分再现解得：
+$I^\prime\left(a\right)=-\frac{1}{1+a^2}$. 从而$I\left(a\right)=-\tan^{-1}{a}+\frac{\pi}{2}$. 故$a\rightarrow0$时，$I\left(a\right)=\frac{\pi}{2}$.  偏导的交换由导函数$I^\prime\left(a\right)$连续保证.</p>
+<p><strong>Lemma 3</strong>. $D\left(k\right)=\frac{1}{\pi}\int_{0}^{+\infty}\frac{\sin{kt}}{t}dt=\frac{1}{\pi}\int_{0}^{+\infty}\frac{\sin{kt}}{kt}d\left(kt\right)(k&gt;0)$，k&lt;0时积分上下限交换；k=0显然为0.</p>
+<p><strong>Lemma 4</strong> 显然极限情况下，$g=D\left(x-x_1\right)-D(x-x_2)$，分类讨论即可.</p>
+<p><strong>Lemma 5</strong> 由Fubini定理，$\int_{-T}^{T}\int_{-\infty}^{+\infty}{\left|\frac{e^{itx}}{it}\right||e^{-itx_1}-e^{-itx_2}|dF(x)}dt\le2\int_{-T}^{T}\int_{-\infty}^{+\infty}{\frac{1}{t}dF\left(x\right)}dt=2\int_{-T}^{T}\frac{1}{t}dt=2\ln{2}$，从而交换积分次序，有$\frac{1}{2\pi}\int_{-\infty}^{+\infty}\int_{-T}^{T}{\frac{e^{-it{(x-x}_1)}-e^{-it(x-x_2)}}{it}e^{itx}dF(x)}dt$</p>
+<p>$=\frac{1}{2\pi}\int_{-\infty}^{+\infty}\int_{-T}^{T}{\frac{\sin{t\left(x-x_1\right)}-\sin{t\left(x-x_2\right)}}{t}}dF(x)dt$.</p>
+<p>由Euler公式和偶倍奇零（由欧拉公式展开，对称区间积分只剩余弦分类分量(另一部分可直接令$T\rightarrow\infty$而为0），接下来证明极限$T\rightarrow\infty$与积分的可交换性，由Lesbegue控制收敛定理，只需考虑$\left|\int_{n}^{+\infty}\int_{-\infty}^{+\infty}{\frac{\sin{t\left(x-x_1\right)}-\sin{t\left(x-x_2\right)}}{t}dF(x)dt}\right|$.</p>
+<p>由于$x_1,x_2$给定，分别考察$\int_{n}^{+\infty}\int_{-\infty}^{+\infty}{\frac{\sin{t\left(x-x_1\right)}}{t}dF(x)dt}$，这与考察$\int_{n}^{+\infty}\int_{-\infty}^{+\infty}{\frac{\sin{tx}}{t}dF(x)dt}$是等价的（阿基米德性质），再交换回去，可得$\int_{-\infty}^{+\infty}\int_{n}^{+\infty}{\frac{\sin{tx}}{tx}d\left(xt\right)dF(x)}$，从而只需证$\int_{0}^{+\infty}\frac{\sin{x}}{x}dx$收敛的，按区间分解掉两两合并即可. 从而给定$\frac{1}{m}$，一定有n&gt;N时，$\int_{-\infty}^{+\infty}\int_{n}^{+\infty}{\frac{\sin{tx}}{tx}d\left(xt\right)dF(x)}&lt;\int_{-\infty}^{+\infty}{\frac{1}{m}dF(x)}=\frac{1}{m}$.</p>
+<p>综上，直接把T放到积分号内，
+$\int_{-∞}^{+∞}g·dF(x)=\int_{R-\left[x_1,x_2\right]\ }{0dF(x)}+\int_{x_1,x_2}{\frac{1}{2}dF(x)}+\int_{\left(x_1,x_2\right)}{dF(x)}=F\left(x_2\right)-F(x_1)$, 令$x_1\rightarrow-\infty，	x_2=x$，x为CDF的连续点上，特征函数绝对可积，那么逆转公式唯一确定了F(x).
+<strong>CDF几乎处处连续可导，则两边求导，则有$\rho\left(x\right)=\frac{1}{2\pi}\int_{-\infty}^{+\infty}{e^{-itx}f(t)dt}$. 即PDF和特征函数是Fourier变换关系</strong>.</p>
+<p>常见分布的特征函数只需将MGF中的t改为it即可得.</p>
+<h2 id="3-gamma函数第一类euler积分">3. Gamma函数(第一类Euler积分)</h2>
+<p>Euler想知道，能否将阶乘从自然数推广至全体实数，进而找到经过(n,n!)的函数.
+$$\Gamma\left(z\right)=\int_{0}^{+\infty}{x^{z-1}e^{-x}dx}$$</p>
+<p><div class="alert no-icon ">
+  <p><p><strong>命题5</strong> $\Gamma\left(z\right)$的性质</p>
+<ol>
+<li>$\Gamma\left(n\right)=n\Gamma(n-1),\Gamma\left(n\right)=(n-1)!$</li>
+<li>$\Gamma\left(\frac{1}{2}\right)=\sqrt\pi$</li>
+<li>$\Gamma\left(z\right)$单调递增(z&gt;0).</li>
+<li>Gamma分布的PDF积分为1.</li>
+</ol>
+</p>
+</div>
+<strong>pf.</strong></p>
+<ol>
+<li>$\Gamma(0)=1,\Gamma(n)=\int_{0}^{+\infty}{x^ne^{-x}dx}=e^{-x}x^n\mid_{+\infty}^0+n\int_{0}^{+\infty}{x^{n-1}e^{-x}dx}=n\Gamma(n-1)$. 利用递推式可推广出$\Gamma\left(n\right)=\infty$，n为负整数</li>
+<li>$\Gamma\left(\frac{1}{2}\right)=\int_{0}^{+\infty}{\frac{1}{\sqrt x}\ e^{-x}dx}=\int_{0}^{+\infty}{e^{-t^2}dt}(t=\sqrt x)$. 而$\int_{0}^{+\infty}{e^{-t^2}dt}\int_{0}^{+\infty}{e^{-s^2}dt}=2\pi\int_{0}^{+\infty}{{re}^{-r^2}dr}=\pi$ .从而$\Gamma(\frac{1}{2})=\sqrt\pi$.结合性质1得： $\Gamma(-\frac{1}{2})=-2\sqrt\pi$.</li>
+<li>偏导连续，故可交换求导和积分次序.</li>
+<li>由$\Gamma\left(z\right)=\int_{0}^{+\infty}{x^{z-1}e^{-x}dx}=\int_{0}^{+\infty}{\lambda^{z-1}x^{z-1}e^{-\lambda x}d(\lambda x)}$，故$1=\int_{0}^{+\infty}{{\frac{\lambda^z}{\Gamma\left(z\right)}x}^{z-1}e^{-\lambda x}dx}$，从而PDF为$f\left(z\right)={\frac{\lambda^z}{\Gamma\left(z\right)}x}^{z-1}e^{-\lambda x}$.</li>
+</ol>
+<h2 id="4-beta函数第二类euler积分">4. Beta函数(第二类Euler积分)</h2>
+<p>对B(n,p)，$P\left(X=k\right)=C_n^kp^k\left(1-p\right)^{n-k}=\frac{n!}{\left(n-k\right)!k!}p^k\left(1-p\right)^{n-k}$. 现在问题从在n次实验中，给定成功概率p，成功k次的概率，变成 在n次实验中，成功k次，成功概率p为$p_0$的概率.那么该分布至少满足$C\int_{0}^{1}{p^k\left(1-p\right)^{n-k}dp\ }=1$，为研究该分布的形式，记：$$B\left(a+1,b+1\right)=\int_{0}^{1}{x^a\left(1-x\right)^b}dx$$</p>
+<p>令$x=\sin^2{\theta}$，得Beta函数的三角形式.$$B\left(a+1,b+1\right)=\int_{0}^{\frac{\pi}{2}}{\sin^{2a}{\theta}\cos^{2b}{\theta}}d\ sin^2\theta=2\int_{0}^{\frac{\pi}{2}}{\sin^{2a+1}{\theta}\cos^{2b+1}{\theta}}d\theta$$</p>
+<div class="alert no-icon ">
+  <p><p><strong>命题6</strong> Beta函数的性质.</p>
+<ol>
+<li>$B\left(a,b\right)=B(b,a)$</li>
+<li>$B\left(a+1,b+1\right)=\frac{b}{a+1}B(a+2,b)\ $</li>
+<li>$B\left(a,b\right)=\frac{\Gamma\left(a\right)\Gamma\left(b\right)}{\Gamma\left(a+b\right)}$</li>
+</ol>
+</p>
+</div>
+<p><strong>pf.</strong></p>
+<ol>
+<li>作变换$x^\prime=1-x$</li>
+<li>$B\left(a+1,b+1\right)=\frac{1}{a+1}\int_{0}^{1}\left(1-x\right)^bdx^{a+1}=\frac{b}{a+1}\int_{0}^{1}{x^{a+1}\left(1-x\right)}^{b-1}dx=\frac{b}{a+1}B(a+2,b)$</li>
+<li>$\Gamma\left(z\right)=\int_{0}^{+\infty}{x^{z-1}e^{-x}dx}=2\int_{0}^{+\infty}{s^{2z-1}e^{-s^2}ds}$, 换元便于极坐标分离，注意$x,y&gt;0$，故$\theta\in[0,{\pi\over2}]$
+$$\begin{align}
+\Gamma\left(a\right)\Gamma\left(b\right)&amp;=4\int_{0}^{+\infty}{x^{2a-1}e^{-x}dx}\int_{0}^{+\infty}{y^{2b-1}e^{-y}dy}=4\iint{x^{2a-1}y^{2b-1}e^{-(x^2+y^2)}d\sigma}
+\\&amp;=4\iint{r^{2a+2b-1}\ \cos^{2a-1}\theta\sin^{2b-1}{\theta}\ e^{-r^2}drd\theta}\
+\\&amp;=4\int_{0}^{+\infty}{r^{2\left(a+b\right)-1}e^{-r^2}dr}\ \int_{0}^{\frac{\pi}{2}}{\cos^{2a-1}\theta\sin^{2b-1}{\theta}}d\theta\
+\\&amp;=2\Gamma\left(a+b\right)\frac{1}{2}B(a,b)
+\end{align}$$</li>
+</ol>
+              
+
+
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/ml/">ML</a>
+
+  <a class="tag tag--primary tag--small" href="https://Supradax.github.io/tags/stastics/">Stastics</a>
+
+                  </div>
+                
+              
+            
+            
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mloptimization-ant-colony-and-taboo-search./" data-tooltip="[ML]Optimization: Ant Colony and Taboo Search." aria-label="NEXT: [ML]Optimization: Ant Colony and Taboo Search.">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" data-tooltip="[ML]Analysis of Time Series I" aria-label="PREVIOUS: [ML]Analysis of Time Series I">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+            
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https:\/\/Supradax.github.io\/2023\/07\/mlstastics-analysis-primer-iv-feature-function-and-gamma-function\/';
+        
+          this.page.identifier = '\/2023\/07\/mlstastics-analysis-primer-iv-feature-function-and-gamma-function\/'
+        
+      };
+      (function() {
+        
+        
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+          document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+          return;
+        }
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'hugo-tranquilpeak-theme';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2024 Supradax. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+<div class="post-actions-wrap">
+  <nav >
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mloptimization-ant-colony-and-taboo-search./" data-tooltip="[ML]Optimization: Ant Colony and Taboo Search." aria-label="NEXT: [ML]Optimization: Ant Colony and Taboo Search.">
+          
+              <i class="fa fa-angle-left"></i>
+              <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+            </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://Supradax.github.io/2023/07/mlanalysis-of-time-series-i/" data-tooltip="[ML]Analysis of Time Series I" aria-label="PREVIOUS: [ML]Analysis of Time Series I">
+          
+              <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+              <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      
+    </ul>
+  </nav>
+<ul class="post-actions post-action-share" >
+  
+    <li class="post-action hide-lg hide-md hide-sm">
+      <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </a>
+    </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Facebook" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Twitter" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/" title="Share on Linkedin" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </li>
+    
+  
+  
+    <li class="post-action">
+      <a class="post-action-btn btn btn--default" href="#disqus_thread" aria-label="Leave a comment">
+        <i class="far fa-comment"></i>
+      </a>
+    </li>
+  
+  <li class="post-action">
+    
+      <a class="post-action-btn btn btn--default" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    
+    </a>
+  </li>
+</ul>
+</div>
+
+
+      </div>
+      
+<div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-times"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iv-feature-function-and-gamma-function%2F" aria-label="Share on Facebook">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iv-feature-function-and-gamma-function%2F" aria-label="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2FSupradax.github.io%2F2023%2F07%2Fmlstastics-analysis-primer-iv-feature-function-and-gamma-function%2F" aria-label="Share on Linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>Share on Linkedin</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-times"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8e403bced8f86fcc7a8e6a31b21c7302?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Supradax</h4>
+    
+      <div id="about-card-bio">An <strong>Onward</strong> Learner</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        <strong>HITsz</strong>er
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker-alt"></i>
+        <br/>
+        Shenzhen,China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://Supradax.github.io/img/cover.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://Supradax.github.io/js/script-yqzy9wdlzix4lbbwdnzvwx3egsne77earqmn73v9uno8aupuph8wfguccut.min.js"></script>
+
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-gE8KAQyFIzV1C9+GZ8TKJHZS2s+n7EjNtC+IMRn1l5+WYJTHOODUM6JSjZhFhqXmc7bG8Av6XXpckA4tYhflnw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/apache.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-EWROca+bote+7Oaaar1F6y74iZj1r1F9rm/ly7o+/FwJopbBaWtsFDmaKoZDd3QiGU2pGacBirHJNivmGLYrow==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/go.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-GDVzAn0wpx1yVtQsRWmFc6PhJiLBPdUic+h4GWgljBh904O3JU10fk9EKNpVyIoPqkFn54rgL2QBG4BmUTMpiQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/http.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-UgZlma8NzkrDb/NWgmLIcTrH7i/CSnLLDRFqCSNF5NGPpjKmzyM25qcoXGOup8+cDakKyaiTDd7N4dyH4YT+IA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/less.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-lot9koe73sfXIrUvIPM/UEhuMciN56RPyBdOyZgfO53P2lkWyyXN7J+njcxIIBRV+nVDQeiWtiXg+bLAJZDTfg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/nginx.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-Zd3e7XxHP00TD0Imr0PIfeM0fl0v95kMWuhyAS3Wn1UTSXTkz0OhtRgBAr4JlmADRgiXr4x7lpeUdqaGN8xIog==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/puppet.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-qtqDO052iXMSP+5d/aE/jMtL9vIIGvONgTJziC2K/ZIB1yEGa55WVxGE9/08rSQ62EoDifS9SWVGZ7ihSLhzMA==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/scss.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-1NmkjnEDnwwwcu28KoQF8vs3oaPFokQHbmbtwGhFfeDsQZtVFI8zW2aE9O8yMYdpdyKV/5blE4pSWw4Z/Sv97w==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/stylus.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-B2wSfruPjr8EJL6IIzQr1eAuDwrsfIfccNf/LCEdxELCgC/S/ZMt/Uvk80aD79m7IqOqW+Sw8nbkvha20yZpzg==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/swift.min.js"></script>
+  
+
+  
+    <script async crossorigin="anonymous" defer integrity="sha512-28oDiQZGKUVN6wQ7PSLPNipOcmkCALXKwOi7bnkyFf8QiMZQxG9EQoy/iiNx6Zxj2cG2SbVa4dXKigQhu7GiFw==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/languages/yaml.min.js"></script>
+  
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
+

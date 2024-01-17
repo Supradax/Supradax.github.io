@@ -6,7 +6,16 @@
     <description>Recent content in Stastics on Supradax&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/stastics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://Supradax.github.io/tags/stastics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[ML]Stastics Analysis Primer IV: Feature Function and Gamma Function</title>
+      <link>https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iv-feature-function-and-gamma-function/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>[ML]Stastics Analysis Primer III: ANOVA</title>
       <link>https://Supradax.github.io/2023/07/mlstastics-analysis-primer-iii-anova/</link>
